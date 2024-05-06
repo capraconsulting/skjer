@@ -10,10 +10,24 @@ export interface Event {
 	_type: 'event';
 	_createdAt: string;
 	title?: string;
+	subtitle?: string;
 	slug: Slug;
 	summary?: string;
-	mainImage?: ImageAsset
+	mainImage?: ImageAsset;
 	body?: PortableTextBlock[];
 	start: string;
 	end: string;
+}
+
+export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]`;
+export const postsQuery = groq`*[_type == "post"]`;
+
+export interface Post {
+	_type: 'event';
+	_createdAt: string;
+	title?: string;
+	subtitle?: string;
+	slug: Slug;
+	image?: ImageAsset;
+	body: PortableTextBlock[];
 }
