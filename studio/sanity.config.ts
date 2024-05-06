@@ -4,6 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
 
 import {schemaTypes} from './schemas'
+import {codeInput} from '@sanity/code-input'
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 export const dataset = process.env.SANITY_STUDIO_DATASET!
@@ -14,6 +15,14 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [
+    codeInput({
+      codeModes: [
+        {
+          name: 'vue',
+          loader: () => import('@codemirror/lang-vue').then(({vue}) => vue()),
+        },
+      ],
+    }),
     structureTool(),
     presentationTool({
       previewUrl: {
@@ -24,6 +33,7 @@ export default defineConfig({
         },
       },
     }),
+
     visionTool(),
   ],
   schema: {
