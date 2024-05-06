@@ -16,6 +16,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Den delen av URLen som identifiserer dette arrangementet.',
       validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
@@ -24,65 +25,67 @@ export default defineType({
     }),
     defineField({
       name: 'summary',
-      title: 'Summary',
+      title: 'Oppsummering',
       type: 'text',
       description: 'En kort beskrivelse av arrangementet, 2-3 setninger.',
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
       name: 'start',
-      title: 'Start date',
+      title: 'Startddato',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'end',
-      title: 'End date',
+      title: 'Sluttdato',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'body',
+      title: 'Informasjon',
+      type: 'blockContent',
+      description: 'Skriv en tekst som beskriver arrangementet i detalj.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'mainImage',
+      title: 'Bilde',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'maxParticipant',
-      title: 'Max participant',
+      title: 'Maks antall deltagere',
       type: 'number',
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Kategori',
       type: 'category',
     }),
     defineField({
       name: 'place',
-      title: 'Place',
+      title: 'Sted',
       type: 'text',
     }),
     defineField({
-      title: 'Ask about allergy?',
+      title: 'Spør om allergier?',
       name: 'allergy',
       type: 'boolean',
     }),
     defineField({
-      title: 'Add custom fields?',
+      title: 'Legg til egne felter?',
       name: 'fields',
       type: 'boolean',
     }),
     // Conditional fields for custom preferences
     defineField({
       name: 'customFields',
-      title: 'Custom fields',
+      title: 'Egne felter',
       type: 'array',
       of: [{type: 'string'}],
       hidden: ({document}) => !document?.fields,
@@ -90,12 +93,12 @@ export default defineType({
   ],
   orderings: [
     {
-      title: 'Event name',
+      title: 'Navn',
       name: 'eventNameAsc',
       by: [{field: 'name', direction: 'asc'}],
     },
     {
-      title: 'Event date',
+      title: 'Dato',
       name: 'eventDateDesc',
       by: [{field: 'date', direction: 'desc'}],
     },

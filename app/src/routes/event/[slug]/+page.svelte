@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PortableText } from '@portabletext/svelte';
 	import { useQuery } from '@sanity/svelte-loader';
-	import { formatDate } from '$lib/utils';
+	import { formatDate, formatTime } from '$lib/utils';
 	import { urlFor } from '$lib/sanity/image';
 	import type { PageData } from './$types';
 
@@ -27,7 +27,8 @@
 			<p class="event__excerpt">{event.summary}</p>
 		{/if}
 		<p class="event__date">
-			{formatDate(event._createdAt)}
+			{formatDate(event.start)}
+			{formatTime(event.start)}
 		</p>
 		{#if event.body}
 			<div class="event__content">

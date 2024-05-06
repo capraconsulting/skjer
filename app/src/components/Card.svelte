@@ -25,7 +25,7 @@
 			<p class="card__excerpt">{event.summary}</p>
 		{/if}
 		<p class="card__date">
-			{formatDate(event._createdAt)}
+			{formatDate(event.start)}
 		</p>
 	</div>
 </a>

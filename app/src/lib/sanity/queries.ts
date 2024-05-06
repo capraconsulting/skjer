@@ -14,4 +14,6 @@ export interface Event {
 	summary?: string;
 	mainImage?: ImageAsset
 	body?: PortableTextBlock[];
+	start: string;
+	end: string;
 }
