@@ -7,13 +7,13 @@
 	export let data: PageData;
 	const q = useQuery(data);
 
-	$: ({ data: posts } = $q);
+	$: ({ data: events } = $q);
 </script>
 
 <section>
-	{#if posts.length}
-		{#each posts as post}
-			<Card {post} />
+	{#if events.length}
+		{#each events as event}
+			<Card {event} />
 		{/each}
 	{:else}
 		<Welcome />

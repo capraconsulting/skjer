@@ -4,88 +4,88 @@ export default defineType({
   name: 'event',
   title: 'Event',
   type: 'document',
-  description: 'An event',
+  description: 'Et arrangement',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Tittel',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'summary',
-      title: 'Summary',
-      type: 'text',
-      description: 'A short summary of the event, no more than 2 or 3 sentences',
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
-      description: 'A full description of the event',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'start',
-      title: 'Start date',
-      type: 'datetime',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'end',
-      title: 'End date',
-      type: 'datetime',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      description: 'An image relevant to the event',
-    }),
-    defineField({
-      name: 'maxParticipant',
-      title: 'Max participant',
-      type: 'number',
-    }),
-    defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'category',
-    }),
-    defineField({
-      name: 'place',
-      title: 'Place',
-      type: 'text',
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Den delen av URLen som identifiserer dette arrangementet.',
+      validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
+        maxLength: 96,
       },
-      description: 'This can be used to identify the event in a URL',
     }),
     defineField({
-      title: 'Ask about allergy?',
+      name: 'summary',
+      title: 'Oppsummering',
+      type: 'text',
+      description: 'En kort beskrivelse av arrangementet, 2-3 setninger.',
+    }),
+    defineField({
+      name: 'start',
+      title: 'Startddato',
+      type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'end',
+      title: 'Sluttdato',
+      type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Informasjon',
+      type: 'blockContent',
+      description: 'Skriv en tekst som beskriver arrangementet i detalj.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'mainImage',
+      title: 'Bilde',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'maxParticipant',
+      title: 'Maks antall deltagere',
+      type: 'number',
+    }),
+    defineField({
+      name: 'category',
+      title: 'Kategori',
+      type: 'category',
+    }),
+    defineField({
+      name: 'place',
+      title: 'Sted',
+      type: 'text',
+    }),
+    defineField({
+      title: 'Spør om allergier?',
       name: 'allergy',
       type: 'boolean',
     }),
     defineField({
-      title: 'Add custom fields?',
+      title: 'Legg til egne felter?',
       name: 'fields',
       type: 'boolean',
     }),
     // Conditional fields for custom preferences
     defineField({
       name: 'customFields',
-      title: 'Custom fields',
+      title: 'Egne felter',
       type: 'array',
       of: [{type: 'string'}],
       hidden: ({document}) => !document?.fields,
@@ -93,12 +93,12 @@ export default defineType({
   ],
   orderings: [
     {
-      title: 'Event name',
+      title: 'Navn',
       name: 'eventNameAsc',
       by: [{field: 'name', direction: 'asc'}],
     },
     {
-      title: 'Event date',
+      title: 'Dato',
       name: 'eventDateDesc',
       by: [{field: 'date', direction: 'desc'}],
     },
@@ -108,7 +108,7 @@ export default defineType({
       title: 'title',
       start: 'start',
       category: 'category.name',
-      media: 'image',
+      media: 'mainImage',
     },
   },
 })

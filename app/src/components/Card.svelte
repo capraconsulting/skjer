@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
 	import { urlFor } from '$lib/sanity/image';
-	import type { Post } from '$lib/sanity/queries';
+	import type { Event } from '$lib/sanity/queries';
 
-	export let post: Post;
+	export let event: Event;
 </script>
 
-<a class="card" href={`/post/${post.slug.current}`}>
-	{#if post.mainImage}
+<a class="card" href={`/event/${event.slug.current}`}>
+	{#if event.mainImage}
 		<img
 			class="card__cover"
-			src={urlFor(post.mainImage).width(500).height(300).url()}
-			alt="Cover image for {post.title}"
+			src={urlFor(event.mainImage).width(500).height(300).url()}
+			alt="Cover image for {event.title}"
 		/>
 	{:else}
 		<div class="card__cover--none" />
@@ -19,13 +19,13 @@
 
 	<div class="card__container">
 		<h3 class="card__title">
-			{post.title}
+			{event.title}
 		</h3>
-		{#if post.excerpt}
-			<p class="card__excerpt">{post.excerpt}</p>
+		{#if event.summary}
+			<p class="card__excerpt">{event.summary}</p>
 		{/if}
 		<p class="card__date">
-			{formatDate(post._createdAt)}
+			{formatDate(event.start)}
 		</p>
 	</div>
 </a>

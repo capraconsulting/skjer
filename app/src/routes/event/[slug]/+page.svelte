@@ -1,65 +1,66 @@
 <script lang="ts">
 	import { PortableText } from '@portabletext/svelte';
 	import { useQuery } from '@sanity/svelte-loader';
-	import { formatDate } from '$lib/utils';
+	import { formatDate, formatTime } from '$lib/utils';
 	import { urlFor } from '$lib/sanity/image';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const q = useQuery(data);
 
-	$: ({ data: post } = $q);
+	$: ({ data: event } = $q);
 </script>
 
-<section class="post">
-	{#if post.mainImage}
+<section class="event">
+	{#if event.mainImage}
 		<img
-			class="post__cover"
-			src={urlFor(post.mainImage).url()}
-			alt="Cover image for {post.title}"
+			class="event__cover"
+			src={urlFor(event.mainImage).url()}
+			alt="Cover image for {event.title}"
 		/>
 	{:else}
-		<div class="post__cover--none" />
+		<div class="event__cover--none" />
 	{/if}
-	<div class="post__container">
-		<h1 class="post__title">{post.title}</h1>
-		{#if post.excerpt}
-			<p class="post__excerpt">{post.excerpt}</p>
+	<div class="event__container">
+		<h1 class="event__title">{event.title}</h1>
+		{#if event.summary}
+			<p class="event__excerpt">{event.summary}</p>
 		{/if}
-		<p class="post__date">
-			{formatDate(post._createdAt)}
+		<p class="event__date">
+			{formatDate(event.start)}
+			{formatTime(event.start)}
 		</p>
-		{#if post.body}
-			<div class="post__content">
-				<PortableText components={{}} value={post.body} />
+		{#if event.body}
+			<div class="event__content">
+				<PortableText components={{}} value={event.body} />
 			</div>
 		{/if}
 	</div>
 </section>
 
 <style>
-	.post {
+	.event {
 		width: 100%;
 		margin: var(--space-1) 0 var(--space-4);
 	}
 
-	.post .post__cover,
-	.post .post__cover--none {
+	.event .event__cover,
+	.event .event__cover--none {
 		width: 100%;
 		height: 200px;
 		-o-object-fit: cover;
 		object-fit: cover;
 	}
 
-	.post .post__cover--none {
+	.event .event__cover--none {
 		background: var(--black);
 	}
 
-	.post .post__container {
+	.event .event__container {
 		padding: 0 var(--space-3);
 	}
 
-	.post .post__content {
+	.event .event__content {
 		font-family: var(--font-family-serif);
 		font-weight: 400;
 		font-size: var(--font-size-4);
@@ -68,18 +69,18 @@
 		margin-top: var(--space-6);
 	}
 
-	.post .post__content blockquote {
+	.event .event__content blockquote {
 		border-left: 5px solid var(--black);
 		padding-left: var(--space-3);
 		margin-left: var(--space-4);
 	}
 
-	.post .post__content a {
+	.event .event__content a {
 		color: var(--blue-600);
 		text-decoration: none;
 	}
 
-	.post .post__title {
+	.event .event__title {
 		font-family: var(--font-family-sans);
 		font-size: var(--font-size-7);
 		line-height: var(--line-height-6);
@@ -87,7 +88,7 @@
 		font-weight: 800;
 	}
 
-	.post .post__excerpt {
+	.event .event__excerpt {
 		font-family: var(--font-family-serif);
 		font-size: var(--font-size-5);
 		line-height: var(--line-height-4);
@@ -95,7 +96,7 @@
 		font-weight: 400;
 	}
 
-	.post .post__date {
+	.event .event__date {
 		font-family: var(--font-family-sans);
 		font-weight: 600;
 		font-family: var(--font-family-sans);
@@ -105,33 +106,33 @@
 	}
 
 	@media (min-width: 800px) {
-		.post .post__cover,
-		.post .post__cover--none {
+		.event .event__cover,
+		.event .event__cover--none {
 			width: 750px;
 			height: 380px;
 		}
 
-		.post .post__title {
+		.event .event__title {
 			font-size: var(--font-size-10);
 			line-height: var(--line-height-10);
 			margin: var(--space-6) 0 0;
 			letter-spacing: -0.025em;
 		}
 
-		.post .post__excerpt {
+		.event .event__excerpt {
 			font-size: var(--font-size-5);
 			line-height: var(--line-height-5);
 			margin-top: var(--space-3);
 			margin-bottom: var(--space-3);
 		}
 
-		.post .post__date {
+		.event .event__date {
 			font-size: var(--font-size-3);
 			line-height: var(--line-height-2);
 			margin-top: var(--space-0);
 		}
 
-		.post .post__content {
+		.event .event__content {
 			margin-top: var(--space-7);
 		}
 	}
