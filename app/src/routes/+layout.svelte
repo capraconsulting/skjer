@@ -13,7 +13,7 @@
 
 <div class="container">
 	<header class="header">
-		<a class="header__title" href="/">SvelteKit + Sanity</a>
+		<a class="header__title" href="/">Hva skjer?</a>
 	</header>
 	<main>
 		<slot />

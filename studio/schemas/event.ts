@@ -4,31 +4,43 @@ export default defineType({
   name: 'event',
   title: 'Event',
   type: 'document',
-  description: 'An event',
+  description: 'Et arrangement',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Tittel',
       type: 'string',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      validation: (Rule) => Rule.required(),
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
     }),
     defineField({
       name: 'summary',
       title: 'Summary',
       type: 'text',
-      description: 'A short summary of the event, no more than 2 or 3 sentences',
+      description: 'En kort beskrivelse av arrangementet, 2-3 setninger.',
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
-      description: 'A full description of the event',
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: 'start',
@@ -41,12 +53,6 @@ export default defineType({
       title: 'End date',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      description: 'An image relevant to the event',
     }),
     defineField({
       name: 'maxParticipant',
@@ -62,15 +68,6 @@ export default defineType({
       name: 'place',
       title: 'Place',
       type: 'text',
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-      },
-      description: 'This can be used to identify the event in a URL',
     }),
     defineField({
       title: 'Ask about allergy?',
@@ -108,7 +105,7 @@ export default defineType({
       title: 'title',
       start: 'start',
       category: 'category.name',
-      media: 'image',
+      media: 'mainImage',
     },
   },
 })
