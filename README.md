@@ -34,4 +34,4 @@ pnpm dev
 
 ## Deployments
 
-Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/) og CapraWeb blir foreløpig deployet til [https://capra-events-nine.vercel.app/](https://capra-events-nine.vercel.app/)
+Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/) og CapraWeb blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/)
