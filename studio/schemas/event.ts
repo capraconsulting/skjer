@@ -26,7 +26,7 @@ export default defineType({
     defineField({
       name: 'summary',
       title: 'Oppsummering',
-      type: 'text',
+      type: 'string',
       description: 'En kort beskrivelse av arrangementet, 2-3 setninger.',
     }),
     defineField({
@@ -70,7 +70,8 @@ export default defineType({
     defineField({
       name: 'place',
       title: 'Sted',
-      type: 'text',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       title: 'Spør om allergier?',

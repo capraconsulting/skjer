@@ -4,7 +4,7 @@ import groq from 'groq';
 
 export const eventQuery = groq`*[_type == "event" && slug.current == $slug][0]`;
 
-export const eventsQuery = groq`*[_type == "event" && defined(slug.current)] | order(_createdAt desc)`;
+export const eventsQuery = groq`*[_type == "event" && defined(slug.current)] | order(start desc)`;
 
 export interface Event {
 	_type: 'event';
@@ -17,6 +17,7 @@ export interface Event {
 	body?: PortableTextBlock[];
 	start: string;
 	end: string;
+	place: string;
 }
 
 export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]`;

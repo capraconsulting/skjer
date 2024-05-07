@@ -27,6 +27,10 @@
 		<p class="card__date">
 			{formatDate(event.start)}
 		</p>
+		<div class="card__place">
+			<span class="material-icons">location_on</span>
+			<p class="card__place--text"> {event.place}</p>
+		</div>
 	</div>
 </a>
 
@@ -80,7 +84,17 @@
 		font-weight: 600;
 		font-family: var(--font-family-sans);
 		font-size: var(--font-size-1);
-		margin-top: calc(var(----space-4) + 7);
+	}
+
+	.card .card__place {
+		display: flex;
+		align-items: center;
+	}
+	.card .card__place--text {
+		font-weight: 400;
+		font-family: var(--font-family-sans);
+		font-size: var(--font-size-1);
+		margin-left: 3px;
 	}
 
 	.card:hover .card__title {
