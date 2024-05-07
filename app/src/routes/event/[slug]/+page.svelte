@@ -30,6 +30,10 @@
 			{formatDate(event.start)}
 			{formatTime(event.start)}
 		</p>
+		<div class="event__place">
+			<span class="material-icons">location_on</span>
+			<p class="event__place--text"> {event.place}</p>
+		</div>
 		{#if event.body}
 			<div class="event__content">
 				<PortableText components={{}} value={event.body} />
@@ -103,6 +107,16 @@
 		font-size: var(--font-size-1);
 		line-height: var(--line-height-1);
 		margin-top: var(--space-4);
+	}
+
+	.event .event__place {
+		display: flex;
+		align-items: center;
+	}
+	.event .event__place--text {
+		font-weight: 400;
+		font-family: var(--font-family-sans);
+		margin-left: 3px;
 	}
 
 	@media (min-width: 800px) {
