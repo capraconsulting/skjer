@@ -2,6 +2,7 @@
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
 	import LiveMode from '../components/LiveMode.svelte';
+	import "../app.css";
 </script>
 
 {#if $isPreviewing}
@@ -13,7 +14,7 @@
 
 <div class="container">
 	<header class="header">
-		<a class="header__title" href="/">Hva skjer?</a>
+		<a class="header__title bg-blue-50" href="/">Hva skjer?</a>
 	</header>
 	<main>
 		<slot />
