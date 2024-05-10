@@ -5,7 +5,7 @@ const supabase = createClient(
   process.env.SANITY_STUDIO_SUPABASE_KEY!
 );
 
-export async function fetchEventParticipant({ documentId }: { documentId: string }) {
+export async function fetchEventParticipants({ documentId }: { documentId: string }) {
   try {
     const { data, error } = await supabase
       .from("event_participant")

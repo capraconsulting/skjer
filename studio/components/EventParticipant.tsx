@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchEventParticipant } from "../api/fetchEventParticipant";
+import { fetchEventParticipants } from "../api/fetchEventParticipants";
 import { Button, Card, Spinner, Text } from "@sanity/ui";
 import { TrashIcon } from "@sanity/icons";
 import "../styles//event-participant.css";
@@ -8,7 +8,7 @@ import "../styles//event-participant.css";
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { isLoading, isError, data } = useQuery({
     queryKey: ["event-registration", documentId],
-    queryFn: () => fetchEventParticipant({ documentId }),
+    queryFn: () => fetchEventParticipants({ documentId }),
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
