@@ -9,7 +9,7 @@
 
 	export let data: PageData;
 
-	let formData: RegistrationData = { name: '', email: ''};
+	let formData: RegistrationData = { name: '', email: '', telephone: undefined, firm: ''};
 
 	const q = useQuery(data);
 
