@@ -42,11 +42,19 @@
         <PortableText components={{}} value={event.body} />
       </div>
     {/if}
-    {#if data.auth?.user}
-      {data.auth.user.name}
-      <button on:click={() => signOut({ callbackUrl: "/" })}>Logg ut</button>
-    {:else}
-      <button on:click={() => signIn("google")}>Logg inn</button>
-    {/if}
+    <div class="flex items-center justify-end">
+      {#if data.auth?.user}
+        <span class="font-semibold mr-1">{data.auth.user.name}</span>
+        <button
+          class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          on:click={() => signOut({ callbackUrl: "/" })}>Logg ut</button
+        >
+      {:else}
+        <button
+          class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          on:click={() => signIn("google")}>Logg inn</button
+        >
+      {/if}
+    </div>
   </div>
 </section>
