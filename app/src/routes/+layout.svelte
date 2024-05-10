@@ -14,10 +14,10 @@
 {/if}
 
 <div class="sm:max-w-[768px] mx-auto">
-	<header class="flex px-0 py-2">
-		<a class="p-2 sm:px-0 text-3xl font-bold my-4" href="/">Hva skjer?</a>
+	<header class="flex px-0 pt-2">
+		<a class="p-2 sm:px-0 text-3xl font-bold mt-4" href="/">Hva skjer?</a>
 	</header>
-	<main>
+	<main class="my-8">
 		<slot />
 	</main>
 </div>
