@@ -1,6 +1,5 @@
 export function formatDate(date: string) {
 	return new Date(date).toLocaleDateString('no-NO', {
-		weekday: 'long',
 		month: 'long',
 		day: 'numeric',
 		year: 'numeric'
