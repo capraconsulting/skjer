@@ -4,8 +4,13 @@
 	import { formatDate, formatTime } from '$lib/utils';
 	import { urlFor } from '$lib/sanity/image';
 	import type { PageData } from './$types';
+	import RegistrationForm from '../../../components/RegistrationForm.svelte';
+	import type { RegistrationData } from '../../../models/registration-data.model';
 
 	export let data: PageData;
+
+	let formData: RegistrationData = { name: '', email: ''};
+
 	const q = useQuery(data);
 
 	$: ({ data: event } = $q);
@@ -42,5 +47,9 @@
 				<PortableText components={{}} value={event.body} />
 			</div>
 		{/if}
+
+		<div class="py-8">
+			<RegistrationForm {formData} />
+		</div>
 	</div>
 </section>
