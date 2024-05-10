@@ -1,5 +1,5 @@
 import { DefaultDocumentNodeContext, StructureBuilder } from "sanity/structure";
-import EventRegistration from "../components/EventRegistration";
+import EventParticipant from "../components/EventParticipant";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -15,11 +15,11 @@ export const getDefaultDocumentNode = (
         .component(({ documentId }: { documentId: string }) => {
           return (
             <QueryClientProvider client={queryClient}>
-              <EventRegistration documentId={documentId} />
+              <EventParticipant documentId={documentId} />
             </QueryClientProvider>
           );
         })
-        .title("Event Registration"),
+        .title("Påmeldinger"),
     ]);
   }
   return S.document().views([S.view.form()]);
