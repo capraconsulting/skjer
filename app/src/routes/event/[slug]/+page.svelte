@@ -4,16 +4,30 @@
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
-import RegistrationForm from '../../../components/RegistrationForm.svelte';
-import type { RegistrationData } from '../../../models/registration-data.model';
+  import type { RegistrationData } from '../../../models/registration-data.model';
+  import { supabase } from "$lib/supabase/client";
+  import RegistrationForm from "../../../components/RegistrationForm.svelte";
 
 	export let data;
 
-	let formData: RegistrationData = { name: '', email: '', telephone: undefined, firm: ''};
-
 	const q = useQuery(data);
-
+  
 	$: ({ data: event } = $q);
+  
+	export let formData: RegistrationData = { full_name: "", email: "", telephone: undefined, firm: "", accepted_terms: true};
+
+	async function submitForm() {
+    const registration = { ...formData, document_id: event._id};
+		const { error } = await supabase.from("event_participant").insert([registration]);
+  
+		if (error) {
+			console.error('Error posting data:', error.message);
+			return;
+		}
+
+		console.log('Data posted successfully:', registration);
+		return;
+	};
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
@@ -63,7 +77,8 @@ import type { RegistrationData } from '../../../models/registration-data.model';
     </div>
 
 		<div class="py-8">
-			<RegistrationForm {formData} />
+			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+      <RegistrationForm {formData} on:submit={submitForm} />
 		</div>
   </div>
 </section>

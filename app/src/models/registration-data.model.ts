@@ -1,6 +1,7 @@
 export type RegistrationData = {
-    name: string;
+    full_name: string;
     email: string;
     telephone: number | undefined;
     firm: string;
+    accepted_terms: boolean;
 };

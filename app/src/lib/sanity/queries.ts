@@ -7,6 +7,7 @@ export const eventQuery = groq`*[_type == "event" && slug.current == $slug][0]`;
 export const eventsQuery = groq`*[_type == "event" && defined(slug.current)] | order(start desc)`;
 
 export interface Event {
+	_id: string;
 	_type: 'event';
 	_createdAt: string;
 	title?: string;
