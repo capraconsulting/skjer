@@ -13,7 +13,7 @@
   
 	$: ({ data: event } = $q);
   
-	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: "", acceptedTerms: true};
+	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: ""};
 
 </script>
 

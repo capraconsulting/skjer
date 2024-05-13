@@ -3,5 +3,4 @@ export type RegistrationData = {
     email: string;
     telephone: number | undefined;
     firm: string;
-    acceptedTerms: boolean;
 };
