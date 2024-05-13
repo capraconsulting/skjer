@@ -5,7 +5,6 @@
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
   import type { RegistrationData } from '../../../models/registration-data.model';
-  import { supabase } from "$lib/supabase/client";
   import RegistrationForm from "../../../components/RegistrationForm.svelte";
 
 	export let data;
@@ -14,20 +13,8 @@
   
 	$: ({ data: event } = $q);
   
-	export let formData: RegistrationData = { full_name: "", email: "", telephone: undefined, firm: "", accepted_terms: true};
+	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: "", acceptedTerms: true};
 
-	async function submitForm() {
-    const registration = { ...formData, document_id: event._id};
-		const { error } = await supabase.from("event_participant").insert([registration]);
-  
-		if (error) {
-			console.error('Error posting data:', error.message);
-			return;
-		}
-
-		console.log('Data posted successfully:', registration);
-		return;
-	};
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
@@ -78,7 +65,7 @@
 
 		<div class="py-8">
 			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {formData} on:submit={submitForm} />
+      <RegistrationForm {formData} />
 		</div>
   </div>
 </section>
