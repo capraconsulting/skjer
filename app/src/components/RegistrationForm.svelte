@@ -1,6 +1,6 @@
 
 <script lang="ts">
-    import type { RegistrationData } from '../models/registration-data.model';
+    import type { RegistrationData } from '$models/registration-data.model';
     
     export let formData: RegistrationData;
 </script>
