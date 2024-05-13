@@ -4,11 +4,17 @@
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
+  import type { RegistrationData } from '$models/registration-data.model';
+  import RegistrationForm from "$components/RegistrationForm.svelte";
 
-  export let data;
+	export let data;
 
-  const q = useQuery(data);
-  $: ({ data: event } = $q);
+	const q = useQuery(data);
+  
+	$: ({ data: event } = $q);
+  
+	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: ""};
+
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
@@ -56,5 +62,10 @@
         >
       {/if}
     </div>
+
+		<div class="py-8">
+			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+      <RegistrationForm {formData} />
+		</div>
   </div>
 </section>

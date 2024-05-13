@@ -6,7 +6,7 @@
 	export let event: Event;
 </script>
 
-<a class="flex flex-col p-3 relative border border-b-[1px] sm:flex-row group first:rounded-t-md last:rounded-b-md" href={`/event/${event.slug.current}`}>
+<a class="flex flex-col p-3 relative border border-b-[1px] sm:flex-row group first:rounded-t-md last:rounded-b-md" href={`/event/${event._id}`}>
 	{#if event.mainImage}
 		<img
 			class="w-full h-60 object-cover sm:w-96 sm:max-h-60"

@@ -13,17 +13,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      description: 'Den delen av URLen som identifiserer dette arrangementet.',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    }),
-    defineField({
       name: 'summary',
       title: 'Oppsummering',
       type: 'string',
