@@ -6,12 +6,12 @@ const supabase = createClient<Database>(
   process.env.SANITY_STUDIO_SUPABASE_KEY!
 );
 
-export async function fetchEventParticipants({ documentId }: { documentId: string }) {
+export async function fetchEventAllergies({ documentId }: { documentId: string }) {
   try {
     const { data, error } = await supabase
-      .from("event_participant")
-      .select()
-      .eq("document_id", documentId); // TODO: Only show attending
+      .from("event_allergies")
+      .select("document_id, allergy, allergy.count()")
+      .eq("document_id", documentId);
 
     if (error) {
       throw new Error(error.message);
