@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEventParticipants } from "../../api/fetchEventParticipants";
-import { Box, Button, Card, Grid, Heading, Stack, Text, TextInput } from "@sanity/ui";
+import { Box, Button, Card, Grid, Heading, Spinner, Stack, Text, TextInput } from "@sanity/ui";
 import { RevertIcon, SearchIcon } from "@sanity/icons";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
-  const { isError, data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["event-participant", documentId],
     queryFn: () => fetchEventParticipants({ documentId }),
   });
@@ -13,13 +13,21 @@ export default function EventParticipant({ documentId }: { documentId: string })
   const [searchQuery, setValue] = useState("");
 
   const filteredData = data?.filter((participant) => {
-    const searchText = searchQuery.toLowerCase();
     return Object.values(participant).some(
-      (value) => typeof value === "string" && value.toLowerCase().includes(searchText)
+      (value) =>
+        typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
+
+  if (isLoading) {
+    return (
+      <Grid gap={4}>
+        <Spinner muted />
+      </Grid>
+    );
+  }
 
   if (isError)
     return (

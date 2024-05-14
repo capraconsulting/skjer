@@ -1,15 +1,23 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEventAllergies } from "../../api/fetchEventAllergies";
-import { Card, Grid, Heading, Stack, Text } from "@sanity/ui";
+import { Card, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
 
 export default function EventAllergy({ documentId }: { documentId: string }) {
-  const { isError, data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["event-alergy", documentId],
     queryFn: () => fetchEventAllergies({ documentId }),
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
+
+  if (isLoading) {
+    return (
+      <Grid gap={4}>
+        <Spinner muted />
+      </Grid>
+    );
+  }
 
   if (isError)
     return (
@@ -30,7 +38,7 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           Event
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Ingen allergier
+          Ingen matallergier
         </Heading>
       </Grid>
     );
@@ -43,7 +51,7 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           Event
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Allergier ({data?.length})
+          Matallergier ({data?.length})
         </Heading>
       </Grid>
 

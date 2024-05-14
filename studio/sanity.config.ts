@@ -9,6 +9,7 @@ import { nbNOLocale } from "@sanity/locale-nb-no";
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
 export const dataset = process.env.SANITY_STUDIO_DATASET!;
+export const enivornment = process.env.MODE;
 
 export default defineConfig({
   name: "capra-web",
@@ -36,9 +37,17 @@ export default defineConfig({
         },
       },
     }),
-
-    visionTool(),
+    visionTool({ title: "GROQ" }),
   ],
+  tools: (tools) => {
+    if (enivornment === "development") {
+      return tools;
+    }
+    return tools.filter(({ name }) => name !== "vision");
+  },
+  scheduledPublishing: {
+    enabled: false,
+  },
   schema: {
     types: schemaTypes,
   },
