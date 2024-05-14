@@ -14,7 +14,7 @@ export const enivornment = process.env.MODE;
 
 export default defineConfig({
   name: "capra-web",
-  title: "Capra web",
+  title: "Capra Web",
   projectId,
   dataset,
   icon: StudioIcon,

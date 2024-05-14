@@ -6,15 +6,16 @@
   import { signIn, signOut } from "@auth/sveltekit/client";
   import type { RegistrationData } from '$models/registration-data.model';
   import RegistrationForm from "$components/RegistrationForm.svelte";
+  import { superForm } from "sveltekit-superforms/client"
 
 	export let data;
 
 	const q = useQuery(data);
   
 	$: ({ data: event } = $q);
-  
-	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: "", allergies: []};
 
+  const { form } = superForm(data.form)
+  
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
@@ -65,7 +66,7 @@
 
 		<div class="py-8">
 			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {formData} {event} />
+      <RegistrationForm {form} {event} />
 		</div>
   </div>
 </section>

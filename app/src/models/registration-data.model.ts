@@ -3,7 +3,7 @@ import type { Allergy } from "./allergy.model";
 export type RegistrationData = {
     name: string;
     email: string;
-    telephone: number | undefined;
+    telephone: string;
     firm: string;
     allergies?: Allergy[];
 };
