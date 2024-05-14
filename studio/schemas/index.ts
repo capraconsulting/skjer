@@ -1,6 +1,6 @@
 import blockContent from "./blockContent";
 import category from "./category";
 import event from "./event";
-import post from "./post";
+import blogPost from "./blogPost";
 
-export const schemaTypes = [post, event, category, blockContent];
+export const schemaTypes = [blogPost, event, category, blockContent];

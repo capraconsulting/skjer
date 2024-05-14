@@ -1,18 +1,18 @@
 import { defineType, defineField } from "sanity";
 
 export default defineType({
-  name: "post",
-  title: "Post",
+  name: "blogPost",
+  title: "Blogginnlegg",
   type: "document",
   fields: [
     defineField({
       name: "image",
-      title: "Image",
+      title: "Bilde",
       type: "image",
     }),
     defineField({
       name: "title",
-      title: "Title",
+      title: "Tittel",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -34,25 +34,26 @@ export default defineType({
             .trim()
             .slice(0, 200),
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subtitle",
-      title: "Subtitle",
+      title: "Undertittel",
       type: "string",
     }),
     defineField({
       name: "author",
-      title: "Author",
+      title: "Forfatter",
       type: "string",
     }),
     defineField({
       name: "description",
-      title: "Description",
+      title: "Beskrivelse",
       type: "text",
     }),
     defineField({
       name: "publishedAt",
-      title: "Publication Date",
+      title: "Publiseringsdato",
       type: "datetime",
     }),
     defineField({
@@ -63,7 +64,7 @@ export default defineType({
     }),
     defineField({
       name: "body",
-      title: "Body",
+      title: "Innhold",
       type: "array",
       of: [
         {
@@ -71,7 +72,7 @@ export default defineType({
         },
         {
           type: "code",
-          title: "Code",
+          title: "Kode",
           name: "code",
           options: {
             languageAlternatives: [
@@ -105,13 +106,13 @@ export default defineType({
         },
         {
           name: "image",
-          title: "Image",
+          title: "Bilde",
           type: "image",
           fields: [
             {
               type: "string",
               name: "alt",
-              title: "Alt",
+              title: "Alternativ tekst",
             },
           ],
         },

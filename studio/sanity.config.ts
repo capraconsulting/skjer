@@ -6,6 +6,7 @@ import { getDefaultDocumentNode } from "./config/structure";
 import { schemaTypes } from "./schemas";
 import { codeInput } from "@sanity/code-input";
 import { nbNOLocale } from "@sanity/locale-nb-no";
+import { StudioIcon } from "./components/shared/StudioIcon";
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
 export const dataset = process.env.SANITY_STUDIO_DATASET!;
@@ -16,6 +17,7 @@ export default defineConfig({
   title: "Capra web",
   projectId,
   dataset,
+  icon: StudioIcon,
   plugins: [
     nbNOLocale(),
     codeInput({
