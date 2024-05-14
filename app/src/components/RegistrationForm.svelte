@@ -1,8 +1,10 @@
 
 <script lang="ts">
     import type { RegistrationData } from '$models/registration-data.model';
+    import type { Event } from '$lib/sanity/queries';
     
     export let formData: RegistrationData;
+    export let event: Event;
 </script>
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration">
@@ -25,6 +27,10 @@
         <label for="firm">Firma</label>
         <input class="border rounded w-full-py-2 px-3 text-gray-700 h-8" type="text" name="firm" id="firm" bind:value={formData.firm} />
     </div>
+
+    {#if event.allergy}
+        JA allergi
+    {/if}
 
     <button class="w-52 bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 rounded" type="submit">Send inn</button>
 </form>

@@ -65,7 +65,7 @@
 
 		<div class="py-8">
 			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {formData} />
+      <RegistrationForm {formData} {event} />
 		</div>
   </div>
 </section>
