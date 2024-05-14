@@ -2,10 +2,18 @@ import { defineType, defineField } from "sanity";
 
 export default defineType({
   name: "event",
-  title: "Event",
+  title: "Arrangement",
   type: "document",
-  description: "Et arrangement",
   fields: [
+    defineField({
+      name: "image",
+      title: "Bilde",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: "title",
       title: "Tittel",
@@ -32,20 +40,12 @@ export default defineType({
     }),
     defineField({
       name: "body",
-      title: "Informasjon",
+      title: "Innhold",
       type: "blockContent",
       description: "Skriv en tekst som beskriver arrangementet i detalj.",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "mainImage",
-      title: "Bilde",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+
     defineField({
       name: "maxParticipant",
       title: "Maks antall deltagere",
@@ -81,24 +81,12 @@ export default defineType({
       hidden: ({ document }) => !document?.fields,
     }),
   ],
-  orderings: [
-    {
-      title: "Navn",
-      name: "eventNameAsc",
-      by: [{ field: "name", direction: "asc" }],
-    },
-    {
-      title: "Dato",
-      name: "eventDateDesc",
-      by: [{ field: "date", direction: "desc" }],
-    },
-  ],
   preview: {
     select: {
       title: "title",
       start: "start",
       category: "category.name",
-      media: "mainImage",
+      media: "image",
     },
   },
 });
