@@ -1,10 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
-import { Database } from "../database.types";
-
-const supabase = createClient<Database>(
-  process.env.SANITY_STUDIO_SUPABASE_URL!,
-  process.env.SANITY_STUDIO_SUPABASE_KEY!
-);
+import { supabase } from "./supabase.api";
 
 export async function fetchEventAllergies({ documentId }: { documentId: string }) {
   try {
