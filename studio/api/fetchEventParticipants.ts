@@ -1,16 +1,12 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.SANITY_STUDIO_SUPABASE_URL!,
-  process.env.SANITY_STUDIO_SUPABASE_KEY!
-);
+import { Database } from "../database.types";
+import { supabase } from "./supabase.api";
 
 export async function fetchEventParticipants({ documentId }: { documentId: string }) {
   try {
     const { data, error } = await supabase
       .from("event_participant")
       .select()
-      .eq("document_id", documentId);
+      .eq("document_id", documentId); // TODO: Only show attending
 
     if (error) {
       throw new Error(error.message);
