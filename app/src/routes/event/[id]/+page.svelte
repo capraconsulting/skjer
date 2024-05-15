@@ -19,10 +19,10 @@
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
-  {#if event.mainImage}
+  {#if event.image}
     <img
       class="w-full h-[380px] object-cover"
-      src={urlFor(event.mainImage).url()}
+      src={urlFor(event.image).url()}
       alt="Cover image for {event.title}"
     />
   {/if}

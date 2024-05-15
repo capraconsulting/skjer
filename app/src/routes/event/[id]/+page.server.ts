@@ -41,17 +41,18 @@ export const actions: Actions = {
 	const form = await superValidate(request, zod(registrationSchema));
 	const documentId = params.id;
 
-	const participantResult = await supabase.from("event_participant").insert({
+/* 	const participantResult = await supabase.from("event_participant").insert({
 		document_id: documentId,
 		full_name: form.data.name,
 		telephone: form.data.telephone,
 		email: form.data.email,
 		firm: form.data.firm
-	});
+	}); */
 
 	const allergies = form.data.allergies;
+	console.log(allergies);
 
-	if (allergies) {
+/* 	if (allergies) {
 		for (const allergy of allergies) {
 			const allergyResult = await supabase.from("event_allergies").insert({
 				document_id: documentId,
@@ -66,7 +67,7 @@ export const actions: Actions = {
 	if (participantResult.error) {
 		return fail(500);
 	  };
-
+ */
 	return;
 	}
   }

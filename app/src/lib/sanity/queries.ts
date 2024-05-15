@@ -13,7 +13,7 @@ export interface Event {
 	title?: string;
 	subtitle?: string;
 	summary?: string;
-	mainImage?: ImageAsset;
+	image?: ImageAsset;
 	body?: PortableTextBlock[];
 	start: string;
 	end: string;
