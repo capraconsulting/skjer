@@ -40,7 +40,7 @@
   </div>
 
   <div class="flex flex-col gap-1">
-    <Label for="telephone">Telefonnummer*</Label>
+    <Label for="telephone">Telefonnummer</Label>
     <Input
       type="text"
       name="telephone"
@@ -53,7 +53,7 @@
   </div>
 
   <div class="flex flex-col gap-1">
-    <Label for="firm">Firma*</Label>
+    <Label for="firm">Firma</Label>
     <Input
       type="text"
       name="firm"
