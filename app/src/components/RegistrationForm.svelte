@@ -66,8 +66,10 @@
   </div>
 
   {#if event.allergy}
-    <Label for="allergies">Allergier</Label>
-    <MultiSelect items={allergies} bind:value={$form.allergies} id="allergies" name="allergies" size="md" />
+    <div class="flex flex-col gap-1">
+        <Label for="allergies">Allergier</Label>
+        <MultiSelect items={allergies} bind:value={$form.allergies} id="allergies" name="allergies" size="md" />
+    </div>
   {/if}
 
   <Button color="dark" type="submit">Send inn</Button
