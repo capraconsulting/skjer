@@ -6,6 +6,8 @@
   import { signIn, signOut } from "@auth/sveltekit/client";
   import RegistrationForm from "$components/RegistrationForm.svelte";
   import { superForm } from "sveltekit-superforms/client"
+  import { zod } from "sveltekit-superforms/adapters";
+  import { registrationSchema } from "$lib/schemas/registrationSchema.js";
 
 	export let data;
 
@@ -13,7 +15,7 @@
   
 	$: ({ data: event } = $q);
 
-  const { form } = superForm(data.form)
+  const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
   
 </script>
 
@@ -65,7 +67,7 @@
 
 		<div class="py-8">
 			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {form} {event} />
+      <RegistrationForm {form} {errors} {enhance} {event} />
 		</div>
   </div>
 </section>

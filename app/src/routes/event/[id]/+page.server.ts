@@ -1,20 +1,10 @@
 import { eventQuery as query, type Event } from "$lib/sanity/queries";
-import { supabase } from "$lib/supabase/client";
 import { fail } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { z } from "zod";
-import validator from "validator";
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { Allergy } from "$models/allergy.model";
-
-const registrationSchema = z.object({
-	name: z.string().min(2),
-	email: z.string().email(),
-	telephone: z.string().refine(validator.isMobilePhone),
-	firm: z.string().min(2),
-	allergies: z.array(z.nativeEnum(Allergy))
-});
+import { registrationSchema } from "$lib/schemas/registrationSchema";
+import { supabase } from "$lib/supabase/client";
 
 export const load: PageServerLoad = async (event) => {
 	const { loadQuery } = event.locals;
@@ -37,6 +27,12 @@ export const actions: Actions = {
 	submitRegistration: async ({ request, params }) => {
 
 	const form = await superValidate(request, zod(registrationSchema));
+	
+	if (!form.valid) {
+		return fail(400, {
+			form
+		})
+	}
 	const documentId = params.id;
 
 	const participantResult = await supabase.from("event_participant").insert({
@@ -66,4 +62,4 @@ export const actions: Actions = {
 	  };
 	return;
 	}
-  }
+}
