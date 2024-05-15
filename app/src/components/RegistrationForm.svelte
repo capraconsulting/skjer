@@ -1,20 +1,24 @@
 <script lang="ts">
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
+  import { Input, Label, Button, MultiSelect } from 'flowbite-svelte';
+  import SuperDebug from 'sveltekit-superforms';
 
   export let form;
   export let errors;
   export let enhance;
   export let event: Event;
 
-  let allergies = Object.values(Allergy);
+  let allergies = Object.entries(Allergy).map(([key, value]) => ({ value: value, name: value }));
+
 </script>
 
+<SuperDebug data={$form} />
+
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="name">Navn*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
+  <div class="flex flex-col gap-1">
+    <Label for="name">Navn*</Label>
+    <Input
       type="text"
       name="name"
       id="name"
@@ -25,10 +29,9 @@
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="email">E-post*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
+  <div class="flex flex-col gap-1">
+    <Label for="email">E-post*</Label>
+    <Input
       type="text"
       name="email"
       id="email"
@@ -39,10 +42,9 @@
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="telephone">Telefonnummer*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
+  <div class="flex flex-col gap-1">
+    <Label for="telephone">Telefonnummer*</Label>
+    <Input
       type="text"
       name="telephone"
       id="telephone"
@@ -53,10 +55,9 @@
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="firm">Firma*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
+  <div class="flex flex-col gap-1">
+    <Label for="firm">Firma*</Label>
+    <Input
       type="text"
       name="firm"
       id="firm"
@@ -68,15 +69,10 @@
   </div>
 
   {#if event.allergy}
-    <label class="font-bold" for="allergies">Allergier</label>
-    <select multiple bind:value={$form.allergies} name="allergies" id="allergies">
-      {#each allergies as allergy}
-        <option value={allergy}>{allergy}</option>
-      {/each}
-    </select>
+    <Label for="allergies">Allergier</Label>
+    <MultiSelect items={allergies} bind:value={$form.allergies} id="allergies" name="allergies" size="md" />
   {/if}
 
-  <button class="w-52 bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 rounded" type="submit"
-    >Send inn</button
+  <Button color="dark" type="submit">Send inn</Button
   >
 </form>
