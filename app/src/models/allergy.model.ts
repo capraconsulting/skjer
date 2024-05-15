@@ -6,7 +6,7 @@ export enum Allergy {
     EGG = "Egg",
     FISH = "Fisk",
     MUSTARD = "Sennep",
-    MILK = "Milk",
+    MILK = "Melk",
     CELERY = "Selleri",
     PEANUTS = "Peanøtter",
     SOY = "Soya",
