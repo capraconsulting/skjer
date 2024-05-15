@@ -2,7 +2,6 @@
 <script lang="ts">
     import type { Event } from '$lib/sanity/queries';
     import { Allergy } from '$models/allergy.model';
-    import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte"
     
     export let form;
     export let errors;
@@ -12,8 +11,6 @@
     let allergies = Object.values(Allergy);
     
 </script>
-
-<!-- <SuperDebug data={form}/> -->
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
     <div class="flex flex-col gap-2">

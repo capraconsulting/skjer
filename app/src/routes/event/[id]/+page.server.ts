@@ -45,7 +45,7 @@ export const actions: Actions = {
 
 	let allergies = form.data.allergies;
 
-	if (allergies) {
+	if (allergies.length) {
 		for (const allergy of allergies) {
 			const allergyResult = await supabase.from("event_allergies").insert({
 				document_id: documentId,
