@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types';
-import type { Image, ImageAsset, Slug } from '@sanity/types';
+import type { ImageAsset, Slug } from '@sanity/types';
 import groq from 'groq';
 
 export const eventQuery = groq`*[_type == "event" && _id == $id][0]`;
@@ -13,11 +13,12 @@ export interface Event {
 	title?: string;
 	subtitle?: string;
 	summary?: string;
-	mainImage?: ImageAsset;
+	image?: ImageAsset;
 	body?: PortableTextBlock[];
 	start: string;
 	end: string;
 	place: string;
+	allergy: boolean;
 }
 
 export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]`;

@@ -16,7 +16,8 @@
 		"@sanity/image-url": "^1.0.2",
 		"@sanity/svelte-loader": "^1.11.1",
 		"@sanity/visual-editing": "^1.7.1",
-		"groq": "^3.33.0"
+		"groq": "^3.33.0",
+		"validator": "^13.12.0"
 	},
 	"devDependencies": {
 		"@portabletext/svelte": "^2.1.7",
@@ -26,6 +27,7 @@
 		"@sveltejs/adapter-auto": "^3.2.0",
 		"@sveltejs/kit": "^2.5.5",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"@types/validator": "^13.11.10",
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.19",
@@ -36,10 +38,12 @@
 		"prettier": "^3.2.5",
 		"prettier-plugin-svelte": "^3.2.2",
 		"svelte": "^4.2.12",
+		"sveltekit-superforms": "^2.13.1",
 		"tailwindcss": "^3.4.3",
 		"tslib": "^2.6.2",
 		"typescript": "^5.4.2",
-		"vite": "^5.2.7"
+		"vite": "^5.2.7",
+		"zod": "^3.23.8"
 	},
 	"type": "module",
 	"engines": {

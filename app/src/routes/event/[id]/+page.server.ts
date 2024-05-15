@@ -1,7 +1,10 @@
-import { eventQuery as query, type Event } from '$lib/sanity/queries';
-import { supabase } from '$lib/supabase/client';
-import { fail } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
+import { eventQuery as query, type Event } from "$lib/sanity/queries";
+import { fail } from "@sveltejs/kit";
+import type { Actions, PageServerLoad } from "./$types";
+import { superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
+import { registrationSchema } from "$lib/schemas/registrationSchema";
+import { supabase } from "$lib/supabase/client";
 
 export const load: PageServerLoad = async (event) => {
 	const { loadQuery } = event.locals;
@@ -10,50 +13,53 @@ export const load: PageServerLoad = async (event) => {
 	const params = { id };
 	const initial = await loadQuery<Event>(query, params);
 
-	// We pass the data in a format that is easy for `useQuery` to consume in the
-	// corresponding `+page.svelte` file, but you can return the data in any
-	// format you like.
+	const form = await superValidate(zod(registrationSchema));
+
 	return {
 		query,
 		params,
-		options: { initial }
+		options: { initial },
+		form
 	};
 };
 
 export const actions: Actions = {
 	submitRegistration: async ({ request, params }) => {
-	  const formData = await request.formData();
 
-	  const documentId = params.id;
-	  const fullName = formData.get('name');
-	  const email = formData.get('email');
-	  const telephone = formData.get('telephone');
-	  const firm = formData.get('firm');
-  
-	  const { error } = await supabase.from('event_participant').insert({
-		document_id: documentId,
-		full_name: fullName,
-		telephone: telephone,
-		email: email,
-		firm: firm,
-	  })
-  
-	  if (error) {
-		return fail(500, {
-			documentId,
-			fullName,
-			telephone,
-			email,
-			firm,
+	const form = await superValidate(request, zod(registrationSchema));
+	
+	if (!form.valid) {
+		return fail(400, {
+			form
 		})
-	  }
-  
-	  return {
-		documentId,
-		fullName,
-		telephone,
-		email,
-		firm,
-	  }
 	}
-  }
+	const documentId = params.id;
+
+	const participantResult = await supabase.from("event_participant").insert({
+		document_id: documentId,
+		full_name: form.data.name,
+		telephone: form.data.telephone,
+		email: form.data.email,
+		firm: form.data.firm
+	});
+
+	let allergies = form.data.allergies;
+
+	if (allergies.length) {
+		for (const allergy of allergies) {
+			const allergyResult = await supabase.from("event_allergies").insert({
+				document_id: documentId,
+				allergy: allergy
+			});
+		
+			if (allergyResult.error) {
+				return fail(500);
+			}
+		}
+	}
+	if (participantResult.error) {
+		return fail(500);
+	  };
+	return;
+	}
+}

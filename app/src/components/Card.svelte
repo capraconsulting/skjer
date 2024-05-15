@@ -7,10 +7,10 @@
 </script>
 
 <a class="flex flex-col p-3 relative border border-b-[1px] sm:flex-row group first:rounded-t-md last:rounded-b-md" href={`/event/${event._id}`}>
-	{#if event.mainImage}
+	{#if event.image}
 		<img
 			class="w-full h-60 object-cover sm:w-96 sm:max-h-60"
-			src={urlFor(event.mainImage).width(500).height(300).url()}
+			src={urlFor(event.image).width(500).height(300).url()}
 			alt="Cover image for {event.title}"
 		/>
 	{/if}

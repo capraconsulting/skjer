@@ -4,24 +4,26 @@
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
-  import type { RegistrationData } from '$models/registration-data.model';
   import RegistrationForm from "$components/RegistrationForm.svelte";
+  import { superForm } from "sveltekit-superforms/client"
+  import { zod } from "sveltekit-superforms/adapters";
+  import { registrationSchema } from "$lib/schemas/registrationSchema.js";
 
 	export let data;
 
 	const q = useQuery(data);
   
 	$: ({ data: event } = $q);
-  
-	export let formData: RegistrationData = { name: "", email: "", telephone: undefined, firm: ""};
 
+  const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
+  
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
-  {#if event.mainImage}
+  {#if event.image}
     <img
       class="w-full h-[380px] object-cover"
-      src={urlFor(event.mainImage).url()}
+      src={urlFor(event.image).url()}
       alt="Cover image for {event.title}"
     />
   {/if}
@@ -65,7 +67,7 @@
 
 		<div class="py-8">
 			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {formData} />
+      <RegistrationForm {form} {errors} {enhance} {event} />
 		</div>
   </div>
 </section>
