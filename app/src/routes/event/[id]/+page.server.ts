@@ -48,7 +48,7 @@ export const actions: Actions = {
      if (allergies.length) {
 		const allergyResult = await supabase.from("event_allergies").insert({
 			document_id: documentId,
-			allergy: allergies.length > 1 ? createAllergiesString(allergies) : allergies,
+			allergy: createAllergiesString(allergies),
 		});
 
 		if (allergyResult.error) {
@@ -63,9 +63,10 @@ export const actions: Actions = {
 };
 
 function createAllergiesString(allergies: AllergyEnum[]): string {
-    const lowerCasedAllergies = allergies.map((allergy, index) => 
+	const sortedAllergies = allergies.sort((a, b) => a.localeCompare(b));
+    const lowerCasedAllergies = sortedAllergies.map((allergy, index) => 
       index === 0 ? allergy : allergy.toLowerCase()
     );
     lowerCasedAllergies[0] = lowerCasedAllergies[0][0].toUpperCase() + lowerCasedAllergies[0].slice(1).toLowerCase();
     return lowerCasedAllergies.join(', ');
-}
+};

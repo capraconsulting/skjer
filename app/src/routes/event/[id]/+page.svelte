@@ -18,7 +18,7 @@
   const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
 </script>
 
-<section class="w-full mt-2 mb-8 mx-0">
+<section class="w-full mt-2 mb-80 mx-0">
   {#if event.image}
     <img
       class="w-full h-[380px] object-cover"

@@ -2,7 +2,6 @@
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
   import { Input, Label, Button, MultiSelect } from 'flowbite-svelte';
-  import SuperDebug from 'sveltekit-superforms';
 
   export let form;
   export let errors;
@@ -12,8 +11,6 @@
   let allergies = Object.entries(Allergy).map(([key, value]) => ({ value: value, name: value }));
 
 </script>
-
-<SuperDebug data={$form} />
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
   <div class="flex flex-col gap-1">
