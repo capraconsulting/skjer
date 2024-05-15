@@ -14,3 +14,5 @@ export const Allergy = {
   LUPINE: "Lupin",
   SULFITES: "Svoveldioksyd/sulfitter",
 } as const;
+
+export type AllergyEnum = typeof Allergy[keyof typeof Allergy];

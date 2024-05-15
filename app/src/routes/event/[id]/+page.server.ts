@@ -5,6 +5,7 @@ import { superValidate } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import { supabase } from "$lib/supabase/client";
+import type { AllergyEnum } from "$models/allergy.model";
 
 export const load: PageServerLoad = async (event) => {
   const { loadQuery } = event.locals;
@@ -34,29 +35,37 @@ export const actions: Actions = {
     }
     const documentId = params.id;
 
-    const participantResult = await supabase.from("event_participant").insert({
+     const participantResult = await supabase.from("event_participant").insert({
       document_id: documentId,
       full_name: form.data.name,
       telephone: form.data.telephone,
       email: form.data.email,
       firm: form.data.firm,
-    });
+    }); 
 
-    let allergies = form.data.allergies;
+    let allergies: AllergyEnum[] = form.data.allergies;
 
-    if (allergies.length) {
+     if (allergies.length) {
 		const allergyResult = await supabase.from("event_allergies").insert({
 			document_id: documentId,
-			allergy: allergies,
+			allergy: allergies.length > 1 ? createAllergiesString(allergies) : allergies,
 		});
 
 		if (allergyResult.error) {
 			return fail(500);
       }
-    }
+    } 
     if (participantResult.error) {
       return fail(500);
-    }
+    } 
     return;
   },
 };
+
+function createAllergiesString(allergies: AllergyEnum[]): string {
+    const lowerCasedAllergies = allergies.map((allergy, index) => 
+      index === 0 ? allergy : allergy.toLowerCase()
+    );
+    lowerCasedAllergies[0] = lowerCasedAllergies[0][0].toUpperCase() + lowerCasedAllergies[0].slice(1).toLowerCase();
+    return lowerCasedAllergies.join(', ');
+}
