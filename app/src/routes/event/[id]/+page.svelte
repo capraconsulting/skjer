@@ -4,7 +4,6 @@
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
-  import type { RegistrationData } from '$models/registration-data.model';
   import RegistrationForm from "$components/RegistrationForm.svelte";
   import { superForm } from "sveltekit-superforms/client"
 

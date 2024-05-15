@@ -1,9 +1,7 @@
 
 <script lang="ts">
-    import type { RegistrationData } from '$models/registration-data.model';
     import type { Event } from '$lib/sanity/queries';
     import { Allergy } from '$models/allergy.model';
-    import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte"
     
     export let form;
     export let event: Event;
@@ -11,7 +9,6 @@
     let allergies = Object.values(Allergy);
     
 </script>
-<SuperDebug data={form}/>
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration">
     <div class="flex flex-col gap-2">
@@ -36,15 +33,11 @@
 
     {#if event.allergy}
         <label class="font-bold" for="allergies">Allergier</label>
-        <select multiple bind:value={$form.allergies}>
+        <select multiple bind:value={$form.allergies} name="allergies" id="allergies">
             {#each allergies as allergy}
-                <option value={allergy}>
-                    { allergy }
-                </option>
+                <option value={allergy}>{allergy}</option>
             {/each}
         </select>
-
-        <input hidden type="text" name="allergies" id="allergies" bind:value={$form.allergies} />
     {/if}
 
     <button class="w-52 bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 rounded" type="submit">Send inn</button>
