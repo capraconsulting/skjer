@@ -3,19 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm -r dev",
-    "format": "prettier --cache --write ."
-  },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-packagejson"
-    ],
-    "semi": false,
-    "singleQuote": true
-  },
-  "devDependencies": {
-    "prettier": "3.2.5",
-    "prettier-plugin-packagejson": "2.4.14"
+    "dev": "pnpm -r dev"
   },
   "packageManager": "pnpm@9.0.6"
 }
