@@ -26,7 +26,7 @@
 
     <div class="flex flex-col gap-2">
         <label class="font-bold" for="email">E-post*</label>
-        <input class="border rounded w-full-py-2 px-3 text-gray-700 h-8" type="email" name="email" id="email" bind:value={$form.email} />
+        <input class="border rounded w-full-py-2 px-3 text-gray-700 h-8" type="text" name="email" id="email" bind:value={$form.email} />
         {#if $errors.email}
         <p class="text-red-600 text-xs">Fyll inn gyldig epost.</p>
     {/if}
@@ -34,7 +34,7 @@
 
     <div class="flex flex-col gap-2">
         <label class="font-bold" for="telephone">Telefonnummer*</label>
-        <input class="border rounded w-full-py-2 px-3 text-gray-700 h-8" type="tel" name="telephone" id="telephone" bind:value={$form.telephone} />
+        <input class="border rounded w-full-py-2 px-3 text-gray-700 h-8" type="text" name="telephone" id="telephone" bind:value={$form.telephone} />
         {#if $errors.telephone}
         <p class="text-red-600 text-xs">Fyll inn gyldig telefonnummer.</p>
     {/if}
