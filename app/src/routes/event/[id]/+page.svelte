@@ -5,18 +5,17 @@
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
   import RegistrationForm from "$components/RegistrationForm.svelte";
-  import { superForm } from "sveltekit-superforms/client"
+  import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema } from "$lib/schemas/registrationSchema.js";
 
-	export let data;
+  export let data;
 
-	const q = useQuery(data);
-  
-	$: ({ data: event } = $q);
+  const q = useQuery(data);
+
+  $: ({ data: event } = $q);
 
   const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
-  
 </script>
 
 <section class="w-full mt-2 mb-8 mx-0">
@@ -65,9 +64,9 @@
       {/if}
     </div>
 
-		<div class="py-8">
-			<h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+    <div class="py-8">
+      <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
       <RegistrationForm {form} {errors} {enhance} {event} />
-		</div>
+    </div>
   </div>
 </section>
