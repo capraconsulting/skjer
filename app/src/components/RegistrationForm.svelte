@@ -13,8 +13,10 @@
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
   <div class="flex flex-col gap-1">
-    <Label for="name">Navn*</Label>
-    <Input type="text" name="name" id="name" bind:value={$form.name} />
+    <input type="text" name="subject" id="subject" class="hidden" />
+
+    <Label for="fullName">Navn*</Label>
+    <Input type="text" name="fullName" id="fullName" bind:value={$form.fullName} />
     {#if $errors.name}
       <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}

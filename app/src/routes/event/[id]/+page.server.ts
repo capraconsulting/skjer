@@ -4,65 +4,75 @@ import type { Actions, PageServerLoad } from "./$types";
 import { superValidate } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
-import { supabase } from "$lib/supabase/client";
-import type { AllergyEnum } from "$models/allergy.model";
+import validator from "validator";
+import { sendEventConfirmationEmail } from "$lib/email/send";
+import { saveEventAllergies, saveEventParticipant } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async (event) => {
-  const { loadQuery } = event.locals;
-  const { id } = event.params;
+  const {
+    params: { id },
+    locals: { loadQuery },
+  } = event;
 
-  const params = { id };
-  const initial = await loadQuery<Event>(query, params);
+  const initial = await loadQuery<Event>(query, { id });
 
   const form = await superValidate(zod(registrationSchema));
 
   return {
     query,
-    params,
     options: { initial },
     form,
   };
 };
 
 export const actions: Actions = {
-  submitRegistration: async ({ request, params }) => {
+  submitRegistration: async ({ request, params: { id } }) => {
+    if (!validator.isUUID(id)) {
+      return fail(500);
+    }
+
     const form = await superValidate(request, zod(registrationSchema));
 
     if (!form.valid) {
-      return fail(400, {
-        form,
-      });
+      return fail(400, { form });
     }
-    const documentId = params.id;
 
-    const participantResult = await supabase.from("event_participant").insert({
-      document_id: documentId,
-      full_name: form.data.name,
-      telephone: form.data.telephone,
-      email: form.data.email,
-      firm: form.data.firm,
-    });
+    const {
+      data: { fullName, telephone, email, firm, allergies },
+    } = form;
 
-    let allergies: AllergyEnum[] = form.data.allergies;
+    const participantData = {
+      document_id: id,
+      full_name: fullName,
+      telephone,
+      email,
+      firm,
+    };
+    const { error: participantError } = await saveEventParticipant(participantData);
 
-    if (allergies.length) {
-      console.log(createAllergiesString(allergies));
-      const allergyResult = await supabase.from("event_allergies").insert({
-        document_id: documentId,
-        allergy: createAllergiesString(allergies),
-      });
-
-      if (allergyResult.error) {
-        return fail(500);
-      }
-    }
-    if (participantResult.error) {
+    if (participantError) {
       return fail(500);
     }
+
+    const allergyData = allergies.map((allergy) => ({ document_id: id, allergy }));
+
+    const { error: allergyError } = await saveEventAllergies(allergyData);
+
+    if (allergyError) {
+      return fail(500);
+    }
+
+    const emailData = {
+      event: "",
+      fullName,
+      email,
+    };
+    const { error: emailError } = await sendEventConfirmationEmail(emailData);
+
+    if (emailError) {
+      return fail(500);
+    }
+
     return;
   },
 };
-
-function createAllergiesString(allergies: AllergyEnum[]): string {
-  return allergies.sort((a, b) => a.localeCompare(b)).join(", ");
-}
