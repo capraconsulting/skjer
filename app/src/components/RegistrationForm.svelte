@@ -12,13 +12,14 @@
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
   <div class="flex flex-col gap-2">
+    <input type="text" name="subject" id="subject" class="hidden" />
     <label class="font-bold" for="name">Navn*</label>
     <input
       class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
       type="text"
-      name="name"
-      id="name"
-      bind:value={$form.name}
+      name="fullName"
+      id="fullName"
+      bind:value={$form.fullName}
     />
     {#if $errors.name}
       <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
