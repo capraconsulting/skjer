@@ -6,7 +6,7 @@ import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
 import { sendEventConfirmationEmail } from "$lib/email/send";
-import { saveEventAllergies, saveEventParticipant } from "$lib/server/supabase/queries";
+import { saveEventAllergy, saveEventParticipant } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async (event) => {
   const {
@@ -54,15 +54,17 @@ export const actions: Actions = {
       return fail(500);
     }
 
-    const allergyData = allergies.map((allergy) => ({ document_id: id, allergy }));
+    const allergyData = allergies.map((allergy_id) => ({ document_id: id, allergy_id }));
 
-    const { error: allergyError } = await saveEventAllergies(allergyData);
+    for (let allergy of allergyData) {
+      const { error: allergyError } = await saveEventAllergy(allergy);
 
-    if (allergyError) {
-      return fail(500);
+      if (allergyError) {
+        return fail(500);
+      }
     }
 
-    const emailData = {
+    /* const emailData = {
       event: "",
       fullName,
       email,
@@ -71,7 +73,7 @@ export const actions: Actions = {
 
     if (emailError) {
       return fail(500);
-    }
+    } */
 
     return;
   },

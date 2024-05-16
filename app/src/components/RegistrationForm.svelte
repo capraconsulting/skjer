@@ -1,83 +1,66 @@
 <script lang="ts">
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
+  import { Input, Label, Button, MultiSelect } from "flowbite-svelte";
 
   export let form;
   export let errors;
   export let enhance;
   export let event: Event;
 
-  let allergies = Object.values(Allergy);
+  let allergies = Object.entries(Allergy).map(([key, value]) => ({
+    value: parseInt(key),
+    name: value,
+  }));
 </script>
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-1">
     <input type="text" name="subject" id="subject" class="hidden" />
-    <label class="font-bold" for="name">Navn*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
-      type="text"
-      name="fullName"
-      id="fullName"
-      bind:value={$form.fullName}
-    />
-    {#if $errors.name}
+
+    <Label for="fullName">Navn*</Label>
+    <Input type="text" name="fullName" id="fullName" bind:value={$form.fullName} />
+    {#if $errors.fullName}
       <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="email">E-post*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
-      type="text"
-      name="email"
-      id="email"
-      bind:value={$form.email}
-    />
+  <div class="flex flex-col gap-1">
+    <Label for="email">E-post*</Label>
+    <Input type="text" name="email" id="email" bind:value={$form.email} />
     {#if $errors.email}
       <p class="text-red-600 text-xs">Fyll inn gyldig epost.</p>
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="telephone">Telefonnummer*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
-      type="text"
-      name="telephone"
-      id="telephone"
-      bind:value={$form.telephone}
-    />
+  <div class="flex flex-col gap-1">
+    <Label for="telephone">Telefonnummer</Label>
+    <Input type="text" name="telephone" id="telephone" bind:value={$form.telephone} />
     {#if $errors.telephone}
       <p class="text-red-600 text-xs">Fyll inn gyldig telefonnummer.</p>
     {/if}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <label class="font-bold" for="firm">Firma*</label>
-    <input
-      class="border rounded w-full-py-2 px-3 text-gray-700 h-8"
-      type="text"
-      name="firm"
-      id="firm"
-      bind:value={$form.firm}
-    />
+  <div class="flex flex-col gap-1">
+    <Label for="firm">Firma</Label>
+    <Input type="text" name="firm" id="firm" bind:value={$form.firm} />
     {#if $errors.firm}
       <p class="text-red-600 text-xs">Fyll inn gyldig firmanavn (minst 2 bokstaver).</p>
     {/if}
   </div>
 
   {#if event.allergy}
-    <label class="font-bold" for="allergies">Allergier</label>
-    <select multiple bind:value={$form.allergies} name="allergies" id="allergies">
-      {#each allergies as allergy}
-        <option value={allergy}>{allergy}</option>
-      {/each}
-    </select>
+    <div class="flex flex-col gap-1">
+      <Label for="allergies">Allergier</Label>
+      <MultiSelect
+        items={allergies}
+        bind:value={$form.allergies}
+        id="allergies"
+        name="allergies"
+        size="md"
+      />
+    </div>
   {/if}
 
-  <button class="w-52 bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 rounded" type="submit"
-    >Send inn</button
-  >
+  <Button color="dark" type="submit">Send inn</Button>
 </form>

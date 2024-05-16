@@ -1,7 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEventAllergies } from "../../api/fetchEventAllergies";
-import { Card, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
+import { Card, Flex, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
+import { UserIcon } from "@sanity/icons";
 
 export default function EventAllergy({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -10,6 +11,10 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
+  const totalAllergyPersons = data?.reduce(
+    (accumulator, currentItem) => accumulator + currentItem.count,
+    0
+  );
 
   if (isLoading) {
     return (
@@ -51,16 +56,24 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           Event
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Matallergier ({data?.length})
+          Matallergier
         </Heading>
+        <Text size={2} style={{ paddingTop: "10px" }}>
+          Totalt {totalAllergyPersons} personer med allergier har meldt seg på dette arrangementet.
+        </Text>
       </Grid>
 
-      <Grid gap={4} style={{ marginTop: "4rem" }}>
+      <Grid gap={4} style={{ marginTop: "3rem" }}>
         {data.map(({ allergy, count }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
-              <Text weight="bold">{allergy}</Text>
-              <Text>{count}</Text>
+              <Flex align="center">
+                <Text>{count}</Text>
+                <UserIcon style={{ fontSize: 20 }} />
+                <Text weight="bold" style={{ marginLeft: 20 }}>
+                  {allergy}
+                </Text>
+              </Flex>
             </Stack>
           </Card>
         ))}
