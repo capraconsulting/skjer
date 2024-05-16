@@ -3,7 +3,7 @@ import { supabase } from "./supabase.api";
 export async function fetchEventAllergies({ documentId }: { documentId: string }) {
   try {
     const { data, error } = await supabase
-      .from("event_allergies")
+      .from("event_allergy")
       .select("document_id, allergy, allergy.count()")
       .eq("document_id", documentId);
 

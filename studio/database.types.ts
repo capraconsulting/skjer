@@ -3,7 +3,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
-      event_allergies: {
+      event_allergy: {
         Row: {
           allergy: string | null;
           allergy_id: number;

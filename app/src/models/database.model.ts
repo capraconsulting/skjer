@@ -9,23 +9,46 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      event_allergies: {
+      allergy: {
         Row: {
-          allergy: string | null
           allergy_id: number
-          document_id: string | null
+          name: string | null
         }
         Insert: {
-          allergy?: string | null
           allergy_id?: number
-          document_id?: string | null
+          name?: string | null
         }
         Update: {
-          allergy?: string | null
           allergy_id?: number
-          document_id?: string | null
+          name?: string | null
         }
         Relationships: []
+      }
+      event_allergy: {
+        Row: {
+          allergy_id: number
+          document_id: string
+          event_allergy_id: number
+        }
+        Insert: {
+          allergy_id: number
+          document_id: string
+          event_allergy_id?: number
+        }
+        Update: {
+          allergy_id?: number
+          document_id?: string
+          event_allergy_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_allergy_allergy_id_fkey"
+            columns: ["allergy_id"]
+            isOneToOne: false
+            referencedRelation: "allergy"
+            referencedColumns: ["allergy_id"]
+          },
+        ]
       }
       event_participant: {
         Row: {

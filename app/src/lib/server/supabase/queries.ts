@@ -22,10 +22,16 @@ export const saveEventParticipant = async ({
   return result;
 };
 
-export const saveEventAllergies = async (
-  allergies: Pick<Tables<"event_allergies">, "allergy" | "document_id">[]
+export const saveEventAllergy = async (
+  allergy: Pick<Tables<"event_allergy">, "allergy_id" | "document_id">
 ) => {
-  const result = await supabase.from("event_allergies").insert(allergies);
+  const result = await supabase.from("event_allergy").insert(allergy);
+
+  return result;
+};
+
+export const getAllergyTypes = async () => {
+  const result = await supabase.from("allergy").select();
 
   return result;
 };
