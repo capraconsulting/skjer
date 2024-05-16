@@ -2,7 +2,6 @@
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
   import { Input, Label, Button, MultiSelect } from "flowbite-svelte";
-  import SuperDebugger from "sveltekit-superforms";
 
   export let form;
   export let errors;
@@ -15,15 +14,13 @@
   }));
 </script>
 
-<SuperDebugger data={form} />
-
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
   <div class="flex flex-col gap-1">
     <input type="text" name="subject" id="subject" class="hidden" />
 
     <Label for="fullName">Navn*</Label>
     <Input type="text" name="fullName" id="fullName" bind:value={$form.fullName} />
-    {#if $errors.name}
+    {#if $errors.fullName}
       <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}
   </div>

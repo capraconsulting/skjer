@@ -6,11 +6,7 @@ import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
 import { sendEventConfirmationEmail } from "$lib/email/send";
-import {
-  getAllergyTypes,
-  saveEventAllergy,
-  saveEventParticipant,
-} from "$lib/server/supabase/queries";
+import { saveEventAllergy, saveEventParticipant } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async (event) => {
   const {
@@ -26,7 +22,6 @@ export const load: PageServerLoad = async (event) => {
     query,
     options: { initial },
     form,
-    allergies: getAllergyTypes() ?? [],
   };
 };
 

@@ -29,9 +29,3 @@ export const saveEventAllergy = async (
 
   return result;
 };
-
-export const getAllergyTypes = async () => {
-  const result = await supabase.from("allergy").select();
-
-  return result;
-};
