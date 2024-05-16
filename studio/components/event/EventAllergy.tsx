@@ -11,7 +11,10 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
-  const totalAllergyPersons = data?.reduce((accumulator, currentItem) => accumulator + currentItem.count, 0);
+  const totalAllergyPersons = data?.reduce(
+    (accumulator, currentItem) => accumulator + currentItem.count,
+    0
+  );
 
   if (isLoading) {
     return (
@@ -65,9 +68,11 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           <Card {...cardProps} key={index}>
             <Stack space={4}>
               <Flex align="center">
-              <Text>{count}</Text>
-              <UserIcon style={{ fontSize: 20 }} />
-              <Text weight="bold" style={{ marginLeft: 20 }}>{allergy}</Text>
+                <Text>{count}</Text>
+                <UserIcon style={{ fontSize: 20 }} />
+                <Text weight="bold" style={{ marginLeft: 20 }}>
+                  {allergy}
+                </Text>
               </Flex>
             </Stack>
           </Card>

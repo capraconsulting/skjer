@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
-  import { Input, Label, Button, MultiSelect } from 'flowbite-svelte';
+  import { Input, Label, Button, MultiSelect } from "flowbite-svelte";
 
   export let form;
   export let errors;
@@ -9,18 +9,12 @@
   export let event: Event;
 
   let allergies = Object.entries(Allergy).map(([key, value]) => ({ value: value, name: value }));
-
 </script>
 
 <form class="flex flex-col gap-6" method="POST" action="?/submitRegistration" use:enhance>
   <div class="flex flex-col gap-1">
     <Label for="name">Navn*</Label>
-    <Input
-      type="text"
-      name="name"
-      id="name"
-      bind:value={$form.name}
-    />
+    <Input type="text" name="name" id="name" bind:value={$form.name} />
     {#if $errors.name}
       <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}
@@ -28,12 +22,7 @@
 
   <div class="flex flex-col gap-1">
     <Label for="email">E-post*</Label>
-    <Input
-      type="text"
-      name="email"
-      id="email"
-      bind:value={$form.email}
-    />
+    <Input type="text" name="email" id="email" bind:value={$form.email} />
     {#if $errors.email}
       <p class="text-red-600 text-xs">Fyll inn gyldig epost.</p>
     {/if}
@@ -41,12 +30,7 @@
 
   <div class="flex flex-col gap-1">
     <Label for="telephone">Telefonnummer</Label>
-    <Input
-      type="text"
-      name="telephone"
-      id="telephone"
-      bind:value={$form.telephone}
-    />
+    <Input type="text" name="telephone" id="telephone" bind:value={$form.telephone} />
     {#if $errors.telephone}
       <p class="text-red-600 text-xs">Fyll inn gyldig telefonnummer.</p>
     {/if}
@@ -54,12 +38,7 @@
 
   <div class="flex flex-col gap-1">
     <Label for="firm">Firma</Label>
-    <Input
-      type="text"
-      name="firm"
-      id="firm"
-      bind:value={$form.firm}
-    />
+    <Input type="text" name="firm" id="firm" bind:value={$form.firm} />
     {#if $errors.firm}
       <p class="text-red-600 text-xs">Fyll inn gyldig firmanavn (minst 2 bokstaver).</p>
     {/if}
@@ -67,11 +46,16 @@
 
   {#if event.allergy}
     <div class="flex flex-col gap-1">
-        <Label for="allergies">Allergier</Label>
-        <MultiSelect items={allergies} bind:value={$form.allergies} id="allergies" name="allergies" size="md" />
+      <Label for="allergies">Allergier</Label>
+      <MultiSelect
+        items={allergies}
+        bind:value={$form.allergies}
+        id="allergies"
+        name="allergies"
+        size="md"
+      />
     </div>
   {/if}
 
-  <Button color="dark" type="submit">Send inn</Button
-  >
+  <Button color="dark" type="submit">Send inn</Button>
 </form>
