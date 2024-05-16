@@ -46,6 +46,7 @@ export const actions: Actions = {
     let allergies: AllergyEnum[] = form.data.allergies;
 
     if (allergies.length) {
+      console.log(createAllergiesString(allergies));
       const allergyResult = await supabase.from("event_allergies").insert({
         document_id: documentId,
         allergy: createAllergiesString(allergies),
@@ -63,11 +64,5 @@ export const actions: Actions = {
 };
 
 function createAllergiesString(allergies: AllergyEnum[]): string {
-  const sortedAllergies = allergies.sort((a, b) => a.localeCompare(b));
-  const lowerCasedAllergies = sortedAllergies.map((allergy, index) =>
-    index === 0 ? allergy : allergy.toLowerCase()
-  );
-  lowerCasedAllergies[0] =
-    lowerCasedAllergies[0][0].toUpperCase() + lowerCasedAllergies[0].slice(1).toLowerCase();
-  return lowerCasedAllergies.join(", ");
+  return allergies.sort((a, b) => a.localeCompare(b)).join(", ");
 }
