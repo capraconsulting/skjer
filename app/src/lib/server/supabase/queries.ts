@@ -40,22 +40,23 @@ export const saveEventParticipant = async ({
   return result;
 };
 
-export const saveAndGetEventAllergy = async ({
-  event_id,
-}: Pick<Tables<"event_allergy">, "event_id">) => {
-  const result = await supabase
-    .from("event_allergy")
-    .insert({ event_id })
-    .select("event_allergy_id")
-    .maybeSingle();
+export const saveEventAllergy = async (
+  eventAllergy: Pick<
+    Tables<"event_allergy">,
+    "allergy_id" | "event_id" | "event_participant_allergy_id"
+  >[]
+) => {
+  const result = await supabase.from("event_allergy").insert(eventAllergy);
 
   return result;
 };
 
-export const saveEventAllergyList = async (
-  allergies: Pick<Tables<"event_allergy_list">, "event_allergy_id" | "allergy_id">[]
-) => {
-  const result = await supabase.from("event_allergy_list").insert(allergies);
+export const saveAndGetEventParticipantAllergyId = async () => {
+  const result = await supabase
+    .from("event_participant_allergy")
+    .insert({})
+    .select("event_participant_allergy_id")
+    .maybeSingle();
 
   return result;
 };

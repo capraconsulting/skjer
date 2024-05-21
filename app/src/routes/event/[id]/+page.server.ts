@@ -9,8 +9,8 @@ import { sendEventConfirmationEmail } from "$lib/email/send";
 import {
   createAndGetEvent,
   getEvent,
-  saveAndGetEventAllergy,
-  saveEventAllergyList,
+  saveEventAllergy,
+  saveAndGetEventParticipantAllergyId,
   saveEventParticipant,
 } from "$lib/server/supabase/queries";
 
@@ -74,18 +74,22 @@ export const actions: Actions = {
       return fail(500);
     }
 
-    const eventAllergy = await saveAndGetEventAllergy({ event_id });
-    if (!eventAllergy.data?.event_allergy_id) {
+    const eventAllergy = await saveAndGetEventParticipantAllergyId();
+    if (!eventAllergy.data?.event_participant_allergy_id) {
       return fail(500);
     }
 
     const {
-      data: { event_allergy_id },
+      data: { event_participant_allergy_id },
     } = eventAllergy;
 
-    const allergyData = allergies.map((allergy_id) => ({ event_allergy_id, allergy_id }));
+    const allergyData = allergies.map((allergy_id) => ({
+      event_id,
+      event_participant_allergy_id,
+      allergy_id,
+    }));
 
-    const { error: allergyListError } = await saveEventAllergyList(allergyData);
+    const { error: allergyListError } = await saveEventAllergy(allergyData);
     if (allergyListError) {
       return fail(500);
     }
