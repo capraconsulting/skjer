@@ -2,14 +2,17 @@ import { supabase } from "./supabase.api";
 
 export async function fetchEventAllergies({ documentId }: { documentId: string }) {
   try {
-    const { data, error } = await supabase
-      .from("event_allergy")
-      .select("document_id, allergy, allergy.count()")
-      .eq("document_id", documentId);
+    const { data } = await supabase
+      .from("event")
+      .select(
+        `
+        allergies: allergy(name, name.count()),
+        total_participant: event_allergy(event_participant_allergy_id, event_participant_allergy_id.count())
+      `
+      )
+      .eq("document_id", documentId)
+      .maybeSingle();
 
-    if (error) {
-      throw new Error(error.message);
-    }
     return data;
   } catch (error) {
     console.error(error);

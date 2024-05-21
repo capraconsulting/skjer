@@ -3,14 +3,12 @@ import { supabase } from "./supabase.api";
 
 export async function fetchEventParticipants({ documentId }: { documentId: string }) {
   try {
-    const { data, error } = await supabase
-      .from("event_participant")
-      .select()
-      .eq("document_id", documentId); // TODO: Only show attending
+    const { data } = await supabase
+      .from("event")
+      .select(`event_participant(*)`)
+      .eq("document_id", documentId)
+      .maybeSingle();
 
-    if (error) {
-      throw new Error(error.message);
-    }
     return data;
   } catch (error) {
     console.error(error);

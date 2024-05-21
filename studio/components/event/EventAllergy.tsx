@@ -11,10 +11,6 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
-  const totalAllergyPersons = data?.reduce(
-    (accumulator, currentItem) => accumulator + currentItem.count,
-    0
-  );
 
   if (isLoading) {
     return (
@@ -28,7 +24,7 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
-          Event
+          Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
           En feil har oppstått
@@ -36,7 +32,7 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
       </Grid>
     );
 
-  if (!data?.length) {
+  if (!data?.allergies.length) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
@@ -59,19 +55,20 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           Matallergier
         </Heading>
         <Text size={2} style={{ paddingTop: "10px" }}>
-          Totalt {totalAllergyPersons} personer med allergier har meldt seg på dette arrangementet.
+          Totalt {data.total_participant.length} personer med allergier har meldt seg på dette
+          arrangementet.
         </Text>
       </Grid>
 
       <Grid gap={4} style={{ marginTop: "3rem" }}>
-        {data.map(({ allergy, count }, index) => (
+        {data.allergies.map(({ name, count }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
               <Flex align="center">
                 <Text>{count}</Text>
                 <UserIcon style={{ fontSize: 20 }} />
                 <Text weight="bold" style={{ marginLeft: 20 }}>
-                  {allergy}
+                  {name}
                 </Text>
               </Flex>
             </Stack>

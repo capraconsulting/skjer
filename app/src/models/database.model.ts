@@ -12,33 +12,48 @@ export type Database = {
       allergy: {
         Row: {
           allergy_id: number
-          name: string | null
+          name: string
         }
         Insert: {
           allergy_id?: number
-          name?: string | null
+          name: string
         }
         Update: {
           allergy_id?: number
-          name?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
+      event: {
+        Row: {
+          document_id: string
+          event_id: number
+        }
+        Insert: {
+          document_id: string
+          event_id?: number
+        }
+        Update: {
+          document_id?: string
+          event_id?: number
         }
         Relationships: []
       }
       event_allergy: {
         Row: {
           allergy_id: number
-          document_id: string
-          event_allergy_id: number
+          event_id: number
+          event_participant_allergy_id: number
         }
         Insert: {
           allergy_id: number
-          document_id: string
-          event_allergy_id?: number
+          event_id: number
+          event_participant_allergy_id: number
         }
         Update: {
           allergy_id?: number
-          document_id?: string
-          event_allergy_id?: number
+          event_id?: number
+          event_participant_allergy_id?: number
         }
         Relationships: [
           {
@@ -48,70 +63,101 @@ export type Database = {
             referencedRelation: "allergy"
             referencedColumns: ["allergy_id"]
           },
+          {
+            foreignKeyName: "event_allergy_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "event"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "event_allergy_event_participant_allergy_id_fkey"
+            columns: ["event_participant_allergy_id"]
+            isOneToOne: false
+            referencedRelation: "event_participant_allergy"
+            referencedColumns: ["event_participant_allergy_id"]
+          },
         ]
       }
       event_participant: {
         Row: {
-          accepted_terms: boolean | null
           attending: boolean | null
           created_at: string | null
-          document_id: string | null
           email: string | null
+          event_id: number
+          event_participant_id: number
           firm: string | null
           full_name: string | null
-          participant_id: number
           telephone: string | null
         }
         Insert: {
-          accepted_terms?: boolean | null
           attending?: boolean | null
           created_at?: string | null
-          document_id?: string | null
           email?: string | null
+          event_id: number
+          event_participant_id?: number
           firm?: string | null
           full_name?: string | null
-          participant_id?: number
           telephone?: string | null
         }
         Update: {
-          accepted_terms?: boolean | null
           attending?: boolean | null
           created_at?: string | null
-          document_id?: string | null
           email?: string | null
+          event_id?: number
+          event_participant_id?: number
           firm?: string | null
           full_name?: string | null
-          participant_id?: number
           telephone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_participant_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "event"
+            referencedColumns: ["event_id"]
+          },
+        ]
+      }
+      event_participant_allergy: {
+        Row: {
+          event_participant_allergy_id: number
+        }
+        Insert: {
+          event_participant_allergy_id?: number
+        }
+        Update: {
+          event_participant_allergy_id?: number
         }
         Relationships: []
       }
       event_participant_options: {
         Row: {
-          option_id: number
+          event_participant_id: number
+          event_participant_option_id: number
           option_name: string | null
           option_value: boolean | null
-          participant_id: number | null
         }
         Insert: {
-          option_id?: number
+          event_participant_id: number
+          event_participant_option_id: number
           option_name?: string | null
           option_value?: boolean | null
-          participant_id?: number | null
         }
         Update: {
-          option_id?: number
+          event_participant_id?: number
+          event_participant_option_id?: number
           option_name?: string | null
           option_value?: boolean | null
-          participant_id?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "participant_options_participant_id_fkey"
-            columns: ["participant_id"]
+            foreignKeyName: "event_participant_options_event_participant_id_fkey"
+            columns: ["event_participant_id"]
             isOneToOne: false
             referencedRelation: "event_participant"
-            referencedColumns: ["participant_id"]
+            referencedColumns: ["event_participant_id"]
           },
         ]
       }
