@@ -6,7 +6,13 @@ import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
 import { sendEventConfirmationEmail } from "$lib/email/send";
-import { saveEventAllergy, saveEventParticipant } from "$lib/server/supabase/queries";
+import {
+  createAndGetEvent,
+  getEvent,
+  saveAndGetEventAllergy,
+  saveEventAllergyList,
+  saveEventParticipant,
+} from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async (event) => {
   const {
@@ -37,31 +43,51 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
+    let event = await getEvent(id);
+
+    if (!event.data) {
+      event = await createAndGetEvent(id);
+    }
+
+    if (!event.data?.event_id) {
+      return fail(500);
+    }
+
+    const {
+      data: { event_id },
+    } = event;
+
     const {
       data: { fullName, telephone, email, firm, allergies },
     } = form;
 
     const participantData = {
-      document_id: id,
+      event_id: event.data.event_id,
       full_name: fullName,
       telephone,
       email,
       firm,
     };
-    const { error: participantError } = await saveEventParticipant(participantData);
 
+    const { error: participantError } = await saveEventParticipant(participantData);
     if (participantError) {
       return fail(500);
     }
 
-    const allergyData = allergies.map((allergy_id) => ({ document_id: id, allergy_id }));
+    const eventAllergy = await saveAndGetEventAllergy({ event_id });
+    if (!eventAllergy.data?.event_allergy_id) {
+      return fail(500);
+    }
 
-    for (let allergy of allergyData) {
-      const { error: allergyError } = await saveEventAllergy(allergy);
+    const {
+      data: { event_allergy_id },
+    } = eventAllergy;
 
-      if (allergyError) {
-        return fail(500);
-      }
+    const allergyData = allergies.map((allergy_id) => ({ event_allergy_id, allergy_id }));
+
+    const { error: allergyListError } = await saveEventAllergyList(allergyData);
+    if (allergyListError) {
+      return fail(500);
     }
 
     /* const emailData = {

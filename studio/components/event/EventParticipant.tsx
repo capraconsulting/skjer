@@ -12,7 +12,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
 
   const [searchQuery, setValue] = useState("");
 
-  const filteredData = data?.filter((participant) => {
+  const filteredData = data?.event_participant.filter((participant) => {
     return Object.values(participant).some(
       (value) =>
         typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
@@ -33,7 +33,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
     return (
       <Grid gap={4}>
         <Text muted size={1}>
-          Event
+          Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
           En feil har oppstått
@@ -41,7 +41,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
       </Grid>
     );
 
-  if (!data?.length) {
+  if (!data?.event_participant.length) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
@@ -61,7 +61,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
           Event
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Påmeldinger ({data.length})
+          Påmeldinger ({data?.event_participant.length})
         </Heading>
       </Grid>
 
@@ -77,25 +77,27 @@ export default function EventParticipant({ documentId }: { documentId: string })
       </Box>
 
       <Grid gap={4}>
-        {filteredData?.map(({ participant_id, full_name, email, telephone, firm, created_at }) => (
-          <Card {...cardProps} key={participant_id}>
-            <Stack space={4}>
-              <Text weight="bold">{full_name}</Text>
-              <Text textOverflow={"ellipsis"}>{email}</Text>
-              <Text>{telephone}</Text>
-              <Text>{firm}</Text>
-              <Text>{Intl.DateTimeFormat().format(new Date(created_at || ""))}</Text>
-              <Button
-                fontSize={1}
-                padding={2}
-                icon={RevertIcon}
-                mode="ghost"
-                tone="critical"
-                text="Trekk"
-              />
-            </Stack>
-          </Card>
-        ))}
+        {filteredData?.map(
+          ({ event_participant_id, full_name, email, telephone, firm, created_at }) => (
+            <Card {...cardProps} key={event_participant_id}>
+              <Stack space={4}>
+                <Text weight="bold">{full_name}</Text>
+                <Text textOverflow={"ellipsis"}>{email}</Text>
+                <Text>{telephone}</Text>
+                <Text>{firm}</Text>
+                <Text>{Intl.DateTimeFormat().format(new Date(created_at || ""))}</Text>
+                <Button
+                  fontSize={1}
+                  padding={2}
+                  icon={RevertIcon}
+                  mode="ghost"
+                  tone="critical"
+                  text="Trekk"
+                />
+              </Stack>
+            </Card>
+          )
+        )}
       </Grid>
     </>
   );
