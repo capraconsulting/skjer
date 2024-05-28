@@ -32,7 +32,7 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
       </Grid>
     );
 
-  if (!data?.allergies.length) {
+  if (!data) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
@@ -55,26 +55,26 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
           Matallergier
         </Heading>
         <Text size={2} style={{ paddingTop: "10px" }}>
-          Totalt {data.total_participant.length} personer med allergier har meldt seg på dette
+          Totalt {data.total_participant_count} personer med allergier har meldt seg på dette
           arrangementet.
         </Text>
       </Grid>
 
-      <Grid gap={4} style={{ marginTop: "3rem" }}>
-        {data.allergies.map(({ name, count }, index) => (
+      <div style={{ marginTop: "3rem" }}>
+        {data.allergy_details?.map(({ allergies, participant_count }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
               <Flex align="center">
-                <Text>{count}</Text>
+                <Text>{participant_count}</Text>
                 <UserIcon style={{ fontSize: 20 }} />
                 <Text weight="bold" style={{ marginLeft: 20 }}>
-                  {name}
+                  <span>{allergies?.join(", ")}</span>
                 </Text>
               </Flex>
             </Stack>
           </Card>
         ))}
-      </Grid>
+      </div>
     </>
   );
 }
