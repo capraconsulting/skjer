@@ -15,7 +15,10 @@
 
   $: ({ data: event } = $q);
 
-  const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
+  const { form, errors, enhance, message, delayed } = superForm(data.form, {
+    validators: zod(registrationSchema),
+    delayMs: 300,
+  });
 </script>
 
 <section class="w-full mt-2 mb-80 mx-0">
@@ -66,7 +69,7 @@
 
     <div class="py-8">
       <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {form} {errors} {enhance} {event} />
+      <RegistrationForm {form} {errors} {enhance} {message} {delayed} {event} />
     </div>
   </div>
 </section>

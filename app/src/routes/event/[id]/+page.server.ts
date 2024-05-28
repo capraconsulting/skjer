@@ -1,7 +1,7 @@
 import { eventQuery as query, type Event } from "$lib/sanity/queries";
 import { fail } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { superValidate } from "sveltekit-superforms/server";
+import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
@@ -70,7 +70,7 @@ export const actions: Actions = {
     };
 
     const { error: participantError } = await saveEventParticipant(participantData);
-    if (participantError) {
+    if (!participantError) {
       return fail(500);
     }
 
@@ -105,6 +105,6 @@ export const actions: Actions = {
       return fail(500);
     } */
 
-    return;
+    return message(form, { success: true, email });
   },
 };
