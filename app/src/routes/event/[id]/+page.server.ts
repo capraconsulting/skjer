@@ -43,11 +43,7 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
-    let event = await getEvent(id);
-
-    if (!event.data) {
-      event = await createAndGetEvent(id);
-    }
+    const event = await getEvent(id);
 
     if (!event.data?.event_id) {
       return fail(500);
@@ -74,14 +70,14 @@ export const actions: Actions = {
       return fail(500);
     }
 
-    const eventAllergy = await saveAndGetEventParticipantAllergyId();
-    if (!eventAllergy.data?.event_participant_allergy_id) {
+    const eventParticipantAllergyId = await saveAndGetEventParticipantAllergyId();
+    if (!eventParticipantAllergyId.data?.event_participant_allergy_id) {
       return fail(500);
     }
 
     const {
       data: { event_participant_allergy_id },
-    } = eventAllergy;
+    } = eventParticipantAllergyId;
 
     const allergyData = allergies.map((allergy_id) => ({
       event_id,
@@ -95,10 +91,11 @@ export const actions: Actions = {
     }
 
     /* const emailData = {
-      event: "",
+      eventName: "",
       fullName,
       email,
     };
+    
     const { error: emailError } = await sendEventConfirmationEmail(emailData);
 
     if (emailError) {
