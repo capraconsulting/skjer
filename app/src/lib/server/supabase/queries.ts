@@ -7,18 +7,6 @@ export const getEvent = async (document_id: string) => {
   return result;
 };
 
-export const createAndGetEvent = async (document_id: string) => {
-  const result = await supabase
-    .from("event")
-    .insert({
-      document_id,
-    })
-    .select()
-    .maybeSingle();
-
-  return result;
-};
-
 export const saveEventParticipant = async ({
   event_id,
   full_name,
