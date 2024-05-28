@@ -163,7 +163,14 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      event_allergy_summary: {
+        Row: {
+          allergy_details: Json | null
+          document_id: string | null
+          total_participant_count: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
