@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
-  import { Input, Label, Button, MultiSelect, Alert } from "flowbite-svelte";
+  import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
 
   export let form;
   export let errors;
@@ -63,9 +63,12 @@
     </div>
   {/if}
 
-  <Button color="dark" type="submit" disabled={$delayed}>
-    <div class="flex gap-1">
-      <span>Send inn</span>
-    </div>
+  <Button color="dark" type="submit" disabled={$delayed}
+    >Send inn
+    <span class="w-3">
+      {#if $delayed}
+        <Spinner class="ml-2" color="white" size="4" />
+      {/if}
+    </span>
   </Button>
 </form>

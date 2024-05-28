@@ -19,7 +19,7 @@
 
   const { form, errors, enhance, message, delayed } = superForm(data.form, {
     validators: zod(registrationSchema),
-    delayMs: 300,
+    delayMs: 200,
   });
 </script>
 
