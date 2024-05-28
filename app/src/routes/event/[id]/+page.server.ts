@@ -70,7 +70,7 @@ export const actions: Actions = {
     };
 
     const { error: participantError } = await saveEventParticipant(participantData);
-    if (!participantError) {
+    if (participantError) {
       return fail(500);
     }
 

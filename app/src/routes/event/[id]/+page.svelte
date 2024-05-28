@@ -1,6 +1,7 @@
 <script lang="ts">
   import { PortableText } from "@portabletext/svelte";
   import { useQuery } from "@sanity/svelte-loader";
+  import { page } from "$app/stores";
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
@@ -8,6 +9,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema } from "$lib/schemas/registrationSchema.js";
+  import { Alert } from "flowbite-svelte";
 
   export let data;
 
@@ -69,7 +71,22 @@
 
     <div class="py-8">
       <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {form} {errors} {enhance} {message} {delayed} {event} />
+      {#if $message?.success === true}
+        <Alert color="green" class="mb-6"
+          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b>{$message.email}</b> hvert
+          øyeblikk.</Alert
+        >
+      {/if}
+
+      {#if $page?.status === 500}
+        <Alert color="red" class="mb-6"
+          >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
+        >
+      {/if}
+
+      {#if !$message}
+        <RegistrationForm {form} {errors} {enhance} {delayed} {event} />
+      {/if}
     </div>
   </div>
 </section>
