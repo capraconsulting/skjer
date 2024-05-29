@@ -32,7 +32,7 @@
     />
   {/if}
   <div class="pr-4 pl-3 py-0">
-    <h1 class="text-6xl font-extrabold leading-loose">{event.title}</h1>
+    <h1 class="text-6xl font-extrabold leading-tight my-8">{event.title}</h1>
     {#if event.summary}
       <p class="text-2xl">{event.summary}</p>
     {/if}
