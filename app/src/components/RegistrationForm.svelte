@@ -1,11 +1,12 @@
 <script lang="ts">
   import type { Event } from "$lib/sanity/queries";
   import { Allergy } from "$models/allergy.model";
-  import { Input, Label, Button, MultiSelect } from "flowbite-svelte";
+  import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
 
   export let form;
   export let errors;
   export let enhance;
+  export let delayed;
   export let event: Event;
 
   let allergies = Object.entries(Allergy).map(([key, value]) => ({
@@ -62,5 +63,12 @@
     </div>
   {/if}
 
-  <Button color="dark" type="submit">Send inn</Button>
+  <Button color="dark" type="submit" disabled={$delayed}
+    >Send inn
+    <span class="w-3">
+      {#if $delayed}
+        <Spinner class="ml-2" color="white" size="4" />
+      {/if}
+    </span>
+  </Button>
 </form>
