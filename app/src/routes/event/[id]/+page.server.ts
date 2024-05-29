@@ -1,13 +1,12 @@
 import { eventQuery as query, type Event } from "$lib/sanity/queries";
 import { fail } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { superValidate } from "sveltekit-superforms/server";
+import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
 import { sendEventConfirmationEmail } from "$lib/email/send";
 import {
-  createAndGetEvent,
   getEvent,
   saveEventAllergy,
   saveAndGetEventParticipantAllergyId,
@@ -102,6 +101,6 @@ export const actions: Actions = {
       return fail(500);
     } */
 
-    return;
+    return message(form, { success: true, email });
   },
 };

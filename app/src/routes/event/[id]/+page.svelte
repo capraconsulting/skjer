@@ -1,6 +1,7 @@
 <script lang="ts">
   import { PortableText } from "@portabletext/svelte";
   import { useQuery } from "@sanity/svelte-loader";
+  import { page } from "$app/stores";
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
@@ -8,6 +9,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema } from "$lib/schemas/registrationSchema.js";
+  import { Alert } from "flowbite-svelte";
 
   export let data;
 
@@ -15,7 +17,10 @@
 
   $: ({ data: event } = $q);
 
-  const { form, errors, enhance } = superForm(data.form, { validators: zod(registrationSchema) });
+  const { form, errors, enhance, message, delayed } = superForm(data.form, {
+    validators: zod(registrationSchema),
+    delayMs: 200,
+  });
 </script>
 
 <section class="w-full mt-2 mb-80 mx-0">
@@ -27,7 +32,7 @@
     />
   {/if}
   <div class="pr-4 pl-3 py-0">
-    <h1 class="text-6xl font-extrabold leading-loose">{event.title}</h1>
+    <h1 class="text-6xl font-extrabold leading-tight my-8">{event.title}</h1>
     {#if event.summary}
       <p class="text-2xl">{event.summary}</p>
     {/if}
@@ -66,7 +71,22 @@
 
     <div class="py-8">
       <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      <RegistrationForm {form} {errors} {enhance} {event} />
+      {#if $message?.success === true}
+        <Alert color="green" class="mb-6"
+          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b>{$message.email}</b> hvert
+          øyeblikk.</Alert
+        >
+      {/if}
+
+      {#if $page?.status === 500}
+        <Alert color="red" class="mb-6"
+          >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
+        >
+      {/if}
+
+      {#if !$message}
+        <RegistrationForm {form} {errors} {enhance} {delayed} {event} />
+      {/if}
     </div>
   </div>
 </section>
