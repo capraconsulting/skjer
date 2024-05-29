@@ -4,10 +4,35 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const q = useQuery(data);
+  let events = data.events;
+  let selectedCategory: string = data.category || "";
 
-  $: ({ data: events } = $q);
+  function updateCategory(category: string) {
+    const url = new URL(window.location.href);
+    if (category) {
+      url.searchParams.set("category", category);
+    } else {
+      url.searchParams.delete("category");
+    }
+    window.location.href = url.toString();
+  }
 </script>
+
+<section>
+  <label for="category">Filtrer etter kategori:</label>
+  <select
+    id="category"
+    bind:value={selectedCategory}
+    on:change={() => updateCategory(selectedCategory)}
+  >
+    <option value="">Alle</option>
+    <option value="Sosialt">Sosialt</option>
+    <option value="Frokostseminar">Frokostseminar</option>
+    <option value="Konferanse">Konferanse</option>
+    <option value="Fagsamling">Fagsamling</option>
+    <option value="Fagsirkel">Fagsirkel</option>
+  </select>
+</section>
 
 <section>
   {#if events.length}

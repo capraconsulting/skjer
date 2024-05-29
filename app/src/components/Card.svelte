@@ -23,6 +23,7 @@
       class="text-4xl font-extrabold leading-tight pt-4 pb-2 group-hover:opacity-80 group-hover:transition-[2s]"
     >
       {event.title}
+      {event.category}
     </h3>
     {#if event.summary}
       <p class="text-xl">{event.summary}</p>
