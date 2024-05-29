@@ -3,6 +3,7 @@
   import { page } from "$app/stores";
   import LiveMode from "../components/LiveMode.svelte";
   import "../app.css";
+  import logo from "$lib/assets/logo.webp";
 </script>
 
 {#if $isPreviewing}
@@ -17,7 +18,10 @@
 
 <div class="sm:max-w-[768px] mx-auto">
   <header class="flex px-0 pt-2">
-    <a class="p-2 sm:px-0 text-4xl font-thin mt-4" href="/"> Arrangementoversikt </a>
+    <a class="p-2 sm:px-0 text-4xl font-thin mt-4 flex items-center" href="/">
+      <img src={logo} class="h-14 drop-shadow-lg mr-3" alt="Logo for Capra, Fryde og Liflig" />
+      <span>Arrangementoversikt</span>
+    </a>
   </header>
   <main class="my-8">
     <slot />
