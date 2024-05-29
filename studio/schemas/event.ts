@@ -55,6 +55,7 @@ export default defineType({
       name: "category",
       title: "Kategori",
       type: "category",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "place",

@@ -1,15 +1,15 @@
+import { client } from "$lib/sanity/client";
 import { eventsQuery as query, type Event } from "$lib/sanity/queries";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
-  const { loadQuery } = event.locals;
-  const initial = await loadQuery<Event[]>(query);
+  const url = new URL(event.url);
+  const category = url.searchParams.get("category");
 
-  // We pass the data in a format that is easy for `useQuery` to consume in the
-  // corresponding `+page.svelte` file, but you can return the data in any
-  // format you like.
+  const events: Event[] = await client.fetch(query, { category });
+
   return {
-    query,
-    options: { initial },
+    events,
+    category,
   };
 };

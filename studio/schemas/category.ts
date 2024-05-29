@@ -4,7 +4,8 @@ const categories = [
   { value: "Sosialt", title: "Sosialt" },
   { value: "Frokostseminar", title: "Frokostseminar" },
   { value: "Konferanse", title: "Konferanse" },
-  { value: "Arrangement", title: "Arrangement" },
+  { value: "Fagsamling", title: "Fagsamling" },
+  { value: "Fagsirkel", title: "Fagsirkel" },
 ];
 
 export default defineType({

@@ -2,6 +2,7 @@
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$lib/sanity/queries";
+  import { Badge } from "flowbite-svelte";
 
   export let event: Event;
 </script>
@@ -12,13 +13,16 @@
 >
   {#if event.image}
     <img
-      class="w-full h-60 object-cover sm:w-96 sm:max-h-60"
+      class="w-full object-cover sm:w-96"
       src={urlFor(event.image).width(500).height(300).url()}
       alt="Cover image for {event.title}"
     />
   {/if}
 
   <div class="my-0 mx-4">
+    <div>
+      <Badge color="dark">{event.category}</Badge>
+    </div>
     <h3
       class="text-4xl font-extrabold leading-tight pt-4 pb-2 group-hover:opacity-80 group-hover:transition-[2s]"
     >
@@ -27,7 +31,7 @@
     {#if event.summary}
       <p class="text-xl">{event.summary}</p>
     {/if}
-    <div class="my-6 text-sm font-semibold">
+    <div class="my-6 text-sm font-light">
       <div class="flex items-center">
         <span class="material-icons mr-2 text-base">schedule</span>
         <p>

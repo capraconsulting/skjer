@@ -4,7 +4,7 @@ import groq from "groq";
 
 export const eventQuery = groq`*[_type == "event" && _id == $id][0]`;
 
-export const eventsQuery = groq`*[_type == "event" && defined(_id)] | order(start desc)`;
+export const eventsQuery = groq`*[_type == "event" && defined(_id) && (!defined($category) || category == $category)] | order(start desc)`;
 
 export interface Event {
   _id: string;
@@ -19,13 +19,14 @@ export interface Event {
   end: string;
   place: string;
   allergy: boolean;
+  category: string;
 }
 
 export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]`;
 export const postsQuery = groq`*[_type == "post"]`;
 
 export interface Post {
-  _type: "event";
+  _type: "post";
   _createdAt: string;
   title?: string;
   subtitle?: string;

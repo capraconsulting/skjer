@@ -1,13 +1,44 @@
 <script lang="ts">
-  import { useQuery } from "@sanity/svelte-loader";
+  import { Button, ButtonGroup } from "flowbite-svelte";
   import Card from "../components/Card.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const q = useQuery(data);
+  let events = data.events;
+  let selectedCategory: string = data.category || "";
 
-  $: ({ data: events } = $q);
+  function updateCategory(category: string) {
+    const url = new URL(window.location.href);
+    if (category) {
+      url.searchParams.set("category", category);
+    } else {
+      url.searchParams.delete("category");
+    }
+    window.location.href = url.toString();
+  }
+
+  const categories = [
+    { value: "", title: "Alle" },
+    { value: "Sosialt", title: "Sosialt" },
+    { value: "Frokostseminar", title: "Frokostseminar" },
+    { value: "Konferanse", title: "Konferanse" },
+    { value: "Fagsamling", title: "Fagsamling" },
+    { value: "Fagsirkel", title: "Fagsirkel" },
+  ];
 </script>
+
+<section class="my-6">
+  <ButtonGroup>
+    {#each categories as category}
+      <Button
+        on:click={() => updateCategory(category.value)}
+        class={`${selectedCategory === category.value ? "bg-zinc-600 text-white hover:bg-zinc-600" : ""}`}
+      >
+        {category.title}
+      </Button>
+    {/each}
+  </ButtonGroup>
+</section>
 
 <section>
   {#if events.length}
@@ -15,6 +46,6 @@
       <Card {event} />
     {/each}
   {:else}
-    <div>Fant ingen eventer</div>
+    <div class="text-large font-light">Fant ingen arrangementer i denne kategorien 😭</div>
   {/if}
 </section>

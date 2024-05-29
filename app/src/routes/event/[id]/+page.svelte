@@ -9,7 +9,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema } from "$lib/schemas/registrationSchema.js";
-  import { Alert } from "flowbite-svelte";
+  import { Alert, Badge } from "flowbite-svelte";
 
   export let data;
 
@@ -36,7 +36,7 @@
     {#if event.summary}
       <p class="text-2xl">{event.summary}</p>
     {/if}
-    <div class="my-6 font-bold">
+    <div class="my-6 font-light">
       <div class="flex">
         <span class="material-icons mr-2">schedule</span>
         <p>
@@ -48,6 +48,7 @@
         <span class="material-icons mr-2">location_on</span>
         <p>{event.place}</p>
       </div>
+      <Badge class="mt-4" large color="dark">{event.category}</Badge>
     </div>
     {#if event.body}
       <div class="mt-8 flex flex-col gap-4">
