@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { useQuery } from "@sanity/svelte-loader";
   import Card from "../components/Card.svelte";
   import type { PageData } from "./$types";
 
@@ -16,6 +15,15 @@
     }
     window.location.href = url.toString();
   }
+
+  const categories = [
+    { value: "", title: "Alle" },
+    { value: "Sosialt", title: "Sosialt" },
+    { value: "Frokostseminar", title: "Frokostseminar" },
+    { value: "Konferanse", title: "Konferanse" },
+    { value: "Fagsamling", title: "Fagsamling" },
+    { value: "Fagsirkel", title: "Fagsirkel" },
+  ];
 </script>
 
 <section>
@@ -25,12 +33,9 @@
     bind:value={selectedCategory}
     on:change={() => updateCategory(selectedCategory)}
   >
-    <option value="">Alle</option>
-    <option value="Sosialt">Sosialt</option>
-    <option value="Frokostseminar">Frokostseminar</option>
-    <option value="Konferanse">Konferanse</option>
-    <option value="Fagsamling">Fagsamling</option>
-    <option value="Fagsirkel">Fagsirkel</option>
+    {#each categories as category}
+      <option value={category.value}>{category.title}</option>
+    {/each}
   </select>
 </section>
 
