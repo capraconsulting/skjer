@@ -31,7 +31,7 @@
     {#if event.summary}
       <p class="text-xl">{event.summary}</p>
     {/if}
-    <div class="my-6 text-sm font-semibold">
+    <div class="my-6 text-sm font-light">
       <div class="flex items-center">
         <span class="material-icons mr-2 text-base">schedule</span>
         <p>
