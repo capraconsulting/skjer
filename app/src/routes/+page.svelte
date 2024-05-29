@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button, ButtonGroup } from "flowbite-svelte";
   import Card from "../components/Card.svelte";
   import type { PageData } from "./$types";
 
@@ -26,17 +27,17 @@
   ];
 </script>
 
-<section>
-  <label for="category">Filtrer etter kategori:</label>
-  <select
-    id="category"
-    bind:value={selectedCategory}
-    on:change={() => updateCategory(selectedCategory)}
-  >
+<section class="my-6">
+  <ButtonGroup>
     {#each categories as category}
-      <option value={category.value}>{category.title}</option>
+      <Button
+        on:click={() => updateCategory(category.value)}
+        class={`${selectedCategory === category.value ? "bg-zinc-600 text-white hover:bg-zinc-600" : ""}`}
+      >
+        {category.title}
+      </Button>
     {/each}
-  </select>
+  </ButtonGroup>
 </section>
 
 <section>
