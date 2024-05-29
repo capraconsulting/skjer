@@ -46,6 +46,6 @@
       <Card {event} />
     {/each}
   {:else}
-    <div>Fant ingen eventer</div>
+    <div class="text-large font-light">Fant ingen arrangementer i denne kategorien 😭</div>
   {/if}
 </section>
