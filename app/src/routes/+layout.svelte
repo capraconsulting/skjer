@@ -19,7 +19,7 @@
 
 <Header />
 
-<div class="sm:max-w-[768px] min-h-[90vh] mx-auto">
+<div class="sm:max-w-[1000px] min-h-[90vh] mx-auto">
   <main class="mt-8 mb-16">
     <slot />
   </main>

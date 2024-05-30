@@ -10,5 +10,5 @@
     <img class="h-8" alt="Liflig-logo" src={lifligLogo} />
     <img class="h-8" alt="Fryde-logo" src={frydeLogo} />
   </a>
-  <a class="text-xl font-thin hover:text-gray-300 border-white" href="/">Arrangementoversikt</a>
+  <a class="text-md font-extralight hover:text-gray-300 border-white" href="/">Logg inn</a>
 </header>
