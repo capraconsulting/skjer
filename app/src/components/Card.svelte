@@ -1,7 +1,7 @@
 <script lang="ts">
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
-  import type { Event } from "$lib/sanity/queries";
+  import type { Event } from "$models/sanity.types";
   import { Badge } from "flowbite-svelte";
 
   export let event: Event;
