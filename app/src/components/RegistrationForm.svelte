@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Event } from "$lib/sanity/queries";
+  import type { Event } from "$models/sanity.types";
   import { Allergy } from "$models/allergy.model";
   import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
 

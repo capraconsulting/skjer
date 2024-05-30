@@ -1,6 +1,5 @@
-import { number, z } from "zod";
+import { z } from "zod";
 import validator from "validator";
-import { Allergy } from "$models/allergy.model";
 
 export const registrationSchema = z.object({
   subject: z.null(), // Honeypot

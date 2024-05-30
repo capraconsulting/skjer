@@ -1,7 +1,7 @@
-import { useDocumentOperation } from "sanity";
-import { supabase } from "./api/supabase.api";
+import { useDocumentOperation, DocumentActionProps } from "sanity";
+import { supabase } from "./supabase/client";
 
-export function EventPublishAction(props) {
+export function eventPublishAction(props: DocumentActionProps) {
   const { id, type, onComplete } = props;
   const { publish } = useDocumentOperation(id, type);
 
@@ -10,18 +10,17 @@ export function EventPublishAction(props) {
     onHandle: () => {
       publish.execute();
       onComplete();
-
-      createNewEvent(id);
+      createEventIfNotExist({ document_id: id });
     },
   };
 }
 
-export const createNewEvent = async (document_id: string) => {
+export const createEventIfNotExist = async ({ document_id }: { document_id: string }) => {
   const { error } = await supabase.from("event").upsert({
     document_id,
   });
 
   if (!error) {
-    console.log("Event created");
+    console.log("Event created in Postgres");
   }
 };
