@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button, ButtonGroup } from "flowbite-svelte";
-  import Card from "../components/Card.svelte";
+  import EventCard from "../components/EventCard.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -32,7 +32,7 @@
     {#each categories as category}
       <Button
         on:click={() => updateCategory(category.value)}
-        class={`${selectedCategory === category.value ? "bg-zinc-600 text-white hover:bg-zinc-600" : ""}`}
+        class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600" : ""}`}
       >
         {category.title}
       </Button>
@@ -43,7 +43,7 @@
 <section>
   {#if events.length}
     {#each events as event}
-      <Card {event} />
+      <EventCard {event} />
     {/each}
   {:else}
     <div class="text-large font-light">Fant ingen arrangementer i denne kategorien 😭</div>

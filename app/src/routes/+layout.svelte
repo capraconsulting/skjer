@@ -3,7 +3,8 @@
   import { page } from "$app/stores";
   import LiveMode from "../components/LiveMode.svelte";
   import "../app.css";
-  import logo from "$lib/assets/logo.webp";
+  import Header from "$components/Header.svelte";
+  import Footer from "$components/Footer.svelte";
 </script>
 
 {#if $isPreviewing}
@@ -16,17 +17,15 @@
   </a>
 {/if}
 
-<div class="sm:max-w-[768px] mx-auto">
-  <header class="flex px-0 pt-2">
-    <a class="p-2 sm:px-0 text-4xl font-thin mt-4 flex items-center" href="/">
-      <img src={logo} class="h-14 mr-3" alt="Logo for Capra, Fryde og Liflig" />
-      <span>Arrangementoversikt</span>
-    </a>
-  </header>
-  <main class="my-8">
+<Header />
+
+<div class="sm:max-w-[1000px] min-h-[90vh] mx-auto">
+  <main class="mt-8 mb-16">
     <slot />
   </main>
 </div>
+
+<Footer />
 
 {#if $isPreviewing}
   <VisualEditing />
