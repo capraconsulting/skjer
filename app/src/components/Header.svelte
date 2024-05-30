@@ -4,6 +4,7 @@
   import lifligLogo from "$lib/assets/liflig-logo-row.png";
   import { signIn, signOut } from "@auth/sveltekit/client";
   import { Button } from "flowbite-svelte";
+  import SignInOrOut from "./SignInOrOut.svelte";
 
   export let auth;
 </script>
@@ -15,20 +16,6 @@
     <img class="h-8" alt="Fryde-logo" src={frydeLogo} />
   </a>
   <div class="flex items-center justify-end">
-    {#if auth}
-      <div class="flex gap-2 items-center">
-        <img
-          class="h-7 border-2 border-slate-700 rounded-xl"
-          alt="Profilbilde"
-          src={auth.user.image}
-        />
-        <span class="text-sm font-semibold mr-7">{auth.user.name}</span>
-      </div>
-      <Button color="dark" pill class="" on:click={() => signOut({ callbackUrl: "/" })}
-        >Logg ut</Button
-      >
-    {:else}
-      <Button color="dark" pill class="" on:click={() => signIn("google")}>Logg inn</Button>
-    {/if}
+    <SignInOrOut {auth} />
   </div>
 </header>
