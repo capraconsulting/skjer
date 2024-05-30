@@ -8,7 +8,7 @@
 </script>
 
 <a
-  class="flex flex-col p-3 relative border border-b-[0px] sm:flex-row group first:rounded-t-md last:rounded-b-md hover:bg-slate-100"
+  class="flex flex-col p-3 relative border border-b-[0px] last:border-b-[1px] sm:flex-row group first:rounded-t-md last:rounded-b-md hover:bg-slate-100"
   href={`/event/${event._id}`}
 >
   {#if event.image}
