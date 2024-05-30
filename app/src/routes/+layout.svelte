@@ -17,12 +17,14 @@
   </a>
 {/if}
 
-<div class="sm:max-w-[768px] mx-auto">
-  <Header />
+<Header />
+
+<div class="sm:max-w-[768px] min-h-[90vh] mx-auto">
   <main class="mt-8 mb-16">
     <slot />
   </main>
 </div>
+
 <Footer />
 
 {#if $isPreviewing}

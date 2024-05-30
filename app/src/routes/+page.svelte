@@ -32,7 +32,7 @@
     {#each categories as category}
       <Button
         on:click={() => updateCategory(category.value)}
-        class={`${selectedCategory === category.value ? "bg-zinc-600 text-white hover:bg-zinc-600" : ""}`}
+        class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600" : ""}`}
       >
         {category.title}
       </Button>
