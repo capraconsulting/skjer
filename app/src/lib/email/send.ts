@@ -1,37 +1,35 @@
-import { fail } from "@sveltejs/kit";
+import { SMTP_AUTH_KEY, SMTP_AUTH_USER, SMTP_HOST } from "$env/static/private";
 import nodemailer from "nodemailer";
 
-export const sendEventConfirmationEmail = async (options: {
-  event: string;
+export const sendEventConfirmationEmail = async (params: {
+  title: string;
   fullName: string;
   email: string;
 }) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 0,
-      secure: true,
-      auth: {
-        user: "",
-        pass: "",
-      },
-    });
+  // Disabled for now, but works
+  return { error: false };
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: 587,
+    secure: false,
+    auth: {
+      user: SMTP_AUTH_USER,
+      pass: SMTP_AUTH_KEY,
+    },
+  });
 
-    const mailOptions = {
-      from: `"Capra" <no-reply@capraconsulting.no>`,
-      to: options.email,
-      subject: `Vi har registrert din påmelding | ${options.event}`,
-      text: "",
-    };
+  const mailparams = {
+    from: '"Capra Consulting AS" <no-reply@capraconsulting.no>',
+    to: params.email,
+    subject: `Vi har registrert din påmelding | ${params.title}`,
+    text: `Hei ${params.fullName}`,
+  };
 
-    const { messageId } = await transporter.sendMail(mailOptions);
+  const { messageId } = await transporter.sendMail(mailparams);
 
-    if (messageId) {
-      return { error: false };
-    }
-    return { error: true };
-  } catch (error) {
-    console.error(error);
+  if (!messageId) {
     return { error: true };
   }
+
+  return { messageId, error: false };
 };

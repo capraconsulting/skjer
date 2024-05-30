@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchEventParticipants } from "../../api/fetchEventParticipants";
+import { eventParticipantListQuery } from "../../supabase/queries";
 import { Box, Button, Card, Grid, Heading, Spinner, Stack, Text, TextInput } from "@sanity/ui";
 import { RevertIcon, SearchIcon } from "@sanity/icons";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["event-participant", documentId],
-    queryFn: () => fetchEventParticipants({ documentId }),
+    queryKey: ["event-participant-list", documentId],
+    queryFn: () => eventParticipantListQuery({ documentId }),
   });
 
   const [searchQuery, setValue] = useState("");

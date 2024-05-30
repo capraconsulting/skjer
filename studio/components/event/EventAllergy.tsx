@@ -1,13 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchEventAllergies } from "../../api/fetchEventAllergies";
 import { Card, Flex, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
 import { UserIcon } from "@sanity/icons";
+import { eventAllergyListQuery } from "../../supabase/queries";
 
 export default function EventAllergy({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["event-alergy", documentId],
-    queryFn: () => fetchEventAllergies({ documentId }),
+    queryKey: ["event-allergy-list", documentId],
+    queryFn: () => eventAllergyListQuery({ documentId }),
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };

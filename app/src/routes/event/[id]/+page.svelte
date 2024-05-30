@@ -13,9 +13,10 @@
 
   export let data;
 
-  const q = useQuery(data);
+  const { query, options } = data;
+  const result = useQuery({ query, options });
 
-  $: ({ data: event } = $q);
+  $: ({ data: event } = $result);
 
   const { form, errors, enhance, message, delayed } = superForm(data.form, {
     validators: zod(registrationSchema),

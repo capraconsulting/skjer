@@ -31,7 +31,17 @@ pnpm dev
 1. Gå inn i Sanity Studio og legg til nye poster eller events, og trykk publiser
 2. Besøk CapraWeb, refresh siden, og se at innholdet ditt vises
 
-
 ## Deployments
 
 Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/) og CapraWeb blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/)
+
+## TypeScript Gen
+
+### Sanity
+
+sanity schema extract —enforce-required-fields
+sanity typegen generate
+
+### Supabase
+
+supabase gen types typescript --project-id <project-id> > database.model.ts
