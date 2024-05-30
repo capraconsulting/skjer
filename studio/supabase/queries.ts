@@ -1,6 +1,6 @@
 import { supabase } from "./client";
 
-export async function eventParticipantListQuery({ documentId }: { documentId: string }) {
+export async function getEventParticipantList({ documentId }: { documentId: string }) {
   try {
     const { data } = await supabase
       .from("event")
@@ -15,7 +15,7 @@ export async function eventParticipantListQuery({ documentId }: { documentId: st
   }
 }
 
-export async function eventAllergyListQuery({ documentId }: { documentId: string }) {
+export async function getEventAllergyList({ documentId }: { documentId: string }) {
   try {
     const { data } = await supabase
       .from("event_allergy_summary")
