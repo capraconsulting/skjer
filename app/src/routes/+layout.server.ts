@@ -6,7 +6,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
   const { preview } = locals;
 
   const session = await locals.auth();
-  console.log({ session });
   // As `event.locals` is only available on the server, we can expose the value
   // to the client by returning it here.
   return { preview, session };

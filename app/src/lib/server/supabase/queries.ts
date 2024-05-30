@@ -48,3 +48,11 @@ export const saveEventAllergyList = async (
 
   return result;
 };
+
+export const getEventParticipants = async (event_id: number) => {
+  const result = await supabase
+    .from("event_participant")
+    .select("full_name")
+    .eq("event_id", event_id);
+  return result.data || [];
+};

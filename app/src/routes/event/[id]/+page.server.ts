@@ -11,6 +11,7 @@ import {
   saveEventParticipantAllergy,
   saveEventParticipant,
   saveEventAllergyList,
+  getEventParticipants,
 } from "$lib/server/supabase/queries";
 import type { Event } from "$models/sanity.types";
 import { getEventContent } from "$lib/server/sanity/queries";
@@ -19,10 +20,18 @@ export const load: PageServerLoad = async ({ params: { id }, locals: { loadQuery
   const form = await superValidate(zod(registrationSchema));
   const initial = await loadQuery<Event>(query, { id });
 
+  const eventId = (await getEvent(id)).data?.event_id;
+  let eventParticipants: { full_name: string | null }[] = [];
+
+  if (eventId) {
+    eventParticipants = await getEventParticipants(eventId);
+  }
+
   return {
     form,
     query,
     options: { initial },
+    participants: eventParticipants,
   };
 };
 

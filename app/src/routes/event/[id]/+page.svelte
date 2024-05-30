@@ -9,6 +9,7 @@
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema } from "$lib/schemas/registrationSchema.js";
   import { Alert, Badge } from "flowbite-svelte";
+  import EventParticipants from "$components/EventParticipants.svelte";
 
   export let data;
 
@@ -50,30 +51,45 @@
       </div>
       <Badge class="mt-4" large color="dark">{event.category}</Badge>
     </div>
+
     {#if event.body}
       <div class="mt-8 flex flex-col gap-4">
         <PortableText components={{}} value={event.body} />
       </div>
     {/if}
 
-    <div class="py-8">
-      <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      {#if $message?.success === true}
-        <Alert color="green" class="mb-6"
-          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b>{$message.email}</b> hvert
-          øyeblikk.</Alert
-        >
+    <div class="py-8 sm:w-[70%] flex flex-col gap-12">
+      {#if data.auth?.user}
+        <div>
+          <h2 class="text-2xl pb-4 mt-8">
+            <span class="font-bold">Deltakere</span>
+            {#if data.participants.length}
+              <span class="font-light">({data.participants.length})</span>
+            {/if}
+          </h2>
+          <EventParticipants participants={data.participants} />
+        </div>
       {/if}
 
-      {#if $page?.status === 500}
-        <Alert color="red" class="mb-6"
-          >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
-        >
-      {/if}
+      <div>
+        <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+        {#if $message?.success === true}
+          <Alert color="green" class="mb-6"
+            >Du har meldt deg på arrangementet! Du får en bekreftelse på <b>{$message.email}</b> hvert
+            øyeblikk.</Alert
+          >
+        {/if}
 
-      {#if !$message}
-        <RegistrationForm {form} {errors} {enhance} {delayed} {event} />
-      {/if}
+        {#if $page?.status === 500}
+          <Alert color="red" class="mb-6"
+            >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
+          >
+        {/if}
+
+        {#if !$message}
+          <RegistrationForm {form} {errors} {enhance} {delayed} {event} />
+        {/if}
+      </div>
     </div>
   </div>
 </section>
