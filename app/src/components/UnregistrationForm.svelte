@@ -24,7 +24,12 @@
         </h4>
 
         <ButtonGroup class="w-full">
-          <Input type="text" name="email" bind:value={$unregistrationForm.email} />
+          <Input
+            type="text"
+            placeholder="din-epost@epost.no"
+            name="email"
+            bind:value={$unregistrationForm.email}
+          />
           <Button type="submit" color="dark">Send</Button>
         </ButtonGroup>
 
