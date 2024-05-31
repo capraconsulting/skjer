@@ -54,5 +54,5 @@ export const getEventParticipants = async (event_id: number) => {
     .from("event_participant")
     .select("full_name")
     .eq("event_id", event_id);
-  return result.data || [];
+  return result;
 };

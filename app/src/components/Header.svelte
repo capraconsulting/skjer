@@ -2,8 +2,6 @@
   import capraLogo from "$lib/assets/capra-logo-row.png";
   import frydeLogo from "$lib/assets/fryde-logo-row.png";
   import lifligLogo from "$lib/assets/liflig-logo-row.png";
-  import { signIn, signOut } from "@auth/sveltekit/client";
-  import { Button } from "flowbite-svelte";
   import SignInOrOut from "./SignInOrOut.svelte";
 
   export let auth;

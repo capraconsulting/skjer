@@ -9,5 +9,5 @@
     <Badge class="mr-2" color="dark">{participant.full_name}</Badge>
   {/each}
 {:else}
-  Det er foreløpig ingen påmeldte 😔
+  <p>Det er foreløpig ingen påmeldte 😔</p>
 {/if}

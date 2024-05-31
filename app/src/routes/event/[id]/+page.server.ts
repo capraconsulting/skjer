@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals: { loadQuery
   let eventParticipants: { full_name: string | null }[] = [];
 
   if (eventId) {
-    eventParticipants = await getEventParticipants(eventId);
+    eventParticipants = (await getEventParticipants(eventId)).data || [];
   }
 
   return {
