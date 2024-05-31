@@ -1,3 +1,4 @@
+import { validateDomain } from "$lib/utils/domain";
 import type { Tables } from "$models/database.model";
 import { supabase } from "./client";
 
@@ -102,14 +103,16 @@ export const saveEventAllergyList = async (
   return result;
 };
 
-export const getEventParticipantNames = async ({
+export const getInternalEventParticipantNames = async ({
   document_id,
 }: Pick<Tables<"event">, "document_id">) => {
   const result = await supabase
     .from("event")
-    .select("event_participant(full_name)")
+    .select("event_participant(full_name, email)")
     .eq("document_id", document_id)
     .maybeSingle();
 
-  return result.data?.event_participant.map(({ full_name }) => full_name);
+  return result.data?.event_participant
+    .filter(({ email }) => validateDomain(email))
+    .map(({ full_name }) => full_name);
 };
