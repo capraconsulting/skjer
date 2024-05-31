@@ -83,31 +83,31 @@ export type Database = {
         Row: {
           attending: boolean | null
           created_at: string | null
-          email: string | null
+          email: string
           event_id: number
           event_participant_id: number
           firm: string | null
-          full_name: string | null
+          full_name: string
           telephone: string | null
         }
         Insert: {
           attending?: boolean | null
           created_at?: string | null
-          email?: string | null
+          email: string
           event_id: number
           event_participant_id?: number
           firm?: string | null
-          full_name?: string | null
+          full_name: string
           telephone?: string | null
         }
         Update: {
           attending?: boolean | null
           created_at?: string | null
-          email?: string | null
+          email?: string
           event_id?: number
           event_participant_id?: number
           firm?: string | null
-          full_name?: string | null
+          full_name?: string
           telephone?: string | null
         }
         Relationships: [

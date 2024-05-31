@@ -6,9 +6,10 @@
   import { urlFor } from "$lib/sanity/image";
   import { signIn, signOut } from "@auth/sveltekit/client";
   import RegistrationForm from "$components/RegistrationForm.svelte";
+  import UnregistrationForm from "$components/UnregistrationForm.svelte";
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
-  import { registrationSchema } from "$lib/schemas/registrationSchema.js";
+  import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
   import { Alert, Badge } from "flowbite-svelte";
 
   export let data;
@@ -18,8 +19,24 @@
 
   $: ({ data: event } = $result);
 
-  const { form, errors, enhance, message, delayed } = superForm(data.form, {
+  const {
+    form: registrationForm,
+    errors: registrationErrors,
+    enhance: registrationEnhance,
+    message: registrationMessage,
+    delayed: registrationDelayed,
+  } = superForm(data.registrationForm, {
     validators: zod(registrationSchema),
+    delayMs: 200,
+  });
+
+  const {
+    form: unregistrationForm,
+    errors: unregistrationErrors,
+    enhance: unregistrationEnhance,
+    message: unregistrationMessage,
+  } = superForm(data.unregistrationForm, {
+    validators: zod(unregistrationSchema),
     delayMs: 200,
   });
 </script>
@@ -73,21 +90,32 @@
 
     <div class="py-8">
       <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      {#if $message?.success === true}
+      {#if $registrationMessage?.success}
         <Alert color="green" class="mb-6"
-          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b>{$message.email}</b> hvert
-          øyeblikk.</Alert
+          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
+            >{$registrationMessage.email}</b
+          > hvert øyeblikk.</Alert
         >
-      {/if}
-
-      {#if $page?.status === 500}
+      {:else if $page?.status === 500}
         <Alert color="red" class="mb-6"
           >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
         >
+      {:else}
+        <RegistrationForm
+          {event}
+          {registrationForm}
+          {registrationErrors}
+          {registrationEnhance}
+          {registrationDelayed}
+        />
       {/if}
 
-      {#if !$message}
-        <RegistrationForm {form} {errors} {enhance} {delayed} {event} />
+      <UnregistrationForm {unregistrationForm} {unregistrationErrors} {unregistrationEnhance} />
+      {#if $unregistrationMessage?.success}
+        <!-- demo purpose -->
+        <div class="w-[400px] p-2 border text-xs border-gray-300 break-words">
+          {`/event/unregister/${$unregistrationMessage.token}`}
+        </div>
       {/if}
     </div>
   </div>
