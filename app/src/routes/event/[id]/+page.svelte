@@ -13,7 +13,7 @@
 
   export let data;
 
-  const { query, options } = data;
+  const { query, options, participants } = data;
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);
@@ -63,11 +63,11 @@
         <div>
           <h2 class="text-2xl pb-4 mt-8">
             <span class="font-bold">Deltakere</span>
-            {#if data.participants.length}
-              <span class="font-light">({data.participants.length})</span>
+            {#if participants.length}
+              <span class="font-light">({participants.length})</span>
             {/if}
           </h2>
-          <EventParticipants participants={data.participants} />
+          <EventParticipants {participants} />
         </div>
       {/if}
 
