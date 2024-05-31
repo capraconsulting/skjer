@@ -6,6 +6,7 @@ import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrat
 import type { Event } from "$models/sanity.types";
 import { submitRegistration } from "$lib/form/submitRegistration";
 import { submitUnregistration } from "$lib/form/submitUnregistration";
+import { getEvent, getEventParticipantNames } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals: { loadQuery } }) => {
   const initial = await loadQuery<Event>(query, { id });
@@ -13,11 +14,18 @@ export const load: PageServerLoad = async ({ params: { id }, locals: { loadQuery
   const registrationForm = await superValidate(zod(registrationSchema));
   const unregistrationForm = await superValidate(zod(unregistrationSchema));
 
+  const event = await getEvent({ document_id: id });
+  let participantNames: string[] = [];
+  if (event.data?.event_id) {
+    participantNames = await getEventParticipantNames({ event_id: event.data?.event_id });
+  }
+
   return {
     registrationForm,
     unregistrationForm,
     query,
     options: { initial },
+    participantNames,
   };
 };
 

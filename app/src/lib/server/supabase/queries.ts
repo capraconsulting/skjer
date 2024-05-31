@@ -76,10 +76,16 @@ export const saveEventAllergyList = async (
   return result;
 };
 
-export const getEventParticipants = async (event_id: number) => {
+export const getEventParticipantNames = async ({
+  event_id,
+}: Pick<Tables<"event_participant">, "event_id">) => {
   const result = await supabase
     .from("event_participant")
     .select("full_name")
     .eq("event_id", event_id);
-  return result;
+
+  const participantNames =
+    result.data?.map((participant) => participant.full_name).filter((name) => name !== null) || [];
+
+  return participantNames;
 };
