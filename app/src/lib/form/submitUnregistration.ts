@@ -11,7 +11,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
   request,
   params: { id },
 }) => {
-  if (!id) {
+  if (!id || !validator.isUUID(id)) {
     return fail(500);
   }
 
@@ -19,10 +19,6 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
 
   if (!unregistrationForm.valid) {
     return fail(400, { unregistrationForm });
-  }
-
-  if (!validator.isUUID(id)) {
-    return fail(500);
   }
 
   const event = await getEvent({ document_id: id });

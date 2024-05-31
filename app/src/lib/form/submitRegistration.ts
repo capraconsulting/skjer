@@ -10,6 +10,7 @@ import {
   saveEventParticipant,
   saveEventAllergyList,
   getEventParticipant,
+  updateEventParticipant,
 } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 
@@ -17,7 +18,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   request,
   params: { id },
 }) => {
-  if (!id) {
+  if (!id || !validator.isUUID(id)) {
     return fail(500);
   }
 
@@ -25,10 +26,6 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
 
   if (!registrationForm.valid) {
     return fail(400, { registrationForm });
-  }
-
-  if (!validator.isUUID(id)) {
-    return fail(500);
   }
 
   const event = await getEvent({ document_id: id });
@@ -58,8 +55,8 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     email,
   });
 
-  if (eventParticipant.data?.email) {
-    return fail(500); // Already registered
+  if (eventParticipant.data?.attending) {
+    return fail(500);
   }
 
   const participantData = {
@@ -70,10 +67,21 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     firm,
   };
 
-  const { error: participantError } = await saveEventParticipant(participantData);
+  if (eventParticipant.data?.email && !eventParticipant.data?.attending) {
+    const { error } = await updateEventParticipant({
+      ...participantData,
+      attending: true,
+    });
 
-  if (participantError) {
-    return fail(500);
+    if (error) {
+      return fail(500);
+    }
+  } else {
+    const { error } = await saveEventParticipant(participantData);
+
+    if (error) {
+      return fail(500);
+    }
   }
 
   const { data: participantAllergyData } = await saveEventParticipantAllergy();

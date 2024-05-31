@@ -12,9 +12,8 @@ export const getEventParticipant = async ({
 }: Pick<Tables<"event_participant">, "event_id" | "email">) => {
   const result = await supabase
     .from("event_participant")
-    .select("email, event_id")
+    .select("email, attending, event_id")
     .eq("event_id", event_id)
-    .eq("attending", true)
     .eq("email", email)
     .maybeSingle();
 
@@ -28,6 +27,33 @@ export const updateEventParticipantAttending = async ({
   const result = await supabase
     .from("event_participant")
     .update({ attending: false })
+    .eq("event_id", event_id)
+    .eq("email", email);
+
+  return result;
+};
+
+export const updateEventParticipant = async ({
+  event_id,
+  full_name,
+  telephone,
+  email,
+  firm,
+  attending,
+}: Pick<
+  Tables<"event_participant">,
+  "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending"
+>) => {
+  const result = await supabase
+    .from("event_participant")
+    .update({
+      event_id,
+      full_name,
+      telephone,
+      email,
+      firm,
+      attending,
+    })
     .eq("event_id", event_id)
     .eq("email", email);
 
