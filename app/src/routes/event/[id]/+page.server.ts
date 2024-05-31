@@ -13,12 +13,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals: { loadQuery
 
   const registrationForm = await superValidate(zod(registrationSchema));
   const unregistrationForm = await superValidate(zod(unregistrationSchema));
-
-  const event = await getEvent({ document_id: id });
-  let participantNames: string[] = [];
-  if (event.data?.event_id) {
-    participantNames = await getEventParticipantNames({ event_id: event.data?.event_id });
-  }
+  const participantNames = await getEventParticipantNames({ document_id: id });
 
   return {
     registrationForm,

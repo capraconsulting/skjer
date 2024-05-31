@@ -80,7 +80,7 @@
         <div>
           <h2 class="text-2xl pb-4 mt-8">
             <span class="font-bold">Deltakere</span>
-            {#if participantNames.length}
+            {#if participantNames?.length}
               <span class="font-light">({participantNames.length})</span>
             {/if}
           </h2>
