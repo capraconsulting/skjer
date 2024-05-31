@@ -70,7 +70,6 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     firm,
   };
 
-  // TODO: Check if email is already registered in event
   const { error: participantError } = await saveEventParticipant(participantData);
 
   if (participantError) {

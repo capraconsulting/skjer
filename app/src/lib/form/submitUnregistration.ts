@@ -39,16 +39,14 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     data: { email },
   } = unregistrationForm;
 
-  const eventParticipant = await getEventParticipant({
-    event_id,
-    email,
-  });
+  const data = { event_id, email };
+
+  const eventParticipant = await getEventParticipant(data);
 
   if (!eventParticipant.data?.email) {
     return fail(400, { unregistrationForm }); // TODO: Should always return success?
   }
 
-  const data = { event_id, email };
   const secret = getUnsubscribeSecret(data);
   const token = jwt.sign({ data }, secret, { expiresIn: "2h" });
 
