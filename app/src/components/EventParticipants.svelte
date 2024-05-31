@@ -4,7 +4,7 @@
   export let internalParticipantNames;
 </script>
 
-{#if internalParticipantNames.length > 0}
+{#if internalParticipantNames.length}
   {#each internalParticipantNames as internalParticipantName}
     <Badge class="mr-2" color="dark">{internalParticipantName}</Badge>
   {/each}
