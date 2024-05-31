@@ -5,6 +5,8 @@
   import "../app.css";
   import Header from "$components/Header.svelte";
   import Footer from "$components/Footer.svelte";
+
+  let auth = $page.data.session;
 </script>
 
 {#if $isPreviewing}
@@ -17,9 +19,9 @@
   </a>
 {/if}
 
-<Header />
+<Header {auth} />
 
-<div class="sm:max-w-[1000px] min-h-[90vh] mx-auto">
+<div class="sm:max-w-[1000px] p-4 min-h-[90vh] mx-auto">
   <main class="mt-8 mb-16">
     <slot />
   </main>

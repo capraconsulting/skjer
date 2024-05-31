@@ -4,17 +4,17 @@
   import { page } from "$app/stores";
   import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
-  import { signIn, signOut } from "@auth/sveltekit/client";
   import RegistrationForm from "$components/RegistrationForm.svelte";
   import UnregistrationForm from "$components/UnregistrationForm.svelte";
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
   import { Alert, Badge } from "flowbite-svelte";
+  import EventParticipants from "$components/EventParticipants.svelte";
 
   export let data;
 
-  const { query, options } = data;
+  const { query, options, participantNames } = data;
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);
@@ -68,55 +68,56 @@
       </div>
       <Badge class="mt-4" large color="dark">{event.category}</Badge>
     </div>
+
     {#if event.body}
       <div class="mt-8 flex flex-col gap-4">
         <PortableText components={{}} value={event.body} />
       </div>
     {/if}
-    <div class="flex items-center justify-end">
+
+    <div class="py-8 sm:w-[70%] flex flex-col gap-12">
       {#if data.auth?.user}
-        <span class="font-semibold mr-1">{data.auth.user.name}</span>
-        <button
-          class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          on:click={() => signOut({ callbackUrl: "/" })}>Logg ut</button
-        >
-      {:else}
-        <button
-          class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          on:click={() => signIn("google")}>Logg inn</button
-        >
-      {/if}
-    </div>
-
-    <div class="py-8">
-      <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
-      {#if $registrationMessage?.success}
-        <Alert color="green" class="mb-6"
-          >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
-            >{$registrationMessage.email}</b
-          > hvert øyeblikk.</Alert
-        >
-      {:else if $page?.status === 500}
-        <Alert color="red" class="mb-6"
-          >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
-        >
-      {:else}
-        <RegistrationForm
-          {event}
-          {registrationForm}
-          {registrationErrors}
-          {registrationEnhance}
-          {registrationDelayed}
-        />
-      {/if}
-
-      <UnregistrationForm {unregistrationForm} {unregistrationErrors} {unregistrationEnhance} />
-      {#if $unregistrationMessage?.success}
-        <!-- demo purpose -->
-        <div class="w-[400px] p-2 border text-xs border-gray-300 break-words">
-          {`/event/unregister/${$unregistrationMessage.token}`}
+        <div>
+          <h2 class="text-2xl pb-4 mt-8">
+            <span class="font-bold">Deltakere</span>
+            {#if participantNames?.length}
+              <span class="font-light">({participantNames.length})</span>
+            {/if}
+          </h2>
+          <EventParticipants {participantNames} />
         </div>
       {/if}
+
+      <div class="py-8">
+        <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+        {#if $registrationMessage?.success}
+          <Alert color="green" class="mb-6"
+            >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
+              >{$registrationMessage.email}</b
+            > hvert øyeblikk.</Alert
+          >
+        {:else if $page?.status === 500}
+          <Alert color="red" class="mb-6"
+            >Det har skjedd en feil! Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.</Alert
+          >
+        {:else}
+          <RegistrationForm
+            {event}
+            {registrationForm}
+            {registrationErrors}
+            {registrationEnhance}
+            {registrationDelayed}
+          />
+        {/if}
+
+        <UnregistrationForm {unregistrationForm} {unregistrationErrors} {unregistrationEnhance} />
+        {#if $unregistrationMessage?.success}
+          <!-- demo purpose -->
+          <div class="w-[400px] p-2 border text-xs border-gray-300 break-words">
+            {`/event/unregister/${$unregistrationMessage.token}`}
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </section>

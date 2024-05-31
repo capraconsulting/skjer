@@ -101,3 +101,15 @@ export const saveEventAllergyList = async (
 
   return result;
 };
+
+export const getEventParticipantNames = async ({
+  document_id,
+}: Pick<Tables<"event">, "document_id">) => {
+  const result = await supabase
+    .from("event")
+    .select("event_participant(full_name)")
+    .eq("document_id", document_id)
+    .maybeSingle();
+
+  return result.data?.event_participant.map(({ full_name }) => full_name);
+};
