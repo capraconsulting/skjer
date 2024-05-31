@@ -1,8 +1,35 @@
 import type { Tables } from "$models/database.model";
 import { supabase } from "./client";
 
-export const getEvent = async (document_id: string) => {
+export const getEvent = async ({ document_id }: Pick<Tables<"event">, "document_id">) => {
   const result = await supabase.from("event").select().eq("document_id", document_id).maybeSingle();
+  return result;
+};
+
+export const getEventParticipant = async ({
+  event_id,
+  email,
+}: Pick<Tables<"event_participant">, "event_id" | "email">) => {
+  const result = await supabase
+    .from("event_participant")
+    .select("email, event_id")
+    .eq("event_id", event_id)
+    .eq("attending", true)
+    .eq("email", email)
+    .maybeSingle();
+
+  return result;
+};
+
+export const updateEventParticipantAttending = async ({
+  event_id,
+  email,
+}: Pick<Tables<"event_participant">, "event_id" | "email">) => {
+  const result = await supabase
+    .from("event_participant")
+    .update({ attending: false })
+    .eq("event_id", event_id)
+    .eq("email", email);
 
   return result;
 };

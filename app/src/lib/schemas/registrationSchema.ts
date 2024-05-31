@@ -9,3 +9,7 @@ export const registrationSchema = z.object({
   firm: z.string().min(2).nullable(),
   allergies: z.array(z.number()),
 });
+
+export const unregistrationSchema = z.object({
+  email: z.string().email(),
+});
