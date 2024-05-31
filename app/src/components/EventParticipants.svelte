@@ -1,12 +1,12 @@
 <script>
   import { Badge } from "flowbite-svelte";
 
-  export let participantNames;
+  export let internalParticipantNames;
 </script>
 
-{#if participantNames.length > 0}
-  {#each participantNames as participantName}
-    <Badge class="mr-2" color="dark">{participantName}</Badge>
+{#if internalParticipantNames.length}
+  {#each internalParticipantNames as internalParticipantName}
+    <Badge class="mr-2" color="dark">{internalParticipantName}</Badge>
   {/each}
 {:else}
   <p>Det er foreløpig ingen påmeldte 😔</p>
