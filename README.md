@@ -7,7 +7,7 @@ Dette repositoriet inneholder to applikasjoner: Sanity Studio under /studio og C
 ### Verktøy
 
 - [Node.js](https://nodejs.org/en/) (v18.19 eller senere)
-- [PNPM](https://pnpm.io/installation) (8.15.3 eller senere)
+- [PNPM](https://pnpm.io/installation) (9.0.6 eller senere)
 - [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
 - [Vercel CLI](https://vercel.com/docs/cli) (valgfritt)
@@ -28,21 +28,21 @@ For å kjøre koden:
 
 2. Installer dependencies:
 
-```sh
+```bash
 cd capra-web
 pnpm install
 ```
 
 3.  Start dev serverene:
 
-```sh
+```bash
 pnpm dev
 ```
 
 - CapraWeb skal nå kjøre på [http://localhost:5173/](http://localhost:5173/)
 - Sanity Studioet skal kjøre på [http://localhost:3333/](http://localhost:3333/)
 
-NB: Du kan også starte dev serverne hver for seg i deres respektive mapper
+NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
 
 ## Lag innhold til CapraWeb
 
@@ -59,7 +59,7 @@ Design droddling finner man her: [Capra design](https://www.figma.com/design/nQI
 
 Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/). Vi vurderer muligheter for CI/CD, men foreløpig må du navigere til /studio og kjøre følgende kommando:
 
-```sh
+```bash
 sanity deploy
 ```
 
@@ -67,7 +67,7 @@ Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage
 
 CapraWeb blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/) fra /app med følgenden kommando:
 
-```sh
+```bash
 vercel deploy
 ```
 
@@ -78,13 +78,13 @@ Supabase Postgres database kan konfigures fra [https://supabase.com/dashboard/pr
 For å bygge en produksjonsversjon av CapraWeb, naviger til /app og kjør følgende kommando:
 
 ```bash
-pnpn build
+pnpm build
 ```
 
 For å bygge en produksjonsversjon av Sanity studio, naviger til /studio og kjør følgende kommando:
 
 ```bash
-pnpn build
+pnpm build
 ```
 
 ## TypeScript Generering
