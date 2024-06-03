@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatDate, formatTime } from "$lib/utils";
+  import { formatDate } from "$lib/utils";
   import type { Event } from "$models/sanity.types";
   import { Badge } from "flowbite-svelte";
   import capraLogo from "$lib/assets/capra-black-small.webp";
@@ -26,9 +26,15 @@
   </div>
   <div class="flex flex-row justify-between gap-6 items-center sm:pt-0 pt-4">
     <div class="flex gap-4">
-      <img class="h-5" alt="Capra-logo" src={capraLogo} />
-      <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
-      <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
+      {#if event.eventOwners.includes("Capra")}
+        <img class="h-5" alt="Capra-logo" src={capraLogo} />
+      {/if}
+      {#if event.eventOwners.includes("Liflig")}
+        <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
+      {/if}
+      {#if event.eventOwners.includes("Fryde")}
+        <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
+      {/if}
     </div>
     <span class="material-icons mr-2 text-base">arrow_forward</span>
   </div>

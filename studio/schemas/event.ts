@@ -21,16 +21,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "eventOwner",
+      name: "eventOwners",
       title: "I regi av",
       type: "array",
       of: [{ type: "string" }],
       options: {
-        list: [
-          { value: "capra", title: "Capra" },
-          { value: "fryde", title: "Fryde" },
-          { value: "liflig", title: "Liflig" },
-        ],
+        list: ["Capra", "Fryde", "Liflig"],
       },
       validation: (Rule) => Rule.required(),
     }),

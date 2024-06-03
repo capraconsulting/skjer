@@ -617,7 +617,7 @@
         },
         "optional": true
       },
-      "eventOwner": {
+      "eventOwners": {
         "type": "objectAttribute",
         "value": {
           "type": "array",

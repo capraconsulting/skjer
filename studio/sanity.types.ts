@@ -107,6 +107,7 @@ export type Event = {
     _type: "image";
   };
   title: string;
+  eventOwners: Array<string>;
   summary?: string;
   start: string;
   end: string;

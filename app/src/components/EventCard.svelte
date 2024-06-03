@@ -31,9 +31,15 @@
 
       <div class="mt-5 flex gap-6 items-center justify-between">
         <div class="flex gap-4">
-          <img class="h-5" alt="Capra-logo" src={capraLogo} />
-          <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
-          <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
+          {#if event.eventOwners.includes("Capra")}
+            <img class="h-5" alt="Capra-logo" src={capraLogo} />
+          {/if}
+          {#if event.eventOwners.includes("Liflig")}
+            <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
+          {/if}
+          {#if event.eventOwners.includes("Fryde")}
+            <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
+          {/if}
         </div>
         <div class="items-center flex flex-row gap-2">
           <p>Se mer</p>
