@@ -2,9 +2,10 @@
   import { Button, ButtonGroup } from "flowbite-svelte";
   import EventCard from "../components/EventCard.svelte";
   import type { PageData } from "./$types";
+  import EventListItem from "$components/EventListItem.svelte";
 
   export let data: PageData;
-  let events = data.events;
+  let { futureEvents, pastEvents } = data;
   let selectedCategory: string = data.category || "";
 
   function updateCategory(category: string) {
@@ -19,33 +20,55 @@
 
   const categories = [
     { value: "", title: "Alle" },
+    { value: "Tech", title: "Tech" },
+    { value: "Design", title: "Design" },
     { value: "Sosialt", title: "Sosialt" },
-    { value: "Frokostseminar", title: "Frokostseminar" },
-    { value: "Konferanse", title: "Konferanse" },
-    { value: "Fagsamling", title: "Fagsamling" },
-    { value: "Fagsirkel", title: "Fagsirkel" },
   ];
 </script>
 
-<section class="my-6">
-  <ButtonGroup>
-    {#each categories as category}
-      <Button
-        on:click={() => updateCategory(category.value)}
-        class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600" : ""}`}
-      >
-        {category.title}
-      </Button>
-    {/each}
-  </ButtonGroup>
+<section class="pb-8">
+  <div class="flex sm:flex-row flex-col justify-between sm:items-center">
+    <h1 class="text-4xl sm:text-5xl sm:w-[50%] sm:pt-10 pb-6 font-light">
+      Kommende kurs og arrangementer
+    </h1>
+
+    <ButtonGroup class="gap-2 h-7 mt-8">
+      {#each categories as category}
+        <Button
+          on:click={() => updateCategory(category.value)}
+          class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600 border-black !rounded-xl" : "border border-black !rounded-xl"}`}
+        >
+          {category.title}
+        </Button>
+      {/each}
+    </ButtonGroup>
+  </div>
+
+  <div class="flex flex-col gap-4 py-5">
+    {#if futureEvents.length}
+      {#each futureEvents as event}
+        <EventListItem {event} />
+      {/each}
+    {:else}
+      <div class="text-large font-light">
+        Fant ingen kommende kurs eller arrangementer i denne kategorien 😭
+      </div>
+    {/if}
+  </div>
 </section>
 
-<section>
-  {#if events.length}
-    {#each events as event}
-      <EventCard {event} />
-    {/each}
-  {:else}
-    <div class="text-large font-light">Fant ingen arrangementer i denne kategorien 😭</div>
-  {/if}
+<section class="pb-8">
+  <h1 class="text-4xl sm:text-5xl sm:w-[50%] pt-10 pb-12 font-light">
+    Tidligere kurs og arrangementer
+  </h1>
+
+  <div class="grid sm:grid-cols-2 grid-cols-1 gap-7">
+    {#if pastEvents.length}
+      {#each pastEvents as event}
+        <EventCard {event} />
+      {/each}
+    {:else}
+      <div class="text-large font-light">Fant ingen tidligere kurs eller arrangementer 😭</div>
+    {/if}
+  </div>
 </section>
