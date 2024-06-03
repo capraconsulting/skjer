@@ -2,9 +2,9 @@
   import { formatDate, formatTime } from "$lib/utils";
   import type { Event } from "$models/sanity.types";
   import { Badge } from "flowbite-svelte";
-  import capraLogo from "$lib/assets/capra-black.webp";
-  import frydeLogo from "$lib/assets/fryde-black.webp";
-  import lifligLogo from "$lib/assets/liflig-black.webp";
+  import capraLogo from "$lib/assets/capra-black-small.webp";
+  import frydeLogo from "$lib/assets/fryde-black-small.webp";
+  import lifligLogo from "$lib/assets/liflig-black-small.webp";
 
   export let event: Event;
 </script>

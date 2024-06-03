@@ -5,8 +5,7 @@
   import EventListItem from "$components/EventListItem.svelte";
 
   export let data: PageData;
-  let futureEvents = data.futureEvents;
-  let pastEvents = data.pastEvents;
+  let { futureEvents, pastEvents } = data;
   let selectedCategory: string = data.category || "";
 
   function updateCategory(category: string) {

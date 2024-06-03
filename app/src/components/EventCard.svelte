@@ -1,9 +1,9 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$models/sanity.types";
-  import capraLogo from "$lib/assets/capra-black.webp";
-  import frydeLogo from "$lib/assets/fryde-black.webp";
-  import lifligLogo from "$lib/assets/liflig-black.webp";
+  import capraLogo from "$lib/assets/capra-black-small.webp";
+  import frydeLogo from "$lib/assets/fryde-black-small.webp";
+  import lifligLogo from "$lib/assets/liflig-black-small.webp";
 
   export let event: Event;
 </script>
@@ -16,8 +16,8 @@
     {#if event.image}
       <img
         class="rounded-t-xl object-cover h-44"
-        src={urlFor(event.image).width(500).height(300).url()}
-        alt="Cover image for {event.title}"
+        src={urlFor(event.image).url()}
+        alt="Bilde for arrangementet: {event.title}"
       />
     {/if}
 
