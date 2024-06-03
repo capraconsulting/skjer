@@ -1,16 +1,20 @@
-import { client } from "$lib/sanity/client";
-import { eventsQuery as query } from "$lib/sanity/queries";
 import type { PageServerLoad } from "./$types";
 import type { Event } from "$models/sanity.types";
+import { serverClientWithoutStega } from "$lib/server/sanity/client";
+import { futureEventsQuery, pastEventsQuery } from "$lib/server/sanity/queries";
 
 export const load: PageServerLoad = async (event) => {
   const url = new URL(event.url);
   const category = url.searchParams.get("category");
 
-  const events: Event[] = await client.fetch(query, { category });
+  const futureEvents: Event[] = await serverClientWithoutStega.fetch(futureEventsQuery, {
+    category,
+  });
+  const pastEvents: Event[] = await serverClientWithoutStega.fetch(pastEventsQuery);
 
   return {
-    events,
+    futureEvents,
+    pastEvents,
     category,
   };
 };

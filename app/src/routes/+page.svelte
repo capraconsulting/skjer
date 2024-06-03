@@ -5,14 +5,9 @@
   import EventListItem from "$components/EventListItem.svelte";
 
   export let data: PageData;
-  let events = data.events;
+  let futureEvents = data.futureEvents;
+  let pastEvents = data.pastEvents;
   let selectedCategory: string = data.category || "";
-
-  function isFutureEvent(date: string): boolean {
-    const today = new Date();
-    const eventDate = new Date(date);
-    return eventDate > today;
-  }
 
   function updateCategory(category: string) {
     const url = new URL(window.location.href);
@@ -49,11 +44,9 @@
   </div>
 
   <div class="flex flex-col gap-4 py-5">
-    {#if events.length}
-      {#each events as event}
-        {#if isFutureEvent(event.start)}
-          <EventListItem {event} />
-        {/if}
+    {#if futureEvents.length}
+      {#each futureEvents as event}
+        <EventListItem {event} />
       {/each}
     {:else}
       <div class="text-large font-light">
@@ -67,16 +60,12 @@
   <h1 class="text-5xl sm:w-[50%] pt-10 pb-12 font-light">Tidligere kurs og arrangementer</h1>
 
   <div class="grid grid-cols-2 gap-7">
-    {#if events.length}
-      {#each events as event}
-        {#if !isFutureEvent(event.start)}
-          <EventCard {event} />
-        {/if}
+    {#if pastEvents.length}
+      {#each pastEvents as event}
+        <EventCard {event} />
       {/each}
     {:else}
-      <div class="text-large font-light">
-        Fant ingen tidligere kurs eller arrangementer i denne kategorien 😭
-      </div>
+      <div class="text-large font-light">Fant ingen tidligere kurs eller arrangementer 😭</div>
     {/if}
   </div>
 </section>
