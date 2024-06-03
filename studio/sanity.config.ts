@@ -7,7 +7,7 @@ import { schemaTypes } from "./schemas";
 import { codeInput } from "@sanity/code-input";
 import { nbNOLocale } from "@sanity/locale-nb-no";
 import { StudioIcon } from "./components/shared/StudioIcon";
-import { eventPublishAction } from "./action";
+import { eventPublishAction } from "./actions";
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
 export const dataset = process.env.SANITY_STUDIO_DATASET!;
