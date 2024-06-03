@@ -1,7 +1,7 @@
 <script>
-  import capraLogo from "$lib/assets/capra-logo-col.webp";
-  import frydeLogo from "$lib/assets/fryde-logo-col.webp";
-  import lifligLogo from "$lib/assets/liflig-logo-col.webp";
+  import capraLogo from "$lib/assets/capra-white.webp";
+  import frydeLogo from "$lib/assets/fryde-white.webp";
+  import lifligLogo from "$lib/assets/liflig-white.webp";
 </script>
 
 <footer
