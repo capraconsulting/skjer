@@ -632,7 +632,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "start": {
         "type": "objectAttribute",
