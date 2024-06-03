@@ -10,19 +10,21 @@
 </script>
 
 <a
-  class="flex flex-row p-3 relative border border-black sm:flex-row group rounded-md hover:bg-zinc-100 hover:transition-[2s] justify-between"
+  class="flex flex-col p-3 relative border border-black sm:flex-row group rounded-md hover:bg-zinc-100 hover:transition-[2s] justify-between"
   href={`/event/${event._id}`}
 >
-  <div class="flex gap-2 items-center font-light px-2">
+  <div class="flex sm:flex-row flex-col sm:gap-2 gap-3 font-light px-0 sm:px-2">
     <h2 class="text-xl pr-3">
       {event.title}
     </h2>
-    <Badge rounded class="h-6 border border-black bg-white">{event.category}</Badge>
-    <Badge rounded class="h-6 border border-black bg-white">
-      {formatDate(event.start)}
-    </Badge>
+    <div class="flex flex-row gap-2 items-center">
+      <Badge rounded class="h-6 border border-black bg-white">{event.category}</Badge>
+      <Badge rounded class="h-6 border border-black bg-white">
+        {formatDate(event.start)}
+      </Badge>
+    </div>
   </div>
-  <div class="flex gap-6 items-center">
+  <div class="flex flex-row justify-between gap-6 items-center sm:pt-0 pt-4">
     <div class="flex gap-4">
       <img class="h-5" alt="Capra-logo" src={capraLogo} />
       <img class="h-5" alt="Liflig-logo" src={lifligLogo} />

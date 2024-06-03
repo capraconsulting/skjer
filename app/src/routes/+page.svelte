@@ -28,8 +28,10 @@
 </script>
 
 <section class="pb-8">
-  <div class="flex flex-row justify-between items-center">
-    <h1 class="text-5xl sm:w-[50%] pt-10 pb-6 font-light">Kommende kurs og arrangementer</h1>
+  <div class="flex sm:flex-row flex-col justify-between sm:items-center">
+    <h1 class="text-4xl sm:text-5xl sm:w-[50%] sm:pt-10 pb-6 font-light">
+      Kommende kurs og arrangementer
+    </h1>
 
     <ButtonGroup class="gap-2 h-7 mt-8">
       {#each categories as category}
@@ -57,9 +59,11 @@
 </section>
 
 <section class="pb-8">
-  <h1 class="text-5xl sm:w-[50%] pt-10 pb-12 font-light">Tidligere kurs og arrangementer</h1>
+  <h1 class="text-4xl sm:text-5xl sm:w-[50%] pt-10 pb-12 font-light">
+    Tidligere kurs og arrangementer
+  </h1>
 
-  <div class="grid grid-cols-2 gap-7">
+  <div class="grid sm:grid-cols-2 grid-cols-1 gap-7">
     {#if pastEvents.length}
       {#each pastEvents as event}
         <EventCard {event} />
