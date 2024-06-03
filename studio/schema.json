@@ -504,19 +504,11 @@
         },
         {
           "type": "string",
-          "value": "Frokostseminar"
+          "value": "Design"
         },
         {
           "type": "string",
-          "value": "Konferanse"
-        },
-        {
-          "type": "string",
-          "value": "Fagsamling"
-        },
-        {
-          "type": "string",
-          "value": "Fagsirkel"
+          "value": "Tech"
         }
       ]
     }

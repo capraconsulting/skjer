@@ -13,8 +13,8 @@
   class="flex flex-row p-3 relative border border-black sm:flex-row group rounded-md hover:bg-zinc-100 hover:transition-[2s] justify-between"
   href={`/event/${event._id}`}
 >
-  <div class="flex gap-2 items-center">
-    <h2 class="text-xl">
+  <div class="flex gap-2 items-center font-light px-2">
+    <h2 class="text-xl pr-3">
       {event.title}
     </h2>
     <Badge rounded class="h-6 border border-black bg-white">{event.category}</Badge>

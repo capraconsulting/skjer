@@ -26,27 +26,27 @@
 
   const categories = [
     { value: "", title: "Alle" },
+    { value: "Tech", title: "Tech" },
+    { value: "Design", title: "Design" },
     { value: "Sosialt", title: "Sosialt" },
-    { value: "Frokostseminar", title: "Frokostseminar" },
-    { value: "Konferanse", title: "Konferanse" },
-    { value: "Fagsamling", title: "Fagsamling" },
-    { value: "Fagsirkel", title: "Fagsirkel" },
   ];
 </script>
 
 <section class="pb-8">
-  <h1 class="text-5xl sm:w-[50%] pt-10 pb-6 font-light">Kommende kurs og arrangementer</h1>
+  <div class="flex flex-row justify-between items-center">
+    <h1 class="text-5xl sm:w-[50%] pt-10 pb-6 font-light">Kommende kurs og arrangementer</h1>
 
-  <ButtonGroup class="gap-2 h-7">
-    {#each categories as category}
-      <Button
-        on:click={() => updateCategory(category.value)}
-        class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600 border-black !rounded-xl" : "border border-black !rounded-xl"}`}
-      >
-        {category.title}
-      </Button>
-    {/each}
-  </ButtonGroup>
+    <ButtonGroup class="gap-2 h-7 mt-8">
+      {#each categories as category}
+        <Button
+          on:click={() => updateCategory(category.value)}
+          class={`${selectedCategory === category.value ? "bg-zinc-800 text-white hover:bg-zinc-600 border-black !rounded-xl" : "border border-black !rounded-xl"}`}
+        >
+          {category.title}
+        </Button>
+      {/each}
+    </ButtonGroup>
+  </div>
 
   <div class="flex flex-col gap-4 py-5">
     {#if events.length}

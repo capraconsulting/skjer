@@ -87,7 +87,7 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Category = "Sosialt" | "Frokostseminar" | "Konferanse" | "Fagsamling" | "Fagsirkel";
+export type Category = "Sosialt" | "Design" | "Tech";
 
 export type Event = {
   _id: string;
