@@ -1,47 +1,44 @@
 <script lang="ts">
-  import { formatDate, formatTime } from "$lib/utils";
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$models/sanity.types";
-  import { Badge } from "flowbite-svelte";
+  import capraLogo from "$lib/assets/capra-black.webp";
+  import frydeLogo from "$lib/assets/fryde-black.webp";
+  import lifligLogo from "$lib/assets/liflig-black.webp";
 
   export let event: Event;
 </script>
 
 <a
-  class="flex flex-col p-3 relative border border-b-[0px] last:border-b-[1px] sm:flex-row group first:rounded-t-md last:rounded-b-md hover:bg-slate-100"
+  class="flex flex-col relative border border-black rounded-xl sm:flex-row group hover:bg-zinc-100 hover:transition-[2s]"
   href={`/event/${event._id}`}
 >
-  {#if event.image}
-    <img
-      class="w-full object-cover sm:w-96"
-      src={urlFor(event.image).width(500).height(300).url()}
-      alt="Cover image for {event.title}"
-    />
-  {/if}
-
-  <div class="my-0 mx-4">
-    <div>
-      <Badge color="dark">{event.category}</Badge>
-    </div>
-    <h3
-      class="text-4xl font-extrabold leading-tight pt-4 pb-2 group-hover:opacity-80 group-hover:transition-[2s]"
-    >
-      {event.title}
-    </h3>
-    {#if event.summary}
-      <p class="text-xl">{event.summary}</p>
+  <div class="flex flex-col w-full">
+    {#if event.image}
+      <img
+        class="rounded-t-xl object-cover h-44"
+        src={urlFor(event.image).width(500).height(300).url()}
+        alt="Cover image for {event.title}"
+      />
     {/if}
-    <div class="my-6 text-sm font-light">
-      <div class="flex items-center">
-        <span class="material-icons mr-2 text-base">schedule</span>
-        <p>
-          {formatDate(event.start)}
-          {formatTime(event.start)}
-        </p>
-      </div>
-      <div class="flex items-center">
-        <span class="material-icons mr-2 text-base">location_on</span>
-        <p>{event.place}</p>
+
+    <div class="my-4 mx-4 flex flex-col gap-2">
+      <h2 class="text-3xl">
+        {event.title}
+      </h2>
+      {#if event.summary}
+        <p class="text-lg font-light">{event.summary}</p>
+      {/if}
+
+      <div class="mt-5 flex gap-6 items-center justify-between">
+        <div class="flex gap-4">
+          <img class="h-5" alt="Capra-logo" src={capraLogo} />
+          <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
+          <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
+        </div>
+        <div class="items-center flex flex-row gap-2">
+          <p>Se mer</p>
+          <span class="material-icons mr-2 text-base">arrow_forward</span>
+        </div>
       </div>
     </div>
   </div>

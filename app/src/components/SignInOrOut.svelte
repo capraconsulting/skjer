@@ -7,10 +7,12 @@
 
 {#if auth}
   <div class="flex gap-2 items-center">
-    <img class="h-7 border-2 border-slate-700 rounded-xl" alt="Profilbilde" src={auth.user.image} />
-    <span class="text-sm font-semibold mr-7">{auth.user.name}</span>
+    <img class="h-7 rounded-xl" alt="Profilbilde" src={auth.user.image} />
+    <span class="text-sm text-black font-normal mr-8">{auth.user.name}</span>
   </div>
-  <Button color="dark" pill class="" on:click={() => signOut({ callbackUrl: "/" })}>Logg ut</Button>
+  <Button color="dark" size="xs" pill class="" on:click={() => signOut({ callbackUrl: "/" })}
+    >Logg ut</Button
+  >
 {:else}
-  <Button color="dark" pill class="" on:click={() => signIn("google")}>Logg inn</Button>
+  <Button color="dark" size="xs" pill class="" on:click={() => signIn("google")}>Logg inn</Button>
 {/if}

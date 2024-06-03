@@ -34,7 +34,7 @@
   ];
 </script>
 
-<section>
+<section class="pb-8">
   <h1 class="text-5xl sm:w-[50%] pt-10 pb-6 font-light">Kommende kurs og arrangementer</h1>
 
   <ButtonGroup class="gap-2 h-7">
@@ -63,18 +63,20 @@
   </div>
 </section>
 
-<section>
-  <h1 class="text-5xl sm:w-[50%] pt-10 pb-6 font-light">Tidligere kurs og arrangementer</h1>
+<section class="pb-8">
+  <h1 class="text-5xl sm:w-[50%] pt-10 pb-12 font-light">Tidligere kurs og arrangementer</h1>
 
-  {#if events.length}
-    {#each events as event}
-      {#if !isFutureEvent(event.start)}
-        <EventCard {event} />
-      {/if}
-    {/each}
-  {:else}
-    <div class="text-large font-light">
-      Fant ingen tidligere kurs eller arrangementer i denne kategorien 😭
-    </div>
-  {/if}
+  <div class="grid grid-cols-2 gap-7">
+    {#if events.length}
+      {#each events as event}
+        {#if !isFutureEvent(event.start)}
+          <EventCard {event} />
+        {/if}
+      {/each}
+    {:else}
+      <div class="text-large font-light">
+        Fant ingen tidligere kurs eller arrangementer i denne kategorien 😭
+      </div>
+    {/if}
+  </div>
 </section>
