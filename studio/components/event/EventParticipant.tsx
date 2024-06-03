@@ -45,7 +45,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
     return (
       <Grid gap={4}>
         <Text muted size={1}>
-          Event
+          Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
           Ingen påmeldinger

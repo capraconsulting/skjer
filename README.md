@@ -1,47 +1,111 @@
 # CapraWeb
 
-Dette repoet inneholder to apper: Sanity Studio under `/studio` og selve CapraWeb-appen laget i SvelteKit under `/app`.
+Dette repositoriet inneholder to applikasjoner: Sanity Studio under /studio og CapraWeb applikasjonen laget i SvelteKit under /app. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen.
 
 ## Krav
 
-- [Node.js](https://nodejs.org/en/) (v14.18 or later)
-- [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (optional)
+### Verktøy
+
+- [Node.js](https://nodejs.org/en/) (v18.19 eller senere)
+- [PNPM](https://pnpm.io/installation) (8.15.3 eller senere)
+- [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
+- [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
+- [Vercel CLI](https://vercel.com/docs/cli) (valgfritt)
+
+### Utvidelser
+
+- ESLint
+- EditorConfig
+- Prettier
+- Svelte
+- Tailwind CSS IntelliSense
 
 ## Kom i gang
 
 For å kjøre koden:
 
-1. Installer dependencies:
+1. Be om environment variabler for lokal testing i kanalen #tmp_arrangementsoversikt. Du må selv opprette en .env fil i /studio og /app.
+
+2. Installer dependencies:
 
 ```sh
+cd capra-web
 pnpm install
 ```
 
-2.  Start dev serverene:
+3.  Start dev serverene:
 
 ```sh
 pnpm dev
 ```
 
-- CapraWeb-appen skal nå kjøre på [http://localhost:5173/](http://localhost:5173/)
+- CapraWeb skal nå kjøre på [http://localhost:5173/](http://localhost:5173/)
 - Sanity Studioet skal kjøre på [http://localhost:3333/](http://localhost:3333/)
 
-### Lag innhold til CapraWeb
+NB: Du kan også starte dev serverne hver for seg i deres respektive mapper
 
-1. Gå inn i Sanity Studio og legg til nye poster eller events, og trykk publiser
-2. Besøk CapraWeb, refresh siden, og se at innholdet ditt vises
+## Lag innhold til CapraWeb
+
+1. Gå inn i Sanity Studio og legg til nye events, og trykk publiser
+2. Besøk CapraWeb, eventuelt refresh siden, og se at innholdet vises
+
+## Figma
+
+Design droddling finner man her: [Capra design](https://www.figma.com/design/nQIBm3tpk1F7zo3QXEIjJs/Capra-design-drodling?node-id=4934-2547)
 
 ## Deployments
 
-Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/) og CapraWeb blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/)
+### Sanity
 
-## TypeScript Gen
+Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/). Vi vurderer muligheter for CI/CD, men foreløpig må du navigere til /studio og kjøre følgende kommando:
+
+```sh
+sanity deploy
+```
+
+Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage/personal/project/<project-id>](https://www.sanity.io/manage/personal/project/<project-id>).
+
+CapraWeb blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/) fra /app med følgenden kommando:
+
+```sh
+vercel deploy
+```
+
+Supabase Postgres database kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>).
+
+## Building
+
+For å bygge en produksjonsversjon av CapraWeb, naviger til /app og kjør følgende kommando:
+
+```bash
+pnpn build
+```
+
+For å bygge en produksjonsversjon av Sanity studio, naviger til /studio og kjør følgende kommando:
+
+```bash
+pnpn build
+```
+
+## TypeScript Generering
 
 ### Sanity
 
-sanity schema extract —enforce-required-fields
+For å generere typer av innholdsskjemaer, kjør følgende kommandoer fra /studio/models:
+
+```sh
+sanity schema extract --enforce-required-fields
 sanity typegen generate
+```
+
+NB: Når sanity.types.ts er generert i /studio, skal den også kopieres til /app.
 
 ### Supabase
 
-supabase gen types typescript --project-id <project-id> > database.model.ts
+For å generere typer fra databasemodellen, kjør følgende kommando fra enten /studio eller /app:
+
+```sh
+supabase gen types typescript --project-id <project-id> database.model.ts
+```
+
+NB: Når database.model.ts er generert, må den legges til i både /studio og /app.
