@@ -608,14 +608,24 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "title": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
+      },
+      "eventOwner": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
       },
       "summary": {
         "type": "objectAttribute",
@@ -629,14 +639,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "end": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "body": {
         "type": "objectAttribute",
@@ -644,7 +654,7 @@
           "type": "inline",
           "name": "blockContent"
         },
-        "optional": false
+        "optional": true
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -659,14 +669,14 @@
           "type": "inline",
           "name": "category"
         },
-        "optional": false
+        "optional": true
       },
       "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "allergy": {
         "type": "objectAttribute",
@@ -796,7 +806,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -804,7 +814,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       },
       "subtitle": {
         "type": "objectAttribute",
@@ -1139,7 +1149,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "source": {
           "type": "objectAttribute",
