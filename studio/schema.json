@@ -608,14 +608,14 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "title": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "eventOwners": {
         "type": "objectAttribute",
@@ -625,28 +625,28 @@
             "type": "string"
           }
         },
-        "optional": true
+        "optional": false
       },
       "summary": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "start": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "end": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "body": {
         "type": "objectAttribute",
@@ -654,7 +654,7 @@
           "type": "inline",
           "name": "blockContent"
         },
-        "optional": true
+        "optional": false
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -669,14 +669,14 @@
           "type": "inline",
           "name": "category"
         },
-        "optional": true
+        "optional": false
       },
       "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "allergy": {
         "type": "objectAttribute",
@@ -806,7 +806,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -814,7 +814,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "subtitle": {
         "type": "objectAttribute",
@@ -1149,7 +1149,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",
