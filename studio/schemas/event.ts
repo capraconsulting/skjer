@@ -21,7 +21,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "eventOwners",
+      name: "organisers",
       title: "I regi av",
       type: "array",
       of: [{ type: "string" }],

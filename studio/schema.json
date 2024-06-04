@@ -617,7 +617,7 @@
         },
         "optional": false
       },
-      "eventOwners": {
+      "organisers": {
         "type": "objectAttribute",
         "value": {
           "type": "array",

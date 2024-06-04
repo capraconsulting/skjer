@@ -26,13 +26,13 @@
   </div>
   <div class="flex flex-row justify-between gap-6 items-center sm:pt-0 pt-4">
     <div class="flex gap-4">
-      {#if event.eventOwners.includes("Capra")}
+      {#if event.organisers?.includes("Capra")}
         <img class="h-5" alt="Capra-logo" src={capraLogo} />
       {/if}
-      {#if event.eventOwners.includes("Liflig")}
+      {#if event.organisers?.includes("Liflig")}
         <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
       {/if}
-      {#if event.eventOwners.includes("Fryde")}
+      {#if event.organisers?.includes("Fryde")}
         <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
       {/if}
     </div>
