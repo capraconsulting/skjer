@@ -107,6 +107,7 @@ export type Event = {
     _type: "image";
   };
   title: string;
+  organisers: Array<string>;
   summary?: string;
   start: string;
   end: string;

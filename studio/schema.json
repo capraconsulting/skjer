@@ -617,6 +617,16 @@
         },
         "optional": false
       },
+      "organisers": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": false
+      },
       "summary": {
         "type": "objectAttribute",
         "value": {
