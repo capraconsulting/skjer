@@ -43,7 +43,7 @@
         </div>
         <div class="flex flex-row items-center gap-2">
           <p>Se mer</p>
-          <span class="material-icons mr-2 text-base">arrow_forward</span>
+          <span class="material-symbols-outlined mr-2 text-base">arrow_forward</span>
         </div>
       </div>
     </div>

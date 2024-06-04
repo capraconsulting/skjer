@@ -36,6 +36,6 @@
         <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
       {/if}
     </div>
-    <span class="material-icons mr-2 text-base">arrow_forward</span>
+    <span class="material-symbols-outlined mr-2 text-base">arrow_forward</span>
   </div>
 </a>
