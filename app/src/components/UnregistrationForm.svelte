@@ -7,18 +7,18 @@
 </script>
 
 <form
-  class="flex flex-col gap-6 mt-10"
+  class="mt-10 flex flex-col gap-6"
   method="POST"
   action="?/submitUnregistration"
   use:unregistrationEnhance
 >
   <div
-    class="flex flex-col justify-center items-start p-4 sm:p-8 mb-8 gap-4 border rounded-lg dark:bg-gray-800 dark:border-gray-700"
+    class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-8"
   >
     <div class="flex flex-col items-center gap-5">
       <div class="flex flex-col items-start gap-4">
         <h4
-          class="tracking-tight leading-none text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"
+          class="text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-2xl"
         >
           <p class="text-xl">Ønsker du å melde deg av?</p>
         </h4>
@@ -34,7 +34,7 @@
         </ButtonGroup>
 
         {#if $unregistrationErrors.email}
-          <p class="text-red-600 text-xs">Fyll inn gyldig epost.</p>
+          <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
         {/if}
       </div>
     </div>

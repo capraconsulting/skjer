@@ -5,7 +5,9 @@ import { urlFor } from "../config/client";
 import { Tables } from "../models/database.model";
 
 export function eventPublishAction({ id, type, onComplete, draft }: DocumentActionProps) {
-  const { publish } = useDocumentOperation(id, type);
+  const {
+    publish: { execute },
+  } = useDocumentOperation(id, type);
 
   // The published version exists only after publishing, so we use the draft version here.
   const draftEvent = draft as Event | null;
@@ -13,7 +15,7 @@ export function eventPublishAction({ id, type, onComplete, draft }: DocumentActi
   return {
     label: "Publish",
     onHandle: () => {
-      publish.execute();
+      execute();
       onComplete();
 
       if (draftEvent) {

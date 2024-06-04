@@ -4,7 +4,7 @@
   export let data;
 </script>
 
-<section class="w-full mt-2 mb-80 mx-0">
+<section class="mx-0 mb-80 mt-2 w-full">
   {#if data?.success}
     <Alert color="green" class="mb-6">Du har avregistrert deg fra arrangementet!</Alert>
   {:else}

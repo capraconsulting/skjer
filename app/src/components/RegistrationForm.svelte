@@ -27,7 +27,7 @@
     <Label for="fullName">Navn*</Label>
     <Input type="text" name="fullName" id="fullName" bind:value={$registrationForm.fullName} />
     {#if $registrationErrors.fullName}
-      <p class="text-red-600 text-xs">Fyll inn gyldig navn (minst 2 bokstaver).</p>
+      <p class="text-xs text-red-600">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}
   </div>
 
@@ -35,7 +35,7 @@
     <Label for="email">E-post*</Label>
     <Input type="text" name="email" id="email" bind:value={$registrationForm.email} />
     {#if $registrationErrors.email}
-      <p class="text-red-600 text-xs">Fyll inn gyldig epost.</p>
+      <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
     {/if}
   </div>
 
@@ -43,7 +43,7 @@
     <Label for="telephone">Telefonnummer</Label>
     <Input type="text" name="telephone" id="telephone" bind:value={$registrationForm.telephone} />
     {#if $registrationErrors.telephone}
-      <p class="text-red-600 text-xs">Fyll inn gyldig telefonnummer.</p>
+      <p class="text-xs text-red-600">Fyll inn gyldig telefonnummer.</p>
     {/if}
   </div>
 
@@ -51,7 +51,7 @@
     <Label for="firm">Firma</Label>
     <Input type="text" name="firm" id="firm" bind:value={$registrationForm.firm} />
     {#if $registrationErrors.firm}
-      <p class="text-red-600 text-xs">Fyll inn gyldig firmanavn (minst 2 bokstaver).</p>
+      <p class="text-xs text-red-600">Fyll inn gyldig firmanavn (minst 2 bokstaver).</p>
     {/if}
   </div>
 

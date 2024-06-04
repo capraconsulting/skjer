@@ -91,14 +91,14 @@ pnpm build
 
 ### Sanity
 
-For å generere typer av innholdsskjemaer, kjør følgende kommandoer fra /studio/models:
+For å generere typer av innholdsskjemaer, kjør følgende kommandoer fra /studio:
 
 ```sh
 sanity schema extract --enforce-required-fields
 sanity typegen generate
 ```
 
-NB: Når sanity.types.ts er generert i /studio, skal den også kopieres til /app.
+NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres til /app.
 
 ### Supabase
 

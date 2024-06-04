@@ -41,16 +41,16 @@
   });
 </script>
 
-<section class="w-full mt-2 mb-80 mx-0">
+<section class="mx-0 mb-80 mt-2 w-full">
   {#if event.image}
     <img
-      class="w-full h-[380px] object-cover"
+      class="h-[380px] w-full object-cover"
       src={urlFor(event.image).url()}
       alt="Cover image for {event.title}"
     />
   {/if}
-  <div class="pr-4 pl-3 py-0">
-    <h1 class="text-6xl font-extrabold leading-tight my-8">{event.title}</h1>
+  <div class="py-0 pl-3 pr-4">
+    <h1 class="my-8 text-6xl font-extrabold leading-tight">{event.title}</h1>
     {#if event.summary}
       <p class="text-2xl">{event.summary}</p>
     {/if}
@@ -75,10 +75,10 @@
       </div>
     {/if}
 
-    <div class="py-8 sm:w-[70%] flex flex-col gap-12">
+    <div class="flex flex-col gap-12 py-8 sm:w-[70%]">
       {#if data.auth?.user}
         <div>
-          <h2 class="text-2xl pb-4 mt-8">
+          <h2 class="mt-8 pb-4 text-2xl">
             <span class="font-bold">Deltakere</span>
             {#if internalParticipantNames?.length}
               <span class="font-light">({internalParticipantNames.length})</span>
@@ -89,7 +89,7 @@
       {/if}
 
       <div class="py-8">
-        <h2 class="text-2xl font-bold pb-4">Meld deg på</h2>
+        <h2 class="pb-4 text-2xl font-bold">Meld deg på</h2>
         {#if $registrationMessage?.success}
           <Alert color="green" class="mb-6"
             >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
@@ -113,7 +113,7 @@
         <UnregistrationForm {unregistrationForm} {unregistrationErrors} {unregistrationEnhance} />
         {#if $unregistrationMessage?.success}
           <!-- demo purpose -->
-          <div class="w-[400px] p-2 border text-xs border-gray-300 break-words">
+          <div class="w-[400px] break-words border border-gray-300 p-2 text-xs">
             {`/event/unregister/${$unregistrationMessage.token}`}
           </div>
         {/if}
