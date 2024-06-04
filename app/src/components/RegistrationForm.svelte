@@ -16,7 +16,7 @@
 </script>
 
 <form
-  class="flex flex-col gap-6"
+  class="flex flex-col gap-4"
   method="POST"
   action="?/submitRegistration"
   use:registrationEnhance
@@ -24,8 +24,15 @@
   <div class="flex flex-col gap-1">
     <input type="text" name="subject" id="subject" class="hidden" />
 
-    <Label for="fullName">Navn*</Label>
-    <Input type="text" name="fullName" id="fullName" bind:value={$registrationForm.fullName} />
+    <Label for="fullName">Fullt navn*</Label>
+    <Input
+      size="sm"
+      class="bg-white"
+      type="text"
+      name="fullName"
+      id="fullName"
+      bind:value={$registrationForm.fullName}
+    />
     {#if $registrationErrors.fullName}
       <p class="text-xs text-red-600">Fyll inn gyldig navn (minst 2 bokstaver).</p>
     {/if}
@@ -33,7 +40,14 @@
 
   <div class="flex flex-col gap-1">
     <Label for="email">E-post*</Label>
-    <Input type="text" name="email" id="email" bind:value={$registrationForm.email} />
+    <Input
+      size="sm"
+      class="bg-white"
+      type="text"
+      name="email"
+      id="email"
+      bind:value={$registrationForm.email}
+    />
     {#if $registrationErrors.email}
       <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
     {/if}
@@ -41,7 +55,14 @@
 
   <div class="flex flex-col gap-1">
     <Label for="telephone">Telefonnummer</Label>
-    <Input type="text" name="telephone" id="telephone" bind:value={$registrationForm.telephone} />
+    <Input
+      size="sm"
+      class="bg-white"
+      type="text"
+      name="telephone"
+      id="telephone"
+      bind:value={$registrationForm.telephone}
+    />
     {#if $registrationErrors.telephone}
       <p class="text-xs text-red-600">Fyll inn gyldig telefonnummer.</p>
     {/if}
@@ -49,7 +70,14 @@
 
   <div class="flex flex-col gap-1">
     <Label for="firm">Firma</Label>
-    <Input type="text" name="firm" id="firm" bind:value={$registrationForm.firm} />
+    <Input
+      size="sm"
+      class="bg-white"
+      type="text"
+      name="firm"
+      id="firm"
+      bind:value={$registrationForm.firm}
+    />
     {#if $registrationErrors.firm}
       <p class="text-xs text-red-600">Fyll inn gyldig firmanavn (minst 2 bokstaver).</p>
     {/if}
@@ -59,21 +87,24 @@
     <div class="flex flex-col gap-1">
       <Label for="allergies">Allergier</Label>
       <MultiSelect
+        class="bg-white"
         items={allergies}
         bind:value={$registrationForm.allergies}
         id="allergies"
         name="allergies"
-        size="md"
+        size="sm"
       />
     </div>
   {/if}
 
-  <Button color="dark" type="submit" disabled={$registrationDelayed}
-    >Send inn
-    <span class="w-3">
-      {#if $registrationDelayed}
-        <Spinner class="ml-2" color="white" size="4" />
-      {/if}
-    </span>
-  </Button>
+  <div class="flex w-full justify-end">
+    <Button class="mt-4" pill color="dark" type="submit" disabled={$registrationDelayed}
+      ><span class="ml-3">Meld meg på</span>
+      <span class="w-3">
+        {#if $registrationDelayed}
+          <Spinner class="ml-2" color="white" size="4" />
+        {/if}
+      </span>
+    </Button>
+  </div>
 </form>

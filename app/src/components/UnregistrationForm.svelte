@@ -7,30 +7,31 @@
 </script>
 
 <form
-  class="mt-10 flex flex-col gap-6"
+  class="mt-20 flex flex-col gap-6"
   method="POST"
   action="?/submitUnregistration"
   use:unregistrationEnhance
 >
   <div
-    class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-8"
+    class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 sm:p-8 dark:border-gray-700 dark:bg-gray-800"
   >
     <div class="flex flex-col items-center gap-5">
       <div class="flex flex-col items-start gap-4">
         <h4
-          class="text-xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-2xl"
+          class="text-2xl font-bold leading-none tracking-tight text-gray-900 sm:text-2xl dark:text-white"
         >
-          <p class="text-xl">Ønsker du å melde deg av?</p>
+          <p class="text-2xl">Ønsker du å melde deg av?</p>
         </h4>
 
-        <ButtonGroup class="w-full">
+        <ButtonGroup class="w-100">
           <Input
+            class="bg-white"
             type="text"
             placeholder="din-epost@epost.no"
             name="email"
             bind:value={$unregistrationForm.email}
           />
-          <Button type="submit" color="dark">Send</Button>
+          <Button class="w-48" type="submit" color="dark">Meld meg av</Button>
         </ButtonGroup>
 
         {#if $unregistrationErrors.email}
