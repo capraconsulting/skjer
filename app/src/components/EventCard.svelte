@@ -4,6 +4,7 @@
   import capraLogo from "$lib/assets/capra-black-small.webp";
   import frydeLogo from "$lib/assets/fryde-black-small.webp";
   import lifligLogo from "$lib/assets/liflig-black-small.webp";
+  import { ArrowRight } from "phosphor-svelte";
 
   export let event: Event;
 </script>
@@ -43,7 +44,7 @@
         </div>
         <div class="flex flex-row items-center gap-2">
           <p>Se mer</p>
-          <span class="material-icons mr-2 text-base">arrow_forward</span>
+          <ArrowRight class="mr-2" />
         </div>
       </div>
     </div>

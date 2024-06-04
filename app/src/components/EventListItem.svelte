@@ -5,12 +5,13 @@
   import capraLogo from "$lib/assets/capra-black-small.webp";
   import frydeLogo from "$lib/assets/fryde-black-small.webp";
   import lifligLogo from "$lib/assets/liflig-black-small.webp";
+  import { ArrowRight } from "phosphor-svelte";
 
   export let event: Event;
 </script>
 
 <a
-  class="group relative flex flex-col justify-between rounded-md border border-black p-3 hover:bg-zinc-100 hover:transition-[2s] sm:flex-row"
+  class="flex flex-col justify-between rounded-md border border-black p-3 hover:bg-zinc-100 hover:transition-[2s] sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light sm:flex-row sm:gap-2 sm:px-2">
@@ -24,8 +25,8 @@
       </Badge>
     </div>
   </div>
-  <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
-    <div class="flex gap-4">
+  <div class="flex flex-row gap-6 pt-4 sm:pt-0">
+    <div class="flex items-center gap-4">
       {#if event.organisers?.includes("Capra")}
         <img class="h-5" alt="Capra-logo" src={capraLogo} />
       {/if}
@@ -35,7 +36,7 @@
       {#if event.organisers?.includes("Fryde")}
         <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
       {/if}
+      <ArrowRight class="mr-2" />
     </div>
-    <span class="material-icons mr-2 text-base">arrow_forward</span>
   </div>
 </a>

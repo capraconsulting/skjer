@@ -7,12 +7,12 @@
 
 {#if auth}
   <div class="flex flex-row items-center gap-2">
-    <img class="h-7 rounded-xl" alt="Profilbilde" src={auth.user.image} />
+    <img class="h-7 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
     <span class="mr-6 hidden text-sm font-normal text-black sm:block">{auth.user.name}</span>
-    <Button color="dark" size="xs" pill class="" on:click={() => signOut({ callbackUrl: "/" })}
+    <Button color="dark" class="h-7" pill on:click={() => signOut({ callbackUrl: "/" })}
       >Logg ut</Button
     >
   </div>
 {:else}
-  <Button color="dark" size="xs" pill class="" on:click={() => signIn("google")}>Logg inn</Button>
+  <Button color="dark" class="h-7" pill on:click={() => signIn("google")}>Logg inn</Button>
 {/if}
