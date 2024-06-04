@@ -15,7 +15,7 @@
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light sm:flex-row sm:gap-2 sm:px-2">
-    <h2 class="pr-3 text-2xl">
+    <h2 class="pr-3 text-xl">
       {event.title}
     </h2>
     <div class="flex flex-row items-center gap-2">

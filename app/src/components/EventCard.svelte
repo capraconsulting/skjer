@@ -23,7 +23,7 @@
     {/if}
 
     <div class="mx-4 my-4 flex flex-col gap-2">
-      <h2 class="text-2xl font-semibold sm:text-3xl">
+      <h2 class="text-2xl font-semibold">
         {event.title}
       </h2>
       {#if event.summary}
@@ -42,7 +42,7 @@
             <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
           {/if}
         </div>
-        <div class="flex flex-row items-center gap-2 align-bottom">
+        <div class="flex flex-row items-center gap-2">
           <p>Se mer</p>
           <ArrowRight class="mr-2" />
         </div>

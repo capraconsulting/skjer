@@ -45,7 +45,7 @@
   <Badge rounded class="mb-4 h-6 border border-black bg-white">{event.category}</Badge>
   <h1 class="font-ligh pb-6 text-3xl sm:text-5xl">{event.title}</h1>
   {#if event.summary}
-    <p class="pb-6 text-base font-light sm:text-2xl">{event.summary}</p>
+    <p class="pb-6 text-base font-light sm:text-xl">{event.summary}</p>
   {/if}
 
   <div class="flex flex-col gap-5 pb-6 sm:h-60 sm:flex-row">
@@ -62,7 +62,7 @@
   </div>
 
   {#if event.body}
-    <div class="flex flex-col gap-4 text-base font-light sm:text-2xl">
+    <div class="flex flex-col gap-4 text-base font-light sm:text-xl">
       <PortableText components={{}} value={event.body} />
     </div>
   {/if}
@@ -70,7 +70,7 @@
   <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
     {#if data.auth?.user}
       <div>
-        <h2 class="mt-8 pb-4 text-base sm:text-2xl">
+        <h2 class="mt-8 pb-4 text-base sm:text-xl">
           <span class="font-bold">Deltagere:</span>
         </h2>
         <EventParticipants {internalParticipantNames} />
@@ -78,7 +78,7 @@
     {/if}
 
     <div class="py-6">
-      <h2 class="pb-4 text-base font-bold sm:text-2xl">Påmelding:</h2>
+      <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
       {#if $registrationMessage?.success}
         <Alert color="green" class="mb-6"
           >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
