@@ -10,16 +10,16 @@
 </script>
 
 <a
-  class="group relative flex flex-col justify-between rounded-md border border-black p-3 hover:bg-zinc-100 hover:transition-[2s] sm:flex-row"
+  class="group relative flex flex-col justify-between rounded-md border border-black px-3 py-4 hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light sm:flex-row sm:gap-2 sm:px-2">
-    <h2 class="pr-3 text-xl">
+    <h2 class="pr-3 text-2xl">
       {event.title}
     </h2>
     <div class="flex flex-row items-center gap-2">
-      <Badge rounded class="h-6 border border-black bg-white">{event.category}</Badge>
-      <Badge rounded class="h-6 border border-black bg-white">
+      <Badge rounded class="h-6 border border-black bg-transparent">{event.category}</Badge>
+      <Badge rounded class="h-6 border border-black bg-transparent">
         {formatDate(event.start)}
       </Badge>
     </div>

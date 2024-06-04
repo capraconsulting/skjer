@@ -28,15 +28,15 @@
 
 <section class="pb-8">
   <div class="flex flex-col justify-between sm:flex-row sm:items-center">
-    <h1 class="pb-6 text-4xl font-light sm:w-[50%] sm:pt-10 sm:text-5xl">
+    <h1 class="pb-6 text-4xl font-light sm:w-[50%] sm:pt-10 sm:text-6xl">
       Kommende kurs og arrangementer
     </h1>
 
-    <ButtonGroup class="mt-8 h-7 gap-2">
+    <ButtonGroup class="mt-8 h-8 gap-2 shadow-none">
       {#each categories as category}
         <Button
           on:click={() => updateCategory(category.value)}
-          class={`${selectedCategory === category.value ? "!rounded-xl border-black bg-zinc-800 text-white hover:bg-zinc-600" : "!rounded-xl border border-black"}`}
+          class={`${selectedCategory === category.value ? "!rounded-2xl border-black bg-zinc-800 text-white hover:bg-zinc-600" : "!rounded-2xl border border-black hover:bg-[#E5FFE3]"}`}
         >
           {category.title}
         </Button>
@@ -58,7 +58,7 @@
 </section>
 
 <section class="pb-8">
-  <h1 class="pb-12 pt-10 text-4xl font-light sm:w-[50%] sm:text-5xl">
+  <h1 class="pb-12 pt-10 text-4xl font-light sm:w-[50%] sm:text-6xl">
     Tidligere kurs og arrangementer
   </h1>
 

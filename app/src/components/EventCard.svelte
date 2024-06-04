@@ -9,7 +9,7 @@
 </script>
 
 <a
-  class="group relative flex flex-col rounded-xl border border-black hover:bg-zinc-100 hover:transition-[2s] sm:flex-row"
+  class="group relative flex flex-col rounded-xl border border-black hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex w-full flex-col">
@@ -22,11 +22,11 @@
     {/if}
 
     <div class="mx-4 my-4 flex flex-col gap-2">
-      <h2 class="text-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">
         {event.title}
       </h2>
       {#if event.summary}
-        <p class="text-lg font-light">{event.summary}</p>
+        <p class="text-base font-light sm:text-lg">{event.summary}</p>
       {/if}
 
       <div class="mt-5 flex items-center justify-between gap-6">
@@ -41,7 +41,7 @@
             <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
           {/if}
         </div>
-        <div class="flex flex-row items-center gap-2">
+        <div class="flex flex-row items-center gap-2 align-bottom">
           <p>Se mer</p>
           <span class="material-symbols-outlined mr-2 text-base">arrow_forward</span>
         </div>

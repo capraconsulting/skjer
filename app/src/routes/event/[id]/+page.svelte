@@ -8,7 +8,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
-  import { Alert, Badge } from "flowbite-svelte";
+  import { Alert, Badge, Button } from "flowbite-svelte";
   import EventParticipants from "$components/EventParticipants.svelte";
   import EventInfoBox from "$components/EventInfoBox.svelte";
 
@@ -43,9 +43,9 @@
 
 <section>
   <Badge rounded class="mb-4 h-6 border border-black bg-white">{event.category}</Badge>
-  <h1 class="font-ligh pb-6 text-4xl">{event.title}</h1>
+  <h1 class="font-ligh pb-6 text-3xl sm:text-5xl">{event.title}</h1>
   {#if event.summary}
-    <p class="pb-6 text-xl font-light">{event.summary}</p>
+    <p class="pb-6 text-base font-light sm:text-2xl">{event.summary}</p>
   {/if}
 
   <div class="flex flex-col gap-5 pb-6 sm:h-60 sm:flex-row">
@@ -62,26 +62,23 @@
   </div>
 
   {#if event.body}
-    <div class="flex flex-col gap-4 text-xl font-light">
+    <div class="flex flex-col gap-4 text-base font-light sm:text-2xl">
       <PortableText components={{}} value={event.body} />
     </div>
   {/if}
 
-  <div class="flex flex-col gap-12 py-8 sm:w-[70%]">
+  <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
     {#if data.auth?.user}
       <div>
-        <h2 class="mt-8 pb-4 text-2xl">
-          <span class="font-light">Deltakere</span>
-          {#if internalParticipantNames?.length}
-            <span class="font-light">({internalParticipantNames.length})</span>
-          {/if}
+        <h2 class="mt-8 pb-4 text-base sm:text-2xl">
+          <span class="font-bold">Deltagere:</span>
         </h2>
         <EventParticipants {internalParticipantNames} />
       </div>
     {/if}
 
-    <div class="py-8">
-      <h2 class="pb-4 text-2xl font-bold">Meld deg på</h2>
+    <div class="py-6">
+      <h2 class="pb-4 text-base font-bold sm:text-2xl">Påmelding:</h2>
       {#if $registrationMessage?.success}
         <Alert color="green" class="mb-6"
           >Du har meldt deg på arrangementet! Du får en bekreftelse på <b
