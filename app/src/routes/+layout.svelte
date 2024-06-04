@@ -12,7 +12,7 @@
 {#if $isPreviewing}
   <a
     href={`/preview/disable?redirect=${$page.url.pathname}`}
-    class="rounded box-shadow text-gray-800 block text-xs shadow font-medium leading-4 fixed text-center z-50 px-3 py-2 right-4 bottom-4 hover:bg-red-500 hover:text-white group"
+    class="box-shadow group fixed bottom-4 right-4 z-50 block rounded px-3 py-2 text-center text-xs font-medium leading-4 text-gray-800 shadow hover:bg-red-500 hover:text-white"
   >
     <span class="block group-hover:hidden">Preview Enabled</span>
     <span class="hidden group-hover:block">Disable Preview</span>
@@ -21,8 +21,8 @@
 
 <Header {auth} />
 
-<div class="sm:max-w-[1000px] p-4 min-h-[90vh] mx-auto">
-  <main class="mt-8 mb-16">
+<div class="mx-auto min-h-[90vh] p-4 sm:max-w-[1000px]">
+  <main class="mb-16 mt-8">
     <slot />
   </main>
 </div>

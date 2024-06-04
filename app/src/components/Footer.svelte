@@ -5,15 +5,15 @@
 </script>
 
 <footer
-  class="bg-black h-[470px] w-full text-white font-light text-lg flex flex-col items-center justify-center sm:gap-12 gap-8 py-16"
+  class="flex h-[470px] w-full flex-col items-center justify-center gap-8 bg-black py-16 text-lg font-light text-white sm:gap-12"
 >
-  <p class="pt-6 pb-2">Vi er en del av Capra-gruppen</p>
+  <p class="pb-2 pt-6">Vi er en del av Capra-gruppen</p>
   <div class="flex gap-11">
     <img class="h-20 sm:h-28" alt="Capra-logo" src={capraLogo} />
     <img class="h-20 sm:h-28" alt="Liflig-logo" src={lifligLogo} />
     <img class="h-20 sm:h-28" alt="Fryde-logo" src={frydeLogo} />
   </div>
-  <p class="pt-10 sm:text-base text-sm text-center">
+  <p class="pt-10 text-sm sm:text-base">
     2024 © Capra | Stenersgata 2 | N-0168 Oslo | post@capraconsulting.no
   </p>
 </footer>

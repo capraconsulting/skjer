@@ -6,9 +6,9 @@
 </script>
 
 {#if auth}
-  <div class="flex flex-row gap-2 items-center">
+  <div class="flex flex-row items-center gap-2">
     <img class="h-7 rounded-xl" alt="Profilbilde" src={auth.user.image} />
-    <span class="sm:block hidden text-sm text-black font-normal mr-6">{auth.user.name}</span>
+    <span class="mr-6 hidden text-sm font-normal text-black sm:block">{auth.user.name}</span>
     <Button color="dark" size="xs" pill class="" on:click={() => signOut({ callbackUrl: "/" })}
       >Logg ut</Button
     >
