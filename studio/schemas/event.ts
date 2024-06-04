@@ -21,16 +21,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "organisers",
-      title: "I regi av",
-      type: "array",
-      of: [{ type: "string" }],
-      options: {
-        list: ["Capra", "Fryde", "Liflig"],
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "summary",
       title: "Oppsummering",
       type: "string",
@@ -71,6 +61,16 @@ export default defineType({
       name: "place",
       title: "Sted",
       type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "organisers",
+      title: "I regi av",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: ["Capra", "Fryde", "Liflig"],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
