@@ -6,9 +6,7 @@
 
   export let data: PageData;
 
-  let { futureEvents, pastEvents, category } = data;
-  let selectedCategory = category;
-  let futureEventsFiltered = futureEvents;
+  let { futureEvents, pastEvents, selectedCategory } = data;
 
   $: futureEventsFiltered = futureEvents.filter(({ category }) => {
     if (!selectedCategory) return true;

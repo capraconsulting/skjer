@@ -4,7 +4,7 @@
   import type { Category } from "$models/sanity.model";
   import { goto } from "$app/navigation";
 
-  export let selectedCategory: string | undefined;
+  export let selectedCategory: string;
 
   const dispatch = createEventDispatcher();
   const searchParams = new URLSearchParams();
@@ -20,8 +20,8 @@
   const handleCategoryChange = (category: string) => {
     dispatch("categoryChange", category);
 
-    if (selectedCategory) {
-      searchParams.set("category", selectedCategory);
+    if (category) {
+      searchParams.set("category", category);
     } else {
       searchParams.delete("category");
     }

@@ -5,7 +5,7 @@ import { client } from "$lib/sanity/client";
 
 export const load: PageServerLoad = async (event) => {
   const url = new URL(event.url);
-  const category = url.searchParams.get("category")?.toLowerCase();
+  const selectedCategory = url.searchParams.get("category")?.toLowerCase() || "";
 
   const futureEvents: Event[] = await client.fetch(futureEventsQuery);
   const pastEvents: Event[] = await client.fetch(pastEventsQuery);
@@ -13,6 +13,6 @@ export const load: PageServerLoad = async (event) => {
   return {
     futureEvents,
     pastEvents,
-    category,
+    selectedCategory,
   };
 };
