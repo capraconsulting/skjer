@@ -7,5 +7,5 @@ export const getEventContent = async ({ id }: { id: string }) => {
   return result;
 };
 
-export const futureEventsQuery = `*[_type == "event" && start > now() && (!defined($category) || category match $category)] | order(start desc)`;
+export const futureEventsQuery = `*[_type == "event" && start > now()] | order(start asc)`;
 export const pastEventsQuery = `*[_type == "event" && start <= now()] | order(start desc)`;

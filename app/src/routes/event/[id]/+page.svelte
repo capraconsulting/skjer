@@ -11,6 +11,7 @@
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
   import { Alert, Badge } from "flowbite-svelte";
   import EventParticipants from "$components/EventParticipants.svelte";
+  import { MapPin, Clock } from "phosphor-svelte";
 
   export let data;
 
@@ -55,15 +56,15 @@
       <p class="text-2xl">{event.summary}</p>
     {/if}
     <div class="my-6 font-light">
-      <div class="flex">
-        <span class="material-icons mr-2">schedule</span>
+      <div class="flex items-center">
+        <Clock size="1.25rem" class="mr-2" />
         <p>
           {formatDate(event.start)}
           {formatTime(event.start)}
         </p>
       </div>
-      <div class="flex">
-        <span class="material-icons mr-2">location_on</span>
+      <div class="flex items-center">
+        <MapPin size="1.25rem" class="mr-2" />
         <p>{event.place}</p>
       </div>
       <Badge class="mt-4" large color="dark">{event.category}</Badge>

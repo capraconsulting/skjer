@@ -1,29 +1,19 @@
 <script lang="ts">
-  import { Button, ButtonGroup } from "flowbite-svelte";
   import EventCard from "../components/EventCard.svelte";
   import type { PageData } from "./$types";
   import EventListItem from "$components/EventListItem.svelte";
+  import CategoryFilter from "../components/CategoryFilter.svelte";
 
   export let data: PageData;
-  let { futureEvents, pastEvents } = data;
-  let selectedCategory: string = data.category || "";
 
-  function updateCategory(category: string) {
-    const url = new URL(window.location.href);
-    if (category) {
-      url.searchParams.set("category", category);
-    } else {
-      url.searchParams.delete("category");
-    }
-    window.location.href = url.toString();
-  }
+  let { futureEvents, pastEvents, category } = data;
+  let selectedCategory = category;
+  let futureEventsFiltered = futureEvents;
 
-  const categories = [
-    { value: "", title: "Alle" },
-    { value: "Tech", title: "Tech" },
-    { value: "Design", title: "Design" },
-    { value: "Sosialt", title: "Sosialt" },
-  ];
+  $: futureEventsFiltered = futureEvents.filter(({ category }) => {
+    if (!selectedCategory) return true;
+    return category.toLowerCase() === selectedCategory;
+  });
 </script>
 
 <section class="pb-8">
@@ -32,21 +22,15 @@
       Kommende kurs og arrangementer
     </h1>
 
-    <ButtonGroup class="mt-8 h-7 gap-2">
-      {#each categories as category}
-        <Button
-          on:click={() => updateCategory(category.value)}
-          class={`${selectedCategory === category.value ? "!rounded-xl border-black bg-zinc-800 text-white hover:bg-zinc-600" : "!rounded-xl border border-black"}`}
-        >
-          {category.title}
-        </Button>
-      {/each}
-    </ButtonGroup>
+    <CategoryFilter
+      {selectedCategory}
+      on:categoryChange={({ detail }) => (selectedCategory = detail)}
+    />
   </div>
 
   <div class="flex flex-col gap-4 py-5">
-    {#if futureEvents.length}
-      {#each futureEvents as event}
+    {#if futureEventsFiltered.length}
+      {#each futureEventsFiltered as event}
         <EventListItem {event} />
       {/each}
     {:else}
