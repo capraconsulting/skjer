@@ -25,7 +25,7 @@
       </Badge>
     </div>
   </div>
-  <div class="flex flex-row gap-6 pt-4 sm:pt-0">
+  <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
     <div class="flex items-center gap-4">
       {#if event.organisers?.includes("Capra")}
         <img class="h-5" alt="Capra-logo" src={capraLogo} />
@@ -36,7 +36,6 @@
       {#if event.organisers?.includes("Fryde")}
         <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
       {/if}
-      <ArrowRight class="mr-2" />
     </div>
     <ArrowRight class="mr-2" />
   </div>

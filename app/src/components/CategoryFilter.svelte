@@ -30,11 +30,11 @@
   };
 </script>
 
-<ButtonGroup class="mt-8 flex-col gap-2 shadow-none sm:flex-row">
+<ButtonGroup class="mt-8 flex-row gap-2 shadow-none">
   {#each categories as { title, keyword }}
     <Button
       on:click={() => handleCategoryChange(keyword)}
-      class={`${selectedCategory === keyword ? "h-7 !rounded-xl border-black bg-zinc-800 text-white hover:bg-zinc-600" : "h-7 !rounded-xl border border-black "}`}
+      class={`${selectedCategory === keyword ? "h-7 !rounded-2xl border-black bg-zinc-800 text-white hover:bg-zinc-600" : "h-7 !rounded-2xl border border-black "}`}
     >
       {title}
     </Button>
