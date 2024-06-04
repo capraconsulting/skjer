@@ -1,4 +1,4 @@
-import { Event } from "../../app/src/models/sanity.types";
+import { Event } from "../../app/src/models/sanity.model";
 import { useDocumentOperation, DocumentActionProps } from "sanity";
 import { supabase } from "../supabase/client";
 import { urlFor } from "../config/client";

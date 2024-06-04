@@ -1,6 +1,6 @@
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "./client";
-import type { Event } from "$models/sanity.types";
+import type { Event } from "$models/sanity.model";
 
 const builder = imageUrlBuilder(client);
 

@@ -45,7 +45,7 @@
   {#if event.image}
     <img
       class="h-[380px] w-full object-cover"
-      src={urlFor(event.image).url()}
+      src={urlFor(event.image).width(968).height(380).format("webp").url()}
       alt="Cover image for {event.title}"
     />
   {/if}
