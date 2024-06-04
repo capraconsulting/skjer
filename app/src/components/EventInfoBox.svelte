@@ -5,7 +5,7 @@
   export let event: Event;
 </script>
 
-<div class="w-full rounded-xl bg-zinc-100 p-5 text-sm font-light">
+<div class="h-full w-full rounded-xl bg-zinc-100 p-3 text-sm font-light sm:p-5">
   {#if event.category}
     <div class="flex items-center">
       <span class="material-symbols-outlined mr-2 text-base">calendar_today</span>

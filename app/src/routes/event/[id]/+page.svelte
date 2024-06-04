@@ -48,17 +48,21 @@
     <p class="pb-6 text-lg font-light">{event.summary}</p>
   {/if}
 
-  <div class="flex h-52 flex-row gap-5 pb-6">
-    <EventInfoBox {event} />
-    <img
-      class="h-full w-full rounded-xl object-cover"
-      src={urlFor(event.image).format("webp").url()}
-      alt="Bilde for arrangementet: {event.title}"
-    />
+  <div class="flex flex-col gap-5 pb-6 sm:h-52 sm:flex-row">
+    <div class="w-full sm:w-[40%]">
+      <EventInfoBox {event} />
+    </div>
+    <div class="w-full sm:w-[60%]">
+      <img
+        class="h-52 w-full rounded-xl object-cover sm:h-full"
+        src={urlFor(event.image).format("webp").url()}
+        alt="Bilde for arrangementet: {event.title}"
+      />
+    </div>
   </div>
 
   {#if event.body}
-    <div class="flex flex-col gap-4 text-lg">
+    <div class="flex flex-col gap-4 text-lg font-light">
       <PortableText components={{}} value={event.body} />
     </div>
   {/if}
