@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import type { Event } from "$models/sanity.types";
+import type { Event } from "$models/sanity.model";
 import { futureEventsQuery, pastEventsQuery } from "$lib/server/sanity/queries";
 import { client } from "$lib/sanity/client";
 

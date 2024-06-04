@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import { superValidate } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema";
-import type { Event } from "$models/sanity.types";
+import type { Event } from "$models/sanity.model";
 import { submitRegistration } from "$lib/form/submitRegistration";
 import { submitUnregistration } from "$lib/form/submitUnregistration";
 import { getInternalEventParticipantNames } from "$lib/server/supabase/queries";

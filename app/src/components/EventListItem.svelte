@@ -1,6 +1,6 @@
 <script lang="ts">
   import { formatDate } from "$lib/utils";
-  import type { Event } from "$models/sanity.types";
+  import type { Event } from "$models/sanity.model";
   import { Badge } from "flowbite-svelte";
   import capraLogo from "$lib/assets/capra-black-small.webp";
   import frydeLogo from "$lib/assets/fryde-black-small.webp";
