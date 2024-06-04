@@ -11,7 +11,7 @@
 </script>
 
 <a
-  class="group relative flex flex-col justify-between rounded-md border border-black px-3 py-4 hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
+  class="flex flex-col justify-between rounded-md border border-black px-3 py-4 hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light sm:flex-row sm:gap-2 sm:px-2">
