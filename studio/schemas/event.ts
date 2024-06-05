@@ -78,20 +78,20 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "openForExternals",
-      title: "Åpen for eksterne",
+      name: "visibleForExternals",
+      title: "Synlig for eksterne",
       description:
-        "Hvis du krysser av å denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",
+        "Hvis du krysser av på denne vil arrangementet være synlig for alle selv om man ikke er logget inn.",
       type: "boolean",
       options: {
         layout: "checkbox",
       },
     }),
     defineField({
-      name: "visibleForExternals",
-      title: "Synlig for eksterne",
+      name: "openForExternals",
+      title: "Åpen for eksterne",
       description:
-        "Hvis du krysser av på denne vil arrangementet være synlig for alle selv om man ikke er logget inn.",
+        "Hvis du krysser av på denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",
       type: "boolean",
       options: {
         layout: "checkbox",
