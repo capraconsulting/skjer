@@ -13,7 +13,7 @@
     <img class="h-20 sm:h-28" alt="Liflig-logo" src={lifligLogo} />
     <img class="h-20 sm:h-28" alt="Fryde-logo" src={frydeLogo} />
   </div>
-  <p class="pt-10 text-sm sm:text-base">
+  <p class="pt-10 text-center text-sm sm:text-base">
     2024 © Capra | Stenersgata 2 | N-0168 Oslo | post@capraconsulting.no
   </p>
 </footer>

@@ -1,7 +1,7 @@
 {
   "name": "capra-web",
   "version": "1.0.0",
-  "description": "Arrangementsiden til Capra, Liflig og Fryde",
+  "description": "Capra, Liflig og Fryde Arrangementer",
   "private": true,
   "scripts": {
     "dev": "pnpm -r dev"

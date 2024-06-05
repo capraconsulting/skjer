@@ -14,6 +14,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Arrangementer | Capra Liflig Fryde</title>
+</svelte:head>
+
 <section class="pb-8">
   <div class="flex flex-col justify-between sm:flex-row sm:items-center">
     <h1 class="pb-6 text-4xl font-light sm:w-[50%] sm:pt-10 sm:text-5xl">
