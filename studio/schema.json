@@ -678,14 +678,14 @@
         },
         "optional": false
       },
-      "onlyOpenForInternal": {
+      "openForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
         "optional": true
       },
-      "onlyVisibleForInternal": {
+      "visibleForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"

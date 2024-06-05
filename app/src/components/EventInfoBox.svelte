@@ -40,6 +40,6 @@
   {/if}
   <div class="flex items-center">
     <Tag class="mr-2" />
-    <span>{event.onlyOpenForInternal ? "Kun for interne" : "Åpent for alle"}</span>
+    <span>{event.openForExternals ? "Åpent for alle" : "Kun for interne"}</span>
   </div>
 </div>
