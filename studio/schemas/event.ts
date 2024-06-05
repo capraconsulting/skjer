@@ -83,9 +83,11 @@ export default defineType({
       description:
         "Hvis du krysser av på denne vil arrangementet være synlig for alle selv om man ikke er logget inn.",
       type: "boolean",
+      initialValue: false,
       options: {
         layout: "checkbox",
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "openForExternals",
@@ -93,9 +95,11 @@ export default defineType({
       description:
         "Hvis du krysser av på denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",
       type: "boolean",
+      initialValue: false,
       options: {
         layout: "checkbox",
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       title: "Matservering og allergier",
@@ -103,9 +107,11 @@ export default defineType({
       description:
         "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier blir lagt til i påmeldingsskjemaet.",
       type: "boolean",
+      initialValue: false,
       options: {
         layout: "checkbox",
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       title: "Mat/restaurant",

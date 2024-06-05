@@ -115,8 +115,8 @@ export type Event = {
   category: Category;
   place: string;
   organisers: Array<string>;
-  openForExternals?: boolean;
-  visibleForExternals?: boolean;
+  openForExternals: boolean;
+  visibleForExternals: boolean;
   allergy?: boolean;
   food?: string;
   fields?: boolean;

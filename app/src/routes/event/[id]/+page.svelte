@@ -11,9 +11,8 @@
   import { Alert, Badge } from "flowbite-svelte";
   import EventParticipants from "$components/EventParticipants.svelte";
   import EventInfoBox from "$components/EventInfoBox.svelte";
-  import type { PageData } from "./$types";
 
-  export let data: PageData;
+  export let data;
 
   const { query, options, internalParticipantNames } = data;
   const result = useQuery({ query, options });

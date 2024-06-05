@@ -1,10 +1,9 @@
 <script lang="ts">
   import EventCard from "../components/EventCard.svelte";
-  import type { PageData } from "./$types";
   import EventListItem from "$components/EventListItem.svelte";
   import CategoryFilter from "../components/CategoryFilter.svelte";
 
-  export let data: PageData;
+  export let data;
 
   let { futureEvents, pastEvents, selectedCategory } = data;
 
