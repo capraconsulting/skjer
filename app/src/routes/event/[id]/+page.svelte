@@ -41,6 +41,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>{event.title} | Capra Liflig Fryde</title>
+</svelte:head>
+
 <section>
   <Badge rounded class="mb-4 h-6 border border-black bg-white">{event.category}</Badge>
   <h1 class="font-ligh pb-6 text-3xl sm:text-5xl">{event.title}</h1>

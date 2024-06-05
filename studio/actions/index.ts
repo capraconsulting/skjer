@@ -29,7 +29,7 @@ const afterPublish = async (id: string, event: Event) => {
   try {
     const created = await createEventIfNotExist({ document_id: id });
     if (created) {
-      createSlackMessage(event);
+      createSlackMessage(id, event);
     }
   } catch (error) {
     console.error("Error handling event and Slack message:", error);
@@ -50,15 +50,12 @@ export const createEventIfNotExist = async ({
   return false;
 };
 
-export const createSlackMessage = async ({
-  title,
-  category,
-  place,
-  start,
-  summary,
-  image,
-}: Event) => {
+export const createSlackMessage = async (
+  id: string,
+  { title, category, place, start, summary, image }: Event
+) => {
   const imageUrl = urlFor(image).width(400).url();
+  const eventUrl = `${process.env.SANITY_STUDIO_APP_BASE_URL}/event/${id}`;
 
   const startDate = new Date(start).toLocaleDateString("nb-NO", {
     hour: "2-digit",
@@ -66,13 +63,13 @@ export const createSlackMessage = async ({
   });
 
   const slackMessage = {
-    text: `*${title}*`,
     blocks: [
       {
-        type: "section",
+        type: "header",
         text: {
-          type: "mrkdwn",
-          text: `*${title} | <!here> :loudspeaker:*`,
+          type: "plain_text",
+          text: `${title} :loudspeaker:`,
+          emoji: true,
         },
       },
       {
@@ -91,10 +88,29 @@ export const createSlackMessage = async ({
       },
       {
         type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `*Start:* ${startDate}\n*Kategori:* ${category}\n*Sted:* ${place}\n*Lenke:* (?)`,
-        },
+        fields: [
+          {
+            type: "mrkdwn",
+            text: `*Påmelding:*\n<${eventUrl}|Meld deg på her>`,
+          },
+          {
+            type: "mrkdwn",
+            text: `*Kategori:*\n${category}`,
+          },
+        ],
+      },
+      {
+        type: "section",
+        fields: [
+          {
+            type: "mrkdwn",
+            text: `*Når:*\n${startDate}`,
+          },
+          {
+            type: "mrkdwn",
+            text: `*Hvor:*\n${place}`,
+          },
+        ],
       },
     ],
   };

@@ -6,10 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "sanity dev",
-    "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy",
     "format": "prettier . --write ."
   },
   "keywords": [
