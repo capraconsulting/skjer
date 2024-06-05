@@ -23,18 +23,19 @@ export default defineType({
     defineField({
       name: "summary",
       title: "Oppsummering",
-      type: "string",
-      description: "En kort beskrivelse av arrangementet, 2-3 setninger.",
+      type: "text",
+      rows: 4,
+      description: "En kort beskrivelse av arrangementet, ca. 2-3 setninger",
     }),
     defineField({
       name: "start",
-      title: "Startddato",
+      title: "Startddato og tidspunkt",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "end",
-      title: "Sluttdato",
+      title: "Sluttdato og tidspunkt",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
@@ -42,13 +43,16 @@ export default defineType({
       name: "body",
       title: "Innhold",
       type: "blockContent",
-      description: "Skriv en tekst som beskriver arrangementet i detalj.",
+      description:
+        "Skriv en tekst som beskriver arrangementet i detalj, gjerne inkludert program og all relevant info.",
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: "maxParticipant",
       title: "Maks antall deltagere",
+      description:
+        "Hvis det finnes en maksgrense for antall deltagere, fyll den inn her. Hvis ikke, la denne stå tom.",
       type: "number",
     }),
     defineField({
@@ -74,12 +78,46 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: "Spør om allergier?",
-      name: "allergy",
+      name: "onlyOpenForInternal",
+      title: "Kun åpen for interne",
+      description:
+        "Hvis du krysser av å denne vil det stå på arrangementet at det er kun for interne. Hvis ikke står det at det er åpent for alle.",
       type: "boolean",
+      options: {
+        layout: "checkbox",
+      },
     }),
     defineField({
-      title: "Legg til egne felter?",
+      name: "onlyVisibleForInternal",
+      title: "Kun synlig for interne",
+      description:
+        "Hvis du krysser av å denne vil arrangementet kun vises til interne som har logget seg inn på nettsiden. Hvis ikke vil det være synlig for alle.",
+      type: "boolean",
+      options: {
+        layout: "checkbox",
+      },
+    }),
+    defineField({
+      title: "Allergier",
+      name: "allergy",
+      description:
+        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier blir lagt til i påmeldingsskjemaet.",
+      type: "boolean",
+      options: {
+        layout: "checkbox",
+      },
+    }),
+    defineField({
+      title: "Mat",
+      name: "food",
+      type: "string",
+      description:
+        "Hvis det er matservering kan du også fylle inn hva slags mat som serveres eller fra hvor, så vises det på arrangementet.",
+    }),
+    defineField({
+      title: "Legg til egne felter",
+      description:
+        "Skru på denne hvis det er flere spørsmål du vil legge til i påmeldingsskjemaet, så dukker de opp under her.",
       name: "fields",
       type: "boolean",
     }),

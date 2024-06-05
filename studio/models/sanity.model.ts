@@ -114,7 +114,11 @@ export type Event = {
   maxParticipant?: number;
   category: Category;
   place: string;
+  organisers: Array<string>;
+  onlyOpenForInternal?: boolean;
+  onlyVisibleForInternal?: boolean;
   allergy?: boolean;
+  food?: string;
   fields?: boolean;
   customFields?: Array<string>;
 };
