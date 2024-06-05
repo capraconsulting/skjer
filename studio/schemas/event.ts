@@ -91,7 +91,7 @@ export default defineType({
       name: "onlyVisibleForInternal",
       title: "Kun synlig for interne",
       description:
-        "Hvis du krysser av å denne vil arrangementet kun vises til interne som har logget seg inn på nettsiden. Hvis ikke vil det være synlig for alle.",
+        "Hvis du krysser av å denne vil arrangementet kun vises til interne som har logget seg inn på nettsiden.",
       type: "boolean",
       options: {
         layout: "checkbox",

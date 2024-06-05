@@ -8,11 +8,12 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
-  import { Alert, Badge, Button } from "flowbite-svelte";
+  import { Alert, Badge } from "flowbite-svelte";
   import EventParticipants from "$components/EventParticipants.svelte";
   import EventInfoBox from "$components/EventInfoBox.svelte";
+  import type { PageData } from "./$types";
 
-  export let data;
+  export let data: PageData;
 
   const { query, options, internalParticipantNames } = data;
   const result = useQuery({ query, options });

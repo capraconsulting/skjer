@@ -7,5 +7,8 @@ export const getEventContent = async ({ id }: { id: string }) => {
   return result;
 };
 
-export const futureEventsQuery = `*[_type == "event" && start > now()] | order(start asc)`;
-export const pastEventsQuery = `*[_type == "event" && start <= now()] | order(start desc)`;
+export const allFutureEventsQuery = `*[_type == "event" && start > now()] | order(start asc)`;
+export const allPastEventsQuery = `*[_type == "event" && start <= now()] | order(start desc)`;
+
+export const externalFutureEventsQuery = `*[_type == "event" && start > now() && !defined(onlyVisibleForInternal)] | order(start asc) `;
+export const externalPastEventsQuery = `*[_type == "event" && start <= now() && !defined(onlyVisibleForInternal)] | order(start desc)`;
