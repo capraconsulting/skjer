@@ -12,3 +12,7 @@ export function formatTime(date: string) {
     minute: "numeric",
   });
 }
+
+export function endsOnDifferentDay(start: string, end: string) {
+  return formatDate(start) !== formatDate(end);
+}

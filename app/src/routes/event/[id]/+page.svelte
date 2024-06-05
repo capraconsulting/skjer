@@ -58,7 +58,7 @@
     </div>
     <div class="w-full sm:w-[60%]">
       <img
-        class="h-52 w-full rounded-xl object-cover sm:h-full"
+        class="w-full rounded-xl object-cover sm:h-full"
         src={urlFor(event.image).format("webp").url()}
         alt="Bilde for arrangementet: {event.title}"
       />
