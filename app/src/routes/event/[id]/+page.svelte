@@ -8,7 +8,7 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
-  import { Alert, Badge, Button } from "flowbite-svelte";
+  import { Alert, Badge } from "flowbite-svelte";
   import EventParticipants from "$components/EventParticipants.svelte";
   import EventInfoBox from "$components/EventInfoBox.svelte";
 
@@ -58,7 +58,7 @@
     </div>
     <div class="w-full sm:w-[60%]">
       <img
-        class="h-52 w-full rounded-xl object-cover sm:h-full"
+        class="w-full rounded-xl object-cover sm:h-full"
         src={urlFor(event.image).format("webp").url()}
         alt="Bilde for arrangementet: {event.title}"
       />

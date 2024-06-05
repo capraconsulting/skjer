@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { formatDate, formatTime } from "$lib/utils";
+  import { endsOnDifferentDay, formatDate, formatTime } from "$lib/utils";
   import type { Event } from "$models/sanity.model";
-  import { CalendarBlank, Clock, MapPin } from "phosphor-svelte";
+  import { CalendarBlank, Clock, MapPin, ForkKnife, Tag } from "phosphor-svelte";
 
   export let event: Event;
 </script>
@@ -16,7 +16,10 @@
 
   <div class="flex items-center">
     <CalendarBlank class="mr-2" />
-    <span>{formatDate(event.start)}</span>
+    <span
+      >{formatDate(event.start)}
+      {endsOnDifferentDay(event.start, event.end) ? `- ${formatDate(event.end)}` : ""}</span
+    >
   </div>
 
   <div class="flex items-center">
@@ -27,5 +30,16 @@
   <div class="flex items-center">
     <MapPin class="mr-2" />
     <span>{event.place}</span>
+  </div>
+
+  {#if event.food}
+    <div class="flex items-center">
+      <ForkKnife class="mr-2" />
+      <span>{event.food}</span>
+    </div>
+  {/if}
+  <div class="flex items-center">
+    <Tag class="mr-2" />
+    <span>{event.openForExternals ? "Åpent for alle" : "Kun for interne"}</span>
   </div>
 </div>

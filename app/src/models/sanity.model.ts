@@ -107,7 +107,6 @@ export type Event = {
     _type: "image";
   };
   title: string;
-  organisers: Array<string>;
   summary?: string;
   start: string;
   end: string;
@@ -115,7 +114,11 @@ export type Event = {
   maxParticipant?: number;
   category: Category;
   place: string;
+  organisers: Array<string>;
+  openForExternals: boolean;
+  visibleForExternals: boolean;
   allergy?: boolean;
+  food?: string;
   fields?: boolean;
   customFields?: Array<string>;
 };
