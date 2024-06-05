@@ -98,7 +98,7 @@ export default defineType({
       },
     }),
     defineField({
-      title: "Allergier",
+      title: "Matservering og allergier",
       name: "allergy",
       description:
         "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier blir lagt til i påmeldingsskjemaet.",
@@ -108,11 +108,12 @@ export default defineType({
       },
     }),
     defineField({
-      title: "Mat",
+      title: "Mat/restaurant",
       name: "food",
       type: "string",
       description:
-        "Hvis det er matservering kan du også fylle inn hva slags mat som serveres eller fra hvor, så vises det på arrangementet.",
+        "Du kan også velge å fylle inn hvor det skal spises eller hva som serveres slik at det vises på arrangementet.",
+      hidden: ({ document }) => !document?.allergy,
     }),
     defineField({
       title: "Legg til egne felter",
