@@ -2,6 +2,7 @@
   import logo from "$lib/assets/logo.webp";
   import SignInOrOut from "./SignInOrOut.svelte";
   import { page } from "$app/stores";
+  import ThemeSwitch from "./ThemeSwitch.svelte";
 
   export let auth;
   $: isRoot = $page.url.pathname === "/";
@@ -13,5 +14,6 @@
   </a>
   <div class="flex items-center justify-end">
     <SignInOrOut {auth} />
+    <ThemeSwitch />
   </div>
 </header>
