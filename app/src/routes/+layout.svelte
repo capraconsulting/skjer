@@ -1,10 +1,10 @@
 <script lang="ts">
   import { isPreviewing, VisualEditing } from "@sanity/visual-editing/svelte";
   import { page } from "$app/stores";
-  import LiveMode from "../components/LiveMode.svelte";
+  import LiveMode from "$components/shared/LiveMode.svelte";
   import "../app.css";
-  import Header from "$components/Header.svelte";
-  import Footer from "$components/Footer.svelte";
+  import Header from "$components/shared/Header.svelte";
+  import Footer from "$components/shared/Footer.svelte";
 
   let auth = $page.data.session;
 </script>

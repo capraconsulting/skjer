@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Input, Button, ButtonGroup } from "flowbite-svelte";
+  import { Input, Button, ButtonGroup, Alert } from "flowbite-svelte";
 
   export let unregistrationForm;
   export let unregistrationErrors;
   export let unregistrationEnhance;
+  export let unregistrationMessage;
 </script>
 
 <form
@@ -33,7 +34,6 @@
           />
           <Button class="w-48" type="submit" color="dark">Meld meg av</Button>
         </ButtonGroup>
-
         {#if $unregistrationErrors.email}
           <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
         {/if}
@@ -41,3 +41,23 @@
     </div>
   </div>
 </form>
+
+{#if $unregistrationMessage?.message}
+  <Alert
+    class="mb-6"
+    color={$unregistrationMessage.success
+      ? "green"
+      : $unregistrationMessage.warning
+        ? "yellow"
+        : "red"}
+  >
+    {$unregistrationMessage.message}
+    <!-- demo purpose -->
+    {#if $unregistrationMessage.token}
+      <div class="w-[400px] break-words border border-gray-300 p-2 text-xs">
+        Kun for demo, ingen sensitiv informasjon:
+        {`/event/unregistration/${$unregistrationMessage.token}`}
+      </div>
+    {/if}
+  </Alert>
+{/if}
