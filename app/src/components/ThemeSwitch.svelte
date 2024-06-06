@@ -1,10 +1,14 @@
 <script lang="ts">
+  import { Button } from "flowbite-svelte";
+  import { MoonStars, SunDim } from "phosphor-svelte";
   import { browser } from "$app/environment";
 
   let darkMode = true;
 
   function handleSwitchDarkMode() {
     darkMode = !darkMode;
+
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
 
     darkMode
       ? document.documentElement.classList.add("dark")
@@ -26,25 +30,16 @@
 </script>
 
 <div>
-  <input checked={darkMode} on:click={handleSwitchDarkMode} type="checkbox" id="theme-toggle" />
-  <label for="theme-toggle" />
+  <Button
+    size="xs"
+    class="ml-2 hover:bg-slate-100 hover:dark:bg-slate-800"
+    pill
+    on:click={handleSwitchDarkMode}
+  >
+    {#if darkMode}
+      <SunDim size="25" />
+    {:else}
+      <MoonStars size="25" class="text-black" />
+    {/if}
+  </Button>
 </div>
-
-<style lang="postcss">
-  #theme-toggle {
-    @apply invisible;
-  }
-
-  #theme-toggle + label {
-    @apply absolute right-24 top-6 inline-block h-12 w-12 cursor-pointer rounded-full duration-300 content-[''];
-  }
-
-  #theme-toggle:not(:checked) + label {
-    @apply bg-amber-400;
-  }
-
-  #theme-toggle:checked + label {
-    @apply bg-transparent;
-    box-shadow: inset -18px -16px 1px 1px #ddd;
-  }
-</style>
