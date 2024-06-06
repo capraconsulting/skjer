@@ -1,7 +1,7 @@
 <script lang="ts">
-  import EventCard from "../components/EventCard.svelte";
+  import EventCard from "$components/EventCard.svelte";
   import EventListItem from "$components/EventListItem.svelte";
-  import CategoryFilter from "../components/CategoryFilter.svelte";
+  import EventCategoryFilter from "$components/EventCategoryFilter.svelte";
 
   export let data;
 
@@ -23,7 +23,7 @@
       Kommende kurs og arrangementer
     </h1>
 
-    <CategoryFilter
+    <EventCategoryFilter
       {selectedCategory}
       on:categoryChange={({ detail }) => (selectedCategory = detail)}
     />
