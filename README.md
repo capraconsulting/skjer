@@ -110,6 +110,24 @@ supabase gen types typescript --project-id <project-id> database.model.ts
 
 NB: Når database.model.ts er generert, må den legges til i både /studio og /app.
 
+## Testing
+
+Vi bruker Playwright for e2e-testing i Sveltekit-appen. Disse ligger under app/src/lib/e2e.
+
+For å kjøre alle testene:
+
+```
+pnpm playwright test
+```
+
+Vil du kjøre kun en enkelt test, sleng på filnavnet på slutten:
+
+```
+pnpm playwright test example.spec.ts
+```
+
+Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `--ui` på slutten 🚀
+
 ## Slack
 
 Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp*arrangementer. For å bygge meldingen kan du benytte [Block Kit Builder](https://app.slack.com/block-kit-builder/T025RMM9M#%7B%22blocks%22:%5B%7B%22type%22:%22header%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Her%20er%20en%20tittel%20:loudspeaker:%22,%22emoji%22:true%7D%7D,%7B%22type%22:%22image%22,%22image_url%22:%22https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/991px-Placeholder_view_vector.svg.png%22,%22alt_text%22:%22Image%22%7D,%7B%22type%22:%22context%22,%22elements%22:%5B%7B%22type%22:%22mrkdwn%22,%22text%22:%22_Beskrivelse%20av%20arrangementet*%22%7D%5D%7D,%7B%22type%22:%22section%22,%22fields%22:%5B%7B%22type%22:%22mrkdwn%22,%22text%22:%22*P%C3%A5melding:*%5Cn%3Cexample.com%7CMeld%20deg%20p%C3%A5%20her%3E%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Kategori:*%5CnTech%22%7D%5D%7D,%7B%22type%22:%22section%22,%22fields%22:%5B%7B%22type%22:%22mrkdwn%22,%22text%22:%22*N%C3%A5r:*%5Cn25.01.03%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Hvor:*%5CnOslo%22%7D%5D%7D%5D%7D)

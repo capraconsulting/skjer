@@ -110,6 +110,7 @@ export const getInternalEventParticipantNames = async ({
     .from("event")
     .select("event_participant(full_name, email)")
     .eq("document_id", document_id)
+    .eq("event_participant.attending", true)
     .maybeSingle();
 
   return result.data?.event_participant

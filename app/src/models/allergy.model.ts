@@ -1,3 +1,5 @@
+import type { Database } from "./database.model";
+
 export const Allergy = {
   1: "Gluten",
   2: "Sesamfrø",
@@ -16,3 +18,8 @@ export const Allergy = {
 } as const;
 
 export type AllergyEnum = (typeof Allergy)[keyof typeof Allergy];
+
+export const AllergyItems = Object.entries(Allergy).map(([key, value]) => ({
+  value: parseInt(key),
+  name: value,
+}));
