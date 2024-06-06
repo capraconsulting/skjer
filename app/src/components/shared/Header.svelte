@@ -1,7 +1,7 @@
 <script>
   import logo from "$lib/assets/logo.webp";
   import logoSm from "$lib/assets/logo-sm.webp";
-  import SignInOrOut from "./SignInOrOut.svelte";
+  import SignInOrOut from "$components/shared/SignInOrOut.svelte";
   import { page } from "$app/stores";
 
   export let auth;

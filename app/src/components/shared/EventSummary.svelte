@@ -3,13 +3,13 @@
   import type { Event } from "$models/sanity.model";
   import { urlFor } from "$lib/sanity/image";
   import { PortableText } from "@portabletext/svelte";
-  import EventInfoBox from "$components/EventInfoBox.svelte";
+  import EventInfoBox from "$components/shared/EventInfoBox.svelte";
 
   export let event: Event;
 </script>
 
 <Badge rounded class="mb-4 h-6 border border-black bg-white">{event.category}</Badge>
-<h1 class="font-ligh pb-6 text-3xl sm:text-5xl">{event.title}</h1>
+<h1 class="pb-6 text-3xl font-light sm:text-5xl">{event.title}</h1>
 
 {#if event.summary}
   <p class="pb-6 text-base font-light sm:text-xl">{event.summary}</p>

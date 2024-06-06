@@ -1,6 +1,6 @@
 <script lang="ts">
-  import RegistrationForm from "$components/RegistrationForm.svelte";
-  import UnregistrationForm from "$components/UnregistrationForm.svelte";
+  import RegistrationFormExternal from "$components/external/RegistrationFormExternal.svelte";
+  import UnregistrationFormExternal from "$components/external/UnregistrationFormExternal.svelte";
 
   export let event;
 
@@ -19,7 +19,7 @@
 <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
   <div class="py-6">
     <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
-    <RegistrationForm
+    <RegistrationFormExternal
       {event}
       {registrationForm}
       {registrationErrors}
@@ -27,7 +27,7 @@
       {registrationDelayed}
       {registrationMessage}
     />
-    <UnregistrationForm
+    <UnregistrationFormExternal
       {unregistrationForm}
       {unregistrationErrors}
       {unregistrationEnhance}

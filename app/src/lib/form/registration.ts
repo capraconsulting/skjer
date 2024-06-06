@@ -33,8 +33,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått et problem. Påmelding til dette arrangementet er ikke tilgjengelig.",
+      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
@@ -45,8 +44,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: The specified event does not exist");
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått et problem. Påmelding til dette arrangementet er ikke tilgjengelig.",
+      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
@@ -57,8 +55,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått et problem. Påmelding til dette arrangementet er ikke tilgjengelig.",
+      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
@@ -175,7 +172,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   }
 
   return message(registrationForm, {
-    message: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi ser frem til å se deg.`,
+    message: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
     success: true,
   });
 };

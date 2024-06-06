@@ -26,7 +26,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      message: "Det har oppstått en feil. Avmelding til dette arrangementet er ikke tilgjengelig.",
+      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     });
   }
@@ -37,7 +37,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: The specified event does not exist");
 
     return message(unregistrationForm, {
-      message: "Det har oppstått en feil. Avmelding til dette arrangementet er ikke tilgjengelig.",
+      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     });
   }

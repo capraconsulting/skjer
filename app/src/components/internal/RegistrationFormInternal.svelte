@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
-  import { Allergy } from "$models/allergy.model";
+  import { AllergyItems } from "$models/allergy.model";
   import { Label, Button, MultiSelect, Spinner, Alert } from "flowbite-svelte";
 
   export let event: Event;
@@ -8,11 +8,6 @@
   export let registrationEnhance;
   export let registrationDelayed;
   export let registrationMessage;
-
-  const allergies = Object.entries(Allergy).map(([key, value]) => ({
-    value: parseInt(key),
-    name: value,
-  }));
 </script>
 
 {#if $registrationMessage?.message}
@@ -36,7 +31,7 @@
         <Label for="allergies">Allergier</Label>
         <MultiSelect
           class="bg-white"
-          items={allergies}
+          items={AllergyItems}
           bind:value={$registrationForm.allergies}
           id="allergies"
           name="allergies"

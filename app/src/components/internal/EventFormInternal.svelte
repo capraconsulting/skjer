@@ -1,7 +1,7 @@
 <script lang="ts">
-  import EventParticipants from "$components/internal/EventParticipants.svelte";
-  import RegistrationForm from "$components/internal/RegistrationForm.svelte";
-  import UnregistrationForm from "$components/internal/UnregistrationForm.svelte";
+  import EventParticipantsInternal from "$components/internal/EventParticipantsInternal.svelte";
+  import RegistrationFormInternal from "$components/internal/RegistrationFormInternal.svelte";
+  import UnregistrationFormInternal from "$components/internal/UnregistrationFormInternal.svelte";
 
   export let event;
 
@@ -18,20 +18,17 @@
     <h2 class="mt-8 pb-4 text-base sm:text-xl">
       <span class="font-bold">Deltagere:</span>
     </h2>
-    <EventParticipants {internalParticipantNames} />
+    <EventParticipantsInternal {internalParticipantNames} />
   </div>
-
   <div class="py-6">
     <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
-
-    <RegistrationForm
+    <RegistrationFormInternal
       {event}
       {registrationForm}
       {registrationEnhance}
       {registrationDelayed}
       {registrationMessage}
     />
-
-    <UnregistrationForm />
+    <UnregistrationFormInternal />
   </div>
 </div>

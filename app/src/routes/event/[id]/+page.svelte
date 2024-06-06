@@ -3,9 +3,9 @@
   import { superForm } from "sveltekit-superforms/client";
   import { zod } from "sveltekit-superforms/adapters";
   import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
-  import EventForm from "$components/EventForm.svelte";
-  import EventFormInternal from "$components/internal/EventForm.svelte";
-  import EventSummary from "$components/EventSummary.svelte";
+  import EventFormExternal from "$components/external/EventFormExternal.svelte";
+  import EventFormInternal from "$components/internal/EventFormInternal.svelte";
+  import EventSummary from "$components/shared/EventSummary.svelte";
 
   export let data;
 
@@ -42,8 +42,17 @@
 
 <section>
   <EventSummary {event} />
-  {#if !auth?.user}
-    <EventForm
+  {#if auth?.user}
+    <EventFormInternal
+      {event}
+      {registrationForm}
+      {registrationEnhance}
+      {registrationDelayed}
+      {registrationMessage}
+      {internalParticipantNames}
+    />
+  {:else}
+    <EventFormExternal
       {event}
       {registrationForm}
       {registrationErrors}
@@ -54,15 +63,6 @@
       {unregistrationEnhance}
       {unregistrationErrors}
       {unregistrationMessage}
-    />
-  {:else}
-    <EventFormInternal
-      {event}
-      {registrationForm}
-      {registrationEnhance}
-      {registrationDelayed}
-      {registrationMessage}
-      {internalParticipantNames}
     />
   {/if}
 </section>
