@@ -59,7 +59,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
 
     return {
       success: true,
-      message: "Du er nå avregistrert fra arrangementet.",
+      message: "Du er nå meldt av arrangementet.",
     };
   }
 
@@ -72,6 +72,6 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
 
   return {
     warning: true,
-    message: "Du er allerede avregistrert fra arrangementet. Takk for interessen din!",
+    message: "Du er allerede meldt av arrangementet. Takk for interessen din!",
   };
 };

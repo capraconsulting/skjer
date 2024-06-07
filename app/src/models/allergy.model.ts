@@ -1,5 +1,3 @@
-import type { Database } from "./database.model";
-
 export const Allergy = {
   1: "Gluten",
   2: "Sesamfrø",

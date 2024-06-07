@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     try {
       if (jwt.verify(token, secret)) {
         await updateEventParticipantAttending(tokenDecoded.payload.data);
-        return { success: true, message: "Du er nå avregistrert fra arrangementet." };
+        return { success: true, message: "Du er nå meldt av arrangementet." };
       }
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
@@ -28,7 +28,6 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   }
   return {
     error: true,
-    message:
-      "Vi kunne dessverre ikke avregistrere deg fra arrangementet. Vennligst prøv igjen senere.",
+    message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
   };
 };

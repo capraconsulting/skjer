@@ -1,13 +1,13 @@
 <script lang="ts">
   import { formatDate } from "$lib/utils";
-  import type { Event } from "$models/sanity.model";
   import { Badge } from "flowbite-svelte";
   import capraLogo from "$lib/assets/capra-black-small.webp";
   import frydeLogo from "$lib/assets/fryde-black-small.webp";
   import lifligLogo from "$lib/assets/liflig-black-small.webp";
   import { ArrowRight } from "phosphor-svelte";
+  import type { EventWithAttending } from "$models/databaseView.model";
 
-  export let event: Event;
+  export let event: EventWithAttending;
 </script>
 
 <a
@@ -23,6 +23,10 @@
       <Badge rounded class="h-6 border border-black bg-transparent">
         {formatDate(event.start)}
       </Badge>
+
+      {#if event.attending}
+        <Badge rounded class="h-6 border border-black bg-[#FFE663]">Du er påmeldt</Badge>
+      {/if}
     </div>
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
