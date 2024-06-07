@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         lightGreen: "#E5FFE3",
+        yellow: "#FFE663",
       },
     },
     darkMode: "class",
