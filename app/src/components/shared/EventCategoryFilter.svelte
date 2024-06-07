@@ -34,7 +34,7 @@
   {#each categories as { title, keyword }}
     <Button
       on:click={() => handleCategoryChange(keyword)}
-      class={`${selectedCategory === keyword ? "h-7 !rounded-2xl border-black bg-zinc-800 text-white hover:bg-zinc-800" : "h-7 !rounded-2xl border border-black hover:bg-[#E5FFE3] "}`}
+      class={`${selectedCategory === keyword ? "h-7 !rounded-2xl !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800  dark:bg-zinc-800 dark:hover:bg-zinc-800" : "h-7 !rounded-2xl border border-black hover:bg-[#E5FFE3] "}`}
     >
       {title}
     </Button>

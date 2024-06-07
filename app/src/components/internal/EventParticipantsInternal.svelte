@@ -6,7 +6,9 @@
 
 {#if internalParticipantNames.length}
   {#each internalParticipantNames as internalParticipantName}
-    <Badge rounded class="mr-1 h-6 border border-black bg-white">{internalParticipantName}</Badge>
+    <Badge rounded class="mr-1 h-6 border border-black bg-transparent"
+      >{internalParticipantName}</Badge
+    >
   {/each}
 {:else}
   <p>Det er foreløpig ingen påmeldte 😔</p>

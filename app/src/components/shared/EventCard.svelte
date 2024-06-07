@@ -10,7 +10,7 @@
 </script>
 
 <a
-  class="group relative flex flex-col rounded-xl border border-black hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
+  class="group relative flex flex-col rounded-xl border border-black hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row dark:border-white dark:hover:bg-zinc-800"
   href={`/event/${event._id}`}
 >
   <div class="flex w-full flex-col">
