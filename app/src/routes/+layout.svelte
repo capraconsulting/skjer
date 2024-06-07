@@ -33,3 +33,11 @@
   <VisualEditing />
   <LiveMode />
 {/if}
+
+<style lang="postcss">
+  :global(html) {
+    &.dark {
+      @apply bg-black;
+    }
+  }
+</style>

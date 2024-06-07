@@ -1,16 +1,14 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$models/sanity.model";
-  import capraLogo from "$lib/assets/capra-black-small.webp";
-  import frydeLogo from "$lib/assets/fryde-black-small.webp";
-  import lifligLogo from "$lib/assets/liflig-black-small.webp";
   import { ArrowRight } from "phosphor-svelte";
+  import EventLogos from "./EventLogos.svelte";
 
   export let event: Event;
 </script>
 
 <a
-  class="group relative flex flex-col rounded-xl border border-black hover:bg-[#E5FFE3] hover:transition-[2s] sm:flex-row"
+  class="hover:bg-capraLightMode relative flex flex-col rounded-xl border border-black hover:transition-[2s] sm:flex-row dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
   href={`/event/${event._id}`}
 >
   <div class="flex w-full flex-col">
@@ -31,17 +29,7 @@
       {/if}
 
       <div class="mt-5 flex items-center justify-between gap-6">
-        <div class="flex gap-4">
-          {#if event.organisers?.includes("Capra")}
-            <img class="h-5" alt="Capra-logo" src={capraLogo} />
-          {/if}
-          {#if event.organisers?.includes("Liflig")}
-            <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
-          {/if}
-          {#if event.organisers?.includes("Fryde")}
-            <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
-          {/if}
-        </div>
+        <EventLogos {event} />
         <div class="flex flex-row items-center gap-2">
           <p>Se mer</p>
           <ArrowRight class="mr-2" />

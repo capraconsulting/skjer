@@ -91,7 +91,7 @@
       <div class="flex flex-col gap-1">
         <Label for="allergies">Allergier</Label>
         <MultiSelect
-          class="bg-white"
+          class="bg-transparent"
           items={AllergyItems}
           bind:value={$registrationForm.allergies}
           id="allergies"
