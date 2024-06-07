@@ -5,7 +5,11 @@ export default {
     "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        lightGreen: "#E5FFE3",
+      },
+    },
     darkMode: "class",
   },
   plugins: [require("flowbite/plugin")],
