@@ -132,3 +132,20 @@ export const getAttendingEvent = async ({
   }
   return false;
 };
+
+export const getAllAttendingEvents = async ({
+  email,
+}: {
+  email: Tables<"event_participant">["email"];
+}) => {
+  const result = await supabase
+    .from("event_participant")
+    .select("event(document_id)")
+    .eq("attending", true)
+    .eq("email", email);
+
+  if (result.data?.length) {
+    return result.data.map((item) => item.event?.document_id);
+  }
+  return [];
+};

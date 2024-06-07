@@ -9,7 +9,7 @@
 
   export let data;
 
-  let { internalParticipantNames, query, options, auth } = data;
+  const { query, options, auth } = data;
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);

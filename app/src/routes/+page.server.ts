@@ -7,7 +7,7 @@ import {
   externalPastEventsQuery,
 } from "$lib/server/sanity/queries";
 import { client } from "$lib/sanity/client";
-import { getAttendingEvent } from "$lib/server/supabase/queries";
+import { getAllAttendingEvents, getAttendingEvent } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   const auth = await locals.auth();
@@ -16,19 +16,14 @@ export const load: PageServerLoad = async ({ url, locals }) => {
   if (auth?.user?.email) {
     const events: Event[] = await client.fetch(allFutureEventsQuery);
 
-    const promises = events.map(async (event) => {
-      const attending = await getAttendingEvent({
-        document_id: event._id,
-        email: auth.user?.email!,
-      });
-
-      return {
-        ...event,
-        attending,
-      };
+    const attendingEvents = await getAllAttendingEvents({
+      email: auth.user?.email!,
     });
 
-    const futureEvents = await Promise.all(promises);
+    console.log(attendingEvents);
+    const futureEvents = events.map((event) => {
+      return { ...event, attending: attendingEvents.includes(event._id) };
+    });
 
     const pastEvents: Event[] = await client.fetch(allPastEventsQuery);
 
