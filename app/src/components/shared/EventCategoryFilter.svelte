@@ -37,7 +37,7 @@
       class={`${
         selectedCategory === keyword
           ? "h-7 !rounded-2xl !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
-          : "hover:bg-lightGreen h-7 !rounded-2xl border border-black dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
+          : "hover:bg-capraLightMode h-7 !rounded-2xl border border-black dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
       }`}
     >
       {title}
