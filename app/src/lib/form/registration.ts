@@ -18,8 +18,6 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   request,
   params: { id },
 }) => {
-  // Disabled for now, but works
-  return { error: false };
   const registrationForm = await superValidate(request, zod(registrationSchema));
 
   if (!registrationForm.valid) {

@@ -26,6 +26,9 @@ export const sendEventConfirmationEmail = async ({
   location,
   organisers,
 }: EmailProps) => {
+  // Disabled for now, but works
+  return { error: false };
+
   const transporter = nodemailer.createTransport({
     host: SMTP_HOST,
     port: 587,
