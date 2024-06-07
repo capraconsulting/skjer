@@ -8,7 +8,7 @@
 </script>
 
 <a
-  class="hover:bg-capraLightMode group relative flex flex-col rounded-xl border border-black hover:transition-[2s] sm:flex-row dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+  class="hover:bg-capraLightMode relative flex flex-col rounded-xl border border-black hover:transition-[2s] sm:flex-row dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
   href={`/event/${event._id}`}
 >
   <div class="flex w-full flex-col">
