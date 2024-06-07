@@ -9,9 +9,15 @@
 >
   <p class="pb-2 pt-6">Vi er en del av Capra-gruppen</p>
   <div class="flex gap-11">
-    <img class="h-20 sm:h-28" alt="Capra-logo" src={capraLogo} />
-    <img class="h-20 sm:h-28" alt="Liflig-logo" src={lifligLogo} />
-    <img class="h-20 sm:h-28" alt="Fryde-logo" src={frydeLogo} />
+    <a href="https://www.capraconsulting.no/">
+      <img class="h-20 sm:h-28" alt="Capra-logo" src={capraLogo} />
+    </a>
+    <a href="https://www.liflig.no/">
+      <img class="h-20 sm:h-28" alt="Liflig-logo" src={lifligLogo} />
+    </a>
+    <a href="https://www.fryde.no/">
+      <img class="h-20 sm:h-28" alt="Fryde-logo" src={frydeLogo} />
+    </a>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
     2024 © Capra | Stenersgata 2 | N-0168 Oslo | post@capraconsulting.no
