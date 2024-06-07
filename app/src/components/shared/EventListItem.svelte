@@ -9,7 +9,9 @@
 </script>
 
 <a
-  class="hover:bg-lightGreen flex flex-col justify-between rounded-md border border-black px-3 py-4 hover:transition-[2s] sm:flex-row dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+  class="hover:bg-lightGreen flex flex-col justify-between rounded-md
+  border border-black px-3 py-4 hover:transition-[2s] sm:flex-row
+  dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light sm:flex-row sm:gap-2 sm:px-2">
@@ -17,8 +19,10 @@
       {event.title}
     </h2>
     <div class="flex flex-row items-center gap-2">
-      <Badge rounded class="h-6 border border-black bg-transparent">{event.category}</Badge>
-      <Badge rounded class="h-6 border border-black bg-transparent">
+      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
+        >{event.category}</Badge
+      >
+      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800">
         {formatDate(event.start)}
       </Badge>
     </div>
