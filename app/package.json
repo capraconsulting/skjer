@@ -18,6 +18,7 @@
     "@sanity/visual-editing": "^1.7.1",
     "@types/nodemailer": "^6.4.15",
     "groq": "^3.33.0",
+    "ical-generator": "^7.1.0",
     "nodemailer": "^6.9.13",
     "playwright": "^1.44.1",
     "validator": "^13.12.0"
