@@ -3,7 +3,7 @@ import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { registrationSchema } from "$lib/schemas/registrationSchema";
 import validator from "validator";
-import { sendEventConfirmationEmail } from "$lib/email/send";
+import { sendEventConfirmationEmail } from "$lib/email/confirmation";
 import {
   getEvent,
   saveEventParticipantAllergy,
@@ -64,8 +64,6 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     data: { event_id },
   } = event;
 
-  const { title } = eventContent;
-
   const {
     data: { fullName, telephone, email, firm, allergies },
   } = registrationForm;
@@ -78,7 +76,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
       message:
-        "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst avregistrer deg dersom dette er en feil.",
+        "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
       warning: true,
     });
   }
@@ -154,9 +152,15 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   }
 
   const emailData = {
-    title,
-    fullName,
+    id,
     email,
+    fullName,
+    title: eventContent.title,
+    description: eventContent.summary,
+    start: eventContent.start,
+    end: eventContent.end,
+    location: eventContent.place,
+    organisers: eventContent.organisers,
   };
 
   const { error: emailError } = await sendEventConfirmationEmail(emailData);

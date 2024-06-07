@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Avregistrering | Capra Liflig Fryde</title>
+  <title>Avmelding | Capra Liflig Fryde</title>
 </svelte:head>
 
 <section class="mx-0 mb-80 mt-2 w-full">

@@ -6,6 +6,7 @@
   import EventFormExternal from "$components/external/EventFormExternal.svelte";
   import EventFormInternal from "$components/internal/EventFormInternal.svelte";
   import EventSummary from "$components/shared/EventSummary.svelte";
+  import { ArrowLeft } from "phosphor-svelte";
 
   export let data;
 
@@ -13,6 +14,7 @@
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);
+  $: isAttending = data.isAttending;
   $: internalParticipantNames = data.internalParticipantNames;
 
   const {
@@ -23,7 +25,7 @@
     enhance: registrationEnhance,
   } = superForm(data.registrationForm, {
     validators: zod(registrationSchema),
-    delayMs: 200,
+    delayMs: 500,
   });
 
   const {
@@ -41,6 +43,11 @@
 </svelte:head>
 
 <section>
+  <div class="mb-9 flex items-center">
+    <ArrowLeft weight="bold" class="mr-2 inline-flex" />
+    <a class="font-bold" href="/">Alle arrangementer</a>
+  </div>
+
   <EventSummary {event} />
   {#if auth?.user}
     <EventFormInternal
@@ -49,6 +56,7 @@
       {registrationEnhance}
       {registrationDelayed}
       {registrationMessage}
+      {isAttending}
       {internalParticipantNames}
     />
   {:else}

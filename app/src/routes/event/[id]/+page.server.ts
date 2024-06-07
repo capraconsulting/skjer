@@ -7,30 +7,44 @@ import type { Event } from "$models/sanity.model";
 import { submitRegistration } from "$lib/form/registration";
 import { submitUnregistration } from "$lib/form/unregistration";
 import { submitUnregistration as submitUnregistrationInternal } from "$lib/form/internal/unregistration";
-import { getInternalEventParticipantNames } from "$lib/server/supabase/queries";
+import { getAttendingEvent, getInternalEventParticipantNames } from "$lib/server/supabase/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const auth = await locals.auth();
-  const initial = await locals.loadQuery<Event>(query, { id });
 
-  let prefilledRegistration = undefined;
-  if (auth?.user) {
-    prefilledRegistration = {
-      fullName: auth.user.name ?? "",
-      email: auth.user.email ?? "",
+  if (auth?.user?.name && auth.user.email) {
+    const initial = await locals.loadQuery<Event>(query, { id });
+
+    const prefilledRegistration = {
+      fullName: auth.user.name,
+      email: auth.user.email,
+    };
+
+    const registrationForm = await superValidate(prefilledRegistration, zod(registrationSchema));
+    const unregistrationForm = await superValidate(zod(unregistrationSchema));
+
+    const isAttending = await getAttendingEvent({ document_id: id, email: auth.user.email });
+    const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
+
+    return {
+      registrationForm,
+      unregistrationForm,
+      query,
+      options: { initial },
+      isAttending,
+      internalParticipantNames,
     };
   }
 
-  const registrationForm = await superValidate(prefilledRegistration, zod(registrationSchema));
+  const initial = await locals.loadQuery<Event>(query, { id });
+  const registrationForm = await superValidate(zod(registrationSchema));
   const unregistrationForm = await superValidate(zod(unregistrationSchema));
-  const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
 
   return {
     registrationForm,
     unregistrationForm,
     query,
     options: { initial },
-    internalParticipantNames,
   };
 };
 
