@@ -25,7 +25,7 @@
       </Badge>
 
       {#if event.attending}
-        <Badge rounded class="h-6 border border-black bg-[#E5FFE3]">Påmeldt</Badge>
+        <Badge rounded class="h-6 border border-black bg-[#FFE663]">Du er påmeldt</Badge>
       {/if}
     </div>
   </div>
