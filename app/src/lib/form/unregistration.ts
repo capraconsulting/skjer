@@ -70,7 +70,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
   return message(unregistrationForm, {
     token,
     message:
-      "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre avregistreringen.",
+      "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",
     success: true,
   });
 };

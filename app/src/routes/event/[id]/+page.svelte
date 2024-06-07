@@ -9,10 +9,11 @@
 
   export let data;
 
-  const { query, options, auth } = data;
+  let { internalParticipantNames, query, options, auth } = data;
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);
+  $: isAttending = data.isAttending;
   $: internalParticipantNames = data.internalParticipantNames;
 
   const {
@@ -23,7 +24,7 @@
     enhance: registrationEnhance,
   } = superForm(data.registrationForm, {
     validators: zod(registrationSchema),
-    delayMs: 200,
+    delayMs: 500,
   });
 
   const {
@@ -49,6 +50,7 @@
       {registrationEnhance}
       {registrationDelayed}
       {registrationMessage}
+      {isAttending}
       {internalParticipantNames}
     />
   {:else}

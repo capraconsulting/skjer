@@ -76,7 +76,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
       message:
-        "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst avregistrer deg dersom dette er en feil.",
+        "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
       warning: true,
     });
   }

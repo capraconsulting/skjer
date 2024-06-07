@@ -92,14 +92,8 @@ export const saveEventParticipantAllergy = async () => {
   return result;
 };
 
-export const saveEventAllergyList = async (
-  eventAllergy: Pick<
-    Tables<"event_allergy">,
-    "allergy_id" | "event_id" | "event_participant_allergy_id"
-  >[]
-) => {
+export const saveEventAllergyList = async (eventAllergy: Tables<"event_allergy">[]) => {
   const result = await supabase.from("event_allergy").insert(eventAllergy);
-
   return result;
 };
 
@@ -116,4 +110,25 @@ export const getInternalEventParticipantNames = async ({
   return result.data?.event_participant
     .filter(({ email }) => validateDomain(email))
     .map(({ full_name }) => full_name);
+};
+
+export const getAttendingEvent = async ({
+  email,
+  document_id,
+}: {
+  email: Tables<"event_participant">["email"];
+  document_id: Tables<"event">["document_id"];
+}) => {
+  const result = await supabase
+    .from("event")
+    .select("event_participant(attending)")
+    .eq("document_id", document_id)
+    .eq("event_participant.attending", true)
+    .eq("event_participant.email", email)
+    .maybeSingle();
+
+  if (result.data?.event_participant.length) {
+    return true;
+  }
+  return false;
 };

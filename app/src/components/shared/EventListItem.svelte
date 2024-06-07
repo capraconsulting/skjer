@@ -7,7 +7,11 @@
   import lifligLogo from "$lib/assets/liflig-black-small.webp";
   import { ArrowRight } from "phosphor-svelte";
 
-  export let event: Event;
+  export let event: ExtendedEvent;
+
+  interface ExtendedEvent extends Event {
+    attending: boolean;
+  }
 </script>
 
 <a
@@ -23,6 +27,10 @@
       <Badge rounded class="h-6 border border-black bg-transparent">
         {formatDate(event.start)}
       </Badge>
+
+      {#if event.attending}
+        <Badge rounded class="h-6 border border-black bg-[#E5FFE3]">Påmeldt</Badge>
+      {/if}
     </div>
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
