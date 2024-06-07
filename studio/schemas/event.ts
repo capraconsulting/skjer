@@ -78,6 +78,17 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "isDigital",
+      title: "Digitalt",
+      description: "Aktiver dette valget for å tillate digital deltagelse på arrangementet.",
+      type: "boolean",
+      initialValue: false,
+      options: {
+        layout: "checkbox",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "visibleForExternals",
       title: "Synlig for eksterne",
       description:
@@ -90,7 +101,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "openForExternals",
+      name: "penForExternals",
       title: "Åpen for eksterne",
       description:
         "Hvis du krysser av på denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",

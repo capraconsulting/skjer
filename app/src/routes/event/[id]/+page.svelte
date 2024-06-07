@@ -44,11 +44,13 @@
 
 <section>
   <div class="mb-9 flex items-center">
-    <ArrowLeft weight="bold" class="mr-2 inline-flex" />
-    <a class="font-bold" href="/">Alle arrangementer</a>
+    <a class="font-bold" href="/"
+      ><ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer</a
+    >
   </div>
 
   <EventSummary {event} />
+
   {#if auth?.user}
     <EventFormInternal
       {event}

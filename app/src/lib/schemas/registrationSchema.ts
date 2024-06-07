@@ -7,6 +7,7 @@ export const registrationSchema = z.object({
   email: z.string().email(),
   telephone: z.string().refine(validator.isMobilePhone).nullable(),
   firm: z.string().min(2).nullable(),
+  attendingType: z.enum(["Fysisk", "Digitalt"]).default("Fysisk"),
   allergies: z.array(z.number()),
 });
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
   import { AllergyItems } from "$models/allergy.model";
-  import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
+  import { Radio, Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
 
   export let event: Event;
   export let registrationForm;
@@ -86,6 +86,30 @@
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
     </div>
+
+    {#if event.isDigital}
+      <div class="flex flex-col gap-2">
+        <Label for="attendingType">Hvordan vil du delta?</Label>
+        <div class="flex gap-4">
+          <div>
+            <Radio
+              name="attendingType"
+              inline
+              value="Fysisk"
+              bind:group={$registrationForm.attendingType}
+            /> Fysisk
+          </div>
+          <div>
+            <Radio
+              name="attendingType"
+              inline
+              value="Digitalt"
+              bind:group={$registrationForm.attendingType}
+            /> Digitalt
+          </div>
+        </div>
+      </div>
+    {/if}
 
     {#if event.allergy}
       <div class="flex flex-col gap-1">
