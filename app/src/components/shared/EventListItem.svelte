@@ -1,17 +1,13 @@
 <script lang="ts">
   import { formatDate } from "$lib/utils";
-  import type { Event } from "$models/sanity.model";
   import { Badge } from "flowbite-svelte";
   import capraLogo from "$lib/assets/capra-black-small.webp";
   import frydeLogo from "$lib/assets/fryde-black-small.webp";
   import lifligLogo from "$lib/assets/liflig-black-small.webp";
   import { ArrowRight } from "phosphor-svelte";
+  import type { EventWithAttending } from "$models/databaseView.model";
 
-  export let event: ExtendedEvent;
-
-  interface ExtendedEvent extends Event {
-    attending: boolean;
-  }
+  export let event: EventWithAttending;
 </script>
 
 <a
