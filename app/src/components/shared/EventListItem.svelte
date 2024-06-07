@@ -2,10 +2,8 @@
   import { formatDate } from "$lib/utils";
   import type { Event } from "$models/sanity.model";
   import { Badge } from "flowbite-svelte";
-  import capraLogo from "$lib/assets/capra-black-small.webp";
-  import frydeLogo from "$lib/assets/fryde-black-small.webp";
-  import lifligLogo from "$lib/assets/liflig-black-small.webp";
   import { ArrowRight } from "phosphor-svelte";
+  import EventLogos from "./EventLogos.svelte";
 
   export let event: Event;
 </script>
@@ -27,15 +25,7 @@
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
     <div class="flex items-center gap-4">
-      {#if event.organisers?.includes("Capra")}
-        <img class="h-5" alt="Capra-logo" src={capraLogo} />
-      {/if}
-      {#if event.organisers?.includes("Liflig")}
-        <img class="h-5" alt="Liflig-logo" src={lifligLogo} />
-      {/if}
-      {#if event.organisers?.includes("Fryde")}
-        <img class="h-5" alt="Fryde-logo" src={frydeLogo} />
-      {/if}
+      <EventLogos {event} />
     </div>
     <ArrowRight class="mr-2" />
   </div>
