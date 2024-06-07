@@ -3,7 +3,7 @@
   import { Badge } from "flowbite-svelte";
   import { ArrowRight } from "phosphor-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
-  import EventLogos from "./EventLogos.svelte";
+  import EventLogos from "$components/shared/EventLogos.svelte";
 
   export let event: EventWithAttending;
 </script>
@@ -34,9 +34,7 @@
     </div>
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
-    <div class="flex items-center gap-4">
-      <EventLogos {event} />
-    </div>
+    <EventLogos {event} />
     <ArrowRight class="mr-2" />
   </div>
 </a>

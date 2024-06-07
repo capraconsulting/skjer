@@ -29,9 +29,7 @@
       {/if}
 
       <div class="mt-5 flex items-center justify-between gap-6">
-        <div class="flex gap-4">
-          <EventLogos {event} />
-        </div>
+        <EventLogos {event} />
         <div class="flex flex-row items-center gap-2">
           <p>Se mer</p>
           <ArrowRight class="mr-2" />

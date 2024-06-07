@@ -10,15 +10,17 @@
   export let event: Event;
 </script>
 
-{#if event.organisers?.includes("Capra")}
-  <img class="block h-5 dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
-  <img class="hidden h-5 dark:block" alt="Capra-logo" src={capraLogoWhite} />
-{/if}
-{#if event.organisers?.includes("Liflig")}
-  <img class="block h-5 dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
-  <img class="hidden h-5 dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
-{/if}
-{#if event.organisers?.includes("Fryde")}
-  <img class="block h-5 dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
-  <img class="hidden h-5 dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
-{/if}
+<div class="flex items-center gap-4">
+  {#if event.organisers?.includes("Capra")}
+    <img class="block h-5 dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
+    <img class="hidden h-5 dark:block" alt="Capra-logo" src={capraLogoWhite} />
+  {/if}
+  {#if event.organisers?.includes("Liflig")}
+    <img class="block h-5 dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
+    <img class="hidden h-5 dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
+  {/if}
+  {#if event.organisers?.includes("Fryde")}
+    <img class="block h-5 dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
+    <img class="hidden h-5 dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
+  {/if}
+</div>

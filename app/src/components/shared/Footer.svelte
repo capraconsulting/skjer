@@ -1,22 +1,28 @@
 <script>
-  import capraLogo from "$lib/assets/capra-white.webp";
-  import frydeLogo from "$lib/assets/fryde-white.webp";
-  import lifligLogo from "$lib/assets/liflig-white.webp";
+  import capraLogoWhite from "$lib/assets/capra-white-vertical.webp";
+  import frydeLogoWhite from "$lib/assets/fryde-white-vertical.webp";
+  import lifligLogoWhite from "$lib/assets/liflig-white-vertical.webp";
+  import capraLogoBlack from "$lib/assets/capra-black-vertical.webp";
+  import frydeLogoBlack from "$lib/assets/fryde-black-vertical.webp";
+  import lifligLogoBlack from "$lib/assets/liflig-black-vertical.webp";
 </script>
 
 <footer
-  class="flex h-[470px] w-full flex-col items-center justify-center gap-8 bg-black py-16 text-lg font-light text-white sm:gap-12"
+  class="gap-8py-16 flex h-[470px] w-full flex-col items-center justify-center text-lg font-light sm:gap-12"
 >
   <p class="pb-2 pt-6">Vi er en del av Capra-gruppen</p>
   <div class="flex gap-11">
     <a href="https://www.capraconsulting.no/">
-      <img class="h-20 sm:h-28" alt="Capra-logo" src={capraLogo} />
+      <img class="block h-20 sm:h-28 dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
+      <img class="hidden h-20 sm:h-28 dark:block" alt="Capra-logo" src={capraLogoWhite} />
     </a>
     <a href="https://www.liflig.no/">
-      <img class="h-20 sm:h-28" alt="Liflig-logo" src={lifligLogo} />
+      <img class="block h-20 sm:h-28 dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
+      <img class="hidden h-20 sm:h-28 dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
     </a>
     <a href="https://www.fryde.no/">
-      <img class="h-20 sm:h-28" alt="Fryde-logo" src={frydeLogo} />
+      <img class="block h-20 sm:h-28 dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
+      <img class="hidden h-20 sm:h-28 dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
     </a>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
