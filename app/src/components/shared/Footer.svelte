@@ -2,8 +2,8 @@
   import capraLogoWhite from "$lib/assets/capra-white-vertical.webp";
   import frydeLogoWhite from "$lib/assets/fryde-white-vertical.webp";
   import lifligLogoWhite from "$lib/assets/liflig-white-vertical.webp";
-  import miljo from "$lib/assets/miljofyrtarn.png";
-  import dnv from "$lib/assets/dnv.png";
+  import miljo from "$lib/assets/miljofyrtarn.webp";
+  import dnv from "$lib/assets/dnv.webp";
 </script>
 
 <footer
