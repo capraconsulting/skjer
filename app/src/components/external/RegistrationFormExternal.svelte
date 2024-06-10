@@ -106,6 +106,17 @@
       </div>
     {/if}
 
+    <div class="pt-4 text-sm">
+      <span class="font-light"
+        >Ved å melde deg på arrangementet samtykker du til at du har lest og forstått
+      </span>
+      <span
+        ><a href="/personvern" target="_blank" class="font-normal underline"
+          >Capra, Liflig og Fryde sin personvernerklæring</a
+        >.</span
+      >
+    </div>
+
     <div class="flex w-full justify-end">
       <Button class="mt-4" pill color="dark" type="submit" disabled={$registrationDelayed}
         ><span class="ml-3">Meld meg på</span>
