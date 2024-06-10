@@ -10,12 +10,12 @@
   class="gap-8py-16 flex h-[470px] w-full flex-col items-center justify-center bg-black text-lg font-light text-white sm:gap-12"
 >
   <p class="pb-2 pt-6">Vi er en del av Capra-gruppen</p>
-  <div class="flex w-full flex-col items-center justify-evenly sm:flex-row">
+  <div class="flex w-full flex-col items-center justify-evenly gap-6 sm:flex-row sm:gap-0">
     <div class="flex flex-col items-center justify-center gap-4 font-normal">
-      <div>Sertifiseringer</div>
+      <div class="pt-6 text-base sm:p-0 sm:text-lg">Sertifiseringer</div>
       <div class="flex gap-2">
-        <img class="h-20" alt="Miljøfyrtårn-sertifisering" src={miljo} />
-        <img class="h-20" alt="DNV-sertifisering" src={dnv} />
+        <img class="h-16 sm:h-20" alt="Miljøfyrtårn-sertifisering" src={miljo} />
+        <img class="h-16 sm:h-20" alt="DNV-sertifisering" src={dnv} />
       </div>
     </div>
     <div class="flex gap-11">
@@ -30,7 +30,9 @@
       </a>
     </div>
     <div>
-      <a href="/personvern" class="font-normal underline">Personvernerklæring</a>
+      <a href="/personvern" class="text-base font-normal underline sm:text-lg"
+        >Personvernerklæring</a
+      >
     </div>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
