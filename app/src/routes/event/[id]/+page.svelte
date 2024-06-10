@@ -44,7 +44,7 @@
 
 <section>
   <div class="mb-9 flex items-center">
-    <a class="font-bold" href="/"
+    <a class="font-bold hover:underline" href="/"
       ><ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer</a
     >
   </div>

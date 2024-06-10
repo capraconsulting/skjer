@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
   import { AllergyItems } from "$models/allergy.model";
-  import { Label, Button, MultiSelect, Spinner, Radio } from "flowbite-svelte";
+  import { Label, Button, MultiSelect, Spinner } from "flowbite-svelte";
+  import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
 
   export let event: Event;
   export let registrationForm;
@@ -19,32 +20,12 @@
   <input class="hidden" type="text" name="email" bind:value={$registrationForm.email} />
 
   {#if event.isDigital}
-    <div class="flex flex-col gap-2">
-      <Label for="attendingType">Hvordan vil du delta?</Label>
-      <div class="flex gap-4">
-        <div>
-          <Radio
-            name="attendingType"
-            inline
-            value="Fysisk"
-            bind:group={$registrationForm.attendingType}
-          /> Fysisk
-        </div>
-        <div>
-          <Radio
-            name="attendingType"
-            inline
-            value="Digitalt"
-            bind:group={$registrationForm.attendingType}
-          /> Digitalt
-        </div>
-      </div>
-    </div>
+    <RegistrationAttendingType {registrationForm} />
   {/if}
 
   {#if event.allergy}
     <div class="flex flex-col gap-1">
-      <Label for="allergies">Allergier</Label>
+      <Label class="font-bold" for="allergies">Allergier</Label>
       <MultiSelect
         class="bg-transparent"
         items={AllergyItems}
