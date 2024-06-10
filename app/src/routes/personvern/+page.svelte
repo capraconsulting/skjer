@@ -19,7 +19,7 @@
     hvordan vi behandler personopplysninger (personopplysningsloven § 18 1. ledd).
   </p>
 
-  <h2 class="pt-6 text-3xl">Behandling av personopplysninger for ikke-ansatte</h2>
+  <h2 class="pt-8 text-3xl">Behandling av personopplysninger for ikke-ansatte</h2>
   <p class="py-4">
     Det er 3 tilfeller hvor Capra, Liflig og Fryde innhenter persondata om eksterne/ikke-ansatte.
     Det ene tilfellet er rekruttering, hvor kandidater legges inn i rekrutteringssystemet. Det andre
@@ -31,7 +31,7 @@
     med dem.
   </p>
 
-  <h2 class="pt-6 text-3xl">Rekruttering</h2>
+  <h2 class="pt-8 text-3xl">Rekruttering</h2>
   <p class="py-4">
     Avhengig av hvilke opplysninger kandidaten gir oss eller vi finner om kandidaten, samler vi
     blant annet inn følgende opplysninger: Navn, e-postadresse, telefonnummer, utdannelse,
@@ -39,7 +39,7 @@
     referansepersoner og opplastede dokumenter (som CV, søknadsbrev, karakterer, mv.).
   </p>
 
-  <h3 class="pt-4 text-2xl">Kandidat registrerer seg selv</h3>
+  <h3 class="pt-6 text-2xl">Kandidat registrerer seg selv</h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
     <li>Kandidaten må godta samtykke for å kunne sende inn søknad via søknadssidene våre.</li>
     <li>
@@ -48,7 +48,7 @@
     </li>
   </ul>
 
-  <h3 class="pt-4 text-2xl">
+  <h3 class="pt-6 text-2xl">
     Kandidat blir tipset om til Capra, Liflig eller Fryde uten sin viten
   </h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
@@ -69,14 +69,14 @@
     </li>
   </ul>
 
-  <h2 class="pt-6 text-3xl">Salg</h2>
+  <h2 class="pt-8 text-3xl">Salg</h2>
   <p class="py-4">
     Avhengig av hvilke opplysninger kunde eller underkonsulent gir oss eller vi finner om de, samler
     vi blant annet inn følgende opplysninger: Navn, e-postadresse, telefonnummer, utdannelse,
     arbeidserfaring.
   </p>
 
-  <h3 class="pt-4 text-2xl">Kundeinformasjon</h3>
+  <h3 class="pt-6 text-2xl">Kundeinformasjon</h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
     <li>
       I Capra, Liflig og Fryde lagrer vi personopplysninger om KAM og andre relevante
@@ -84,7 +84,7 @@
     </li>
   </ul>
 
-  <h3 class="pt-4 text-2xl">Underkonsulent registrerer seg selv</h3>
+  <h3 class="pt-6 text-2xl">Underkonsulent registrerer seg selv</h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
     <li>
       Underkonsulenten får en automatisk generert beskjed om å samtykke til oppbevaring av
@@ -96,7 +96,7 @@
     </li>
   </ul>
 
-  <h3 class="pt-4 text-2xl">
+  <h3 class="pt-6 text-2xl">
     Underkonsulent blir tipset om til Capra, Liflig eller Fryde uten sin viten.
   </h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
@@ -110,7 +110,7 @@
     </li>
   </ul>
 
-  <h2 class="pt-6 text-3xl">Behandling av personopplysninger for ansatte</h2>
+  <h2 class="pt-8 text-3xl">Behandling av personopplysninger for ansatte</h2>
   <p class="py-4">
     Capra AS, Liflig AS og Fryde AS behandler personopplysninger om sine ansatte for å administrere
     lønn og personalansvar. Rettslig grunnlag følger av personopplysningsloven § 8, første ledd og §
@@ -147,14 +147,14 @@
     <li>Nasjonalitet</li>
   </ul>
 
-  <h2 class="pt-6 text-3xl">Sikkerhet</h2>
+  <h2 class="pt-8 text-3xl">Sikkerhet</h2>
   <p class="py-4">
     Hver enkelt tredjepartssystem ivaretar sikkerheten for den dataen de behandler. Dette skal være
     dokumentert i henhold til hver enkelt leverandør av tredjepartssystemer sin databehandleravtale
     med Capra AS, Liflig AS og Fryde AS.
   </p>
 
-  <h2 class="pt-6 text-3xl">Rettigheter</h2>
+  <h2 class="pt-8 text-3xl">Rettigheter</h2>
   <p class="py-4">
     Alle som spør har rett på grunnleggende informasjon om behandlinger av personopplysninger i en
     virksomhet etter personopplysningslovens § 18, 1. ledd. Capra AS, Liflig AS og Fryde AS har gitt
@@ -165,7 +165,7 @@
     eller supplert. Krav fra den registrerte skal besvares kostnadsfritt og senest innen 30 dager.
   </p>
 
-  <h2 class="pt-6 text-3xl">Kontakt oss</h2>
+  <h2 class="pt-8 text-3xl">Kontakt oss</h2>
   <p class="py-4">
     For henvendelser knyttet til rettighetene til den registrerte, kan Capra AS, Liflig AS og Fryde
     AS kontaktes på: <br /><br />
