@@ -8,11 +8,13 @@ import {
   getEvent,
   saveEventParticipantAllergy,
   saveEventParticipant,
-  saveEventAllergyList,
   getEventParticipant,
-  updateEventParticipant,
+  saveEventParticipantOptions,
+  saveEventAllergies,
+  deleteEventParticipant,
 } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
+import { sanitize } from "$lib/utils/sanitize.util";
 
 export const submitRegistration: Actions["submitRegistration"] = async ({
   request,
@@ -24,7 +26,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: Invalid form submission detected");
 
     return message(registrationForm, {
-      message: "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
+      text: "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
       error: true,
     });
   }
@@ -33,39 +35,37 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
 
-  const event = await getEvent({ document_id: id });
+  const { data: event } = await getEvent({ document_id: id });
 
-  if (!event.data?.event_id) {
+  if (!event) {
     console.error("Error: The specified event does not exist");
 
     return message(registrationForm, {
-      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
 
   const eventContent = await getEventContent({ id });
 
-  if (!eventContent.title) {
+  if (!eventContent) {
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      message: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
       error: true,
     });
   }
 
-  const {
-    data: { event_id },
-  } = event;
+  const { event_id } = event;
 
   const {
-    data: { fullName, telephone, email, firm, attendingType, allergies },
+    data: { fullName, telephone, email, firm, attendingType, allergies, customOptions },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -75,60 +75,74 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
 
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
-      message:
-        "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
+      text: "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
       warning: true,
     });
+  }
+
+  if (eventParticipant.data) {
+    const { error } = await deleteEventParticipant({ event_id, email });
+
+    if (error) {
+      console.error("Error: Could not delete participant information", error);
+
+      return message(registrationForm, {
+        text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+        error: true,
+      });
+    }
   }
 
   const participantData = {
     event_id,
     full_name: fullName,
-    attending_digital: attendingType === "Digitalt",
     telephone,
     email,
     firm,
+    attending_digital: attendingType === "Digitalt",
   };
 
-  if (eventParticipant.data?.email && !eventParticipant.data?.attending) {
-    const { error } = await updateEventParticipant({
-      ...participantData,
-      attending: true,
+  const { data: participant } = await saveEventParticipant(participantData);
+
+  if (!participant) {
+    console.error("Error: Could not save/update participant information");
+
+    return message(registrationForm, {
+      text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+      error: true,
     });
+  }
+
+  if (customOptions.length && eventContent.customOptions?.length) {
+    const chosenOptions = eventContent.customOptions.filter((field) =>
+      customOptions.includes(sanitize(field))
+    );
+
+    const participantOptionsData = chosenOptions.map((option) => ({
+      option,
+      event_participant_id: participant.event_participant_id,
+    }));
+
+    const { error } = await saveEventParticipantOptions(participantOptionsData);
 
     if (error) {
-      console.error("Error: Could not update participant information");
+      console.error("Error: Failed to save custom fields data", error);
 
       return message(registrationForm, {
-        message:
-          "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere",
-        error: true,
-      });
-    }
-  } else {
-    const { error } = await saveEventParticipant(participantData);
-
-    if (error) {
-      console.error("Error: Could not save participant information");
-
-      return message(registrationForm, {
-        message:
-          "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+        text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
         error: true,
       });
     }
   }
-
-  const { error: participantAllergyError, data: participantAllergyData } =
+  const { data: participantAllergyData, error: participantAllergyError } =
     await saveEventParticipantAllergy();
 
-  if (participantAllergyError || !participantAllergyData?.event_participant_allergy_id) {
-    console.error("Error: Failed to save or get participant allergy");
+  if (!participantAllergyData) {
+    console.error("Error: Failed to save or get participant allergy", participantAllergyError);
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
-      error: true,
+      text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+      warning: true,
     });
   }
 
@@ -140,14 +154,13 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     event_participant_allergy_id,
   }));
 
-  const { error: allergyListError } = await saveEventAllergyList(allergyData);
+  const { error: allergiesError } = await saveEventAllergies(allergyData);
 
-  if (allergyListError) {
-    console.error("Error: Failed to save allergy data");
+  if (allergiesError) {
+    console.error("Error: Failed to save allergy data", allergiesError);
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+      text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
       error: true,
     });
   }
@@ -170,14 +183,13 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
     console.error("Error: Failed to send email");
 
     return message(registrationForm, {
-      message:
-        "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
       warning: true,
     });
   }
 
   return message(registrationForm, {
-    message: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
+    text: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
     success: true,
   });
 };

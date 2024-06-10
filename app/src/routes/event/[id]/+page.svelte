@@ -43,8 +43,8 @@
 </svelte:head>
 
 <section>
-  <div class="mb-9 flex items-center">
-    <a class="font-bold hover:underline" href="/"
+  <div class="mb-9">
+    <a class="flex items-center font-bold hover:underline" href="/"
       ><ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer</a
     >
   </div>
@@ -54,10 +54,10 @@
   {#if auth?.user}
     <EventFormInternal
       {event}
-      {registrationForm}
-      {registrationEnhance}
-      {registrationDelayed}
-      {registrationMessage}
+      form={registrationForm}
+      enhance={registrationEnhance}
+      delayed={registrationDelayed}
+      message={registrationMessage}
       {isAttending}
       {internalParticipantNames}
     />

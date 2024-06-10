@@ -21,6 +21,19 @@ export const getEventParticipant = async ({
   return result;
 };
 
+export const deleteEventParticipant = async ({
+  event_id,
+  email,
+}: Pick<Tables<"event_participant">, "event_id" | "email">) => {
+  const result = await supabase
+    .from("event_participant")
+    .delete()
+    .eq("event_id", event_id)
+    .eq("email", email);
+
+  return result;
+};
+
 export const updateEventParticipantAttending = async ({
   event_id,
   email,
@@ -58,8 +71,9 @@ export const updateEventParticipant = async ({
       attending_digital,
     })
     .eq("event_id", event_id)
-    .eq("email", email);
-
+    .eq("email", email)
+    .select()
+    .maybeSingle();
   return result;
 };
 
@@ -74,15 +88,25 @@ export const saveEventParticipant = async ({
   Tables<"event_participant">,
   "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending_digital"
 >) => {
-  const result = await supabase.from("event_participant").insert({
-    event_id,
-    full_name,
-    telephone,
-    email,
-    firm,
-    attending_digital,
-  });
+  const result = await supabase
+    .from("event_participant")
+    .insert({
+      event_id,
+      full_name,
+      telephone,
+      email,
+      firm,
+      attending_digital,
+    })
+    .select()
+    .maybeSingle();
 
+  return result;
+};
+export const saveEventParticipantOptions = async (
+  options: Tables<"event_participant_option">[]
+) => {
+  const result = await supabase.from("event_participant_option").insert(options);
   return result;
 };
 
@@ -96,7 +120,7 @@ export const saveEventParticipantAllergy = async () => {
   return result;
 };
 
-export const saveEventAllergyList = async (eventAllergy: Tables<"event_allergy">[]) => {
+export const saveEventAllergies = async (eventAllergy: Tables<"event_allergy">[]) => {
   const result = await supabase.from("event_allergy").insert(eventAllergy);
   return result;
 };

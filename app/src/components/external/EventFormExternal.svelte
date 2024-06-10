@@ -1,8 +1,9 @@
 <script lang="ts">
   import RegistrationFormExternal from "$components/external/RegistrationFormExternal.svelte";
   import UnregistrationFormExternal from "$components/external/UnregistrationFormExternal.svelte";
+  import type { Event } from "$models/sanity.model";
 
-  export let event;
+  export let event: Event;
 
   export let registrationForm;
   export let registrationErrors;
@@ -21,17 +22,17 @@
     <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
     <RegistrationFormExternal
       {event}
-      {registrationForm}
-      {registrationErrors}
-      {registrationEnhance}
-      {registrationDelayed}
-      {registrationMessage}
+      form={registrationForm}
+      errors={registrationErrors}
+      enhance={registrationEnhance}
+      delayed={registrationDelayed}
+      message={registrationMessage}
     />
     <UnregistrationFormExternal
-      {unregistrationForm}
-      {unregistrationErrors}
-      {unregistrationEnhance}
-      {unregistrationMessage}
+      form={unregistrationForm}
+      errors={unregistrationErrors}
+      enhance={unregistrationEnhance}
+      message={unregistrationMessage}
     />
   </div>
 </div>

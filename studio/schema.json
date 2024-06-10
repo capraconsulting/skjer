@@ -608,14 +608,14 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "title": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "summary": {
         "type": "objectAttribute",
@@ -629,14 +629,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "end": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "body": {
         "type": "objectAttribute",
@@ -644,7 +644,7 @@
           "type": "inline",
           "name": "blockContent"
         },
-        "optional": true
+        "optional": false
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -659,14 +659,14 @@
           "type": "inline",
           "name": "category"
         },
-        "optional": true
+        "optional": false
       },
       "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "organisers": {
         "type": "objectAttribute",
@@ -676,35 +676,35 @@
             "type": "string"
           }
         },
-        "optional": true
+        "optional": false
       },
       "isDigital": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "visibleForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
-      "penForExternals": {
+      "openForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "allergy": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "food": {
         "type": "objectAttribute",
@@ -713,14 +713,7 @@
         },
         "optional": true
       },
-      "fields": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "boolean"
-        },
-        "optional": true
-      },
-      "customFields": {
+      "customOptions": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -834,7 +827,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -842,7 +835,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": true
+        "optional": false
       },
       "subtitle": {
         "type": "objectAttribute",
@@ -1177,7 +1170,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",

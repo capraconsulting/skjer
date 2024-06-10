@@ -15,7 +15,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: Invalid event id or uuid provided");
 
     return {
-      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     };
   }
@@ -26,7 +26,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: Could not retrieve user");
 
     return {
-      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     };
   }
@@ -37,7 +37,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: The specified event does not exist");
 
     return {
-      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     };
   }
@@ -59,19 +59,19 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
 
     return {
       success: true,
-      message: "Du er nå meldt av arrangementet.",
+      text: "Du er nå meldt av arrangementet.",
     };
   }
 
   if (!eventParticipant.data?.email) {
     return {
       warning: true,
-      message: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",
+      text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",
     };
   }
 
   return {
     warning: true,
-    message: "Du er allerede meldt av arrangementet. Takk for interessen din!",
+    text: "Du er allerede meldt av arrangementet. Takk for interessen din!",
   };
 };
