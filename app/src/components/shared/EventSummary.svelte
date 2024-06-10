@@ -21,13 +21,15 @@
   <div class="w-full sm:w-[40%]">
     <EventInfoBox {event} />
   </div>
-  <div class="w-full sm:w-[60%]">
-    <img
-      class="w-full rounded-xl object-cover sm:h-full"
-      src={urlFor(event.image).format("webp").url()}
-      alt="Bilde for arrangementet: {event.title}"
-    />
-  </div>
+  {#if event.image}
+    <div class="w-full sm:w-[60%]">
+      <img
+        class="w-full rounded-xl object-cover sm:h-full"
+        src={urlFor(event.image).url()}
+        alt="Bilde for arrangementet: {event.title}"
+      />
+    </div>
+  {/if}
 </div>
 
 {#if event.body}

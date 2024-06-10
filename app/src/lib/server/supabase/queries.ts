@@ -40,10 +40,11 @@ export const updateEventParticipant = async ({
   telephone,
   email,
   firm,
-  attending,
+  attending_digital,
+  attending = false,
 }: Pick<
   Tables<"event_participant">,
-  "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending"
+  "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending" | "attending_digital"
 >) => {
   const result = await supabase
     .from("event_participant")
@@ -54,6 +55,7 @@ export const updateEventParticipant = async ({
       email,
       firm,
       attending,
+      attending_digital,
     })
     .eq("event_id", event_id)
     .eq("email", email);
@@ -67,9 +69,10 @@ export const saveEventParticipant = async ({
   telephone,
   email,
   firm,
+  attending_digital,
 }: Pick<
   Tables<"event_participant">,
-  "event_id" | "full_name" | "telephone" | "email" | "firm"
+  "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending_digital"
 >) => {
   const result = await supabase.from("event_participant").insert({
     event_id,
@@ -77,6 +80,7 @@ export const saveEventParticipant = async ({
     telephone,
     email,
     firm,
+    attending_digital,
   });
 
   return result;

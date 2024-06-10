@@ -2,6 +2,7 @@
   import type { Event } from "$models/sanity.model";
   import { AllergyItems } from "$models/allergy.model";
   import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
+  import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
 
   export let event: Event;
   export let registrationForm;
@@ -86,6 +87,10 @@
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
     </div>
+
+    {#if event.isDigital}
+      <RegistrationAttendingType {registrationForm} />
+    {/if}
 
     {#if event.allergy}
       <div class="flex flex-col gap-1">

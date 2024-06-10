@@ -75,7 +75,8 @@ export type Database = {
       };
       event_participant: {
         Row: {
-          attending: boolean | null;
+          attending: boolean;
+          attending_digital: boolean | null;
           created_at: string | null;
           email: string;
           event_id: number;
@@ -85,7 +86,8 @@ export type Database = {
           telephone: string | null;
         };
         Insert: {
-          attending?: boolean | null;
+          attending?: boolean;
+          attending_digital?: boolean | null;
           created_at?: string | null;
           email: string;
           event_id: number;
@@ -95,7 +97,8 @@ export type Database = {
           telephone?: string | null;
         };
         Update: {
-          attending?: boolean | null;
+          attending?: boolean;
+          attending_digital?: boolean | null;
           created_at?: string | null;
           email?: string;
           event_id?: number;

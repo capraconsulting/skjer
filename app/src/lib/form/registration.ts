@@ -65,7 +65,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   } = event;
 
   const {
-    data: { fullName, telephone, email, firm, allergies },
+    data: { fullName, telephone, email, firm, attendingType, allergies },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -84,6 +84,7 @@ export const submitRegistration: Actions["submitRegistration"] = async ({
   const participantData = {
     event_id,
     full_name: fullName,
+    attending_digital: attendingType === "Digitalt",
     telephone,
     email,
     firm,

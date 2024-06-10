@@ -15,7 +15,7 @@
     {#if event.image}
       <img
         class="h-44 rounded-t-xl object-cover"
-        src={urlFor(event.image).width(468).height(176).format("webp").url()}
+        src={urlFor(event.image).width(468).height(176).url()}
         alt="Bilde for arrangementet: {event.title}"
       />
     {/if}
