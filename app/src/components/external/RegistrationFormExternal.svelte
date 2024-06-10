@@ -1,31 +1,25 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
-  import { AllergyItems } from "$models/allergy.model";
-  import { Input, Label, Button, MultiSelect, Alert, Spinner } from "flowbite-svelte";
+  import { Input, Label, Button, Alert, Spinner } from "flowbite-svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
+  import RegistrationAllergy from "$components/shared/RegistrationAllergy.svelte";
+  import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
+  import { sanitize } from "$lib/utils/sanitize.util";
 
   export let event: Event;
-  export let registrationForm;
-  export let registrationErrors;
-  export let registrationEnhance;
-  export let registrationDelayed;
-  export let registrationMessage;
+  export let form;
+  export let errors;
+  export let enhance;
+  export let delayed;
+  export let message;
 </script>
 
-{#if $registrationMessage?.message}
-  <Alert
-    class="mb-6"
-    color={$registrationMessage.success ? "green" : $registrationMessage.warning ? "yellow" : "red"}
-  >
-    {$registrationMessage.message}
+{#if $message?.text}
+  <Alert class="mb-6" color={$message.success ? "green" : $message.warning ? "yellow" : "red"}>
+    {$message.text}
   </Alert>
 {:else}
-  <form
-    class="flex flex-col gap-4"
-    method="POST"
-    action="?/submitRegistration"
-    use:registrationEnhance
-  >
+  <form class="flex flex-col gap-4" method="POST" action="?/submitRegistration" use:enhance>
     <div class="flex flex-col gap-1">
       <input type="text" name="subject" id="subject" class="hidden" />
 
@@ -36,9 +30,9 @@
         type="text"
         name="fullName"
         id="fullName"
-        bind:value={$registrationForm.fullName}
+        bind:value={$form.fullName}
       />
-      {#if $registrationErrors.fullName}
+      {#if $errors.fullName}
         <p class="text-xs text-red-600">Fyll inn gyldig navn (minst 2 bokstaver).</p>
       {/if}
     </div>
@@ -51,9 +45,9 @@
         type="text"
         name="email"
         id="email"
-        bind:value={$registrationForm.email}
+        bind:value={$form.email}
       />
-      {#if $registrationErrors.email}
+      {#if $errors.email}
         <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
       {/if}
     </div>
@@ -66,44 +60,33 @@
         type="text"
         name="telephone"
         id="telephone"
-        bind:value={$registrationForm.telephone}
+        bind:value={$form.telephone}
       />
-      {#if $registrationErrors.telephone}
+      {#if $errors.telephone}
         <p class="text-xs text-red-600">Fyll inn gyldig telefonnummer.</p>
       {/if}
     </div>
 
     <div class="flex flex-col gap-1">
       <Label for="firm">Selskap</Label>
-      <Input
-        size="sm"
-        class="bg-white"
-        type="text"
-        name="firm"
-        id="firm"
-        bind:value={$registrationForm.firm}
-      />
-      {#if $registrationErrors.firm}
+      <Input size="sm" class="bg-white" type="text" name="firm" id="firm" bind:value={$form.firm} />
+      {#if $errors.firm}
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
     </div>
 
     {#if event.isDigital}
-      <RegistrationAttendingType {registrationForm} />
+      <RegistrationAttendingType {form} />
     {/if}
 
     {#if event.allergy}
-      <div class="flex flex-col gap-1">
-        <Label for="allergies">Allergier</Label>
-        <MultiSelect
-          class="bg-transparent"
-          items={AllergyItems}
-          bind:value={$registrationForm.allergies}
-          id="allergies"
-          name="allergies"
-          size="sm"
-        />
-      </div>
+      <RegistrationAllergy {form} />
+    {/if}
+
+    {#if event.customOptions?.length}
+      {#each event.customOptions as customOption}
+        <RegistrationCustomOption label={customOption} option={sanitize(customOption)} {form} />
+      {/each}
     {/if}
 
     <div class="pt-4 text-sm">
@@ -118,10 +101,10 @@
     </div>
 
     <div class="flex w-full justify-end">
-      <Button class="mt-4" pill color="dark" type="submit" disabled={$registrationDelayed}
+      <Button class="mt-4" pill color="dark" type="submit" disabled={$delayed}
         ><span class="ml-3">Meld meg på</span>
         <span class="w-3">
-          {#if $registrationDelayed}
+          {#if $delayed}
             <Spinner class="ml-2" color="white" size="4" />
           {/if}
         </span>

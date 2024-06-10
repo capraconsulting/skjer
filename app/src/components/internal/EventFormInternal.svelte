@@ -3,14 +3,15 @@
   import EventParticipantsInternal from "$components/internal/EventParticipantsInternal.svelte";
   import RegistrationFormInternal from "$components/internal/RegistrationFormInternal.svelte";
   import UnregistrationFormInternal from "$components/internal/UnregistrationFormInternal.svelte";
+  import type { Event } from "$models/sanity.model";
   import { Alert } from "flowbite-svelte";
 
-  export let event;
+  export let event: Event;
 
-  export let registrationForm;
-  export let registrationEnhance;
-  export let registrationDelayed;
-  export let registrationMessage;
+  export let form;
+  export let enhance;
+  export let delayed;
+  export let message;
 
   export let isAttending;
   export let internalParticipantNames;
@@ -22,28 +23,17 @@
     <EventParticipantsInternal {internalParticipantNames} />
   </div>
   <div>
-    {#if $registrationMessage?.message}
-      <Alert
-        color={$registrationMessage.success
-          ? "green"
-          : $registrationMessage.warning
-            ? "yellow"
-            : "red"}
-      >
-        {$registrationMessage.message}
+    {#if $message?.text}
+      <Alert color={$message.success ? "green" : $message.warning ? "yellow" : "red"}>
+        {$message.text}
       </Alert>
-    {:else if $page.form?.message}
+    {:else if $page.form?.text}
       <Alert color={$page.form.success ? "green" : $page.form.warning ? "yellow" : "red"}>
-        {$page.form.message}
+        {$page.form.text}
       </Alert>
     {:else if !isAttending}
       <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
-      <RegistrationFormInternal
-        {event}
-        {registrationForm}
-        {registrationEnhance}
-        {registrationDelayed}
-      />
+      <RegistrationFormInternal {event} {form} {enhance} {delayed} />
     {:else}
       <h2 class="pb-4 text-base font-bold sm:text-xl">Avmelding:</h2>
       <UnregistrationFormInternal />

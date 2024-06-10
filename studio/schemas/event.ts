@@ -101,7 +101,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "penForExternals",
+      name: "openForExternals",
       title: "Åpen for eksterne",
       description:
         "Hvis du krysser av på denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",
@@ -133,19 +133,12 @@ export default defineType({
       hidden: ({ document }) => !document?.allergy,
     }),
     defineField({
+      name: "customOptions",
       title: "Legg til egne felter",
       description:
         "Skru på denne hvis det er flere spørsmål du vil legge til i påmeldingsskjemaet, så dukker de opp under her.",
-      name: "fields",
-      type: "boolean",
-    }),
-    // Conditional fields for custom preferences
-    defineField({
-      name: "customFields",
-      title: "Egne felter",
       type: "array",
       of: [{ type: "string" }],
-      hidden: ({ document }) => !document?.fields,
     }),
   ],
   preview: {

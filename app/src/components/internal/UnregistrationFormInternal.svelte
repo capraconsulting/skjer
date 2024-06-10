@@ -1,7 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
-  import { Alert, Button } from "flowbite-svelte";
+  import { Button } from "flowbite-svelte";
 </script>
 
 <form class="flex flex-col gap-4" method="POST" action="?/submitUnregistrationInternal" use:enhance>

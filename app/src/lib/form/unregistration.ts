@@ -17,7 +17,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: Invalid form submission detected");
 
     return message(unregistrationForm, {
-      message: "Det har oppstått en feil. Det ufylte skjemaet er ikke gyldig.",
+      text: "Det har oppstått en feil. Det ufylte skjemaet er ikke gyldig.",
       error: true,
     });
   }
@@ -26,7 +26,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     });
   }
@@ -37,7 +37,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
     console.error("Error: The specified event does not exist");
 
     return message(unregistrationForm, {
-      message: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
       error: true,
     });
   }
@@ -56,8 +56,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
 
   if (!eventParticipant.data?.email || !eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      message:
-        "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet. Vennligst sjekk at du har oppgitt riktig e-postadresse.",
+      text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet. Vennligst sjekk at du har oppgitt riktig e-postadresse.",
       warning: true,
     });
   }
@@ -69,8 +68,7 @@ export const submitUnregistration: Actions["submitUnregistration"] = async ({
   // returning for demo purpose
   return message(unregistrationForm, {
     token,
-    message:
-      "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",
+    text: "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",
     success: true,
   });
 };

@@ -95,7 +95,7 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  image?: {
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -106,22 +106,21 @@ export type Event = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  title?: string;
+  title: string;
   summary?: string;
-  start?: string;
-  end?: string;
-  body?: BlockContent;
+  start: string;
+  end: string;
+  body: BlockContent;
   maxParticipant?: number;
-  category?: Category;
-  place?: string;
-  organisers?: Array<string>;
-  isDigital?: boolean;
-  visibleForExternals?: boolean;
-  penForExternals?: boolean;
-  allergy?: boolean;
+  category: Category;
+  place: string;
+  organisers: Array<string>;
+  isDigital: boolean;
+  visibleForExternals: boolean;
+  openForExternals: boolean;
+  allergy: boolean;
   food?: string;
-  fields?: boolean;
-  customFields?: Array<string>;
+  customOptions?: Array<string>;
 };
 
 export type BlogPost = {
@@ -141,8 +140,8 @@ export type BlogPost = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
   subtitle?: string;
   author?: string;
   description?: string;
@@ -188,7 +187,7 @@ export type BlogPost = {
 
 export type Slug = {
   _type: "slug";
-  current?: string;
+  current: string;
   source?: string;
 };
 
@@ -257,3 +256,5 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+

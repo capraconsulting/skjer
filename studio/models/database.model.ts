@@ -129,24 +129,18 @@ export type Database = {
         };
         Relationships: [];
       };
-      event_participant_options: {
+      event_participant_option: {
         Row: {
           event_participant_id: number;
-          event_participant_option_id: number;
-          option_name: string | null;
-          option_value: boolean | null;
+          option: string;
         };
         Insert: {
           event_participant_id: number;
-          event_participant_option_id: number;
-          option_name?: string | null;
-          option_value?: boolean | null;
+          option: string;
         };
         Update: {
           event_participant_id?: number;
-          event_participant_option_id?: number;
-          option_name?: string | null;
-          option_value?: boolean | null;
+          option?: string;
         };
         Relationships: [
           {
