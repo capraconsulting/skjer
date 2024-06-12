@@ -8,10 +8,13 @@
 
   export let event: Event;
 
+  let imageElement: HTMLImageElement;
   let imageLoaded = false;
 
   onMount(() => {
-    imageLoaded = true;
+    if (imageElement?.naturalHeight) {
+      imageLoaded = true;
+    }
   });
 </script>
 
@@ -37,10 +40,12 @@
       ></div>
       <img
         fetchpriority="high"
-        class="linear relative h-full w-full rounded-xl object-cover opacity-0 transition-opacity duration-500"
+        class="relative h-full w-full rounded-xl object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
         src={urlFor(event.image).url()}
         alt={`Bilde for arrangementet: ${event.title}`}
         class:opacity-100={imageLoaded}
+        on:load={() => (imageLoaded = true)}
+        bind:this={imageElement}
       />
     </div>
   {/if}

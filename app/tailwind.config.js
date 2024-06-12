@@ -15,6 +15,7 @@ export default {
         deepRed: "#371420",
         orange: "#ffb74b",
         yellowSpark: "#ffeb4d",
+        frydeRed: "#d0000b",
         frydeLightMode: "#fff9e5",
         lifligDarkMode: "#220038",
         purple: "#4a11b7",
