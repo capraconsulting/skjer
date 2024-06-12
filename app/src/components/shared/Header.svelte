@@ -18,11 +18,13 @@
 <header class="flex h-[100px] w-full items-center justify-between px-4 pt-2 lg:px-20">
   <a class={isRoot ? "pointer-events-none" : "pointer-events-auto"} href="/">
     <img
+      fetchpriority="high"
       class="block h-12 select-none sm:h-14 dark:hidden"
       alt="Animert Capra, Fryde og Liflig-logo"
       src={hasPerformanceIssue ? logoSm : logo}
     />
     <img
+      fetchpriority="high"
       class="hidden h-12 select-none sm:h-14 dark:block"
       alt="Animert Capra, Fryde og Liflig-logo"
       src={hasPerformanceIssue ? logoSmDark : logoDark}

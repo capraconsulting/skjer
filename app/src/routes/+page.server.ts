@@ -1,13 +1,11 @@
 import type { PageServerLoad } from "./$types";
-import type { Event } from "$models/sanity.model";
 import {
-  allFutureEventsQuery,
-  allPastEventsQuery,
-  externalFutureEventsQuery,
-  externalPastEventsQuery,
+  getFutureEvents,
+  getPastEvents,
+  getExternalPastEvents,
+  getExternalFutureEvents,
 } from "$lib/server/sanity/queries";
-import { client } from "$lib/sanity/client";
-import { getAllAttendingEvents } from "$lib/server/supabase/queries";
+import { getAttendingEvents } from "$lib/server/supabase/queries";
 import type { EventWithAttending } from "$models/databaseView.model";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
@@ -15,17 +13,17 @@ export const load: PageServerLoad = async ({ url, locals }) => {
   const selectedCategory = url.searchParams.get("category")?.toLowerCase() || "";
 
   if (auth?.user?.email) {
-    const futureEventsContent: Event[] = await client.fetch(allFutureEventsQuery);
+    const futureEventsContent = await getFutureEvents();
 
-    const futureEventsAttending = await getAllAttendingEvents({
-      email: auth.user?.email,
+    const futureEventsAttending = await getAttendingEvents({
+      email: auth.user.email,
     });
 
     const futureEvents: EventWithAttending[] = futureEventsContent.map((event) => {
       return { ...event, attending: futureEventsAttending.includes(event._id) };
     });
 
-    const pastEvents: Event[] = await client.fetch(allPastEventsQuery);
+    const pastEvents = await getPastEvents();
 
     return {
       futureEvents,
@@ -34,8 +32,8 @@ export const load: PageServerLoad = async ({ url, locals }) => {
     };
   }
 
-  const futureEvents: Event[] = await client.fetch(externalFutureEventsQuery);
-  const pastEvents: Event[] = await client.fetch(externalPastEventsQuery);
+  const futureEvents = await getExternalFutureEvents();
+  const pastEvents = await getExternalPastEvents();
 
   return {
     futureEvents,

@@ -1,13 +1,20 @@
 <script lang="ts">
-  import { Input, Button, ButtonGroup, Alert } from "flowbite-svelte";
+  import { Input, Button, ButtonGroup, Alert, Spinner } from "flowbite-svelte";
 
   export let form;
   export let errors;
+  export let delayed;
   export let enhance;
-  export let message;
 </script>
 
-<form class="mt-20 flex flex-col gap-6" method="POST" action="?/submitUnregistration" use:enhance>
+<form
+  class="mt-20 flex flex-col gap-6"
+  method="POST"
+  action="?/submitUnregistrationExternal"
+  use:enhance
+>
+  <input type="text" name="subject" id="subject" class="hidden" />
+
   <div
     class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 sm:p-8 dark:border-gray-700 dark:bg-gray-800"
   >
@@ -27,7 +34,14 @@
             name="email"
             bind:value={$form.email}
           />
-          <Button class="w-48" type="submit" color="dark">Meld meg av</Button>
+          <Button class="w-48" type="submit" color="alternative" disabled={$delayed}>
+            Meld meg av
+            <span class="w-3">
+              {#if $delayed}
+                <Spinner class="ml-2 text-black dark:text-white" size="4" />
+              {/if}
+            </span>
+          </Button>
         </ButtonGroup>
         {#if $errors.email}
           <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
@@ -36,16 +50,3 @@
     </div>
   </div>
 </form>
-
-{#if $message?.text}
-  <Alert class="mb-6" color={$message.success ? "green" : $message.warning ? "yellow" : "red"}>
-    {$message.text}
-    <!-- demo purpose -->
-    {#if $message.token}
-      <div class="w-[400px] break-words border border-gray-300 p-2 text-xs">
-        Kun for demo, ingen sensitiv informasjon:
-        {`/event/unregistration/${$message.token}`}
-      </div>
-    {/if}
-  </Alert>
-{/if}

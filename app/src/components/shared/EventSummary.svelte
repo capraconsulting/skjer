@@ -4,8 +4,15 @@
   import { urlFor } from "$lib/sanity/image";
   import { PortableText } from "@portabletext/svelte";
   import EventInfoBox from "$components/shared/EventInfoBox.svelte";
+  import { onMount } from "svelte";
 
   export let event: Event;
+
+  let imageLoaded = false;
+
+  onMount(() => {
+    imageLoaded = true;
+  });
 </script>
 
 <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
@@ -22,18 +29,25 @@
     <EventInfoBox {event} />
   </div>
   {#if event.image}
-    <div class="w-full sm:w-[60%]">
+    <div class="relative w-full sm:w-[60%]">
+      <div
+        aria-hidden="true"
+        class="absolute left-0 top-0 h-full w-full rounded-xl"
+        style="background: {event.image.palette.darkMuted.background}"
+      ></div>
       <img
-        class="w-full rounded-xl object-cover sm:h-full"
+        fetchpriority="high"
+        class="linear relative h-full w-full rounded-xl object-cover opacity-0 transition-opacity duration-500"
         src={urlFor(event.image).url()}
-        alt="Bilde for arrangementet: {event.title}"
+        alt={`Bilde for arrangementet: ${event.title}`}
+        class:opacity-100={imageLoaded}
       />
     </div>
   {/if}
 </div>
 
 {#if event.body}
-  <div class="flex flex-col gap-4 text-base font-light sm:text-xl">
+  <div class="text-base">
     <PortableText components={{}} value={event.body} />
   </div>
 {/if}

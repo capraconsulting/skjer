@@ -9,10 +9,10 @@
   <div class="flex flex-row items-center gap-2">
     <img class="h-7 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
     <span class="mr-6 hidden text-sm font-normal sm:block">{auth.user.name}</span>
-    <Button color="dark" class="h-7" pill on:click={() => signOut({ callbackUrl: "/" })}
+    <Button color="dark" class="h-7" pill on:click|once={() => signOut({ callbackUrl: "/" })}
       >Logg ut</Button
     >
   </div>
 {:else}
-  <Button color="dark" class="h-7" pill on:click={() => signIn("google")}>Logg inn</Button>
+  <Button color="dark" class="h-7" pill on:click|once={() => signIn("google")}>Logg inn</Button>
 {/if}

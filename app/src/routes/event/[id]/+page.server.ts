@@ -1,13 +1,25 @@
-import { eventQuery as query } from "$lib/sanity/queries";
-import type { Actions, PageServerLoad } from "./$types";
 import { superValidate } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
-import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema";
 import type { Event } from "$models/sanity.model";
-import { submitRegistration } from "$lib/form/registration";
-import { submitUnregistration } from "$lib/form/unregistration";
-import { submitUnregistration as submitUnregistrationInternal } from "$lib/form/internal/unregistration";
+import type { Actions, PageServerLoad } from "./$types";
 import { getAttendingEvent, getInternalEventParticipantNames } from "$lib/server/supabase/queries";
+import {
+  submitRegistrationInternal,
+  submitUnregistrationInternal,
+} from "$lib/actions/internal/action";
+import {
+  registrationSchemaInternal,
+  unregistrationSchemaInternal,
+} from "$lib/schemas/internal/schema";
+import {
+  registrationSchemaExternal,
+  unregistrationSchemaExternal,
+} from "$lib/schemas/external/schema";
+import {
+  submitRegistrationExternal,
+  submitUnregistrationExternal,
+} from "$lib/actions/external/action";
+import { eventQuery as query } from "$lib/server/sanity/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const auth = await locals.auth();
@@ -15,41 +27,37 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   if (auth?.user?.name && auth.user.email) {
     const initial = await locals.loadQuery<Event>(query, { id });
 
-    const prefilledRegistration = {
-      fullName: auth.user.name,
-      email: auth.user.email,
-    };
-
-    const registrationForm = await superValidate(prefilledRegistration, zod(registrationSchema));
-    const unregistrationForm = await superValidate(zod(unregistrationSchema));
+    const registrationForm = await superValidate(zod(registrationSchemaInternal));
+    const unregistrationForm = await superValidate(zod(unregistrationSchemaInternal));
 
     const isAttending = await getAttendingEvent({ document_id: id, email: auth.user.email });
     const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
 
     return {
-      registrationForm,
-      unregistrationForm,
       query,
       options: { initial },
+      registrationForm,
+      unregistrationForm,
       isAttending,
       internalParticipantNames,
     };
   }
 
   const initial = await locals.loadQuery<Event>(query, { id });
-  const registrationForm = await superValidate(zod(registrationSchema));
-  const unregistrationForm = await superValidate(zod(unregistrationSchema));
+  const registrationForm = await superValidate(zod(registrationSchemaExternal));
+  const unregistrationForm = await superValidate(zod(unregistrationSchemaExternal));
 
   return {
-    registrationForm,
-    unregistrationForm,
     query,
     options: { initial },
+    registrationForm,
+    unregistrationForm,
   };
 };
 
 export const actions: Actions = {
-  submitRegistration,
-  submitUnregistration,
+  submitRegistrationInternal,
   submitUnregistrationInternal,
+  submitRegistrationExternal,
+  submitUnregistrationExternal,
 };

@@ -1,8 +1,5 @@
 <script lang="ts">
   import { useQuery } from "@sanity/svelte-loader";
-  import { superForm } from "sveltekit-superforms/client";
-  import { zod } from "sveltekit-superforms/adapters";
-  import { registrationSchema, unregistrationSchema } from "$lib/schemas/registrationSchema.js";
   import EventFormExternal from "$components/external/EventFormExternal.svelte";
   import EventFormInternal from "$components/internal/EventFormInternal.svelte";
   import EventSummary from "$components/shared/EventSummary.svelte";
@@ -14,28 +11,6 @@
   const result = useQuery({ query, options });
 
   $: ({ data: event } = $result);
-  $: isAttending = data.isAttending;
-  $: internalParticipantNames = data.internalParticipantNames;
-
-  const {
-    form: registrationForm,
-    errors: registrationErrors,
-    message: registrationMessage,
-    delayed: registrationDelayed,
-    enhance: registrationEnhance,
-  } = superForm(data.registrationForm, {
-    validators: zod(registrationSchema),
-    delayMs: 500,
-  });
-
-  const {
-    form: unregistrationForm,
-    errors: unregistrationErrors,
-    message: unregistrationMessage,
-    enhance: unregistrationEnhance,
-  } = superForm(data.unregistrationForm, {
-    validators: zod(unregistrationSchema),
-  });
 </script>
 
 <svelte:head>
@@ -44,35 +19,14 @@
 
 <section>
   <div class="mb-9">
-    <a class="flex items-center font-bold hover:underline" href="/"
-      ><ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer</a
-    >
+    <a class="flex items-center font-bold hover:underline" href="/">
+      <ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer
+    </a>
   </div>
-
   <EventSummary {event} />
-
   {#if auth?.user}
-    <EventFormInternal
-      {event}
-      form={registrationForm}
-      enhance={registrationEnhance}
-      delayed={registrationDelayed}
-      message={registrationMessage}
-      {isAttending}
-      {internalParticipantNames}
-    />
+    <EventFormInternal {event} {data} />
   {:else}
-    <EventFormExternal
-      {event}
-      {registrationForm}
-      {registrationErrors}
-      {registrationEnhance}
-      {registrationDelayed}
-      {registrationMessage}
-      {unregistrationForm}
-      {unregistrationEnhance}
-      {unregistrationErrors}
-      {unregistrationMessage}
-    />
+    <EventFormExternal {event} {data} />
   {/if}
 </section>

@@ -1,13 +1,13 @@
 <script>
   import { Badge } from "flowbite-svelte";
 
-  export let internalParticipantNames;
+  export let names;
 </script>
 
-{#if internalParticipantNames.length}
-  {#each internalParticipantNames as internalParticipantName}
+{#if names.length}
+  {#each names as name}
     <Badge rounded class="mr-1 h-6 border border-black bg-transparent dark:bg-zinc-800"
-      >{internalParticipantName}</Badge
+      >{name}</Badge
     >
   {/each}
 {:else}

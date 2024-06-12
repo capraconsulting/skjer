@@ -13,7 +13,6 @@ export default {
         spark: "#86ffd9",
         capraLightMode: "#defcf5",
         deepRed: "#371420",
-        red: "#d0000b",
         orange: "#ffb74b",
         yellowSpark: "#ffeb4d",
         frydeLightMode: "#fff9e5",
