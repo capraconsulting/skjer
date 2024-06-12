@@ -7,7 +7,7 @@ export const serverClient = client.withConfig({
   stega: true,
 });
 
-export const serverClientWithoutStega = client.withConfig({
+export const clientWithoutStega = client.withConfig({
   token,
   useCdn: false,
   stega: false,

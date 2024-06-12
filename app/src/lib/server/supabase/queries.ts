@@ -1,6 +1,6 @@
 import { validateDomain } from "$lib/utils/domain";
 import type { Tables } from "$models/database.model";
-import { supabase } from "./client";
+import { supabase } from "$lib/server/supabase/client";
 
 export const getEvent = async ({ document_id }: Pick<Tables<"event">, "document_id">) => {
   const result = await supabase.from("event").select().eq("document_id", document_id).maybeSingle();
@@ -161,7 +161,7 @@ export const getAttendingEvent = async ({
   return false;
 };
 
-export const getAllAttendingEvents = async ({
+export const getAttendingEvents = async ({
   email,
 }: {
   email: Tables<"event_participant">["email"];

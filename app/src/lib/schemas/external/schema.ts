@@ -1,7 +1,7 @@
 import { z } from "zod";
 import validator from "validator";
 
-export const registrationSchema = z.object({
+export const registrationSchemaExternal = z.object({
   subject: z.null(), // Honeypot
   fullName: z.string().min(2),
   email: z.string().email(),
@@ -12,6 +12,7 @@ export const registrationSchema = z.object({
   customOptions: z.array(z.string()),
 });
 
-export const unregistrationSchema = z.object({
+export const unregistrationSchemaExternal = z.object({
+  subject: z.null(), // Honeypot
   email: z.string().email(),
 });
