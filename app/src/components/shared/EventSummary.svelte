@@ -52,7 +52,7 @@
 </div>
 
 {#if event.body}
-  <div class="text-base">
+  <div class="flex flex-col gap-4 text-base">
     <PortableText components={{}} value={event.body} />
   </div>
 {/if}
