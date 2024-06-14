@@ -20,7 +20,7 @@
   <input type="text" name="subject" id="subject" class="hidden" />
 
   <div class="flex flex-col gap-1">
-    <Label for="fullName">Fullt navn*</Label>
+    <Label class="font-bold" for="fullName">Fullt navn*</Label>
     <Input
       size="sm"
       class="bg-white"
@@ -35,7 +35,7 @@
   </div>
 
   <div class="flex flex-col gap-1">
-    <Label for="email">E-post*</Label>
+    <Label class="font-bold" for="email">E-post*</Label>
     <Input
       size="sm"
       class="bg-white"
@@ -50,7 +50,7 @@
   </div>
 
   <div class="flex flex-col gap-1">
-    <Label for="telephone">Telefonnummer</Label>
+    <Label class="font-bold" for="telephone">Telefonnummer</Label>
     <Input
       size="sm"
       class="bg-white"
@@ -65,7 +65,7 @@
   </div>
 
   <div class="flex flex-col gap-1">
-    <Label for="firm">Selskap</Label>
+    <Label class="font-bold" for="firm">Selskap</Label>
     <Input size="sm" class="bg-white" type="text" name="firm" id="firm" bind:value={$form.firm} />
     {#if $errors.firm}
       <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
