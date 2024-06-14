@@ -62,64 +62,82 @@ export const createSlackMessage = async (
     minute: "2-digit",
   });
 
-  const slackMessage = {
-    blocks: [
-      {
-        type: "header",
-        text: {
-          type: "plain_text",
-          text: `${title} :loudspeaker:`,
-          emoji: true,
-        },
-      },
-      {
-        type: "image",
-        image_url: imageUrl,
-        alt_text: "Image",
-      },
-      {
-        type: "context",
-        elements: [
-          {
-            type: "mrkdwn",
-            text: summary ? `_${summary}_` : "",
-          },
-        ],
-      },
-      {
-        type: "section",
-        fields: [
-          {
-            type: "mrkdwn",
-            text: `*Påmelding:*\n<${eventUrl}|Meld deg på her>`,
-          },
-          {
-            type: "mrkdwn",
-            text: `*Kategori:*\n${category}`,
-          },
-        ],
-      },
-      {
-        type: "section",
-        fields: [
-          {
-            type: "mrkdwn",
-            text: `*Når:*\n${startDate}`,
-          },
-          {
-            type: "mrkdwn",
-            text: `*Hvor:*\n${place}`,
-          },
-        ],
-      },
-    ],
-  };
+  const blocks = [];
 
+  if (title) {
+    blocks.push({
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `*${title} | <!here> :loudspeaker:*`,
+      },
+    });
+  }
+
+  if (imageUrl) {
+    blocks.push({
+      type: "image",
+      image_url: imageUrl,
+      alt_text: "Image",
+    });
+  }
+
+  if (summary) {
+    blocks.push({
+      type: "context",
+      elements: [
+        {
+          type: "mrkdwn",
+          text: `_${summary}_`,
+        },
+      ],
+    });
+  }
+
+  if (eventUrl || category) {
+    const fields = [];
+    if (eventUrl) {
+      fields.push({
+        type: "mrkdwn",
+        text: `*Påmelding:*\n<${eventUrl}|Meld deg på her>`,
+      });
+    }
+    if (category) {
+      fields.push({
+        type: "mrkdwn",
+        text: `*Kategori:*\n${category}`,
+      });
+    }
+    blocks.push({
+      type: "section",
+      fields,
+    });
+  }
+
+  if (startDate || place) {
+    const fields = [];
+    if (startDate) {
+      fields.push({
+        type: "mrkdwn",
+        text: `*Når:*\n${startDate}`,
+      });
+    }
+    if (place) {
+      fields.push({
+        type: "mrkdwn",
+        text: `*Hvor:*\n${place}`,
+      });
+    }
+    blocks.push({
+      type: "section",
+      fields,
+    });
+  }
   try {
     await fetch(process.env.SANITY_STUDIO_SLACK_HOOK!, {
       method: "POST",
       headers: { "Content-type": "application/x-www-form-urlencoded" },
-      body: JSON.stringify(slackMessage),
+      body: JSON.stringify({ blocks }),
     });
   } catch (error) {
     console.error("Error sending message to Slack:", error);
