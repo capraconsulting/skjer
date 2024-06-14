@@ -78,22 +78,25 @@ export default function EventParticipant({ documentId }: { documentId: string })
 
       <Grid gap={4}>
         {filteredData?.map(
-          ({ event_participant_id, full_name, email, telephone, firm, created_at }) => (
+          ({ event_participant_id, full_name, email, telephone, firm, created_at, attending }) => (
             <Card {...cardProps} key={event_participant_id}>
               <Stack space={4}>
                 <Text weight="bold">{full_name}</Text>
                 <Text textOverflow={"ellipsis"}>{email}</Text>
-                <Text>{telephone}</Text>
-                <Text>{firm}</Text>
+                {telephone ? <Text>{telephone}</Text> : ""}
+                {firm ? <Text>{firm}</Text> : ""}
+                <Text>{attending ? "Påmeldt" : "Avmeldt"}</Text>
                 <Text>{Intl.DateTimeFormat().format(new Date(created_at || ""))}</Text>
-                <Button
-                  fontSize={1}
-                  padding={2}
-                  icon={RevertIcon}
-                  mode="ghost"
-                  tone="critical"
-                  text="Trekk"
-                />
+                <span>
+                  <Button
+                    fontSize={1}
+                    padding={2}
+                    icon={RevertIcon}
+                    mode="ghost"
+                    tone="critical"
+                    text="Trekk"
+                  />
+                </span>
               </Stack>
             </Card>
           )
