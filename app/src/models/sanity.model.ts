@@ -110,6 +110,7 @@ export type Event = {
   summary?: string;
   start: string;
   end: string;
+  deadline: string;
   body: BlockContent;
   maxParticipant?: number;
   category: Category;
