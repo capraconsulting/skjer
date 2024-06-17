@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isBeforeToday } from "$lib/utils/date.util";
+  import { dateHasPassed } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
   import { Button, Spinner } from "flowbite-svelte";
 
@@ -11,7 +11,7 @@
 
 {#if isAttending}
   <h2 class="pb-4 text-base font-bold sm:text-xl">Avmelding:</h2>
-  {#if isBeforeToday(event.deadline)}
+  {#if dateHasPassed(event.deadline)}
     <p>Det er ikke lenger mulig å melde seg av dette arrangementet 😢</p>
   {:else}
     <form
