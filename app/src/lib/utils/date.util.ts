@@ -1,3 +1,7 @@
+function toDate(dateString: string): Date {
+  return new Date(dateString);
+}
+
 export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("nb-NO", {
     month: "long",
@@ -15,10 +19,9 @@ export function formatTime(date: string): string {
 }
 
 export function endsOnDifferentDay(start: string, end: string): boolean {
-  return formatDate(start) !== formatDate(end);
+  return toDate(start) !== toDate(end);
 }
 
 export function isBeforeToday(date: string): boolean {
-  const today = new Date().toDateString();
-  return formatDate(date) <= today;
+  return toDate(date) <= new Date();
 }
