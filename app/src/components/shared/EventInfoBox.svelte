@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { endsOnDifferentDay, formatDate, formatTime } from "$lib/utils";
+  import { endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
   import { CalendarBlank, Clock, MapPin, ForkKnife, Tag } from "phosphor-svelte";
 

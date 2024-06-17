@@ -56,6 +56,7 @@
     />
     {#if !$unregistrationMessage?.text}
       <UnregistrationFormInternal
+        {event}
         isAttending={data.isAttending}
         delayed={unregistrationDelayed}
         enhance={unregistrationEnhance}

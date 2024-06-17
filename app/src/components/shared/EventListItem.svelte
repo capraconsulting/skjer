@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatDate } from "$lib/utils";
+  import { formatDate } from "$lib/utils/date.util";
   import { Badge } from "flowbite-svelte";
   import { ArrowRight } from "phosphor-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";

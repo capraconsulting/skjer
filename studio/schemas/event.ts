@@ -37,7 +37,13 @@ export default defineType({
       name: "end",
       title: "Sluttdato og tidspunkt",
       type: "datetime",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().min(Rule.valueOfField("start")),
+    }),
+    defineField({
+      name: "deadline",
+      title: "Påmeldingsfrist",
+      type: "datetime",
+      validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
       name: "body",

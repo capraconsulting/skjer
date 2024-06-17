@@ -638,6 +638,13 @@
         },
         "optional": false
       },
+      "deadline": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "body": {
         "type": "objectAttribute",
         "value": {
