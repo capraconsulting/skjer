@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
-  import { Input, Label, Button, Spinner, Badge } from "flowbite-svelte";
+  import { Input, Label, Button, Spinner } from "flowbite-svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
   import RegistrationAllergy from "$components/shared/RegistrationAllergy.svelte";
   import Deadline from "$components/shared/Deadline.svelte";
