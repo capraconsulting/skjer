@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
-  import { Input, Label, Button, Spinner } from "flowbite-svelte";
+  import { Input, Label, Button, Spinner, Badge } from "flowbite-svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
   import RegistrationAllergy from "$components/shared/RegistrationAllergy.svelte";
+  import Deadline from "$components/shared/Deadline.svelte";
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
   import { sanitize } from "$lib/utils/sanitize.util";
   import { isBeforeToday } from "$lib/utils/date.util";
@@ -17,8 +18,11 @@
 
 <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
 {#if isBeforeToday(event.deadline)}
-  <p>Det er ikke lenger mulig å melde seg på dette arrangementet.</p>
+  <p>Det er ikke lenger mulig å melde seg på dette arrangementet 😢</p>
 {:else}
+  <div class="pb-6">
+    <Deadline deadline={event.deadline} />
+  </div>
   <form class="flex flex-col gap-4" method="POST" action="?/submitRegistrationExternal" use:enhance>
     <input type="text" name="subject" id="subject" class="hidden" />
 
