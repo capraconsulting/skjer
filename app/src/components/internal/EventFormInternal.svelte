@@ -11,6 +11,7 @@
   } from "$lib/schemas/internal/schema";
   import { Alert } from "flowbite-svelte";
   import { getAlertColor } from "$lib/utils/form.util";
+  import { isBeforeToday } from "$lib/utils/date.util";
 
   export let data;
   export let event: Event;
@@ -47,19 +48,23 @@
     <EventParticipantsInternal names={data.internalParticipantNames} />
   </div>
   <div>
-    <RegistrationFormInternal
-      {event}
-      isAttending={data.isAttending}
-      form={registrationForm}
-      delayed={registrationDelayed}
-      enhance={registrationEnhance}
-    />
-    {#if !$unregistrationMessage?.text}
-      <UnregistrationFormInternal
+    {#if isBeforeToday(event.deadline)}
+      <p>Det er ikke lenger mulig å melde seg på dette arrangementet.</p>
+    {:else}
+      <RegistrationFormInternal
+        {event}
         isAttending={data.isAttending}
-        delayed={unregistrationDelayed}
-        enhance={unregistrationEnhance}
+        form={registrationForm}
+        delayed={registrationDelayed}
+        enhance={registrationEnhance}
       />
+      {#if !$unregistrationMessage?.text}
+        <UnregistrationFormInternal
+          isAttending={data.isAttending}
+          delayed={unregistrationDelayed}
+          enhance={unregistrationEnhance}
+        />
+      {/if}
     {/if}
   </div>
   {#if $unregistrationMessage?.text}
