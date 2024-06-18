@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const participants = await getAttendingParticipants({ document_id: props.id });
 
     if (!participants.length) {
-      return json({ OK: "No participants found for this event" }, { status: 200 });
+      return json({ message: "No participants found for this event" }, { status: 200 });
     }
 
     const sendPromises = participants.map(({ email }) =>
