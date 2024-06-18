@@ -52,6 +52,7 @@
     {:else}
       <RegistrationFormExternal
         {event}
+        numberOfParticipants={data.numberOfParticipants}
         form={registrationForm}
         errors={registrationErrors}
         enhance={registrationEnhance}

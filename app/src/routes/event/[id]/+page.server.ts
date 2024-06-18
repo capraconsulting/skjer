@@ -2,7 +2,11 @@ import { superValidate } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Event } from "$models/sanity.model";
 import type { Actions, PageServerLoad } from "./$types";
-import { getAttendingEvent, getInternalEventParticipantNames } from "$lib/server/supabase/queries";
+import {
+  getAttendingEvent,
+  getInternalEventParticipantNames,
+  getNumberOfParticipants,
+} from "$lib/server/supabase/queries";
 import {
   submitRegistrationInternal,
   submitUnregistrationInternal,
@@ -23,6 +27,7 @@ import { eventQuery as query } from "$lib/server/sanity/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const auth = await locals.auth();
+  const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
 
   if (auth?.user?.name && auth.user.email) {
     const initial = await locals.loadQuery<Event>(query, { id });
@@ -40,6 +45,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
       unregistrationForm,
       isAttending,
       internalParticipantNames,
+      numberOfParticipants,
     };
   }
 
@@ -52,6 +58,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
     options: { initial },
     registrationForm,
     unregistrationForm,
+    numberOfParticipants,
   };
 };
 

@@ -140,6 +140,19 @@ export const getInternalEventParticipantNames = async ({
     .map(({ full_name }) => full_name);
 };
 
+export const getNumberOfParticipants = async ({
+  document_id,
+}: Pick<Tables<"event">, "document_id">) => {
+  const result = await supabase
+    .from("event")
+    .select("event_participant(full_name)")
+    .eq("document_id", document_id)
+    .eq("event_participant.attending", true)
+    .maybeSingle();
+
+  return result.data?.event_participant.length || 0;
+};
+
 export const getAttendingEvent = async ({
   email,
   document_id,

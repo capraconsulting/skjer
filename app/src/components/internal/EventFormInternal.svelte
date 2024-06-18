@@ -49,6 +49,7 @@
   <div>
     <RegistrationFormInternal
       {event}
+      numberOfParticipants={data.numberOfParticipants}
       isAttending={data.isAttending}
       form={registrationForm}
       delayed={registrationDelayed}

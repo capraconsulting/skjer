@@ -9,6 +9,7 @@
   import { dateHasPassed } from "$lib/utils/date.util";
 
   export let event: Event;
+  export let numberOfParticipants: number;
 
   export let form;
   export let errors;
@@ -19,6 +20,8 @@
 <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
 {#if dateHasPassed(event.deadline)}
   <p>Det er ikke lenger mulig å melde seg på dette arrangementet 😢</p>
+{:else if numberOfParticipants === event.maxParticipant}
+  <p>Det er dessverre ikke flere ledige plasser på dette arrangementet 😢</p>
 {:else}
   <div class="pb-6">
     <Deadline deadline={event.deadline} />
