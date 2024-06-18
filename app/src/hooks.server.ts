@@ -2,6 +2,8 @@ import { createRequestHandler, setServerClient } from "@sanity/svelte-loader";
 import { serverClient } from "$lib/server/sanity/client";
 import { sequence } from "@sveltejs/kit/hooks";
 import { createAuthHandler } from "$lib/auth";
+import type { Handle } from "@sveltejs/kit";
+import { createAPISecurityPolicy } from "$lib/auth/api";
 
 // Sets the client to be used by `loadQuery` when fetching data on the server.
 // The loader will handle setting the correct fetch parameters, including
@@ -13,4 +15,4 @@ setServerClient(serverClient);
 // helpers to the `event.locals` Svelte object, such as a preconfigured
 // `loadQuery` function and `preview` state.
 
-export const handle = sequence(createRequestHandler(), createAuthHandler);
+export const handle = sequence(createRequestHandler(), createAuthHandler, createAPISecurityPolicy);

@@ -153,7 +153,7 @@ export const getNumberOfParticipants = async ({
   return result.data?.event_participant.length || 0;
 };
 
-export const getAttendingEvent = async ({
+export const getIsAttendingEvent = async ({
   email,
   document_id,
 }: {
@@ -174,7 +174,7 @@ export const getAttendingEvent = async ({
   return false;
 };
 
-export const getAttendingEvents = async ({
+export const getAttendingEventsByEmail = async ({
   email,
 }: {
   email: Tables<"event_participant">["email"];
@@ -187,6 +187,21 @@ export const getAttendingEvents = async ({
 
   if (result.data?.length) {
     return result.data.map((item) => item.event?.document_id);
+  }
+  return [];
+};
+
+export const getAttendingParticipants = async ({
+  document_id,
+}: Pick<Tables<"event">, "document_id">) => {
+  const result = await supabase
+    .from("event")
+    .select("event_participant(email)")
+    .eq("document_id", document_id)
+    .eq("event_participant.attending", true);
+
+  if (result.data?.length) {
+    return result.data.flatMap((item) => item.event_participant);
   }
   return [];
 };
