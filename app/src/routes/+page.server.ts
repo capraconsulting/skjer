@@ -5,7 +5,7 @@ import {
   getExternalPastEvents,
   getExternalFutureEvents,
 } from "$lib/server/sanity/queries";
-import { getAttendingEvents } from "$lib/server/supabase/queries";
+import { getAttendingEventsByEmail } from "$lib/server/supabase/queries";
 import type { EventWithAttending } from "$models/databaseView.model";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
   if (auth?.user?.email) {
     const futureEventsContent = await getFutureEvents();
 
-    const futureEventsAttending = await getAttendingEvents({
+    const futureEventsAttending = await getAttendingEventsByEmail({
       email: auth.user.email,
     });
 

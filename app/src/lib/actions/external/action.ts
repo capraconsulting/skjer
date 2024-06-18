@@ -5,7 +5,6 @@ import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { sanitize } from "$lib/utils/sanitize.util";
 import { getUnsubscribeSecret } from "$lib/auth/secret";
-import { sendEventConfirmationEmail } from "$lib/email/confirmation";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { getEvent, getEventParticipant } from "$lib/server/supabase/queries";
 import {
@@ -20,6 +19,7 @@ import {
   registrationSchemaExternal,
   unregistrationSchemaExternal,
 } from "$lib/schemas/external/schema";
+import { sendEventRegistrationConfirmed } from "$lib/email/event-registration";
 
 export const submitRegistrationExternal: Actions["submitRegistrationExternal"] = async ({
   request,
@@ -149,17 +149,16 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
 
   const emailPayload = {
     id,
-    email,
-    fullName,
-    title: eventContent.title,
+    mailTo: email,
+    summary: eventContent.title,
     description: eventContent.summary,
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organisers: eventContent.organisers,
+    organiser: eventContent.organisers.join(" | "),
   };
 
-  const { error: emailError } = await sendEventConfirmationEmail(emailPayload);
+  const { error: emailError } = await sendEventRegistrationConfirmed(emailPayload);
 
   if (emailError) {
     console.error("Error: Failed to send email");

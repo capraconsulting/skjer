@@ -3,9 +3,9 @@ import { zod } from "sveltekit-superforms/adapters";
 import type { Event } from "$models/sanity.model";
 import type { Actions, PageServerLoad } from "./$types";
 import {
-  getAttendingEvent,
-  getInternalEventParticipantNames,
   getNumberOfParticipants,
+  getIsAttendingEvent,
+  getInternalEventParticipantNames,
 } from "$lib/server/supabase/queries";
 import {
   submitRegistrationInternal,
@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
     const registrationForm = await superValidate(zod(registrationSchemaInternal));
     const unregistrationForm = await superValidate(zod(unregistrationSchemaInternal));
 
-    const isAttending = await getAttendingEvent({ document_id: id, email: auth.user.email });
+    const isAttending = await getIsAttendingEvent({ document_id: id, email: auth.user.email });
     const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
 
     return {

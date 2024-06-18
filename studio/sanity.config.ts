@@ -7,7 +7,7 @@ import { schemaTypes } from "./schemas";
 import { codeInput } from "@sanity/code-input";
 import { nbNOLocale } from "@sanity/locale-nb-no";
 import { StudioIcon } from "./components/shared/StudioIcon";
-import { eventPublishAction } from "./actions";
+import { createExtendedEventPublishAction } from "./actions";
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
 export const dataset = process.env.SANITY_STUDIO_DATASET!;
@@ -58,7 +58,9 @@ export default defineConfig({
     actions: (prev, context) => {
       if (context.schemaType === "event") {
         return prev.map((originalAction) =>
-          originalAction.action === "publish" ? eventPublishAction : originalAction
+          originalAction.action === "publish"
+            ? createExtendedEventPublishAction(originalAction)
+            : originalAction
         );
       }
       return prev;
