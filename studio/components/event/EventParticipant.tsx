@@ -14,6 +14,7 @@ import {
   Inline,
 } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
+import ExcelExport from "../shared/ExcelExport";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -69,11 +70,14 @@ export default function EventParticipant({ documentId }: { documentId: string })
     <>
       <Grid gap={4}>
         <Text muted size={1}>
-          Event
+          Arrangement
         </Text>
-        <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Påmeldinger ({data?.event_participant.length})
-        </Heading>
+        <Inline style={{ display: "flex", justifyContent: "space-between" }}>
+          <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
+            Påmeldinger ({data?.event_participant.length})
+          </Heading>
+          <ExcelExport data={data.event_participant} fileName={"test"} />
+        </Inline>
       </Grid>
 
       <Box style={{ marginTop: "4rem", marginBottom: "1rem" }}>

@@ -13,7 +13,7 @@ export function eventPublishAction({ id, type, onComplete, draft }: DocumentActi
   const draftEvent = draft as Event | null;
 
   return {
-    label: "Publish",
+    label: "Publiser",
     onHandle: () => {
       execute();
       onComplete();
