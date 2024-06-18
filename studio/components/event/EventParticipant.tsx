@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
-import { Box, Button, Card, Grid, Heading, Spinner, Stack, Text, TextInput } from "@sanity/ui";
-import { RevertIcon, SearchIcon } from "@sanity/icons";
+import {
+  Box,
+  Badge,
+  Card,
+  Grid,
+  Heading,
+  Spinner,
+  Stack,
+  Text,
+  TextInput,
+  Inline,
+} from "@sanity/ui";
+import { SearchIcon } from "@sanity/icons";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -77,30 +88,18 @@ export default function EventParticipant({ documentId }: { documentId: string })
       </Box>
 
       <Grid gap={4}>
-        {filteredData?.map(
-          ({ event_participant_id, full_name, email, telephone, firm, created_at, attending }) => (
-            <Card {...cardProps} key={event_participant_id}>
-              <Stack space={4}>
+        {filteredData?.map(({ event_participant_id, full_name, email, attending }) => (
+          <Card {...cardProps} key={event_participant_id}>
+            <Stack space={2}>
+              <Inline space={2} style={{ justifyContent: "space-between", display: "flex" }}>
                 <Text weight="bold">{full_name}</Text>
-                <Text textOverflow={"ellipsis"}>{email}</Text>
-                {telephone ? <Text>{telephone}</Text> : ""}
-                {firm ? <Text>{firm}</Text> : ""}
-                <Text>{attending ? "Påmeldt" : "Avmeldt"}</Text>
-                <Text>{Intl.DateTimeFormat().format(new Date(created_at || ""))}</Text>
-                <span>
-                  <Button
-                    fontSize={1}
-                    padding={2}
-                    icon={RevertIcon}
-                    mode="ghost"
-                    tone="critical"
-                    text="Trekk"
-                  />
-                </span>
-              </Stack>
-            </Card>
-          )
-        )}
+                {attending && <Badge tone="positive">Påmeldt</Badge>}
+                {!attending && <Badge tone="critical">Avmeldt</Badge>}
+              </Inline>
+              <Text textOverflow={"ellipsis"}>{email}</Text>
+            </Stack>
+          </Card>
+        ))}
       </Grid>
     </>
   );
