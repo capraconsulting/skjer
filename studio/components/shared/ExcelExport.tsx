@@ -2,10 +2,22 @@ import React from "react";
 import { saveAs } from "file-saver";
 import { Button } from "@sanity/ui";
 import { ArrowUpIcon } from "@sanity/icons";
+import * as XLSX from "xlsx";
 
-export default function ExcelExport({ data, fileName }) {
+/**
+ * This component generates an Excel file based on the inputted data.
+ *
+ * @param {ExcelObject[]} data An array of objects that should be shown the Excel table.
+ * @param {string} fileName The name of the Excel file.
+ * @returns {ReactNode} A React element that renders a button to the user.
+ */
+
+export type ExcelObject = {
+  [key: string]: string;
+};
+
+export default function ExcelExport({ data, fileName }: { data: ExcelObject[]; fileName: string }) {
   const exportToExcel = async () => {
-    const XLSX = await import("xlsx");
     const worksheet = XLSX.utils.json_to_sheet(data);
 
     const columnWidths = getColumnWidths(data);
@@ -18,7 +30,7 @@ export default function ExcelExport({ data, fileName }) {
     saveAs(blob, `${fileName}.xlsx`);
   };
 
-  const getColumnWidths = (data) => {
+  const getColumnWidths = (data: ExcelObject[]) => {
     return Object.keys(data[0]).map((key) => {
       return Math.max(10, ...data.map((row) => (row[key] ? row[key].toString().length : 0)));
     });

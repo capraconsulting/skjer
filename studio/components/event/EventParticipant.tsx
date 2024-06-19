@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
 import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
-import ExcelExport from "../shared/ExcelExport";
+import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -20,12 +20,13 @@ export default function EventParticipant({ documentId }: { documentId: string })
     );
   });
 
-  const excelData = filteredData?.map((participant) => ({
-    navn: participant.full_name,
-    epost: participant.email,
-    telefon: participant.telephone || "",
-    selskap: participant.firm || "",
-  }));
+  const excelData: ExcelObject[] =
+    filteredData?.map((participant) => ({
+      navn: participant.full_name,
+      epost: participant.email,
+      telefon: participant.telephone || "",
+      selskap: participant.firm || "",
+    })) || [];
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
 
