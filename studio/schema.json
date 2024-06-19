@@ -706,7 +706,7 @@
         },
         "optional": false
       },
-      "allergy": {
+      "foodPreference": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
@@ -719,6 +719,13 @@
           "type": "string"
         },
         "optional": true
+      },
+      "facilitation": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": false
       },
       "customOptions": {
         "type": "objectAttribute",

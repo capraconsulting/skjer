@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const registrationSchemaInternal = z.object({
-  allergies: z.array(z.number()),
+  foodPreference: z.string().nullable(),
   attendingType: z.enum(["Fysisk", "Digitalt"]).default("Fysisk"),
   customOptions: z.array(z.string()),
 });
