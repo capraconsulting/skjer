@@ -110,21 +110,6 @@ export const saveEventParticipantOptions = async (
   return result;
 };
 
-export const saveEventParticipantAllergy = async () => {
-  const result = await supabase
-    .from("event_participant_allergy")
-    .insert({})
-    .select("event_participant_allergy_id")
-    .maybeSingle();
-
-  return result;
-};
-
-export const saveEventAllergies = async (eventAllergy: Tables<"event_allergy">[]) => {
-  const result = await supabase.from("event_allergy").insert(eventAllergy);
-  return result;
-};
-
 export const getInternalEventParticipantNames = async ({
   document_id,
 }: Pick<Tables<"event">, "document_id">) => {

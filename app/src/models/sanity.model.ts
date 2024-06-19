@@ -119,8 +119,9 @@ export type Event = {
   isDigital: boolean;
   visibleForExternals: boolean;
   openForExternals: boolean;
-  allergy: boolean;
+  foodPreference: boolean;
   food?: string;
+  facilitation: boolean;
   customOptions?: Array<string>;
 };
 
@@ -257,3 +258,5 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+

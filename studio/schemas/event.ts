@@ -119,10 +119,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: "Matservering og allergier",
-      name: "allergy",
+      title: "Allergier og matpreferanser",
+      name: "foodPreference",
       description:
-        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier blir lagt til i påmeldingsskjemaet.",
+        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier og matpreferanser blir lagt til i påmeldingsskjemaet.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -136,7 +136,18 @@ export default defineType({
       type: "string",
       description:
         "Du kan også velge å fylle inn hvor det skal spises eller hva som serveres slik at det vises på arrangementet.",
-      hidden: ({ document }) => !document?.allergy,
+      hidden: ({ document }) => !document?.foodPreference,
+    }),
+    defineField({
+      title: "Diverse tilrettelegging",
+      name: "facilitation",
+      description: "Kryss av på denne dersom tilrettelegging skal vises på påmeldingsskjemaet.",
+      type: "boolean",
+      initialValue: false,
+      options: {
+        layout: "checkbox",
+      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "customOptions",

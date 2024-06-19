@@ -13,8 +13,7 @@ import {
   deleteEventParticipant,
   executeTransaction,
   insertAndGetEventParticipant,
-  insertAndGetEventParticipantAllergy,
-  insertEventParticipantAllergies,
+  insertEventFoodPreference,
   insertEventParticipantOptions,
 } from "$lib/server/kysley/transactions";
 import {
@@ -88,7 +87,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
   const { event_id } = event;
 
   const {
-    data: { attendingType, allergies, customOptions },
+    data: { attendingType, foodPreference, customOptions },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -136,22 +135,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
           .map((option) => ({
             option,
             event_participant_id,
+            value: true,
           }));
 
         await insertEventParticipantOptions(transaction, participantOptionsPayload);
       }
 
-      if (allergies.length) {
-        const { event_participant_allergy_id } =
-          await insertAndGetEventParticipantAllergy(transaction);
-
-        const participantAllergyPayload = allergies.map((allergy_id) => ({
-          allergy_id,
-          event_id,
-          event_participant_allergy_id,
-        }));
-
-        await insertEventParticipantAllergies(transaction, participantAllergyPayload);
+      if (foodPreference) {
+        await insertEventFoodPreference(transaction, { event_id, text: foodPreference });
       }
     });
   } catch (error) {
@@ -174,15 +165,17 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     organiser: eventContent.organisers.join(" | "),
   };
 
-  const { error: emailError } = await sendEventRegistrationConfirmed(emailPayload);
+  if (process.env.NODE_ENV !== "development") {
+    const { error: emailError } = await sendEventRegistrationConfirmed(emailPayload);
 
-  if (emailError) {
-    console.error("Error: Failed to send email");
+    if (emailError) {
+      console.error("Error: Failed to send email");
 
-    return message(registrationForm, {
-      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
-      warning: true,
-    });
+      return message(registrationForm, {
+        text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+        warning: true,
+      });
+    }
   }
 
   return message(registrationForm, {
