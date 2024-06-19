@@ -19,18 +19,18 @@
       {event.title}
     </h2>
     <div class="flex flex-row items-center gap-2">
-      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
-        >{event.category}</Badge
-      >
       {#if event.openForExternals}
         <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
           >For alle</Badge
         >
       {:else}
         <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
-          >Internt</Badge
+          >Kun interne</Badge
         >
       {/if}
+      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
+        >{event.category}</Badge
+      >
       <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800">
         {formatDate(event.start)}
       </Badge>
