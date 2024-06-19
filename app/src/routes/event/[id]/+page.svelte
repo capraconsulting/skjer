@@ -24,11 +24,9 @@
     </a>
   </div>
   <EventSummary {event} />
-  {#if event.openForExternals}
-    {#if auth?.user}
-      <EventFormInternal {event} {data} />
-    {:else}
-      <EventFormExternal {event} {data} />
-    {/if}
+  {#if auth?.user}
+    <EventFormInternal {event} {data} />
+  {:else if event.openForExternals}
+    <EventFormExternal {event} {data} />
   {/if}
 </section>
