@@ -5,9 +5,9 @@ import { ArrowUpIcon } from "@sanity/icons";
 import * as XLSX from "xlsx";
 
 /**
- * This component generates an Excel file based on the inputted data.
+ * This component generates an Excel file from the input data (an array of objects).
  *
- * @param {ExcelObject[]} data An array of objects that should be shown the Excel table.
+ * @param {ExcelObject[]} data An array of objects to be shown the Excel table.
  * @param {string} fileName The name of the Excel file.
  * @returns {ReactNode} A React element that renders a button to the user.
  */
