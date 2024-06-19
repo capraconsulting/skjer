@@ -5,8 +5,7 @@
 </script>
 
 <div class="flex flex-col gap-1">
-  <Label class="font-bold" for="foodPreference">Matpreferanser</Label>
-
+  <Label class="font-bold" for="foodPreference">Allergier og matpreferanser</Label>
   <Input
     size="sm"
     class="bg-white"

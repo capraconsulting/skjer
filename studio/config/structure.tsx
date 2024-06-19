@@ -30,7 +30,7 @@ export const getDefaultDocumentNode = (
             </EventLayout>
           );
         })
-        .title("Matpreferanser"),
+        .title("Allergier og matpreferanser"),
     ]);
   }
   return S.document().views([S.view.form()]);
