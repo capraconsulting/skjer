@@ -3,21 +3,6 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
-      allergy: {
-        Row: {
-          allergy_id: number;
-          name: string;
-        };
-        Insert: {
-          allergy_id?: number;
-          name: string;
-        };
-        Update: {
-          allergy_id?: number;
-          name?: string;
-        };
-        Relationships: [];
-      };
       event: {
         Row: {
           document_id: string;
@@ -33,45 +18,23 @@ export type Database = {
         };
         Relationships: [];
       };
-      event_allergy: {
+      event_food_preference: {
         Row: {
-          allergy_id: number;
+          event_food_preference_id: number;
           event_id: number;
-          event_participant_allergy_id: number;
+          text: string;
         };
         Insert: {
-          allergy_id: number;
+          event_food_preference_id?: number;
           event_id: number;
-          event_participant_allergy_id: number;
+          text: string;
         };
         Update: {
-          allergy_id?: number;
+          event_food_preference_id?: number;
           event_id?: number;
-          event_participant_allergy_id?: number;
+          text?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: "event_allergy_allergy_id_fkey";
-            columns: ["allergy_id"];
-            isOneToOne: false;
-            referencedRelation: "allergy";
-            referencedColumns: ["allergy_id"];
-          },
-          {
-            foreignKeyName: "event_allergy_event_id_fkey";
-            columns: ["event_id"];
-            isOneToOne: false;
-            referencedRelation: "event";
-            referencedColumns: ["event_id"];
-          },
-          {
-            foreignKeyName: "event_allergy_event_participant_allergy_id_fkey";
-            columns: ["event_participant_allergy_id"];
-            isOneToOne: false;
-            referencedRelation: "event_participant_allergy";
-            referencedColumns: ["event_participant_allergy_id"];
-          },
-        ];
+        Relationships: [];
       };
       event_participant: {
         Row: {
@@ -117,34 +80,25 @@ export type Database = {
           },
         ];
       };
-      event_participant_allergy: {
-        Row: {
-          event_participant_allergy_id: number;
-        };
-        Insert: {
-          event_participant_allergy_id?: number;
-        };
-        Update: {
-          event_participant_allergy_id?: number;
-        };
-        Relationships: [];
-      };
       event_participant_option: {
         Row: {
           event_participant_id: number;
           option: string;
+          value: boolean | null;
         };
         Insert: {
           event_participant_id: number;
           option: string;
+          value?: boolean | null;
         };
         Update: {
           event_participant_id?: number;
           option?: string;
+          value?: boolean | null;
         };
         Relationships: [
           {
-            foreignKeyName: "event_participant_options_event_participant_id_fkey";
+            foreignKeyName: "event_participant_option_event_participant_id_fkey";
             columns: ["event_participant_id"];
             isOneToOne: false;
             referencedRelation: "event_participant";
@@ -154,14 +108,7 @@ export type Database = {
       };
     };
     Views: {
-      event_allergy_summary: {
-        Row: {
-          allergy_details: Json | null;
-          document_id: string | null;
-          total_participant_count: number | null;
-        };
-        Relationships: [];
-      };
+      [_ in never]: never;
     };
     Functions: {
       [_ in never]: never;

@@ -1,13 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Flex, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
-import { UserIcon } from "@sanity/icons";
-import { getEventAllergyList } from "../../supabase/queries";
+import { getEventFoodPreferences } from "../../supabase/queries";
 
-export default function EventAllergy({ documentId }: { documentId: string }) {
+export default function EventFoodPreference({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["event-allergy-list", documentId],
-    queryFn: () => getEventAllergyList({ documentId }),
+    queryKey: ["event-food-preference-list", documentId],
+    queryFn: () => getEventFoodPreferences({ documentId }),
   });
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
@@ -32,14 +31,14 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
       </Grid>
     );
 
-  if (!data) {
+  if (!data?.length) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
           Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Ingen matallergier
+          Ingen matpreferanser
         </Heading>
       </Grid>
     );
@@ -49,27 +48,19 @@ export default function EventAllergy({ documentId }: { documentId: string }) {
     <>
       <Grid gap={4}>
         <Text muted size={1}>
-          Event
+          Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Matallergier
+          Matallergier ({data.length})
         </Heading>
-        <Text size={2} style={{ paddingTop: "10px" }}>
-          Totalt {data.total_participant_count} personer med allergier har meldt seg på dette
-          arrangementet.
-        </Text>
       </Grid>
 
       <div style={{ marginTop: "3rem" }}>
-        {data.allergy_details?.map(({ allergies, participant_count }, index) => (
+        {data.map(({ text }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
               <Flex align="center">
-                <Text>{participant_count}</Text>
-                <UserIcon style={{ fontSize: 20 }} />
-                <Text weight="bold" style={{ marginLeft: 20 }}>
-                  <span>{allergies?.join(", ")}</span>
-                </Text>
+                <Text>{text}</Text>
               </Flex>
             </Stack>
           </Card>

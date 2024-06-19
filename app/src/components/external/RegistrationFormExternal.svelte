@@ -2,7 +2,7 @@
   import type { Event } from "$models/sanity.model";
   import { Input, Label, Button, Spinner } from "flowbite-svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
-  import RegistrationAllergy from "$components/shared/RegistrationAllergy.svelte";
+  import RegistrationFoodPreference from "$components/shared/RegistrationFoodPreference.svelte";
   import Deadline from "$components/shared/Deadline.svelte";
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
   import { sanitize } from "$lib/utils/sanitize.util";
@@ -86,8 +86,8 @@
       <RegistrationAttendingType {form} />
     {/if}
 
-    {#if event.allergy}
-      <RegistrationAllergy {form} />
+    {#if event.foodPreference}
+      <RegistrationFoodPreference {form} />
     {/if}
 
     {#if event.customOptions?.length}

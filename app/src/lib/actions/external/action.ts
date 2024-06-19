@@ -11,8 +11,7 @@ import {
   deleteEventParticipant,
   executeTransaction,
   insertAndGetEventParticipant,
-  insertAndGetEventParticipantAllergy,
-  insertEventParticipantAllergies,
+  insertEventFoodPreference,
   insertEventParticipantOptions,
 } from "$lib/server/kysley/transactions";
 import {
@@ -70,7 +69,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
   const { event_id } = event;
 
   const {
-    data: { fullName, telephone, email, firm, attendingType, allergies, customOptions },
+    data: { fullName, telephone, email, firm, attendingType, foodPreference, customOptions },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -120,22 +119,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
           .map((option) => ({
             option,
             event_participant_id,
+            value: true,
           }));
 
         await insertEventParticipantOptions(transaction, participantOptionsPayload);
       }
 
-      if (allergies.length) {
-        const { event_participant_allergy_id } =
-          await insertAndGetEventParticipantAllergy(transaction);
-
-        const participantAllergyPayload = allergies.map((allergy_id) => ({
-          allergy_id,
-          event_id,
-          event_participant_allergy_id,
-        }));
-
-        await insertEventParticipantAllergies(transaction, participantAllergyPayload);
+      if (foodPreference) {
+        await insertEventFoodPreference(transaction, { event_id, text: foodPreference });
       }
     });
   } catch (error) {

@@ -16,15 +16,18 @@ export async function getEventParticipantList({ documentId }: { documentId: stri
   }
 }
 
-export async function getEventAllergyList({ documentId }: { documentId: string }) {
+export async function getEventFoodPreferences({ documentId }: { documentId: string }) {
   try {
     const { data } = await supabase
-      .from("event_allergy_summary")
-      .select()
-      .eq("document_id", documentId)
-      .maybeSingle();
+      .from("event")
+      .select("event_food_preference(text)")
+      .eq("document_id", documentId);
 
-    return data;
+    console.log(data);
+    if (data) {
+      return data.flatMap(({ event_food_preference }) => event_food_preference);
+    }
+    return [];
   } catch (error) {
     console.error(error);
     throw error;

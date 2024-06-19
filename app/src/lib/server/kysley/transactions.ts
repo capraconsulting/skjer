@@ -39,19 +39,9 @@ export const insertEventParticipantOptions = async (
   return await transaction.insertInto("event_participant_option").values(options).execute();
 };
 
-export const insertAndGetEventParticipantAllergy = async (
-  transaction: Transaction<KyselyDatabase>
-) => {
-  return await transaction
-    .insertInto("event_participant_allergy")
-    .expression(sql`DEFAULT VALUES`)
-    .returning("event_participant_allergy_id")
-    .executeTakeFirstOrThrow();
-};
-
-export const insertEventParticipantAllergies = async (
+export const insertEventFoodPreference = async (
   transaction: Transaction<KyselyDatabase>,
-  allergies: Tables<"event_allergy">[]
+  values: Pick<Tables<"event_food_preference">, "event_id" | "text">
 ) => {
-  return await transaction.insertInto("event_allergy").values(allergies).execute();
+  return await transaction.insertInto("event_food_preference").values(values).execute();
 };

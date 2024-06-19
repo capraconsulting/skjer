@@ -1,6 +1,6 @@
 import { DefaultDocumentNodeContext, StructureBuilder } from "sanity/structure";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import EventAllergy from "../components/event/EventAllergy";
+import { QueryClient } from "@tanstack/react-query";
+import EventFoodPreference from "../components/event/EventFoodPreference";
 import EventLayout from "../components/event/EventLayout";
 import EventParticipant from "../components/event/EventParticipant";
 
@@ -26,11 +26,11 @@ export const getDefaultDocumentNode = (
         .component(({ documentId }: { documentId: string }) => {
           return (
             <EventLayout queryClient={queryClient}>
-              <EventAllergy documentId={documentId} />
+              <EventFoodPreference documentId={documentId} />
             </EventLayout>
           );
         })
-        .title("Matallergier"),
+        .title("Matpreferanser"),
     ]);
   }
   return S.document().views([S.view.form()]);
