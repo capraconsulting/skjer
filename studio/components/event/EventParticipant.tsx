@@ -21,7 +21,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
   });
 
   const excelData: ExcelObject[] =
-    filteredData?.map((participant) => ({
+    data?.event_participant.map((participant) => ({
       navn: participant.full_name,
       epost: participant.email,
       telefon: participant.telephone || "",
