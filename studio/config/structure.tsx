@@ -1,5 +1,5 @@
 import { DefaultDocumentNodeContext, StructureBuilder } from "sanity/structure";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import EventAllergy from "../components/event/EventAllergy";
 import EventLayout from "../components/event/EventLayout";
 import EventParticipant from "../components/event/EventParticipant";

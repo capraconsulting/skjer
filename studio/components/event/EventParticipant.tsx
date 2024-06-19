@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
-import {
-  Box,
-  Badge,
-  Card,
-  Grid,
-  Heading,
-  Spinner,
-  Stack,
-  Text,
-  TextInput,
-  Inline,
-} from "@sanity/ui";
+import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport from "../shared/ExcelExport";
 
@@ -30,6 +19,13 @@ export default function EventParticipant({ documentId }: { documentId: string })
         typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
+
+  const excelData = filteredData?.map((participant) => ({
+    navn: participant.full_name,
+    epost: participant.email,
+    telefon: participant.telephone || "",
+    selskap: participant.firm || "",
+  }));
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
 
@@ -76,7 +72,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
           <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
             Påmeldinger ({data?.event_participant.length})
           </Heading>
-          <ExcelExport data={data.event_participant} fileName={"test"} />
+          <ExcelExport data={excelData} fileName={"Påmeldinger"} />
         </Inline>
       </Grid>
 
@@ -92,7 +88,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
       </Box>
 
       <Grid gap={4}>
-        {filteredData?.map(({ event_participant_id, full_name, email, attending }) => (
+        {filteredData?.map(({ event_participant_id, full_name, email }) => (
           <Card {...cardProps} key={event_participant_id}>
             <Stack space={3}>
               <Text weight="bold">{full_name}</Text>
