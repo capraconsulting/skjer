@@ -24,14 +24,17 @@
     "@sanity/vision": "^3.33.0",
     "@supabase/supabase-js": "^2.43.1",
     "@tanstack/react-query": "^5.35.1",
+    "file-saver": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "sanity": "^3.33.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^3.0.1",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^18.19.23",
     "@types/react": "^18.2.73",
     "eslint": "^8.57.0",

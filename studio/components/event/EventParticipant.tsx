@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
-import { Box, Button, Card, Grid, Heading, Spinner, Stack, Text, TextInput } from "@sanity/ui";
-import { RevertIcon, SearchIcon } from "@sanity/icons";
+import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
+import { SearchIcon } from "@sanity/icons";
+import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
+import { client } from "../../config/client";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -11,6 +13,24 @@ export default function EventParticipant({ documentId }: { documentId: string })
   });
 
   const [searchQuery, setValue] = useState("");
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    const fetchEventTitle = async () => {
+      try {
+        const result = await client.fetch(`*[_type == "event" && _id == $documentId]{title}[0]`, {
+          documentId,
+        });
+        if (result?.title) {
+          setTitle(result.title);
+        }
+      } catch (error) {
+        console.error("Error fetching event title:", error);
+      }
+    };
+
+    fetchEventTitle();
+  }, [documentId]);
 
   const filteredData = data?.event_participant.filter((participant) => {
     return Object.values(participant).some(
@@ -18,6 +38,14 @@ export default function EventParticipant({ documentId }: { documentId: string })
         typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
+
+  const excelData: ExcelObject[] =
+    data?.event_participant.map((participant) => ({
+      navn: participant.full_name,
+      epost: participant.email,
+      telefon: participant.telephone || "",
+      selskap: participant.firm || "",
+    })) || [];
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
 
@@ -60,9 +88,12 @@ export default function EventParticipant({ documentId }: { documentId: string })
         <Text muted size={1}>
           Arrangement
         </Text>
-        <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Påmeldinger ({data?.event_participant.length})
-        </Heading>
+        <Inline style={{ display: "flex", justifyContent: "space-between" }}>
+          <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
+            Påmeldinger ({data?.event_participant.length})
+          </Heading>
+          <ExcelExport data={excelData} fileName={title} />
+        </Inline>
       </Grid>
 
       <Box style={{ marginTop: "4rem", marginBottom: "1rem" }}>
@@ -77,30 +108,14 @@ export default function EventParticipant({ documentId }: { documentId: string })
       </Box>
 
       <Grid gap={4}>
-        {filteredData?.map(
-          ({ event_participant_id, full_name, email, telephone, firm, created_at, attending }) => (
-            <Card {...cardProps} key={event_participant_id}>
-              <Stack space={4}>
-                <Text weight="bold">{full_name}</Text>
-                <Text textOverflow={"ellipsis"}>{email}</Text>
-                {telephone ? <Text>{telephone}</Text> : ""}
-                {firm ? <Text>{firm}</Text> : ""}
-                <Text>{attending ? "Påmeldt" : "Avmeldt"}</Text>
-                <Text>{Intl.DateTimeFormat().format(new Date(created_at || ""))}</Text>
-                <span>
-                  <Button
-                    fontSize={1}
-                    padding={2}
-                    icon={RevertIcon}
-                    mode="ghost"
-                    tone="critical"
-                    text="Trekk"
-                  />
-                </span>
-              </Stack>
-            </Card>
-          )
-        )}
+        {filteredData?.map(({ event_participant_id, full_name, email }) => (
+          <Card {...cardProps} key={event_participant_id}>
+            <Stack space={3}>
+              <Text weight="bold">{full_name}</Text>
+              <Text textOverflow={"ellipsis"}>{email}</Text>
+            </Stack>
+          </Card>
+        ))}
       </Grid>
     </>
   );
