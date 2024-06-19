@@ -51,7 +51,7 @@ NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
 
 ## Figma
 
-Design droddling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
+Design drodling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
 
 ## Deploy
 

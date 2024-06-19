@@ -1,17 +1,20 @@
 import { ErrorOutlineIcon, WarningOutlineIcon } from "@sanity/icons";
 import { useToast, Card, Text } from "@sanity/ui";
 import { useState } from "react";
-import { DocumentActionProps, DocumentActionComponent } from "sanity";
+import { DocumentActionProps, DocumentActionComponent, useDocumentOperation } from "sanity";
 import { Event } from "../models/sanity.model";
 import { sendEmailEventCanceled } from "../lib/event-email";
 
 export const CancelAction: DocumentActionComponent = (props: DocumentActionProps) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const toast = useToast();
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const { patch, unpublish } = useDocumentOperation(props.id, props.type);
 
   const publishedEvent = props.published as Event | null;
   return {
-    label: "Kanseller",
+    disabled: !publishedEvent,
+    label: "Avlys arrangement",
     tone: "critical",
     icon: ErrorOutlineIcon,
     onHandle: () => {
@@ -24,14 +27,20 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
         if (publishedEvent) {
           const result = await handleEventCancel(publishedEvent);
           if (result) {
+            if (!publishedEvent.title.endsWith("Avlyst")) {
+              patch.execute([{ set: { title: `${publishedEvent.title} | Avlyst` } }]);
+            }
+
+            unpublish.execute();
+
             toast.push({
               status: "success",
-              title: "Arrangementet er kansellert. Husk å avpublisere!",
+              title: "Arrangementet er avlyst",
             });
           } else {
             toast.push({
               status: "error",
-              title: "En feil oppstod ved kansellering av arrangementet",
+              title: "En feil oppstod ved avlysing av arrangementet",
             });
           }
         }
@@ -49,8 +58,8 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
               }}
             />
             <span>
-              Vennligst bekreft at du ønsker å kansellere arrangementet. En e-post kansellering blir
-              sendt til alle påmeldte. Husk å avpublisere arrangementet etterpå.
+              Vennligst bekreft at du ønsker å avlyse arrangementet. En e-post avlysing blir sendt
+              til alle påmeldte.
             </span>
           </Text>
         </Card>
@@ -71,7 +80,6 @@ const handleEventCancel = async ({ _id, title, summary, start, end, place, organ
   };
   try {
     const result = await sendEmailEventCanceled(emailProps);
-
     if (result?.error) {
       return false;
     }

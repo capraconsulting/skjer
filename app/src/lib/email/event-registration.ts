@@ -47,7 +47,7 @@ export const sendEventCanceled = async (props: EventProps) => {
   const icsFile = createIcsFile({ ...props, method: ICalCalendarMethod.CANCEL });
   const mailParams = createMailParams({
     ...props,
-    subject: `Kansellert: ${props.summary}`,
+    subject: `Avlyst: ${props.summary}`,
     icsFile,
   });
 

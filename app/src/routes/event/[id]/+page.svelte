@@ -14,19 +14,22 @@
 </script>
 
 <svelte:head>
-  <title>{event.title} | Capra Liflig Fryde</title>
+  <title>{event?.title || "Ikke funnet"} | Capra Liflig Fryde</title>
 </svelte:head>
-
-<section>
-  <div class="mb-9">
-    <a class="flex items-center font-bold hover:underline" href="/">
-      <ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer
-    </a>
-  </div>
-  <EventSummary {event} />
-  {#if auth?.user}
-    <EventFormInternal {event} {data} />
-  {:else if event.openForExternals}
-    <EventFormExternal {event} {data} />
-  {/if}
-</section>
+{#if event}
+  <section>
+    <div class="mb-9">
+      <a class="flex items-center font-bold hover:underline" href="/">
+        <ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer
+      </a>
+    </div>
+    <EventSummary {event} />
+    {#if auth?.user}
+      <EventFormInternal {event} {data} />
+    {:else if event.openForExternals}
+      <EventFormExternal {event} {data} />
+    {/if}
+  </section>
+{:else}
+  <p>Dette arrangementet ble ikke funnet 😵</p>
+{/if}

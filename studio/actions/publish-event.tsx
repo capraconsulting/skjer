@@ -56,12 +56,12 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
           if (result) {
             toast.push({
               status: "success",
-              title: "Arrangementet er kansellert. Husk å avpublisere!",
+              title: "E-post oppdatering er sendt",
             });
           } else {
             toast.push({
               status: "error",
-              title: "En feil oppstod ved kansellering av arrangementet",
+              title: "En feil oppstod ved sending av e-post oppdatering",
             });
           }
 
