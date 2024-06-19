@@ -1,0 +1,26 @@
+name: Deploy Sanity
+on:
+  push:
+    branches: [main]
+jobs:
+  sanity-deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Sanity
+    steps:
+      - uses: actions/checkout@v2
+      - uses: sanity-io/github-action-sanity@v0.7-alpha
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
+          SANITY_STUDIO_DATASET: ${{ secrets.SANITY_STUDIO_DATASET }}
+          SANITY_STUDIO_PREVIEW_URL: ${{ secrets.SANITY_STUDIO_PREVIEW_URL }}
+          SANITY_STUDIO_APP_BASE_URL: ${{ secrets.SANITY_STUDIO_APP_BASE_URL }}
+          SANITY_STUDIO_APP_API_TOKEN: ${{ secrets.SANITY_STUDIO_APP_API_TOKEN }}
+          SANITY_STUDIO_SUPABASE_URL: ${{ secrets.SANITY_STUDIO_SUPABASE_URL }}
+          SANITY_STUDIO_SUPABASE_KEY: ${{ secrets.SANITY_STUDIO_SUPABASE_KEY }}
+          SANITY_STUDIO_SLACK_HOOK: ${{ secrets.SANITY_STUDIO_SLACK_HOOK }}
+          SANITY_STUDIO_SMTP_HOST: ${{ secrets.SANITY_STUDIO_SMTP_HOST }}
+          SANITY_STUDIO_SMTP_AUTH_USER: ${{ secrets.SANITY_STUDIO_SMTP_AUTH_USER }}
+          SANITY_STUDIO_SMTP_AUTH_KEY: ${{ secrets.SANITY_STUDIO_SMTP_AUTH_KEY }}
+        with:
+          args: deploy

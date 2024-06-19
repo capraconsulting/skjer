@@ -11,6 +11,7 @@ interface EventProps {
   end: string;
   location: string;
   organiser: string;
+  method?: ICalCalendarMethod;
 }
 
 interface EmailParams extends Pick<EventProps, "mailTo" | "organiser" | "summary"> {
@@ -42,6 +43,18 @@ export const sendEventRegistrationUpdate = async (props: EventProps) => {
   return result;
 };
 
+export const sendEventCanceled = async (props: EventProps) => {
+  const icsFile = createIcsFile({ ...props, method: ICalCalendarMethod.CANCEL });
+  const mailParams = createMailParams({
+    ...props,
+    subject: `Kansellert: ${props.summary}`,
+    icsFile,
+  });
+
+  const result = await sendMail(mailParams);
+  return result;
+};
+
 const createIcsFile = ({
   id,
   summary,
@@ -51,10 +64,11 @@ const createIcsFile = ({
   location,
   organiser,
   mailTo,
+  method,
 }: EventProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
 
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: organiser, method: method ?? ICalCalendarMethod.REQUEST });
   calendar.createEvent({
     id,
     summary,

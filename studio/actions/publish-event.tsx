@@ -1,7 +1,7 @@
 import { Event } from "../../app/src/models/sanity.model";
 import { DocumentActionProps, DocumentActionComponent } from "sanity";
 import { useState } from "react";
-import { Card, Text } from "@sanity/ui";
+import { Card, Text, useToast } from "@sanity/ui";
 import { WarningOutlineIcon } from "@sanity/icons";
 import { createEventIfNotExist } from "../supabase/queries";
 import { createSlackMessage } from "../lib/event-slack";
@@ -12,6 +12,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
   const EventPublishAction: DocumentActionComponent = (props: DocumentActionProps) => {
     const originalResult = originalPublishAction(props);
 
+    const toast = useToast();
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const { id, draft, published } = props;
@@ -51,7 +52,19 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
             return;
           }
           setDialogOpen(false);
-          handleExistingEvent(draftEvent, publishedEvent);
+          const result = await handleExistingEvent(draftEvent, publishedEvent);
+          if (result) {
+            toast.push({
+              status: "success",
+              title: "Arrangementet er kansellert. Husk å avpublisere!",
+            });
+          } else {
+            toast.push({
+              status: "error",
+              title: "En feil oppstod ved kansellering av arrangementet",
+            });
+          }
+
           originalResult.onHandle();
         },
         message: (
@@ -100,8 +113,14 @@ const handleExistingEvent = async (draft: Event, published: Event) => {
     organiser: draft.organisers.join(" | "),
   };
   try {
-    sendEmailEventUpdate(emailProps);
+    const result = await sendEmailEventUpdate(emailProps);
+
+    if (result?.error) {
+      return false;
+    }
+    return true;
   } catch (error) {
-    console.error("Error handling existing event:", error);
+    console.error("Error handling cancel event:", error);
+    return false;
   }
 };

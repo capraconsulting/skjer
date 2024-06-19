@@ -9,7 +9,6 @@ interface EventProps {
 }
 
 export const sendEmailEventUpdate = async (props: EventProps) => {
-  // Remove this if you wish to test email locally
   if (process.env.MODE === "development") return;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;
@@ -23,8 +22,32 @@ export const sendEmailEventUpdate = async (props: EventProps) => {
       },
       body: JSON.stringify(props),
     });
-    await response.json();
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error("Error sending email:", error);
+    return false;
+  }
+};
+
+export const sendEmailEventCanceled = async (props: EventProps) => {
+  if (process.env.MODE === "development") return;
+
+  const url = process.env.SANITY_STUDIO_APP_BASE_URL;
+
+  try {
+    const response = await fetch(`${url}/api/send-event-canceled`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.SANITY_STUDIO_APP_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(props),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return false;
   }
 };

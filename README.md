@@ -51,9 +51,9 @@ NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
 
 ## Figma
 
-Design droddling finner man her: [Capra design](https://www.figma.com/design/nQIBm3tpk1F7zo3QXEIjJs/Capra-design-drodling?node-id=4934-2547)
+Design droddling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
 
-## Deployments
+## Deploy
 
 ### Sanity
 
@@ -73,7 +73,7 @@ vercel deploy
 
 Supabase Postgres database kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>).
 
-## Building
+## Bygg
 
 For å bygge en produksjonsversjon av CapraWeb, naviger til /app og kjør følgende kommando:
 
@@ -131,3 +131,12 @@ Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `
 ## Slack
 
 Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp\*arrangementer. For å bygge meldingen kan du benytte [Block Kit Builder](https://app.slack.com/block-kit-builder)
+
+## Epost
+
+Hvis du vil teste e-post lokalt, kan du legge til http://localhost:5173 i Access-Control-Allow-Origin i /app/src/lib/auth/cors.ts.
+I tillegg må denne linjen kommenteres ut:
+
+```
+if (process.env.MODE === "development") return;
+```
