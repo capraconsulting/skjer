@@ -94,12 +94,8 @@ export default function EventParticipant({ documentId }: { documentId: string })
       <Grid gap={4}>
         {filteredData?.map(({ event_participant_id, full_name, email, attending }) => (
           <Card {...cardProps} key={event_participant_id}>
-            <Stack space={2}>
-              <Inline space={2} style={{ justifyContent: "space-between", display: "flex" }}>
-                <Text weight="bold">{full_name}</Text>
-                {attending && <Badge tone="positive">Påmeldt</Badge>}
-                {!attending && <Badge tone="critical">Avmeldt</Badge>}
-              </Inline>
+            <Stack space={3}>
+              <Text weight="bold">{full_name}</Text>
               <Text textOverflow={"ellipsis"}>{email}</Text>
             </Stack>
           </Card>

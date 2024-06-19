@@ -7,6 +7,7 @@ export async function getEventParticipantList({ documentId }: { documentId: stri
       .from("event")
       .select(`event_participant(*)`)
       .eq("document_id", documentId)
+      .eq("event_participant.attending", true)
       .maybeSingle();
 
     return data;
