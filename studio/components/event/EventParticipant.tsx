@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
 import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
+import { client } from "../../config/client";
 
 export default function EventParticipant({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -12,6 +13,24 @@ export default function EventParticipant({ documentId }: { documentId: string })
   });
 
   const [searchQuery, setValue] = useState("");
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    const fetchEventTitle = async () => {
+      try {
+        const result = await client.fetch(`*[_type == "event" && _id == $documentId]{title}[0]`, {
+          documentId,
+        });
+        if (result?.title) {
+          setTitle(result.title);
+        }
+      } catch (error) {
+        console.error("Error fetching event title:", error);
+      }
+    };
+
+    fetchEventTitle();
+  }, [documentId]);
 
   const filteredData = data?.event_participant.filter((participant) => {
     return Object.values(participant).some(
@@ -73,7 +92,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
           <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
             Påmeldinger ({data?.event_participant.length})
           </Heading>
-          <ExcelExport data={excelData} fileName={"Påmeldinger"} />
+          <ExcelExport data={excelData} fileName={title} />
         </Inline>
       </Grid>
 
