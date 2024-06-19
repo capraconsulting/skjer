@@ -119,10 +119,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: "Matservering og matpreferanser",
+      title: "Allergier og matpreferanser",
       name: "foodPreference",
       description:
-        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at matpreferanser blir lagt til i påmeldingsskjemaet.",
+        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier og matpreferanser blir lagt til i påmeldingsskjemaet.",
       type: "boolean",
       initialValue: false,
       options: {
