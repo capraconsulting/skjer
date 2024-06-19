@@ -23,8 +23,7 @@ export async function getEventFoodPreferences({ documentId }: { documentId: stri
       .select("event_food_preference(text)")
       .eq("document_id", documentId);
 
-    console.log(data);
-    if (data) {
+    if (data?.length) {
       return data.flatMap(({ event_food_preference }) => event_food_preference);
     }
     return [];
