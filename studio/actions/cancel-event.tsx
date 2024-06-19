@@ -58,8 +58,8 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
               }}
             />
             <span>
-              Vennligst bekreft at du ønsker å avlyse arrangementet. En e-post avlysing blir sendt
-              til alle påmeldte.
+              Vennligst bekreft at du ønsker å avlyse arrangementet. Alle påmeldte blir varslet på
+              e-post om at arrangementet er avlyst.
             </span>
           </Text>
         </Card>
