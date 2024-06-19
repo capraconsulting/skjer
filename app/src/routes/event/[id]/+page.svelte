@@ -26,7 +26,7 @@
   <EventSummary {event} />
   {#if auth?.user}
     <EventFormInternal {event} {data} />
-  {:else}
+  {:else if event.openForExternals}
     <EventFormExternal {event} {data} />
   {/if}
 </section>
