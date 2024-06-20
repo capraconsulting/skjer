@@ -9,8 +9,7 @@
 </script>
 
 <a
-  class="hover:bg-capraLightMode flex flex-col justify-between rounded-md
-  border border-black px-3 py-4 hover:transition-[2s] sm:flex-row
+  class="hover:bg-ireneGreen flex flex-col justify-between rounded-md bg-zinc-100 px-3 py-4 hover:transition-[2s] sm:flex-row
   dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
   href={`/event/${event._id}`}
 >
@@ -36,9 +35,7 @@
       </Badge>
 
       {#if event.attending}
-        <Badge rounded class="bg-yellowSpark h-6 border border-black text-black"
-          >Du er påmeldt</Badge
-        >
+        <Badge rounded class="bg-yellowSpark h-6 border-none text-black">Du er påmeldt</Badge>
       {/if}
     </div>
   </div>
