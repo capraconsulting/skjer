@@ -14,14 +14,16 @@
 >
   <div class="flex w-full flex-col">
     {#if event.image}
-      <img
-        class="rounded-2xl object-cover group-hover:opacity-80"
-        src={urlFor(event.image).width(468).height(260).url()}
-        alt="Bilde for arrangementet: {event.title}"
-      />
+      <div class="h-[300px]">
+        <img
+          class="h-full w-full rounded-3xl object-cover group-hover:opacity-80"
+          src={urlFor(event.image).url()}
+          alt="Bilde for arrangementet: {event.title}"
+        />
+      </div>
     {/if}
 
-    <div class="mx-4 my-4 grid h-full grid-cols-1 content-between gap-2">
+    <div class="mx-4 my-4 flex flex-col gap-2">
       <div class="flex flex-col gap-2">
         <h2 class="text-2xl font-semibold">
           {event.title}
@@ -32,12 +34,9 @@
         {/if}
       </div>
 
-      <div class="self mt-5 flex justify-between gap-6">
+      <div class="self my-2 flex justify-between">
         <EventLogos {event} />
-        <div class="flex flex-row items-center gap-2">
-          <p>Se mer</p>
-          <ArrowRight class="mr-2" />
-        </div>
+        <ArrowRight class="mr-2" />
       </div>
     </div>
   </div>

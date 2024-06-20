@@ -19,8 +19,8 @@
 
 <section class="pb-8">
   <div class="flex flex-col justify-between sm:flex-row sm:items-center">
-    <h1 class="pb-6 text-4xl font-light sm:w-[50%] sm:pt-10 sm:text-5xl">
-      Kommende kurs og arrangementer
+    <h1 class="pb-6 text-4xl font-semibold sm:w-[30%] sm:pt-10 sm:text-5xl">
+      Kommende arrangementer
     </h1>
 
     <EventCategoryFilter
@@ -36,24 +36,22 @@
       {/each}
     {:else}
       <div class="text-large font-light">
-        Fant ingen kommende kurs eller arrangementer i denne kategorien 😭
+        Fant ingen kommende arrangementer i denne kategorien 😭
       </div>
     {/if}
   </div>
 </section>
 
 <section class="pb-8">
-  <h1 class="pb-12 pt-10 text-4xl font-light sm:w-[50%] sm:text-5xl">
-    Tidligere kurs og arrangementer
-  </h1>
+  <h1 class="pb-12 pt-10 text-4xl font-semibold sm:w-[30%] sm:text-5xl">Tidligere arrangementer</h1>
 
-  <div class="grid grid-cols-1 gap-7 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
     {#if pastEvents.length}
       {#each pastEvents as event}
         <EventCard {event} />
       {/each}
     {:else}
-      <div class="text-large font-light">Fant ingen tidligere kurs eller arrangementer 😭</div>
+      <div class="text-large font-light">Fant ingen tidligere arrangementer 😭</div>
     {/if}
   </div>
 </section>
