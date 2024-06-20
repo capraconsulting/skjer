@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: sanity-io/github-action-sanity@v0.7-alpha
         env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ secrets.SANITY_STUDIO_DATASET }}
           SANITY_STUDIO_PREVIEW_URL: ${{ secrets.SANITY_STUDIO_PREVIEW_URL }}
