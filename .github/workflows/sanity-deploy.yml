@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
         
       - name: Install dependencies
         run: pnpm install
@@ -24,7 +21,7 @@ jobs:
         run: pnpm install
 
       - name: Deploy Sanity
-        run: pnpm deploy
+        run: pnpm run deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
