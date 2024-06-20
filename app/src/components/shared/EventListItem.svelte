@@ -4,6 +4,7 @@
   import { ArrowRight } from "phosphor-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import EventLogos from "$components/shared/EventLogos.svelte";
+  import EventBadges from "./EventBadges.svelte";
 
   export let event: EventWithAttending;
 </script>
@@ -17,27 +18,7 @@
     <h2 class="max-w-md truncate whitespace-pre-wrap pr-3 text-xl">
       {event.title}
     </h2>
-    <div class="flex flex-row items-center gap-2">
-      {#if event.openForExternals}
-        <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
-          >For alle</Badge
-        >
-      {:else}
-        <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
-          >Kun interne</Badge
-        >
-      {/if}
-      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800"
-        >{event.category}</Badge
-      >
-      <Badge rounded class="h-6 border border-black bg-transparent dark:bg-zinc-800">
-        {formatDate(event.start)}
-      </Badge>
-
-      {#if event.attending}
-        <Badge rounded class="bg-yellowSpark h-6 border-none text-black">Du er påmeldt</Badge>
-      {/if}
-    </div>
+    <EventBadges {event} />
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
     <EventLogos {event} />

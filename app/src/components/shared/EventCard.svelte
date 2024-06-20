@@ -3,19 +3,20 @@
   import type { Event } from "$models/sanity.model";
   import { ArrowRight } from "phosphor-svelte";
   import EventLogos from "./EventLogos.svelte";
+  import EventBadges from "./EventBadges.svelte";
 
   export let event: Event;
 </script>
 
 <a
-  class="hover:bg-ireneGreen relative flex flex-col rounded-xl border border-black hover:transition-[2s] sm:flex-row dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+  class="group relative flex flex-col hover:transition-[2s] sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex w-full flex-col">
     {#if event.image}
       <img
-        class="h-44 rounded-t-xl object-cover"
-        src={urlFor(event.image).width(468).height(176).url()}
+        class="rounded-2xl object-cover group-hover:opacity-80"
+        src={urlFor(event.image).width(468).height(260).url()}
         alt="Bilde for arrangementet: {event.title}"
       />
     {/if}
@@ -25,6 +26,7 @@
         <h2 class="text-2xl font-semibold">
           {event.title}
         </h2>
+        <EventBadges {event} />
         {#if event.summary}
           <p class="text-base font-light sm:text-lg">{event.summary}</p>
         {/if}
