@@ -1,18 +1,24 @@
-name: Sanity deploy
+name: Deploy Sanity
 on:
   push:
     branches: [main]
 jobs:
   sanity-deploy:
     runs-on: ubuntu-latest
+    name: Deploy Sanity
+    environment: prod
     defaults:
       run:
         working-directory: ./studio
-    environment: prod
-    name: Deploy Sanity
     steps:
-      - uses: actions/checkout@v2
-      - uses: sanity-io/github-action-sanity@v0.7-alpha
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Packages
+        run: pnpm install
+
+      - name: Deploy Sanity
+        run: pnpm deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
@@ -23,5 +29,4 @@ jobs:
           SANITY_STUDIO_SUPABASE_URL: ${{ secrets.SANITY_STUDIO_SUPABASE_URL }}
           SANITY_STUDIO_SUPABASE_KEY: ${{ secrets.SANITY_STUDIO_SUPABASE_KEY }}
           SANITY_STUDIO_SLACK_HOOK: ${{ secrets.SANITY_STUDIO_SLACK_HOOK }}
-        with:
-          args: deploy
+ 
