@@ -34,7 +34,15 @@ export type Database = {
           event_id?: number;
           text?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "event_food_preference_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["event_id"];
+          },
+        ];
       };
       event_participant: {
         Row: {
@@ -44,6 +52,7 @@ export type Database = {
           email: string;
           event_id: number;
           event_participant_id: number;
+          facilitation: string | null;
           firm: string | null;
           full_name: string;
           telephone: string | null;
@@ -55,6 +64,7 @@ export type Database = {
           email: string;
           event_id: number;
           event_participant_id?: number;
+          facilitation?: string | null;
           firm?: string | null;
           full_name: string;
           telephone?: string | null;
@@ -66,6 +76,7 @@ export type Database = {
           email?: string;
           event_id?: number;
           event_participant_id?: number;
+          facilitation?: string | null;
           firm?: string | null;
           full_name?: string;
           telephone?: string | null;
