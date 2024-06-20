@@ -21,7 +21,7 @@
     <EventBadges {event} />
   </div>
   <div class="flex flex-row items-center justify-between gap-6 pt-4 sm:pt-0">
-    <EventLogos {event} />
+    <EventLogos {event} height={5} />
     <ArrowRight class="mr-2" />
   </div>
 </a>
