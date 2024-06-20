@@ -35,9 +35,7 @@
         <EventListItem {event} />
       {/each}
     {:else}
-      <div class="text-large font-light">
-        Fant ingen kommende arrangementer i denne kategorien 😭
-      </div>
+      <div class="text-xl font-light">Fant ingen kommende arrangementer i denne kategorien 😭</div>
     {/if}
   </div>
 </section>
@@ -51,7 +49,7 @@
         <EventCard {event} />
       {/each}
     {:else}
-      <div class="text-large font-light">Fant ingen tidligere arrangementer 😭</div>
+      <div class="text-xl font-light">Fant ingen tidligere arrangementer 😭</div>
     {/if}
   </div>
 </section>
