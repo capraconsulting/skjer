@@ -34,9 +34,9 @@
         {/if}
       </div>
 
-      <div class="self my-2 flex justify-between">
+      <div class="my-2 flex justify-between">
         <EventLogos {event} />
-        <ArrowRight class="mr-2" />
+        <ArrowRight class="mr-2" size="20" />
       </div>
     </div>
   </div>
