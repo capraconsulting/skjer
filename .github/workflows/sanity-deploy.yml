@@ -5,6 +5,9 @@ on:
 jobs:
   sanity-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./studio
     environment: prod
     name: Deploy Sanity
     steps:
