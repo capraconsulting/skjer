@@ -45,6 +45,8 @@ export default function EventParticipant({ documentId }: { documentId: string })
       epost: participant.email,
       telefon: participant.telephone || "",
       selskap: participant.firm || "",
+      deltarFysisk: participant.attending_digital ? "Nei" : "Ja",
+      tilrettelegginng: participant.facilitation || "",
     })) || [];
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
