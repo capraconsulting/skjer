@@ -87,7 +87,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
   const { event_id } = event;
 
   const {
-    data: { attendingType, foodPreference, customOptions },
+    data: { attendingType, foodPreference, facilitation, customOptions },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -122,6 +122,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
         email,
         full_name: fullName,
         attending_digital: attendingType === "Digitalt",
+        facilitation: facilitation,
       };
 
       const { event_participant_id } = await insertAndGetEventParticipant(

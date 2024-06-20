@@ -8,6 +8,7 @@ export const registrationSchemaExternal = z.object({
   telephone: z.string().refine(validator.isMobilePhone).nullable(),
   firm: z.string().min(2).nullable(),
   foodPreference: z.string().nullable(),
+  facilitation: z.string().nullable(),
   attendingType: z.enum(["Fysisk", "Digitalt"]).default("Fysisk"),
   customOptions: z.array(z.string()),
 });

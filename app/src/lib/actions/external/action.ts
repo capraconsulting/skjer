@@ -69,7 +69,16 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
   const { event_id } = event;
 
   const {
-    data: { fullName, telephone, email, firm, attendingType, foodPreference, customOptions },
+    data: {
+      fullName,
+      telephone,
+      email,
+      firm,
+      attendingType,
+      foodPreference,
+      facilitation,
+      customOptions,
+    },
   } = registrationForm;
 
   const eventParticipant = await getEventParticipant({
@@ -106,6 +115,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
         email,
         firm,
         attending_digital: attendingType === "Digitalt",
+        facilitation: facilitation,
       };
 
       const { event_participant_id } = await insertAndGetEventParticipant(

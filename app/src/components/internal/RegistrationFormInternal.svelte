@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
   import { Alert, Button, Spinner } from "flowbite-svelte";
-  import RegistrationFoodPreference from "$components/shared/RegistrationFoodPreference.svelte";
+  import RegistrationFoodPreference from "$components/shared/RegistrationFacilitation.svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
   import { sanitize } from "$lib/utils/sanitize.util";
   import { dateHasPassed } from "$lib/utils/date.util";
   import Deadline from "$components/shared/Deadline.svelte";
+  import RegistrationFacilitation from "$components/shared/RegistrationFacilitation.svelte";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -40,6 +41,8 @@
       {#if event.foodPreference}
         <RegistrationFoodPreference {form} />
       {/if}
+
+      <RegistrationFacilitation {form} />
 
       {#if event.customOptions?.length}
         {#each event.customOptions as customOption}
