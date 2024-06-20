@@ -14,8 +14,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install Packages
         run: pnpm install
