@@ -140,17 +140,6 @@ export default defineType({
       hidden: ({ document }) => !document?.foodPreference,
     }),
     defineField({
-      title: "Diverse tilrettelegging",
-      name: "facilitation",
-      description: "Kryss av på denne dersom tilrettelegging skal vises på påmeldingsskjemaet.",
-      type: "boolean",
-      initialValue: false,
-      options: {
-        layout: "checkbox",
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "customOptions",
       title: "Legg til egne felter",
       description:
