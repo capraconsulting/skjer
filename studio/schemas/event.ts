@@ -1,3 +1,4 @@
+import { CheckmarkIcon, EditIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
 
 export default defineType({
@@ -156,6 +157,53 @@ export default defineType({
         "Skru på denne hvis det er flere spørsmål du vil legge til i påmeldingsskjemaet, så dukker de opp under her.",
       type: "array",
       of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "recurrence",
+      title: "Egne felter",
+      description: "Her kan du legge til andre felter/spørsmål enn de som er standard:",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "fieldLabel",
+              title: "Etikett",
+              type: "string",
+              description: "Tekst som skal vises over feltet.",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "fieldType",
+              title: "Type felt",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Avkrysningsboks", value: "checkbox" },
+                  { title: "Tekstfelt", value: "input" },
+                ],
+                layout: "radio",
+              },
+              initialValue: "checkbox",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "fieldLabel",
+              subtitle: "fieldType",
+              media: "",
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title,
+                media: subtitle === "checkbox" ? CheckmarkIcon : EditIcon,
+              };
+            },
+          },
+        },
+      ],
     }),
   ],
   preview: {

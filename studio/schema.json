@@ -720,13 +720,6 @@
         },
         "optional": true
       },
-      "facilitation": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "boolean"
-        },
-        "optional": false
-      },
       "customOptions": {
         "type": "objectAttribute",
         "value": {
