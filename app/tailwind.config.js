@@ -22,6 +22,7 @@ export default {
         pink: "#bb5ce9",
         pinkSpark: "#ffa2ff",
         lifligLightMode: "#ffe8fe",
+        ireneGreen: "#C3E7C3",
       },
     },
     darkMode: "class",

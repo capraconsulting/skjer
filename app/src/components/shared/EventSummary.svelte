@@ -21,7 +21,7 @@
 <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
   >{event.category}</Badge
 >
-<h1 class="pb-6 text-3xl font-light sm:text-5xl">{event.title}</h1>
+<h1 class="pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
 
 {#if event.summary}
   <p class="pb-6 text-base font-light sm:text-xl">{event.summary}</p>
