@@ -1,8 +1,8 @@
 <script>
-  import logo from "$lib/assets/logo.webp";
+  import logoLight from "$lib/assets/logo-light.webp";
   import logoDark from "$lib/assets/logo-dark.webp";
-  import logoSm from "$lib/assets/logo-sm.webp";
-  import logoSmDark from "$lib/assets/logo-dark-sm.webp";
+  import logoDarkSm from "$lib/assets/logo-dark-sm.webp";
+  import logoLightSm from "$lib/assets/logo-light-sm.webp";
   import SignInOrOut from "$components/shared/SignInOrOut.svelte";
   import { page } from "$app/stores";
   import { DarkMode } from "flowbite-svelte";
@@ -21,13 +21,13 @@
       fetchpriority="high"
       class="block h-12 select-none sm:h-14 dark:hidden"
       alt="Animert Capra, Fryde og Liflig-logo"
-      src={hasPerformanceIssue ? logoSm : logo}
+      src={hasPerformanceIssue ? logoDarkSm : logoDark}
     />
     <img
       fetchpriority="high"
       class="hidden h-12 select-none sm:h-14 dark:block"
       alt="Animert Capra, Fryde og Liflig-logo"
-      src={hasPerformanceIssue ? logoSmDark : logoDark}
+      src={hasPerformanceIssue ? logoLightSm : logoLight}
     />
   </a>
 
