@@ -18,8 +18,8 @@
 </svelte:head>
 
 <section class="pb-8">
-  <div class="flex flex-col justify-between sm:flex-row sm:items-center">
-    <h1 class="pb-6 text-4xl font-semibold sm:w-[30%] sm:pt-10 sm:text-5xl">
+  <div class="flex flex-col justify-between md:flex-row md:items-center">
+    <h1 class="pb-6 text-4xl font-semibold md:w-[30%] md:pt-10 md:text-5xl">
       Kommende arrangementer
     </h1>
 
@@ -41,9 +41,9 @@
 </section>
 
 <section class="pb-8">
-  <h1 class="pb-12 pt-10 text-4xl font-semibold sm:w-[30%] sm:text-5xl">Tidligere arrangementer</h1>
+  <h1 class="pb-12 pt-10 text-4xl font-semibold md:w-[30%] md:text-5xl">Tidligere arrangementer</h1>
 
-  <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-9 md:grid-cols-2">
     {#if pastEvents.length}
       {#each pastEvents as event}
         <EventCard {event} />
