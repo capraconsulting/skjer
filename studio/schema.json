@@ -725,16 +725,6 @@
         "value": {
           "type": "array",
           "of": {
-            "type": "string"
-          }
-        },
-        "optional": true
-      },
-      "recurrence": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
             "type": "object",
             "attributes": {
               "fieldLabel": {

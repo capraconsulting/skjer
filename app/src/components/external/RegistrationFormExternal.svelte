@@ -92,7 +92,12 @@
 
     {#if event.customOptions?.length}
       {#each event.customOptions as customOption}
-        <RegistrationCustomOption label={customOption} option={sanitize(customOption)} {form} />
+        <RegistrationCustomOption
+          label={customOption.fieldLabel}
+          type={sanitize(customOption.fieldType)}
+          option={sanitize(customOption.fieldLabel)}
+          {form}
+        />
       {/each}
     {/if}
 

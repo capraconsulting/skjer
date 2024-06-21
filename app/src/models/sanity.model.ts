@@ -121,8 +121,7 @@ export type Event = {
   openForExternals: boolean;
   foodPreference: boolean;
   food?: string;
-  customOptions?: Array<string>;
-  recurrence?: Array<{
+  customOptions?: Array<{
     fieldLabel: string;
     fieldType: "checkbox" | "input";
     _key: string;

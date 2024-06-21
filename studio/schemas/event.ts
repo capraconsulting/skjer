@@ -141,14 +141,6 @@ export default defineType({
     }),
     defineField({
       name: "customOptions",
-      title: "Legg til egne felter",
-      description:
-        "Skru på denne hvis det er flere spørsmål du vil legge til i påmeldingsskjemaet, så dukker de opp under her.",
-      type: "array",
-      of: [{ type: "string" }],
-    }),
-    defineField({
-      name: "recurrence",
       title: "Egne felter",
       description: "Her kan du legge til andre felter/spørsmål enn de som er standard:",
       type: "array",
