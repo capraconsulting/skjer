@@ -63,11 +63,6 @@
     {#if $unregistrationMessage?.text}
       <Alert class="mt-20" color={getAlertColor($unregistrationMessage)}>
         {$unregistrationMessage.text}
-        {#if $unregistrationMessage.token}
-          <div class="w-[400px] break-words border border-gray-300 p-2 text-xs">
-            {`/event/unregistration/${$unregistrationMessage.token}`}
-          </div>
-        {/if}
       </Alert>
     {:else}
       <UnregistrationFormExternal

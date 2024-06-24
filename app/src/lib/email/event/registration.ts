@@ -11,19 +11,22 @@ interface EventProps {
   end: string;
   location: string;
   organiser: string;
-  method?: ICalCalendarMethod;
 }
 
 interface EmailParams extends Pick<EventProps, "mailTo" | "organiser" | "summary"> {
   subject: string;
   icsFile: Buffer;
+  html?: string;
 }
 
-export const sendEventRegistrationConfirmed = async (props: EventProps) => {
+export const sendRegistrationConfirmed = async (props: EventProps) => {
   const icsFile = createIcsFile(props);
+
+  const url = `${PUBLIC_APP_BASE_URL}/event/${props.id}`;
   const mailParams = createMailParams({
     ...props,
-    subject: `Registrert: ${props.summary}`,
+    subject: `Påmelding bekreftet: ${props.summary}`,
+    html: `Ønsker du å melde deg av arrangementet, kan du gjøre det via vår <a href="${url}">nettside</a>.`,
     icsFile,
   });
 
@@ -31,23 +34,11 @@ export const sendEventRegistrationConfirmed = async (props: EventProps) => {
   return result;
 };
 
-export const sendEventRegistrationUpdate = async (props: EventProps) => {
+export const sendInviteUpdate = async (props: EventProps) => {
   const icsFile = createIcsFile(props);
   const mailParams = createMailParams({
     ...props,
     subject: `Oppdatert invitasjon: ${props.summary}`,
-    icsFile,
-  });
-
-  const result = await sendMail(mailParams);
-  return result;
-};
-
-export const sendEventCanceled = async (props: EventProps) => {
-  const icsFile = createIcsFile({ ...props, method: ICalCalendarMethod.CANCEL });
-  const mailParams = createMailParams({
-    ...props,
-    subject: `Avlyst: ${props.summary}`,
     icsFile,
   });
 
@@ -64,11 +55,10 @@ const createIcsFile = ({
   location,
   organiser,
   mailTo,
-  method,
 }: EventProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
 
-  const calendar = ical({ name: organiser, method: method ?? ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
   calendar.createEvent({
     id,
     summary,
@@ -80,7 +70,6 @@ const createIcsFile = ({
     attendees: [
       {
         email: mailTo,
-        rsvp: true,
         status: ICalAttendeeStatus.ACCEPTED,
         role: ICalAttendeeRole.REQ,
       },
@@ -94,11 +83,12 @@ const createIcsFile = ({
   return Buffer.from(calendar.toString());
 };
 
-const createMailParams = ({ organiser, mailTo, subject, icsFile }: EmailParams) => {
+const createMailParams = ({ organiser, mailTo, subject, icsFile, html = "" }: EmailParams) => {
   return {
     from: `${organiser} <no-reply@capraconsulting.no>`,
     to: mailTo,
     subject,
+    html,
     icalEvent: {
       method: "request",
       content: icsFile,

@@ -7,7 +7,7 @@ import { getEventContent } from "$lib/server/sanity/queries";
 import {
   getEvent,
   getEventParticipant,
-  updateEventParticipantAttending,
+  setParticipantNotAttending,
 } from "$lib/server/supabase/queries";
 import {
   deleteEventParticipant,
@@ -20,7 +20,8 @@ import {
   registrationSchemaInternal,
   unregistrationSchemaInternal,
 } from "$lib/schemas/internal/schema";
-import { sendEventRegistrationConfirmed } from "$lib/email/event-registration";
+import { sendRegistrationConfirmed } from "$lib/email/event/registration";
+import { sendUnregistrationConfirmed } from "$lib/email/event/unregistration";
 
 export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async ({
   request,
@@ -69,7 +70,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     });
   }
 
-  const eventContent = await getEventContent({ id });
+  const eventContent = await getEventContent({ document_id: id });
 
   if (!eventContent) {
     console.error("Error: The specified event does not exist as content");
@@ -166,7 +167,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEventRegistrationConfirmed(emailPayload);
+    const { error: emailError } = await sendRegistrationConfirmed(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");
@@ -234,24 +235,58 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
   const eventParticipant = await getEventParticipant(data);
 
-  if (eventParticipant.data?.attending) {
-    await updateEventParticipantAttending(data);
-
+  if (!eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      success: true,
-      text: "Du er nå meldt av arrangementet.",
+      text: "Du er allerede meldt av arrangementet. Takk for interessen din!",
+      warning: true,
     });
   }
 
   if (!eventParticipant.data?.email) {
     return message(unregistrationForm, {
-      warning: true,
       text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",
+      error: true,
     });
   }
 
+  const attendingResult = await setParticipantNotAttending(data);
+  if (!attendingResult) {
+    console.error("Error: Failed to update participant attending");
+
+    return message(unregistrationForm, {
+      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      error: true,
+    });
+  }
+
+  const eventContent = await getEventContent({ document_id: id });
+
+  const emailPayload = {
+    id,
+    mailTo: email,
+    summary: eventContent.title,
+    description: eventContent.summary,
+    start: eventContent.start,
+    end: eventContent.end,
+    location: eventContent.place,
+    organiser: eventContent.organisers.join(" | "),
+  };
+
+  if (process.env.NODE_ENV !== "development") {
+    const { error: emailError } = await sendUnregistrationConfirmed(emailPayload);
+
+    if (emailError) {
+      console.error("Error: Failed to send email");
+
+      return message(unregistrationForm, {
+        text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+        warning: true,
+      });
+    }
+  }
+
   return message(unregistrationForm, {
-    warning: true,
-    text: "Du er allerede meldt av arrangementet. Takk for interessen din!",
+    message: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    success: true,
   });
 };
