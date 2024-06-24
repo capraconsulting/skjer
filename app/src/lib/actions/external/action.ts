@@ -18,7 +18,8 @@ import {
   registrationSchemaExternal,
   unregistrationSchemaExternal,
 } from "$lib/schemas/external/schema";
-import { sendEventRegistrationConfirmed } from "$lib/email/event-registration";
+import { sendRegistrationConfirmed } from "$lib/email/event/registration";
+import { sendConfirmUnregistration } from "$lib/email/event/unregistration";
 
 export const submitRegistrationExternal: Actions["submitRegistrationExternal"] = async ({
   request,
@@ -55,7 +56,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
-  const eventContent = await getEventContent({ id });
+  const eventContent = await getEventContent({ document_id: id });
 
   if (!eventContent) {
     console.error("Error: The specified event does not exist as content");
@@ -149,15 +150,17 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     organiser: eventContent.organisers.join(" | "),
   };
 
-  const { error: emailError } = await sendEventRegistrationConfirmed(emailPayload);
+  if (process.env.NODE_ENV !== "development") {
+    const { error: emailError } = await sendRegistrationConfirmed(emailPayload);
 
-  if (emailError) {
-    console.error("Error: Failed to send email");
+    if (emailError) {
+      console.error("Error: Failed to send email");
 
-    return message(registrationForm, {
-      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
-      warning: true,
-    });
+      return message(registrationForm, {
+        text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+        warning: true,
+      });
+    }
   }
 
   return message(registrationForm, {
@@ -209,9 +212,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     data: { email },
   } = unregistrationForm;
 
-  const data = { event_id, email };
-
-  const eventParticipant = await getEventParticipant(data);
+  const eventParticipant = await getEventParticipant({ event_id, email });
 
   if (!eventParticipant.data?.email || !eventParticipant.data?.attending) {
     return message(unregistrationForm, {
@@ -220,11 +221,42 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     });
   }
 
+  const eventContent = await getEventContent({ document_id: id });
+
+  if (!eventContent) {
+    console.error("Error: The specified event does not exist as content");
+
+    return message(unregistrationForm, {
+      text: "Det har oppstått et problem. Du kan ikke melde deg av dette arrangementet.",
+      error: true,
+    });
+  }
+
+  const data = { document_id: id, event_id, email };
   const secret = getUnsubscribeSecret(data);
   const token = jwt.sign({ data }, secret, { expiresIn: "2h" });
 
-  // send jwt token to email
-  // returning for demo purpose
+  const emailPayload = {
+    id,
+    mailTo: email,
+    summary: eventContent.title,
+    organiser: eventContent.organisers.join(" | "),
+    token,
+  };
+
+  if (process.env.NODE_ENV !== "development") {
+    const { error: emailError } = await sendConfirmUnregistration(emailPayload);
+
+    if (emailError) {
+      console.error("Error: Failed to send email");
+
+      return message(unregistrationForm, {
+        text: "Det har oppstått et problem. Du kan ikke melde deg av dette arrangementet.",
+        warning: true,
+      });
+    }
+  }
+
   return message(unregistrationForm, {
     token,
     text: "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",

@@ -1,5 +1,5 @@
 import { APP_API_TOKEN } from "$env/static/private";
-import { sendEventCanceled } from "$lib/email/event-registration";
+import { sendCanceled } from "$lib/email/event/canceled";
 import { getAttendingParticipants } from "$lib/server/supabase/queries";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
@@ -38,7 +38,7 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     const sendPromises = participants.map(({ email }) =>
-      sendEventCanceled({
+      sendCanceled({
         ...props,
         mailTo: email,
       })

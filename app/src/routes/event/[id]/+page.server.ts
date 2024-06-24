@@ -4,7 +4,7 @@ import type { Event } from "$models/sanity.model";
 import type { Actions, PageServerLoad } from "./$types";
 import {
   getNumberOfParticipants,
-  getIsAttendingEvent,
+  getIsParticipantAttendingEvent,
   getInternalEventParticipantNames,
 } from "$lib/server/supabase/queries";
 import {
@@ -28,14 +28,16 @@ import { eventQuery as query } from "$lib/server/sanity/queries";
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const auth = await locals.auth();
   const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
+  const initial = await locals.loadQuery<Event>(query, { id });
 
   if (auth?.user?.name && auth.user.email) {
-    const initial = await locals.loadQuery<Event>(query, { id });
-
     const registrationForm = await superValidate(zod(registrationSchemaInternal));
     const unregistrationForm = await superValidate(zod(unregistrationSchemaInternal));
 
-    const isAttending = await getIsAttendingEvent({ document_id: id, email: auth.user.email });
+    const isAttending = await getIsParticipantAttendingEvent({
+      document_id: id,
+      email: auth.user.email,
+    });
     const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
 
     return {
@@ -49,7 +51,6 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
     };
   }
 
-  const initial = await locals.loadQuery<Event>(query, { id });
   const registrationForm = await superValidate(zod(registrationSchemaExternal));
   const unregistrationForm = await superValidate(zod(unregistrationSchemaExternal));
 

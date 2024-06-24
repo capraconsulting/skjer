@@ -1,6 +1,7 @@
 import type { JwtPayload } from "jsonwebtoken";
 
-interface TokenData {
+export interface TokenData {
+  document_id: string;
   event_id: number;
   email: string;
 }

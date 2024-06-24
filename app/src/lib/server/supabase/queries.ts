@@ -34,7 +34,7 @@ export const deleteEventParticipant = async ({
   return result;
 };
 
-export const updateEventParticipantAttending = async ({
+export const setParticipantNotAttending = async ({
   event_id,
   email,
 }: Pick<Tables<"event_participant">, "event_id" | "email">) => {
@@ -138,7 +138,7 @@ export const getNumberOfParticipants = async ({
   return result.data?.event_participant.length || 0;
 };
 
-export const getIsAttendingEvent = async ({
+export const getIsParticipantAttendingEvent = async ({
   email,
   document_id,
 }: {
@@ -159,7 +159,7 @@ export const getIsAttendingEvent = async ({
   return false;
 };
 
-export const getAttendingEventsByEmail = async ({
+export const getParticipantAttendingEvents = async ({
   email,
 }: {
   email: Tables<"event_participant">["email"];
