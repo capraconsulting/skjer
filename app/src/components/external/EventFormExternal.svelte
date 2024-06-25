@@ -4,6 +4,8 @@
   import {
     registrationSchemaExternal,
     unregistrationSchemaExternal,
+    type RegistrationFormExternalType,
+    type UnregistrationFormExternalType,
   } from "$lib/schemas/external/schema";
   import { getAlertColor } from "$lib/utils/form.util";
   import type { Event } from "$models/sanity.model";
@@ -20,7 +22,7 @@
     errors: registrationErrors,
     delayed: registrationDelayed,
     enhance: registrationEnhance,
-  } = superForm(data.registrationForm, {
+  } = superForm<RegistrationFormExternalType>(data.registrationForm, {
     validators: zod(registrationSchemaExternal),
     delayMs: 500,
     async onSubmit() {
@@ -34,8 +36,9 @@
     errors: unregistrationErrors,
     delayed: unregistrationDelayed,
     enhance: unregistrationEnhance,
-  } = superForm(data.unregistrationForm, {
+  } = superForm<UnregistrationFormExternalType>(data.unregistrationForm, {
     validators: zod(unregistrationSchemaExternal),
+    dataType: "json",
     delayMs: 500,
     async onSubmit() {
       await new Promise((result) => setTimeout(result, 500));

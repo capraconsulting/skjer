@@ -1,3 +1,4 @@
+import { CheckmarkIcon, TextIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
 
 export default defineType({
@@ -139,23 +140,52 @@ export default defineType({
       hidden: ({ document }) => !document?.foodPreference,
     }),
     defineField({
-      title: "Diverse tilrettelegging",
-      name: "facilitation",
-      description: "Kryss av på denne dersom tilrettelegging skal vises på påmeldingsskjemaet.",
-      type: "boolean",
-      initialValue: false,
-      options: {
-        layout: "checkbox",
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "customOptions",
-      title: "Legg til egne felter",
-      description:
-        "Skru på denne hvis det er flere spørsmål du vil legge til i påmeldingsskjemaet, så dukker de opp under her.",
+      title: "Egne felter",
+      description: "Her kan du legge til andre felter/spørsmål enn de som er standard:",
       type: "array",
-      of: [{ type: "string" }],
+      of: [
+        {
+          type: "object",
+          options: { columns: 1 },
+          fields: [
+            defineField({
+              name: "fieldOption",
+              title: "Label",
+              type: "string",
+              description: "Tekst som skal vises over feltet.",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "fieldType",
+              title: "Type felt",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Avkrysningsboks", value: "checkbox" },
+                  { title: "Tekstfelt", value: "input" },
+                ],
+                layout: "radio",
+              },
+              initialValue: "checkbox",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "fieldOption",
+              subtitle: "fieldType",
+              media: "",
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title,
+                media: subtitle === "checkbox" ? CheckmarkIcon : TextIcon,
+              };
+            },
+          },
+        },
+      ],
     }),
   ],
   preview: {

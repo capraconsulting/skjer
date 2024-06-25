@@ -5,11 +5,12 @@ export async function getEventParticipantList({ documentId }: { documentId: stri
   try {
     const { data } = await supabase
       .from("event")
-      .select(`event_participant(*)`)
+      .select(`event_participant(*, event_participant_option(*))`)
       .eq("document_id", documentId)
       .eq("event_participant.attending", true)
       .maybeSingle();
 
+    console.log(data);
     return data;
   } catch (error) {
     console.error(error);

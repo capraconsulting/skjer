@@ -24,7 +24,7 @@
       </a>
     </div>
     <EventSummary {event} />
-    {#if auth?.user}
+    {#if auth?.user?.email && auth.user.name}
       <EventFormInternal {event} {data} />
     {:else if event.openForExternals}
       <EventFormExternal {event} {data} />

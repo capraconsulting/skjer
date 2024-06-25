@@ -121,8 +121,11 @@ export type Event = {
   openForExternals: boolean;
   foodPreference: boolean;
   food?: string;
-  facilitation: boolean;
-  customOptions?: Array<string>;
+  customOptions?: Array<{
+    fieldOption: string;
+    fieldType: "checkbox" | "input";
+    _key: string;
+  }>;
 };
 
 export type BlogPost = {

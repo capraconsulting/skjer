@@ -34,7 +34,15 @@ export type Database = {
           event_id?: number;
           text?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "event_food_preference_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["event_id"];
+          },
+        ];
       };
       event_participant: {
         Row: {
@@ -84,17 +92,17 @@ export type Database = {
         Row: {
           event_participant_id: number;
           option: string;
-          value: boolean | null;
+          value: string | null;
         };
         Insert: {
           event_participant_id: number;
           option: string;
-          value?: boolean | null;
+          value?: string | null;
         };
         Update: {
           event_participant_id?: number;
           option?: string;
-          value?: boolean | null;
+          value?: string | null;
         };
         Relationships: [
           {

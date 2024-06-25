@@ -13,5 +13,5 @@
     </span>
   {/each}
 {:else}
-  <p>Det er foreløpig ingen påmeldte 😔</p>
+  <p>Det er foreløpig ingen kollegaer som er påmeldt 😔</p>
 {/if}

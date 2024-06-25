@@ -2,7 +2,6 @@ import validator from "validator";
 import { type Actions } from "@sveltejs/kit";
 import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
-import { sanitize } from "$lib/utils/sanitize.util";
 import { getEventContent } from "$lib/server/sanity/queries";
 import {
   getEvent,
@@ -22,12 +21,26 @@ import {
 } from "$lib/schemas/internal/schema";
 import { sendRegistrationConfirmed } from "$lib/email/event/registration";
 import { sendUnregistrationConfirmed } from "$lib/email/event/unregistration";
+import { RateLimiter } from "sveltekit-rate-limiter/server";
 
-export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async ({
-  request,
-  locals,
-  params: { id },
-}) => {
+/**
+ ** IP: Allows 40 requests per hour from the same IP address.
+ ** IPUA (IP and User-Agent): Allows 20 requests per 5 minutes when both the IP address and the User-Agent of the requester are considered.
+ **/
+const limiter = new RateLimiter({
+  IP: [40, "h"],
+  IPUA: [20, "m"],
+});
+
+export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async (
+  requestEvent
+) => {
+  const {
+    request,
+    locals,
+    params: { id },
+  } = requestEvent;
+
   const registrationForm = await superValidate(request, zod(registrationSchemaInternal));
 
   if (!id || !validator.isUUID(id)) {
@@ -44,6 +57,13 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
+      error: true,
+    });
+  }
+
+  if (await limiter.isLimited(requestEvent)) {
+    return message(registrationForm, {
+      text: "Du har nådd grensen for antall påmeldinger. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
@@ -130,14 +150,12 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
         participantPayload
       );
 
-      if (customOptions.length && eventContent.customOptions?.length) {
-        const participantOptionsPayload = eventContent.customOptions
-          .filter((field) => customOptions.includes(sanitize(field)))
-          .map((option) => ({
-            option,
-            event_participant_id,
-            value: true,
-          }));
+      if (customOptions.length) {
+        const participantOptionsPayload = customOptions.map(({ option, value }) => ({
+          event_participant_id,
+          option,
+          value,
+        }));
 
         await insertEventParticipantOptions(transaction, participantOptionsPayload);
       }
@@ -185,11 +203,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
   });
 };
 
-export const submitUnregistrationInternal: Actions["submitUnregistrationInternal"] = async ({
-  request,
-  locals,
-  params: { id },
-}) => {
+export const submitUnregistrationInternal: Actions["submitUnregistrationInternal"] = async (
+  requestEvent
+) => {
+  const {
+    request,
+    locals,
+    params: { id },
+  } = requestEvent;
   const unregistrationForm = await superValidate(request, zod(unregistrationSchemaInternal));
 
   if (!id || !validator.isUUID(id)) {
@@ -197,6 +218,13 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
     return message(unregistrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      error: true,
+    });
+  }
+
+  if (await limiter.isLimited(requestEvent)) {
+    return message(unregistrationForm, {
+      text: "Du har nådd grensen for antall avmeldinger. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
@@ -279,7 +307,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
       console.error("Error: Failed to send email");
 
       return message(unregistrationForm, {
-        text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+        text: "Du er nå meldt av arrangement 👋 Vi kunne dessverre ikke sende e-post bekreftelse.",
         warning: true,
       });
     }
