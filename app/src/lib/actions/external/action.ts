@@ -3,7 +3,6 @@ import validator from "validator";
 import { type Actions } from "@sveltejs/kit";
 import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
-import { sanitize } from "$lib/utils/sanitize.util";
 import { getUnsubscribeSecret } from "$lib/auth/secret";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { getEvent, getEventParticipant } from "$lib/server/supabase/queries";
@@ -20,11 +19,25 @@ import {
 } from "$lib/schemas/external/schema";
 import { sendRegistrationConfirmed } from "$lib/email/event/registration";
 import { sendConfirmUnregistration } from "$lib/email/event/unregistration";
+import { RateLimiter } from "sveltekit-rate-limiter/server";
 
-export const submitRegistrationExternal: Actions["submitRegistrationExternal"] = async ({
-  request,
-  params: { id },
-}) => {
+/**
+ ** IP: Allows 20 requests per hour from the same IP address.
+ ** IPUA (IP and User-Agent): Allows 10 requests per 5 minutes when both the IP address and the User-Agent of the requester are considered.
+ **/
+const limiter = new RateLimiter({
+  IP: [20, "h"],
+  IPUA: [10, "m"],
+});
+
+export const submitRegistrationExternal: Actions["submitRegistrationExternal"] = async (
+  requestEvent
+) => {
+  const {
+    request,
+    params: { id },
+  } = requestEvent;
+
   const registrationForm = await superValidate(request, zod(registrationSchemaExternal));
 
   if (!registrationForm.valid) {
@@ -41,6 +54,13 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      error: true,
+    });
+  }
+
+  if (await limiter.isLimited(requestEvent)) {
+    return message(registrationForm, {
+      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
@@ -114,14 +134,12 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
         participantPayload
       );
 
-      if (customOptions.length && eventContent.customOptions?.length) {
-        const participantOptionsPayload = eventContent.customOptions
-          .filter((field) => customOptions.includes(sanitize(field)))
-          .map((option) => ({
-            option,
-            event_participant_id,
-            value: true,
-          }));
+      if (customOptions.length) {
+        const participantOptionsPayload = customOptions.map(({ option, value }) => ({
+          event_participant_id,
+          option,
+          value,
+        }));
 
         await insertEventParticipantOptions(transaction, participantOptionsPayload);
       }
@@ -169,10 +187,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
   });
 };
 
-export const submitUnregistrationExternal: Actions["submitUnregistrationExternal"] = async ({
-  request,
-  params: { id },
-}) => {
+export const submitUnregistrationExternal: Actions["submitUnregistrationExternal"] = async (
+  requestEvent
+) => {
+  const {
+    request,
+    params: { id },
+  } = requestEvent;
+
   const unregistrationForm = await superValidate(request, zod(unregistrationSchemaExternal));
 
   if (!unregistrationForm.valid) {
@@ -189,6 +211,13 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
 
     return message(unregistrationForm, {
       text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      error: true,
+    });
+  }
+
+  if (await limiter.isLimited(requestEvent)) {
+    return message(unregistrationForm, {
+      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
@@ -258,7 +287,6 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
   }
 
   return message(unregistrationForm, {
-    token,
     text: "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",
     success: true,
   });

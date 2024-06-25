@@ -4,13 +4,15 @@
   import UnregistrationFormInternal from "$components/internal/UnregistrationFormInternal.svelte";
   import type { Event } from "$models/sanity.model";
   import { superForm } from "sveltekit-superforms/client";
-  import { zod } from "sveltekit-superforms/adapters";
   import {
     registrationSchemaInternal,
     unregistrationSchemaInternal,
+    type RegistrationFormInternalType,
+    type UnregistrationFormInternalType,
   } from "$lib/schemas/internal/schema";
   import { Alert } from "flowbite-svelte";
   import { getAlertColor } from "$lib/utils/form.util";
+  import { zod } from "sveltekit-superforms/adapters";
 
   export let data;
   export let event: Event;
@@ -20,11 +22,12 @@
     message: registrationMessage,
     delayed: registrationDelayed,
     enhance: registrationEnhance,
-  } = superForm(data.registrationForm, {
+  } = superForm<RegistrationFormInternalType>(data.registrationForm, {
     validators: zod(registrationSchemaInternal),
+    dataType: "json",
     delayMs: 500,
     async onSubmit() {
-      await new Promise((result) => setTimeout(result, 500));
+      await new Promise((result) => setTimeout(result, 250));
     },
   });
 
@@ -32,11 +35,11 @@
     message: unregistrationMessage,
     delayed: unregistrationDelayed,
     enhance: unregistrationEnhance,
-  } = superForm(data.unregistrationForm, {
+  } = superForm<UnregistrationFormInternalType>(data.unregistrationForm, {
     validators: zod(unregistrationSchemaInternal),
     delayMs: 500,
     async onSubmit() {
-      await new Promise((result) => setTimeout(result, 500));
+      await new Promise((result) => setTimeout(result, 250));
     },
   });
 </script>

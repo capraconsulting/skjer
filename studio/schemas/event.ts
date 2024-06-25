@@ -1,4 +1,4 @@
-import { CheckmarkIcon, EditIcon } from "@sanity/icons";
+import { CheckmarkIcon, TextIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
 
 export default defineType({
@@ -147,10 +147,11 @@ export default defineType({
       of: [
         {
           type: "object",
+          options: { columns: 1 },
           fields: [
             defineField({
-              name: "fieldLabel",
-              title: "Etikett",
+              name: "fieldOption",
+              title: "Label",
               type: "string",
               description: "Tekst som skal vises over feltet.",
               validation: (Rule) => Rule.required(),
@@ -172,14 +173,14 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "fieldLabel",
+              title: "fieldOption",
               subtitle: "fieldType",
               media: "",
             },
             prepare({ title, subtitle }) {
               return {
                 title: title,
-                media: subtitle === "checkbox" ? CheckmarkIcon : EditIcon,
+                media: subtitle === "checkbox" ? CheckmarkIcon : TextIcon,
               };
             },
           },

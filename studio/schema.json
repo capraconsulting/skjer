@@ -727,7 +727,7 @@
           "of": {
             "type": "object",
             "attributes": {
-              "fieldLabel": {
+              "fieldOption": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"

@@ -5,7 +5,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import {
   getNumberOfParticipants,
   getIsParticipantAttendingEvent,
-  getInternalEventParticipantNames,
+  getInternalParticipantNames,
 } from "$lib/server/supabase/queries";
 import {
   submitRegistrationInternal,
@@ -27,8 +27,8 @@ import { eventQuery as query } from "$lib/server/sanity/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const auth = await locals.auth();
-  const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
   const initial = await locals.loadQuery<Event>(query, { id });
+  const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
 
   if (auth?.user?.name && auth.user.email) {
     const registrationForm = await superValidate(zod(registrationSchemaInternal));
@@ -38,7 +38,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
       document_id: id,
       email: auth.user.email,
     });
-    const internalParticipantNames = await getInternalEventParticipantNames({ document_id: id });
+    const internalParticipantNames = await getInternalParticipantNames({ document_id: id });
 
     return {
       query,

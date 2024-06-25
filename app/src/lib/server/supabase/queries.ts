@@ -110,7 +110,7 @@ export const saveEventParticipantOptions = async (
   return result;
 };
 
-export const getInternalEventParticipantNames = async ({
+export const getInternalParticipantNames = async ({
   document_id,
 }: Pick<Tables<"event">, "document_id">) => {
   const result = await supabase

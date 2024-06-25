@@ -122,7 +122,7 @@ export type Event = {
   foodPreference: boolean;
   food?: string;
   customOptions?: Array<{
-    fieldLabel: string;
+    fieldOption: string;
     fieldType: "checkbox" | "input";
     _key: string;
   }>;

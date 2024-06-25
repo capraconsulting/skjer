@@ -5,8 +5,8 @@
   import RegistrationFoodPreference from "$components/shared/RegistrationFoodPreference.svelte";
   import Deadline from "$components/shared/Deadline.svelte";
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
-  import { sanitize } from "$lib/utils/sanitize.util";
   import { dateHasPassed } from "$lib/utils/date.util";
+  import { vercelStegaCleanAll } from "@sanity/client/stega";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -93,10 +93,9 @@
     {#if event.customOptions?.length}
       {#each event.customOptions as customOption}
         <RegistrationCustomOption
-          label={customOption.fieldLabel}
-          type={sanitize(customOption.fieldType)}
-          option={sanitize(customOption.fieldLabel)}
           {form}
+          type={vercelStegaCleanAll(customOption.fieldType)}
+          option={vercelStegaCleanAll(customOption.fieldOption)}
         />
       {/each}
     {/if}

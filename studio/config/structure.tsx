@@ -14,10 +14,13 @@ export const getDefaultDocumentNode = (
     return S.document().views([
       S.view.form(),
       S.view
-        .component(({ documentId }: { documentId: string }) => {
+        .component((props) => {
           return (
             <EventLayout queryClient={queryClient}>
-              <EventParticipant documentId={documentId} />
+              <EventParticipant
+                documentId={props.documentId}
+                title={props.document.displayed.title}
+              />
             </EventLayout>
           );
         })

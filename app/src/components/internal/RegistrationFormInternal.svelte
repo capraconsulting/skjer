@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
-  import { Alert, Button, Spinner } from "flowbite-svelte";
+  import { Button, Spinner } from "flowbite-svelte";
   import RegistrationFoodPreference from "$components/shared/RegistrationFoodPreference.svelte";
   import RegistrationAttendingType from "$components/shared/RegistrationAttendingType.svelte";
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
-  import { sanitize } from "$lib/utils/sanitize.util";
   import { dateHasPassed } from "$lib/utils/date.util";
   import Deadline from "$components/shared/Deadline.svelte";
+  import { vercelStegaCleanAll } from "@sanity/client/stega";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -44,10 +44,9 @@
       {#if event.customOptions?.length}
         {#each event.customOptions as customOption}
           <RegistrationCustomOption
-            label={customOption.fieldLabel}
-            type={sanitize(customOption.fieldType)}
-            option={sanitize(customOption.fieldLabel)}
             {form}
+            option={vercelStegaCleanAll(customOption.fieldOption)}
+            type={vercelStegaCleanAll(customOption.fieldType)}
           />
         {/each}
       {/if}

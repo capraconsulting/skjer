@@ -1,36 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getEventParticipantList } from "../../supabase/queries";
 import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
-import { client } from "../../config/client";
 
-export default function EventParticipant({ documentId }: { documentId: string }) {
+export default function EventParticipant({
+  documentId,
+  title,
+}: {
+  documentId: string;
+  title?: string;
+}) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["event-participant-list", documentId],
     queryFn: () => getEventParticipantList({ documentId }),
   });
 
   const [searchQuery, setValue] = useState("");
-  const [title, setTitle] = useState("");
-
-  useEffect(() => {
-    const fetchEventTitle = async () => {
-      try {
-        const result = await client.fetch(`*[_type == "event" && _id == $documentId]{title}[0]`, {
-          documentId,
-        });
-        if (result?.title) {
-          setTitle(result.title);
-        }
-      } catch (error) {
-        console.error("Error fetching event title:", error);
-      }
-    };
-
-    fetchEventTitle();
-  }, [documentId]);
 
   const filteredData = data?.event_participant.filter((participant) => {
     return Object.values(participant).some(
@@ -40,12 +27,28 @@ export default function EventParticipant({ documentId }: { documentId: string })
   });
 
   const excelData: ExcelObject[] =
-    data?.event_participant.map((participant) => ({
-      navn: participant.full_name,
-      epost: participant.email,
-      telefon: participant.telephone || "",
-      selskap: participant.firm || "",
-    })) || [];
+    data?.event_participant.map((participant) => {
+      const options = participant.event_participant_option.reduce<{ [key: string]: string }>(
+        (acc, item) => {
+          if (item.value) {
+            acc[item.option] = item.value;
+          }
+          return acc;
+        },
+        {}
+      );
+
+      const participantData = {
+        navn: participant.full_name,
+        epost: participant.email,
+        telefon: participant.telephone || "",
+        selskap: participant.firm || "",
+        digitalt: participant.attending_digital ? "Ja" : "",
+        ...options,
+      };
+
+      return participantData;
+    }) || [];
 
   const cardProps = { shadow: 1, padding: 3, radius: 2 };
 
@@ -57,7 +60,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
     );
   }
 
-  if (isError)
+  if (isError) {
     return (
       <Grid gap={4}>
         <Text muted size={1}>
@@ -68,6 +71,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
         </Heading>
       </Grid>
     );
+  }
 
   if (!data?.event_participant.length) {
     return (
@@ -92,7 +96,7 @@ export default function EventParticipant({ documentId }: { documentId: string })
           <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
             Påmeldinger ({data?.event_participant.length})
           </Heading>
-          <ExcelExport data={excelData} fileName={title} />
+          {title ? <ExcelExport data={excelData} fileName={title} /> : ""}
         </Inline>
       </Grid>
 

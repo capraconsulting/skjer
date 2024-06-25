@@ -138,5 +138,5 @@ Hvis du vil teste e-post lokalt, kan du legge til http://localhost:5173 i Access
 I tillegg må denne linjen kommenteres ut:
 
 ```
-if (process.env.MODE === "development") return;
+process.env.MODE !== "development"
 ```
