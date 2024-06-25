@@ -17,9 +17,7 @@
 
 <header class="flex h-[100px] w-full items-center justify-between px-4 pt-2 lg:px-20">
   <a
-    class={isRoot
-      ? "pointer-events-none flex items-center"
-      : "pointer-events-auto flex items-center"}
+    class="{`flex items-center ${isRoot ? 'pointer-events-none' : 'pointer-events-auto'}`}}"
     href="/"
   >
     <img
