@@ -21,13 +21,9 @@ import { sendRegistrationConfirmed } from "$lib/email/event/registration";
 import { sendConfirmUnregistration } from "$lib/email/event/unregistration";
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 
-/**
- ** IP: Allows 20 requests per hour from the same IP address.
- ** IPUA (IP and User-Agent): Allows 10 requests per 5 minutes when both the IP address and the User-Agent of the requester are considered.
- **/
 const limiter = new RateLimiter({
-  IP: [20, "h"],
-  IPUA: [10, "m"],
+  IP: [20, "h"], // 20 rquests per hour from the same IP
+  IPUA: [10, "m"], // 10 requests per 5 minutes when same IP and User-Agent
 });
 
 export const submitRegistrationExternal: Actions["submitRegistrationExternal"] = async (

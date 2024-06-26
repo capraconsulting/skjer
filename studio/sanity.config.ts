@@ -9,6 +9,8 @@ import { nbNOLocale } from "@sanity/locale-nb-no";
 import { StudioIcon } from "./components/shared/StudioIcon";
 import { createExtendedEventPublishAction } from "./actions/publish-event";
 import { CancelAction } from "./actions/cancel-event";
+import { dashboardTool } from "@sanity/dashboard";
+import { plausibleWidget } from "sanity-plugin-plausible-analytics";
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!;
 export const dataset = process.env.SANITY_STUDIO_DATASET!;
@@ -40,6 +42,13 @@ export default defineConfig({
           disable: "/preview/disable",
         },
       },
+    }),
+    dashboardTool({
+      widgets: [
+        plausibleWidget({
+          url: process.env.SANITY_STUDIO_PLAUSIBLE_URL || "",
+        }),
+      ],
     }),
     visionTool({ title: "GROQ" }),
   ],
