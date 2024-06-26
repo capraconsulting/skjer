@@ -38,7 +38,7 @@
             Meld meg av
             <span class="w-3">
               {#if $delayed}
-                <Spinner class="ml-2 text-black dark:text-white" size="4" />
+                <Spinner color="gray" class="ml-2 " size="4" />
               {/if}
             </span>
           </Button>

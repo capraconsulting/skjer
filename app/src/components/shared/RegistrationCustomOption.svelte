@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Checkbox, Input } from "flowbite-svelte";
+  import { Checkbox, Textarea } from "flowbite-svelte";
   import { writable } from "svelte/store";
 
   interface CustomOption {
@@ -48,6 +48,6 @@
   {#if inputType === "checkbox"}
     <Checkbox name="customOptions" on:change={handleCheckboxChange}>Ja!</Checkbox>
   {:else}
-    <Input name="customOptions" on:input={handleInputChange} />
+    <Textarea name="customOptions" class="bg-white" on:input={handleInputChange} />
   {/if}
 </div>

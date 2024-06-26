@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Label, Input } from "flowbite-svelte";
+  import { Label, Input, Textarea } from "flowbite-svelte";
 
   export let form;
 </script>
 
 <div class="flex flex-col gap-1">
   <Label class="font-bold" for="foodPreference">Allergier og matpreferanser</Label>
-  <Input
+  <Textarea
     size="sm"
     class="bg-white"
     type="text"

@@ -21,6 +21,7 @@
     form: registrationForm,
     message: registrationMessage,
     delayed: registrationDelayed,
+    errors: registrationErrors,
     enhance: registrationEnhance,
   } = superForm<RegistrationFormInternalType>(data.registrationForm, {
     validators: zod(registrationSchemaInternal),
@@ -55,6 +56,7 @@
       numberOfParticipants={data.numberOfParticipants}
       isAttending={data.isAttending}
       form={registrationForm}
+      errors={registrationErrors}
       delayed={registrationDelayed}
       enhance={registrationEnhance}
     />

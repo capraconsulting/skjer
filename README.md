@@ -141,10 +141,32 @@ I tillegg må denne linjen kommenteres ut:
 process.env.MODE !== "development"
 ```
 
-# Sentry
+## Sentry
 
 Sentry brukes for å overvåke, logge og rapportere klientfeil.
 
-# Plausible
+## Plausible
 
-Plausible tilbyr en g måte å analysere trafikk på nettstedet. Det er et open-source alternativ til tradisjonelle analyseverktøy som Google Analytics. Plausible er fritt for cookies og samler ingen personopplysninger. Vi trenger derfor ingen cookie consent. For å integrere Plausible er det lagt til et sporingsskriptet i HTML-headeren. Sporingen for å måle og analysere besøksstatistikk vises i Sanity studio.
+Plausible tilbyr en g måte å analysere trafikk på nettstedet. Det er et open-source alternativ til tradisjonelle analyseverktøy som Google Analytics. Plausible er fritt for cookies og samler ingen personopplysninger.
+Vi trenger derfor ingen cookie consent. For å integrere Plausible er det lagt til et sporingsskriptet i HTML-headeren. Sporingen for å måle og analysere besøksstatistikk vises i Sanity studio.
+
+# Legges inn i Notion
+
+## App Features
+
+| Status | Feature                             | Alle                                                                                | Intern                                                          |
+| ------ | ----------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| ✅     | Liste over kommende arrangementer   | Viser alle synlige arrangementer                                                    | Viser alle synlige og lukkede arrangementer, samt påmeldinginfo |
+| ✅     | Liste over tidligere arrangementer  | Viser alle tidligere arrangementer                                                  | Samme                                                           |
+| ✅     | Filtrering av liste arrangementer   | Viser filtreringsbokser                                                             | Samme                                                           |
+| ✅     | Visning av arrangement              | Viser ikke deltagere                                                                | Viser interne deltagere                                         |
+| ✅     | Påmeldingsskjema                    | Viser alle skjema felter. Interne kan ikke bruke dette skjemaet.                    | Viser alle felter utenom vanlige personopplysninger             |
+| ✅     | Påmeldingsskjema e-post             | Sender e-post bekreftelse                                                           | Samme                                                           |
+| ✅     | Påmeldingsskjema kalenderinvitasjon | Kalenderinvitasjon sendes som akseptert og blir lagt til i kalender                 | Samme                                                           |
+| ✅     | Avmeldingsskjema                    | Viser inputfelt for e-post                                                          | Viser kun knapp for avmelding                                   |
+| ✅     | Avmeldingsskjema e-post             | Sender e-psot avmelding token som må bekreftes. Sender ny e-post etter bekreftelse. | Sender e-post bekreftelse, men trenger ikke å bekrefte          |
+| ✅     | Avmeldingsskjema kalenderinvitasjon | Kalenderinvitasjonen blir avslått i kalenderen                                      | Samme                                                           |
+
+NB. Vi kan kun oppdatere kalenderinvitasjonen som allerede er sendt ut. Vi har ikke en toveis kommunikasjon gjennom kalenderinvitasjonen, og kan derfor ikke se endringer hvis en deltager svarer Ja, Kanskje eller Nei. En avmelding skal skje via vår nettside.
+
+## Sanity Features

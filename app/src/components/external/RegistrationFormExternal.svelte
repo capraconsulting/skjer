@@ -88,6 +88,9 @@
 
     {#if event.foodPreference}
       <RegistrationFoodPreference {form} />
+      {#if $errors.foodPreference}
+        <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+      {/if}
     {/if}
 
     {#if event.customOptions?.length}
@@ -98,6 +101,9 @@
           optionLabel={vercelStegaCleanAll(customOption.fieldOption)}
         />
       {/each}
+      {#if $errors.customOptions}
+        <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+      {/if}
     {/if}
 
     <div class="pt-4 text-sm">
@@ -116,7 +122,7 @@
         <span class="ml-3">Meld meg på</span>
         <span class="w-3">
           {#if $delayed}
-            <Spinner class="ml-2 text-black dark:text-white" size="4" />
+            <Spinner color="gray" class="ml-2 " size="4" />
           {/if}
         </span>
       </Button>
