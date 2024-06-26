@@ -130,9 +130,9 @@ Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `
 
 ## Slack
 
-Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp\*arrangementer. For å bygge meldingen kan du benytte [Block Kit Builder](https://app.slack.com/block-kit-builder)
+Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp\*arrangementer For å bygge meldingen kan du benytte [Block Kit Builder](https://app.slack.com/block-kit-builder). Denne tjenesten tillater deg å visuelt designe layouten av dine Slack-meldinger med ulike blokker som knapper, tekstfelter og bilder for en mer engasjerende kommunikasjon.
 
-## Epost
+## Mandrillapp
 
 Hvis du vil teste e-post lokalt, kan du legge til http://localhost:5173 i Access-Control-Allow-Origin i /app/src/lib/auth/cors.ts.
 I tillegg må denne linjen kommenteres ut:
@@ -140,3 +140,11 @@ I tillegg må denne linjen kommenteres ut:
 ```
 process.env.MODE !== "development"
 ```
+
+# Sentry
+
+Sentry brukes for å overvåke, logge og rapportere klientfeil.
+
+# Plausible
+
+Plausible tilbyr en g måte å analysere trafikk på nettstedet. Det er et open-source alternativ til tradisjonelle analyseverktøy som Google Analytics. Plausible er fritt for cookies og samler ingen personopplysninger. Vi trenger derfor ingen cookie consent. For å integrere Plausible er det lagt til et sporingsskriptet i HTML-headeren. Sporingen for å måle og analysere besøksstatistikk vises i Sanity studio.

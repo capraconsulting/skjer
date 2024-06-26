@@ -45,8 +45,8 @@
         {#each event.customOptions as customOption}
           <RegistrationCustomOption
             {form}
-            option={vercelStegaCleanAll(customOption.fieldOption)}
-            type={vercelStegaCleanAll(customOption.fieldType)}
+            inputType={vercelStegaCleanAll(customOption.fieldType)}
+            optionLabel={vercelStegaCleanAll(customOption.fieldOption)}
           />
         {/each}
       {/if}
