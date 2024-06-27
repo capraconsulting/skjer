@@ -74,11 +74,13 @@ Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage
 
 ## Bygg
 
-Bygg kjøres alltid som en del av vår pull request policy. For å bygge en produksjonsversjon av Sanity studio lokalt, naviger deg til /studio og kjør følgende kommando:
+For å bygge en produksjonsversjon av Sanity studio lokalt, naviger deg til /studio og kjør følgende kommando:
 
 ```bash
 pnpm build
 ```
+
+Bygg bør alltid kjøres som en del av vår pull request policy 👷
 
 ## Lint
 
@@ -98,11 +100,13 @@ vercel deploy
 
 ### Bygg
 
-Bygg kjøres alltid som en del av vår pull request policy. For å bygge en produksjonsversjon av SvelteKit lokalt, naviger til /app og kjør følgende kommando:
+For å bygge en produksjonsversjon av SvelteKit lokalt, naviger til /app og kjør følgende kommando:
 
 ```bash
 pnpm build
 ```
+
+Bygg bør alltid kjøres som en del av vår pull request policy 👷
 
 ### TypeScript Generering
 
