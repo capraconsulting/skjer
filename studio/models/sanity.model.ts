@@ -261,5 +261,3 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
-
-

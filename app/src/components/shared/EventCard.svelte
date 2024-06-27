@@ -9,7 +9,7 @@
 </script>
 
 <a
-  class="hover:bg-ireneGreen flex flex-col rounded-3xl last:relative hover:transition-[2s] sm:flex-row dark:hover:bg-zinc-700"
+  class="flex flex-col rounded-3xl last:relative hover:bg-ireneGreen hover:transition-[2s] dark:hover:bg-zinc-700 sm:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex h-full w-full flex-col">

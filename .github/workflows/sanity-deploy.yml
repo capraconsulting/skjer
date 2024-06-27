@@ -1,8 +1,10 @@
-name: Deploy Sanity
+name: Sanity Deploy Workflow
+
 on:
   push:
     branches: [main]
-    paths: ['studio/**']
+    paths: ["studio/**"]
+
 jobs:
   sanity-deploy:
     runs-on: ubuntu-latest
@@ -11,12 +13,21 @@ jobs:
     defaults:
       run:
         working-directory: ./studio
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('studio/**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install Packages
         run: pnpm install
@@ -33,4 +44,3 @@ jobs:
           SANITY_STUDIO_SUPABASE_URL: ${{ secrets.SANITY_STUDIO_SUPABASE_URL }}
           SANITY_STUDIO_SUPABASE_KEY: ${{ secrets.SANITY_STUDIO_SUPABASE_KEY }}
           SANITY_STUDIO_SLACK_HOOK: ${{ secrets.SANITY_STUDIO_SLACK_HOOK }}
- 

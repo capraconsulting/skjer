@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Input, Button, ButtonGroup, Alert, Spinner } from "flowbite-svelte";
+  import { Input, Button, ButtonGroup, Spinner } from "flowbite-svelte";
 
   export let form;
   export let errors;
@@ -16,12 +16,12 @@
   <input type="text" name="subject" id="subject" class="hidden" />
 
   <div
-    class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 sm:p-8 dark:border-gray-700 dark:bg-gray-800"
+    class="mb-8 flex flex-col items-start justify-center gap-4 rounded-lg border p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-8"
   >
     <div class="flex flex-col items-center gap-5">
       <div class="flex flex-col items-start gap-4">
         <h4
-          class="text-2xl font-bold leading-none tracking-tight text-gray-900 sm:text-2xl dark:text-white"
+          class="text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-2xl"
         >
           <p class="text-2xl">Ønsker du å melde deg av?</p>
         </h4>

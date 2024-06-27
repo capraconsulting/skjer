@@ -36,7 +36,7 @@
       <div
         aria-hidden="true"
         class="absolute left-0 top-0 h-full w-full rounded-xl"
-        style="background: {event.image.palette.darkMuted.background}"
+        style="background: {event.image.palette?.darkMuted.background}"
       ></div>
       <img
         fetchpriority="high"

@@ -37,7 +37,7 @@
       class={`${
         selectedCategory === keyword
           ? "h-7 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
-          : "hover:bg-ireneGreen h-7 !rounded-lg border border-black dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
+          : "h-7 !rounded-lg border border-black hover:bg-ireneGreen dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
       }`}
     >
       {title}

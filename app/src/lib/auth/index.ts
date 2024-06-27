@@ -16,7 +16,7 @@ export const {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
+    signIn({ user }) {
       if (!user.email) return false;
 
       return validateDomain(user.email);

@@ -1,4 +1,4 @@
-import { sql, type Transaction } from "kysely";
+import { type Transaction } from "kysely";
 import { kysely } from "$lib/server/kysley/client";
 import type { KyselyDatabase } from "$models/kysely.model";
 import type { Tables } from "$models/database.model";
