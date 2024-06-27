@@ -24,7 +24,7 @@
   </Badge>
 
   {#if event.attending}
-    <Badge rounded class="bg-yellowSpark h-6 whitespace-nowrap border-none text-black"
+    <Badge rounded class="h-6 whitespace-nowrap border-none bg-yellowSpark text-black"
       >Du er påmeldt</Badge
     >
   {/if}

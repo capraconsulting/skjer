@@ -70,7 +70,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 
   const auth = await locals.auth();
 
-  if (!auth?.user?.email || !auth?.user?.name) {
+  if (!auth?.user?.email || !auth.user.name) {
     console.error("Error: Could not retrieve user");
 
     return message(registrationForm, {

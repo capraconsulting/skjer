@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Label, Input, Textarea } from "flowbite-svelte";
+  import { Label, Textarea } from "flowbite-svelte";
 
   export let form;
 </script>

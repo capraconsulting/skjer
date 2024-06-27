@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { formatDate } from "$lib/utils/date.util";
-  import { Badge } from "flowbite-svelte";
   import { ArrowRight } from "phosphor-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import EventLogos from "$components/shared/EventLogos.svelte";
@@ -10,8 +8,8 @@
 </script>
 
 <a
-  class="hover:bg-ireneGreen flex flex-col justify-between rounded-md bg-zinc-100 px-3 py-4 hover:transition-[2s] lg:flex-row
-  dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+  class="flex flex-col justify-between rounded-md bg-zinc-100 px-3 py-4 hover:bg-ireneGreen hover:transition-[2s] dark:border-zinc-800
+  dark:bg-zinc-800 dark:hover:bg-zinc-700 lg:flex-row"
   href={`/event/${event._id}`}
 >
   <div class="flex flex-col gap-3 px-0 font-light lg:flex-row lg:gap-2 lg:px-2">

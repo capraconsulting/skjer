@@ -4,9 +4,9 @@
   import {
     registrationSchemaExternal,
     unregistrationSchemaExternal,
-    type RegistrationFormExternalType,
-    type UnregistrationFormExternalType,
   } from "$lib/schemas/external/schema";
+  import type { RegistrationFormExternalType } from "$lib/schemas/external/schema";
+  import type { UnregistrationFormExternalType } from "$lib/schemas/external/schema";
   import { getAlertColor } from "$lib/utils/form.util";
   import type { Event } from "$models/sanity.model";
   import { Alert } from "flowbite-svelte";
