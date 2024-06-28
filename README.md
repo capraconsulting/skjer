@@ -2,7 +2,15 @@
 
 Dette repositoriet inneholder to applikasjoner: Sanity Studio under /studio og SvelteKit applikasjonen under /app. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen.
 
-Dette er et levende dokument og steder med denne arbeideren 👷 trenger hjelp!
+Dette er et levende dokument, denne arbeideren 👷 i dokumentet her betyr at vi trenger hjelp!
+
+## Figma
+
+Design drodling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
+
+- 👷 Venter på oppdatert Sanity views for Påmeldinger og Matallergier/preferanser
+- 👷 Venter på oppdatert design for avmelding
+- 👷 Venter på e-post template
 
 ## Krav
 
@@ -47,19 +55,6 @@ pnpm dev
 
 NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
 
-## Lag innhold til SvelteKit
-
-1. Gå inn i Sanity Studio og legg til nye events, og trykk publiser
-2. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises
-
-## Figma
-
-Design drodling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
-
-👷 Venter på oppdatert Sanity views for Påmeldinger og Matallergier/preferanser
-👷 Venter på oppdatert design for avmelding
-👷 Venter på e-post template
-
 ## Sanity
 
 ### Bygg
@@ -93,6 +88,11 @@ sanity typegen generate
 ```
 
 NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres til /app.
+
+### Lage Innhold
+
+1. Gå inn i Sanity Studio og legg til nye events, og trykk publiser
+2. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises
 
 ## SvelteKit
 
@@ -164,7 +164,7 @@ Når et arrangement publiseres for første gang, vil det automatisk genereres en
 
 ## E-posthåndtering
 
-E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrill](https://mandrillapp.com/). Innlogging skjer via Capra sin Mailchimp bruker siden Mandrill er en underleverandær av dem.
+E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrill](https://mandrillapp.com/). Autentisering skjer via Mailchimp.
 
 E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og 👷
 
