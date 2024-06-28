@@ -21,7 +21,7 @@
       use:enhance
     >
       <div class="flex w-full">
-        <Button pill color="alternative" type="submit" disabled={$delayed}>
+        <Button pill color="light" type="submit" disabled={$delayed}>
           <span class="ml-3">Meld meg av</span>
           <span class="w-3">
             {#if $delayed}

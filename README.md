@@ -62,17 +62,7 @@ Design drodling finner man her: [Nettside design](https://www.figma.com/design/Z
 
 ## Sanity
 
-### Deploy
-
-Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio/). Github Actions deploy utløses ved push til main-branch og endring i /studio. Det er også mulig å gjøre det manuelt ved å navigere til /studio og kjøre følgende kommando:
-
-```bash
-sanity deploy
-```
-
-Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage/personal/project/<project-id>](https://www.sanity.io/manage/personal/project/<project-id>).
-
-## Bygg
+### Bygg
 
 For å bygge en produksjonsversjon av Sanity studio lokalt, naviger deg til /studio og kjør følgende kommando:
 
@@ -82,31 +72,16 @@ pnpm build
 
 Bygg bør alltid kjøres som en del av vår pull request policy 👷
 
-## Lint
-
-Sanity/SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) hadde en broken eslint konfigurasjon. Har derfor prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
-
-## SvelteKit
-
 ### Deploy
 
-SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/) fra /app med følgenden kommando:
+Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio).
+GitHub Actions CI/CD deploy kjører automatisk ved push til main-branch og ved endringer i /studio mappen. Alternativt kan deploy også utføres manuelt ved å navigere til /studio-katalogen og kjøre følgende kommando:
 
 ```bash
-vercel deploy
+sanity deploy
 ```
 
-👷 Vi er på en Vercel-plan som ikke tillater bygg og deploy i en organisasjon. Må undersøke CI/CD-løsninger på et tidspunkt for å automatisere vår deploy prosess.
-
-### Bygg
-
-For å bygge en produksjonsversjon av SvelteKit lokalt, naviger til /app og kjør følgende kommando:
-
-```bash
-pnpm build
-```
-
-Bygg bør alltid kjøres som en del av vår pull request policy 👷
+Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage/personal/project/<project-id>](https://www.sanity.io/manage/personal/project/<project-id>).
 
 ### TypeScript Generering
 
@@ -118,6 +93,32 @@ sanity typegen generate
 ```
 
 NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres til /app.
+
+## SvelteKit
+
+### Bygg
+
+For å bygge en produksjonsversjon av SvelteKit lokalt, naviger til /app og kjør følgende kommando:
+
+```bash
+pnpm build
+```
+
+Bygg bør alltid kjøres som en del av vår pull request policy 👷
+
+### Deploy
+
+SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/) fra /app med følgenden kommando:
+
+```bash
+vercel deploy
+```
+
+👷 Vi er på en Vercel-plan som ikke tillater bygg og deploy i en organisasjon. Må undersøke CI/CD-løsninger på et tidspunkt for å automatisere vår deploy prosess.
+
+### Lint
+
+SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) hadde en broken eslint konfigurasjon. Har derfor prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
 
 ## Supabase
 
@@ -155,7 +156,7 @@ Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `
 
 Plausible tilbyr en måte å analysere trafikk på nettstedet. Den er fritt for cookies og samler ingen personopplysninger. Vi trenger derfor ingen cookie consent. For å integrere Plausible er det lagt til et sporingsskriptet i HTML-headeren. Sporingen for å måle og analysere besøksstatistikk vises i et Sanity dashboard.
 
-Vi er på en trial versjon foreløpig 👷
+Vi er på en trial-plan foreløpig 👷
 
 ## Slack
 
@@ -164,6 +165,8 @@ Når et arrangement publiseres for første gang, vil det automatisk genereres en
 ## E-posthåndtering
 
 E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrill](https://mandrillapp.com/). Innlogging skjer via Capra sin Mailchimp bruker siden Mandrill er en underleverandær av dem.
+
+E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og 👷
 
 ### Påmelding
 
@@ -209,8 +212,8 @@ Ved avlysing av et arrangement i Sanity:
 
 For å teste e-postfunksjonaliteten lokalt:
 
-1. Legg til `localhost` i `Access-Control-Allow-Origin`.
-2. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
+1. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
+2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
 
 ### Kalenderinvitasjon 👷
 

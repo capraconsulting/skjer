@@ -95,6 +95,7 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  title: string;
   image: {
     asset?: {
       _ref: string;
@@ -106,12 +107,11 @@ export type Event = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  title: string;
   summary?: string;
   start: string;
   end: string;
   deadline: string;
-  body: BlockContent;
+  body?: BlockContent;
   maxParticipant?: number;
   category: Category;
   place: string;
@@ -123,7 +123,7 @@ export type Event = {
   food?: string;
   customOptions?: Array<{
     fieldOption: string;
-    fieldType: "checkbox" | "input";
+    fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
 };

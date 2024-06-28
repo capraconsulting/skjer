@@ -1,4 +1,4 @@
-import { CheckmarkIcon, TextIcon } from "@sanity/icons";
+import { CheckmarkIcon, CircleIcon, TextIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
 
 export default defineType({
@@ -7,18 +7,18 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Tittel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "image",
       title: "Bilde",
       type: "image",
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "title",
-      title: "Tittel",
-      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -52,7 +52,6 @@ export default defineType({
       type: "blockContent",
       description:
         "Skriv en tekst som beskriver arrangementet i detalj, gjerne inkludert program og all relevant info.",
-      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -153,7 +152,7 @@ export default defineType({
               name: "fieldOption",
               title: "Label",
               type: "string",
-              description: "Tekst som skal vises over feltet.",
+              description: "Tekst som skal vises over feltet (må være unik).",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -162,12 +161,13 @@ export default defineType({
               type: "string",
               options: {
                 list: [
+                  { title: "Radioknapper", value: "radio" },
                   { title: "Avkrysningsboks", value: "checkbox" },
                   { title: "Tekstfelt", value: "input" },
                 ],
                 layout: "radio",
               },
-              initialValue: "checkbox",
+              initialValue: "radio",
               validation: (Rule) => Rule.required(),
             }),
           ],
@@ -180,7 +180,12 @@ export default defineType({
             prepare({ title, subtitle }) {
               return {
                 title: title,
-                media: subtitle === "checkbox" ? CheckmarkIcon : TextIcon,
+                media:
+                  subtitle === "radio"
+                    ? CircleIcon
+                    : subtitle === "checkbox"
+                      ? CheckmarkIcon
+                      : TextIcon,
               };
             },
           },

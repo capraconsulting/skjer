@@ -62,7 +62,7 @@ export const sendConfirmUnregistration = async (props: {
   const html = `<span style="font-family: Roboto, sans-serif;
                              font-style: normal;
                              font-weight: 400;
-                             font-size: 16px;
+                             font-size: 14px;
                              line-height: 20px;
                              letter-spacing: 0.2px;
                              color: #3c4043;">

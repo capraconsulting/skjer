@@ -4,6 +4,7 @@
 </script>
 
 <div class="flex gap-1">
-  <p>Fristen for å melde seg på er</p>
-  {formatDateWithWeekDay(deadline)} kl {formatTime(deadline)}
+  <p>
+    Fristen for å melde seg på er {formatDateWithWeekDay(deadline)} kl {formatTime(deadline)}
+  </p>
 </div>

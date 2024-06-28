@@ -24,7 +24,7 @@
 <h1 class="pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
 
 {#if event.summary}
-  <p class="pb-6 text-base font-light sm:text-xl">{event.summary}</p>
+  <p class="pb-6 text-base font-light sm:w-[60%] sm:text-xl">{event.summary}</p>
 {/if}
 
 <div class="flex flex-col gap-5 pb-6 sm:h-60 sm:flex-row">
@@ -52,7 +52,7 @@
 </div>
 
 {#if event.body}
-  <div class="flex flex-col gap-4 text-base">
+  <div class="flex flex-col gap-4 text-base sm:w-[60%]">
     <PortableText components={{}} value={event.body} />
   </div>
 {/if}

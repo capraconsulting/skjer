@@ -63,7 +63,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 
   if (await limiter.isLimited(requestEvent)) {
     return message(registrationForm, {
-      text: "Du har nådd grensen for antall påmeldinger. Vennligst vent en stund før du prøver igjen.",
+      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
@@ -224,7 +224,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
   if (await limiter.isLimited(requestEvent)) {
     return message(unregistrationForm, {
-      text: "Du har nådd grensen for antall avmeldinger. Vennligst vent en stund før du prøver igjen.",
+      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
       error: true,
     });
   }
