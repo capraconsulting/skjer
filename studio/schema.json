@@ -548,6 +548,13 @@
           "type": "string"
         }
       },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "image": {
         "type": "objectAttribute",
         "value": {
@@ -610,13 +617,6 @@
         },
         "optional": false
       },
-      "title": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
       "summary": {
         "type": "objectAttribute",
         "value": {
@@ -651,7 +651,7 @@
           "type": "inline",
           "name": "blockContent"
         },
-        "optional": false
+        "optional": true
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -739,6 +739,10 @@
                 "value": {
                   "type": "union",
                   "of": [
+                    {
+                      "type": "string",
+                      "value": "radio"
+                    },
                     {
                       "type": "string",
                       "value": "checkbox"

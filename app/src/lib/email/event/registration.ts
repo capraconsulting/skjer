@@ -1,5 +1,10 @@
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
-import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
+import ical, {
+  ICalAlarmType,
+  ICalAttendeeRole,
+  ICalAttendeeStatus,
+  ICalCalendarMethod,
+} from "ical-generator";
 import { sendMail } from "$lib/email/nodemailer";
 
 interface EventProps {
@@ -78,6 +83,18 @@ const createIcsFile = ({
       name: organiser,
       email: "no-reply@capraconsulting.no",
     },
+    alarms: [
+      {
+        type: ICalAlarmType.display,
+        description: "Arrangementet starter straks",
+        relatesTo: "START", // -> 10 minutes before event starts
+      },
+      {
+        type: ICalAlarmType.display,
+        description: "Påminnelse om arrangement i morgen",
+        trigger: 86400, // -> 24 hours before event starts
+      },
+    ],
   });
 
   return Buffer.from(calendar.toString());

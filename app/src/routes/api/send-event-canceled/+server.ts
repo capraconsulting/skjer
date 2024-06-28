@@ -26,8 +26,8 @@ export const POST: RequestHandler = async ({ request }) => {
       return json({ error: "Invalid API token" }, { status: 403 });
     }
 
-    const props = (await request.json()) as EventProps;
-    if (!props || !props.id) {
+    const props = (await request.json()) as EventProps | null;
+    if (!props?.id) {
       return json({ error: "Event properties missing or incomplete" }, { status: 400 });
     }
 

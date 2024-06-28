@@ -23,6 +23,8 @@
     delayed: registrationDelayed,
     enhance: registrationEnhance,
   } = superForm<RegistrationFormExternalType>(data.registrationForm, {
+    resetForm: false,
+    dataType: "json",
     validators: zod(registrationSchemaExternal),
     delayMs: 500,
     async onSubmit() {
@@ -38,7 +40,6 @@
     enhance: unregistrationEnhance,
   } = superForm<UnregistrationFormExternalType>(data.unregistrationForm, {
     validators: zod(unregistrationSchemaExternal),
-    dataType: "json",
     delayMs: 500,
     async onSubmit() {
       await new Promise((result) => setTimeout(result, 500));

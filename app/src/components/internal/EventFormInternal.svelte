@@ -25,6 +25,7 @@
     enhance: registrationEnhance,
   } = superForm<RegistrationFormInternalType>(data.registrationForm, {
     validators: zod(registrationSchemaInternal),
+    resetForm: false,
     dataType: "json",
     delayMs: 500,
     async onSubmit() {

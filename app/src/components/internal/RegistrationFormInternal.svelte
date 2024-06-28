@@ -6,7 +6,7 @@
   import RegistrationCustomOption from "$components/shared/RegistrationCustomOption.svelte";
   import { dateHasPassed } from "$lib/utils/date.util";
   import Deadline from "$components/shared/Deadline.svelte";
-  import { vercelStegaCleanAll } from "@sanity/client/stega";
+  import { stegaClean } from "@sanity/client/stega";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -49,8 +49,8 @@
         {#each event.customOptions as customOption}
           <RegistrationCustomOption
             {form}
-            inputType={vercelStegaCleanAll(customOption.fieldType)}
-            optionLabel={vercelStegaCleanAll(customOption.fieldOption)}
+            inputType={stegaClean(customOption.fieldType)}
+            optionLabel={stegaClean(customOption.fieldOption)}
           />
         {/each}
         {#if $errors.customOptions}
@@ -59,7 +59,7 @@
       {/if}
 
       <div class="flex w-full">
-        <Button pill color="dark" type="submit" disabled={$delayed}
+        <Button class="mt-4" pill color="dark" type="submit" disabled={$delayed}
           ><span class="ml-3">Meld meg på</span>
           <span class="w-3">
             {#if $delayed}
