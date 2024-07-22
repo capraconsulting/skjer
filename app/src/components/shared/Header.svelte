@@ -22,13 +22,13 @@
   >
     <img
       fetchpriority="high"
-      class="absolute h-12 select-none opacity-100 sm:h-14 dark:opacity-5"
+      class="absolute h-12 select-none opacity-100 dark:opacity-5 sm:h-14"
       alt="Animert Capra, Fryde og Liflig-logo"
       src={hasPerformanceIssue ? logoDarkSm : logoDark}
     />
     <img
       fetchpriority="high"
-      class="absolute h-12 select-none opacity-5 sm:h-14 dark:opacity-100"
+      class="absolute h-12 select-none opacity-5 dark:opacity-100 sm:h-14"
       alt="Animert Capra, Fryde og Liflig-logo"
       src={hasPerformanceIssue ? logoLightSm : logoLight}
     />

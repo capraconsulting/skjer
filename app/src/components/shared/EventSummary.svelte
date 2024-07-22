@@ -6,9 +6,17 @@
   import EventInfoBox from "$components/shared/EventInfoBox.svelte";
   import { onMount } from "svelte";
 
-  export let event: Event;
+  type Palette = {
+    dominant: { background: string };
+  };
 
-  let imageElement: HTMLImageElement;
+  interface EventWithImagePalette extends Event {
+    image?: Event["image"] & { palette?: Palette };
+  }
+
+  export let event: EventWithImagePalette;
+
+  let imageElement: HTMLImageElement | null;
   let imageLoaded = false;
 
   onMount(() => {
@@ -21,22 +29,22 @@
 <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
   >{event.category}</Badge
 >
-<h1 class="pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
+<h1 class="break-words pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
 
 {#if event.summary}
-  <p class="pb-6 text-base font-light sm:w-[60%] sm:text-xl">{event.summary}</p>
+  <p class="break-words pb-6 text-base font-light sm:w-[60%] sm:text-xl">{event.summary}</p>
 {/if}
 
-<div class="flex flex-col gap-5 pb-6 sm:h-60 sm:flex-row">
-  <div class="w-full sm:w-[40%]">
+<div class="flex min-h-[60px] flex-col gap-5 pb-6 sm:flex-row">
+  <div class="w-full sm:min-h-60 sm:w-[40%]">
     <EventInfoBox {event} />
   </div>
-  {#if event.image}
-    <div class="relative w-full sm:w-[60%]">
+  {#if event.image?.palette}
+    <div class="relative w-full sm:h-60 sm:w-[60%]">
       <div
         aria-hidden="true"
         class="absolute left-0 top-0 h-full w-full rounded-xl"
-        style="background: {event.image.palette?.darkMuted.background}"
+        style="background: {event.image.palette.dominant.background}"
       ></div>
       <img
         fetchpriority="high"

@@ -16,6 +16,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/svelte-loader": "^1.11.32",
     "@sanity/visual-editing": "^2.1.5",
+    "globals": "^15.8.0",
     "groq": "^3.48.1",
     "ical-generator": "^7.1.0",
     "kysely": "^0.27.3",

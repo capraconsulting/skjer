@@ -118,7 +118,7 @@ vercel deploy
 
 ### Lint
 
-SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) hadde en broken eslint konfigurasjon. Har derfor prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
+SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) har en eslint konfigurasjon som ikke funker. Har prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
 
 ## Supabase
 

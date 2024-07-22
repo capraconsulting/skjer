@@ -17,7 +17,7 @@
     { title: "Sosialt", keyword: "sosialt" },
   ];
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = async (category: string) => {
     dispatch("categoryChange", category);
 
     if (category) {
@@ -26,7 +26,7 @@
       searchParams.delete("category");
     }
 
-    goto(`?${searchParams}`, { noScroll: true });
+    await goto(`?${searchParams.toString()}`, { noScroll: true });
   };
 </script>
 

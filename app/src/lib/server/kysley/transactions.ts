@@ -11,7 +11,7 @@ export async function executeTransaction<T>(
 
 export const deleteEventParticipant = async (
   transaction: Transaction<KyselyDatabase>,
-  { event_id, email }: Pick<Tables<"event_participant">, "event_id" | "email">
+  { event_id, email }: Pick<Tables<"event_participant">, "email" | "event_id">
 ) => {
   return await transaction
     .deleteFrom("event_participant")
@@ -22,8 +22,10 @@ export const deleteEventParticipant = async (
 
 export const insertAndGetEventParticipant = async (
   transaction: Transaction<KyselyDatabase>,
-  participant: Pick<Tables<"event_participant">, "event_id" | "full_name" | "email"> &
-    Partial<Pick<Tables<"event_participant">, "telephone" | "firm" | "attending_digital">>
+  participant: Partial<
+    Pick<Tables<"event_participant">, "attending_digital" | "firm" | "telephone">
+  > &
+    Pick<Tables<"event_participant">, "email" | "event_id" | "full_name">
 ) => {
   return await transaction
     .insertInto("event_participant")

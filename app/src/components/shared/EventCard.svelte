@@ -13,18 +13,20 @@
   href={`/event/${event._id}`}
 >
   <div class="flex h-full w-full flex-col">
-    {#if event.image}
-      <div class="max-h-[240px] min-h-[240px] sm:max-h-[300px] sm:min-h-[300px]">
+    <div class="max-h-[240px] min-h-[240px] sm:max-h-[300px] sm:min-h-[300px]">
+      {#if event.image}
         <img
           class="h-full w-full rounded-3xl object-cover"
           src={urlFor(event.image).url()}
           alt="Bilde for arrangementet: {event.title}"
         />
-      </div>
-    {/if}
+      {:else}
+        <div class="h-full w-full rounded-3xl bg-zinc-100 dark:bg-zinc-800" />
+      {/if}
+    </div>
 
     <div class="m-3 grid h-full grid-cols-1 content-between gap-2 sm:m-5">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 break-words">
         <h2 class="text-2xl font-semibold">
           {event.title}
         </h2>

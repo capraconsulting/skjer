@@ -46,7 +46,7 @@
 </script>
 
 <div class="flex flex-col gap-1">
-  <span class="block text-sm font-bold text-gray-900 rtl:text-right dark:text-gray-300">
+  <span class="block text-sm font-bold text-gray-900 dark:text-gray-300 rtl:text-right">
     {optionLabel}
   </span>
   {#if inputType === "checkbox"}

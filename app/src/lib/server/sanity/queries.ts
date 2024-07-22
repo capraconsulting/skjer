@@ -7,7 +7,7 @@ export const eventQuery = groq`*[_type == "event" && _id == $id][0]{
   ...,
   'image': {
     ...image,
-      'palette': image.asset->metadata.palette
+    'palette': image.asset->metadata.palette
   }
 }`;
 
