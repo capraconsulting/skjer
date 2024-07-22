@@ -15,9 +15,9 @@
       color="dark"
       class="h-7"
       pill
-      on:click={() => {
+      on:click={async () => {
         isSigningOut = true;
-        signOut({ callbackUrl: "/" });
+        await signOut({ callbackUrl: "/" });
       }}
       disabled={isSigningOut}>Logg ut</Button
     >
@@ -27,9 +27,9 @@
     color="dark"
     class="h-7"
     pill
-    on:click={() => {
+    on:click={async () => {
       isSigningIn = true;
-      signIn("google");
+      await signIn("google");
     }}
     disabled={isSigningIn}>Logg inn</Button
   >

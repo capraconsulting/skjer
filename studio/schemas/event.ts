@@ -8,35 +8,43 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Tittel",
+      title: "Tittel på arrangementet",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "image",
-      title: "Bilde",
+      title: "Bilde til arrangementet (valgfritt)",
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["palette"],
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "summary",
-      title: "Oppsummering",
+      title: "Kort intro til arrangementet",
       type: "text",
       rows: 4,
-      description: "En kort beskrivelse av arrangementet, ca. 2-3 setninger",
+      description:
+        "Dette skal være en teaser for arrangementet. Hold det kort, 2-3 setninger holder.",
+    }),
+    defineField({
+      name: "body",
+      title: "Detaljert info om arrangementet",
+      type: "blockContent",
+      description:
+        "Her kan du skrive mer detaljer om arrangementet, men prøv å hold det kort likevel. Inkluder gjerne program og alt annet deltakerne trenger å vite.",
     }),
     defineField({
       name: "start",
-      title: "Startddato og tidspunkt",
+      title: "Startddato og tid",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "end",
-      title: "Sluttdato og tidspunkt",
+      title: "Sluttdato og tid",
       type: "datetime",
       validation: (Rule) => Rule.required().min(Rule.valueOfField("start")),
     }),
@@ -47,23 +55,8 @@ export default defineType({
       validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
-      name: "body",
-      title: "Innhold",
-      type: "blockContent",
-      description:
-        "Skriv en tekst som beskriver arrangementet i detalj, gjerne inkludert program og all relevant info.",
-    }),
-
-    defineField({
-      name: "maxParticipant",
-      title: "Maks antall deltagere",
-      description:
-        "Hvis det finnes en maksgrense for antall deltagere, fyll den inn her. Hvis ikke, la denne stå tom.",
-      type: "number",
-    }),
-    defineField({
       name: "category",
-      title: "Kategori",
+      title: "Arrangementskategori",
       type: "category",
       validation: (Rule) => Rule.required(),
     }),
@@ -75,7 +68,7 @@ export default defineType({
     }),
     defineField({
       name: "organisers",
-      title: "I regi av",
+      title: "Hvem holder arrangementet?",
       type: "array",
       of: [{ type: "string" }],
       options: {
@@ -85,8 +78,9 @@ export default defineType({
     }),
     defineField({
       name: "isDigital",
-      title: "Digitalt",
-      description: "Aktiver dette valget for å tillate digital deltagelse på arrangementet.",
+      title: "Arrangementet skal strømmes",
+      description:
+        "Kryss av her dersom arrangementet skal strømmes, du må også huske å planlegge for dette.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -96,9 +90,8 @@ export default defineType({
     }),
     defineField({
       name: "visibleForExternals",
-      title: "Synlig for eksterne",
-      description:
-        "Hvis du krysser av på denne vil arrangementet være synlig for alle selv om man ikke er logget inn.",
+      title: "Arrangementet skal være synlig for eksterne",
+      description: "Kryss av her dersom arrangementet også skal være synlig for eksterne.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -108,9 +101,8 @@ export default defineType({
     }),
     defineField({
       name: "openForExternals",
-      title: "Åpen for eksterne",
-      description:
-        "Hvis du krysser av på denne vil det stå på arrangementet at det er åpent for alle. Hvis ikke står det at det kun er åpent for interne.",
+      title: "Arrangementet skal være åpent for eksterne",
+      description: "Kryss av her dersom arrangementet også skal være åpent for eksterne.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -119,10 +111,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      title: "Allergier og matpreferanser",
+      title: "Arrangementet skal ha matservering",
       name: "foodPreference",
       description:
-        "Dersom det skal serveres mat på arrangementet, kryss av på denne slik at allergier og matpreferanser blir lagt til i påmeldingsskjemaet.",
+        "Kryss av her dersom det serveres mat, slik at deltagere kan legge inn allergier og matpreferanser.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -134,14 +126,19 @@ export default defineType({
       title: "Mat/restaurant",
       name: "food",
       type: "string",
-      description:
-        "Du kan også velge å fylle inn hvor det skal spises eller hva som serveres slik at det vises på arrangementet.",
+      description: "Du kan også velge å fylle inn hvor det skal spises eller hva som serveres.",
       hidden: ({ document }) => !document?.foodPreference,
     }),
     defineField({
+      name: "maxParticipant",
+      title: "Maks antall deltagere",
+      description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
+      type: "number",
+    }),
+    defineField({
       name: "customOptions",
-      title: "Egne felter",
-      description: "Her kan du legge til andre felter/spørsmål enn de som er standard:",
+      title: "Legg til egendefinerte spørsmål",
+      description: "Her kan du legge til andre spørsmål enn de som er standard.",
       type: "array",
       of: [
         {

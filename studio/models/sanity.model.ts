@@ -96,7 +96,7 @@ export type Event = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  image: {
+  image?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -108,11 +108,10 @@ export type Event = {
     _type: "image";
   };
   summary?: string;
+  body?: BlockContent;
   start: string;
   end: string;
   deadline: string;
-  body?: BlockContent;
-  maxParticipant?: number;
   category: Category;
   place: string;
   organisers: Array<string>;
@@ -121,6 +120,7 @@ export type Event = {
   openForExternals: boolean;
   foodPreference: boolean;
   food?: string;
+  maxParticipant?: number;
   customOptions?: Array<{
     fieldOption: string;
     fieldType: "radio" | "checkbox" | "input";

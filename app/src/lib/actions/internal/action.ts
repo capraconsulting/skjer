@@ -314,7 +314,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
   }
 
   return message(unregistrationForm, {
-    message: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    text: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
     success: true,
   });
 };
