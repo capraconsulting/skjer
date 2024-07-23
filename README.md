@@ -1,8 +1,14 @@
 # CapraWeb
 
-Dette repositoriet inneholder to applikasjoner: Sanity Studio under /studio og SvelteKit applikasjonen under /app. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen.
+UI med [Svelte](https://svelte.dev) og [React](https://react.dev)\
+Server side rendering med [SvelteKit](https://kit.svelte.dev)\
+Styling med [Tailwind](https://tailwindcss.com)\
+Hosted hos [Vercel](https://vercel.com/)\
+Innhold og bilder i [Sanity](https://www.sanity.io)
 
-Dette er et levende dokument, denne arbeideren 👷 i dokumentet her betyr at vi trenger hjelp!
+En MVP løsning for administrasjon og visning av både interne og eksterne arrangementer hos Liflig, Fryde og Capra. Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen.
+
+Dette er et levende dokument, denne arbeideren 👷 betyr at vi trenger hjelp!
 
 ## Figma
 
@@ -16,7 +22,7 @@ Design drodling finner man her: [Nettside design](https://www.figma.com/design/Z
 
 ### Verktøy
 
-- [Node.js](https://nodejs.org/en/) (v18.19 eller senere)
+- [Node.js](https://nodejs.org) (v18.19 eller senere)
 - [PNPM](https://pnpm.io/installation) (9.0.6 eller senere)
 - [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
@@ -30,11 +36,11 @@ Design drodling finner man her: [Nettside design](https://www.figma.com/design/Z
 - Svelte
 - Tailwind CSS IntelliSense
 
-## Kom i gang
+## Komme i gang
 
 For å kjøre koden:
 
-1. Be om environment variabler for lokal testing i kanalen #tmp_arrangementsoversikt.
+1. Be om environment variabler for lokal testing i kanalen [#tmp_arrangementsoversikt]().
    Du må selv opprette en `.env` fil i /studio og /app.
 
 2. Installer dependencies:
@@ -50,8 +56,8 @@ pnpm install
 pnpm dev
 ```
 
-- SvelteKit skal nå kjøre på [http://localhost:5173/](http://localhost:5173/)
-- Sanity Studio skal kjøre på [http://localhost:3333/](http://localhost:3333/)
+- SvelteKit skal nå kjøre på [http://localhost:5173](http://localhost:517/)
+- Sanity Studio skal kjøre på [http://localhost:3333](http://localhost:3333)
 
 NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
 
@@ -69,7 +75,7 @@ Bygg bør alltid kjøres som en del av vår pull request policy 👷
 
 ### Deploy
 
-Sanity Studio blir deployet til [https://capra.sanity.studio/](https://capra.sanity.studio).
+Sanity Studio blir deployet til [https://capra.sanity.studio](https://capra.sanity.studio).
 GitHub Actions CI/CD deploy kjører automatisk ved push til main-branch og ved endringer i /studio mappen. Alternativt kan deploy også utføres manuelt ved å navigere til /studio-katalogen og kjøre følgende kommando:
 
 ```bash
@@ -108,7 +114,7 @@ Bygg bør alltid kjøres som en del av vår pull request policy 👷
 
 ### Deploy
 
-SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app/](https://capra-web.vercel.app/) fra /app med følgenden kommando:
+SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app](https://capra-web.vercel.app) fra /app med følgenden kommando:
 
 ```bash
 vercel deploy
@@ -164,7 +170,7 @@ Når et arrangement publiseres for første gang, vil det automatisk genereres en
 
 ## E-posthåndtering
 
-E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrill](https://mandrillapp.com/). Autentisering skjer via Mailchimp.
+E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrillapp](https://mandrillapp.com/). Autentisering skjer via Mailchimp.
 
 E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og 👷
 
@@ -173,7 +179,7 @@ E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og
 Når en bruker melder seg på et arrangement, utløses følgende prosess:
 
 1. En e-postbekreftelse sendes til brukeren.
-2. Denne e-posten inkluderer en kalenderinvitasjon med deltagerstatus satt som akseptert
+2. Denne e-posten inkluderer en kalenderinvitasjon med deltagerstatus satt som akseptert.
 3. Kalenderinvitasjonen legges automatisk inn i deltagerens kalender, slik at arrangementet blir synlig i kalenderen umiddelbart etter påmelding.
 
 ### Avmelding
