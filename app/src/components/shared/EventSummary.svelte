@@ -46,21 +46,23 @@
         class="absolute left-0 top-0 h-full w-full rounded-xl"
         style="background: {event.image.palette.dominant.background}"
       ></div>
-      <img
-        fetchpriority="high"
-        class="relative h-full w-full rounded-xl object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
-        src={urlFor(event.image).url()}
-        alt={`Bilde for arrangementet: ${event.title}`}
-        class:opacity-100={imageLoaded}
-        on:load={() => (imageLoaded = true)}
-        bind:this={imageElement}
-      />
+      <div class="relative h-full w-full overflow-hidden rounded-xl">
+        <img
+          fetchpriority="high"
+          class="relative h-full w-full rounded-xl object-cover opacity-0 transition duration-1000 ease-in-out hover:-translate-y-2"
+          src={urlFor(event.image).url()}
+          alt={`Bilde for arrangementet: ${event.title}`}
+          class:opacity-100={imageLoaded}
+          on:load={() => (imageLoaded = true)}
+          bind:this={imageElement}
+        />
+      </div>
     </div>
   {/if}
 </div>
 
 {#if event.body}
-  <div class="flex flex-col gap-4 text-base sm:w-[60%]">
+  <div class="portable-text flex flex-col gap-4 text-base sm:w-[60%]">
     <PortableText components={{}} value={event.body} />
   </div>
 {/if}
