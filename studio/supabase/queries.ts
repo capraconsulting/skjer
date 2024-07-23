@@ -10,7 +10,6 @@ export async function getEventParticipantList({ documentId }: { documentId: stri
       .eq("event_participant.attending", true)
       .maybeSingle();
 
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);

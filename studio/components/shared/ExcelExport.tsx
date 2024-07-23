@@ -31,8 +31,16 @@ export default function ExcelExport({ data, fileName }: { data: ExcelObject[]; f
   };
 
   const getColumnWidths = (data: ExcelObject[]) => {
-    return Object.keys(data[0]).map((key) => {
-      return Math.max(10, ...data.map((row) => (row[key] ? row[key].toString().length : 0)));
+    if (!data.length) return [];
+
+    const keys = Object.keys(data[0]);
+
+    return keys.map((key) => {
+      const maxDataLength = Math.max(
+        ...data.map((row) => (row[key] ? row[key].toString().length : 0))
+      );
+      const columnHeaderLength = key.length;
+      return Math.max(10, maxDataLength, columnHeaderLength);
     });
   };
 
