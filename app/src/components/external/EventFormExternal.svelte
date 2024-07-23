@@ -70,6 +70,7 @@
       </Alert>
     {:else}
       <UnregistrationFormExternal
+        {event}
         form={unregistrationForm}
         errors={unregistrationErrors}
         delayed={unregistrationDelayed}

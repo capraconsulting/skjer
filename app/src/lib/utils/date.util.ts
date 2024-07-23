@@ -1,6 +1,5 @@
-function toDate(dateString: string): Date {
-  return new Date(dateString);
-}
+import { parseISO, isSameDay, format } from "date-fns";
+import { nb } from "date-fns/locale";
 
 export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("nb-NO", {
@@ -18,18 +17,15 @@ export function formatDateWithWeekDay(date: string): string {
   });
 }
 
-export function formatTime(date: string): string {
-  // Note: The 'nb-NO' locale has a specific formatting behavior where it may remove and then re-add a leading zero.
-  return new Date(date).toLocaleTimeString("en-GB", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+export function formatTime(dateString: string): string {
+  const date = parseISO(dateString);
+  return format(date, "HH:mm", { locale: nb });
 }
 
 export function endsOnDifferentDay(start: string, end: string): boolean {
-  return toDate(start) !== toDate(end);
+  return !isSameDay(parseISO(start), parseISO(end));
 }
 
 export function dateHasPassed(date: string): boolean {
-  return toDate(date) <= new Date();
+  return new Date(date) <= new Date();
 }
