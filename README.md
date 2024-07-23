@@ -10,6 +10,10 @@ En MVP løsning for administrasjon og visning av både interne og eksterne arran
 
 Dette er et levende dokument, denne arbeideren 👷 betyr at vi trenger hjelp!
 
+## Kanban
+
+Kanban board finner man her: [Notion](https://www.notion.so/capra/bc8fb2179c96417f9277b68124793f0e?v=e3a8a020427c4548b3c4628958d10817)
+
 ## Figma
 
 Design drodling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
