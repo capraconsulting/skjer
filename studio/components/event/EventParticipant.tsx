@@ -5,13 +5,14 @@ import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } fro
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
 
+type Props = { documentId: string; title?: string; isDigital: boolean; openForExternals: boolean };
+
 export default function EventParticipant({
   documentId,
   title,
-}: {
-  documentId: string;
-  title?: string;
-}) {
+  isDigital,
+  openForExternals,
+}: Props) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["event-participant-list", documentId],
     queryFn: () => getEventParticipantList({ documentId }),
@@ -38,19 +39,19 @@ export default function EventParticipant({
         {}
       );
 
-      const participantData = {
-        navn: participant.full_name,
-        epost: participant.email,
-        telefon: participant.telephone || "",
-        selskap: participant.firm || "",
-        digitalt: participant.attending_digital ? "Ja" : "",
+      return {
+        Navn: participant.full_name,
+        Epost: participant.email,
+        ...(openForExternals && {
+          Telefon: participant.telephone || "",
+          Selskap: participant.firm || "",
+        }),
+        ...(isDigital && { Digitalt: participant.attending_digital ? "Ja" : "Nei" }),
         ...options,
       };
-
-      return participantData;
     }) || [];
 
-  const cardProps = { shadow: 1, padding: 3, radius: 2 };
+  const cardProps = { border: true, padding: 3, radius: 2 };
 
   if (isLoading) {
     return (
@@ -111,7 +112,7 @@ export default function EventParticipant({
         />
       </Box>
 
-      <Grid gap={4}>
+      <Grid gap={4} style={{ maxHeight: "400px", overflowY: "scroll" }}>
         {filteredData?.map(({ event_participant_id, full_name, email }) => (
           <Card {...cardProps} key={event_participant_id}>
             <Stack space={3}>

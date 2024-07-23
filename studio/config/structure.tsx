@@ -20,6 +20,8 @@ export const getDefaultDocumentNode = (
               <EventParticipant
                 documentId={props.documentId}
                 title={props.document.displayed.title}
+                isDigital={props.document.displayed.isDigital}
+                openForExternals={props.document.displayed.openForExternals}
               />
             </EventLayout>
           );
