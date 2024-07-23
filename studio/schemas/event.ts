@@ -67,6 +67,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "maxParticipant",
+      title: "Maks antall deltagere",
+      description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
+      type: "number",
+    }),
+    defineField({
       name: "organisers",
       title: "Hvem holder arrangementet?",
       type: "array",
@@ -128,12 +134,6 @@ export default defineType({
       type: "string",
       description: "Du kan også velge å fylle inn hvor det skal spises eller hva som serveres.",
       hidden: ({ document }) => !document?.foodPreference,
-    }),
-    defineField({
-      name: "maxParticipant",
-      title: "Maks antall deltagere",
-      description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
-      type: "number",
     }),
     defineField({
       name: "customOptions",
