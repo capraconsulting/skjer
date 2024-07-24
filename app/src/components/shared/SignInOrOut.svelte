@@ -8,9 +8,9 @@
 </script>
 
 {#if auth}
-  <div class="flex flex-row items-center gap-2">
+  <div class="flex flex-row items-center gap-3">
     <img class="h-7 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
-    <span class="mr-6 hidden text-sm font-normal sm:block">{auth.user.name}</span>
+    <span class="hidden text-sm font-normal sm:block">{auth.user.name}</span>
     <Button
       color="dark"
       class="h-7"
