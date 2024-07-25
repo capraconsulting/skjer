@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "github-actions" # See documentation for possible valuess
+  - package-ecosystem: "npm" # See documentation for possible valuess
     directory: "/" # Location of package manifests
     schedule:
       interval: "monthly"
