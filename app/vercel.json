@@ -18,6 +18,5 @@
       "path": "/api/daily-event-cleaner",
       "schedule": "0 1 * * *"
     }
-  ],
-  "installCommand": "pnpm install"
+  ]
 }
