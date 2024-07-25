@@ -9,7 +9,7 @@ export default function EventFoodPreference({ documentId }: { documentId: string
     queryFn: () => getEventFoodPreferences({ documentId }),
   });
 
-  const cardProps = { shadow: 1, padding: 3, radius: 2 };
+  const cardProps = { border: true, padding: 3, radius: 2 };
 
   if (isLoading) {
     return (
@@ -55,7 +55,7 @@ export default function EventFoodPreference({ documentId }: { documentId: string
         </Heading>
       </Grid>
 
-      <div style={{ marginTop: "3rem" }}>
+      <Grid gap={4} style={{ maxHeight: "400px", overflowY: "scroll", marginTop: "3rem" }}>
         {data.map(({ text }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
@@ -65,7 +65,7 @@ export default function EventFoodPreference({ documentId }: { documentId: string
             </Stack>
           </Card>
         ))}
-      </div>
+      </Grid>
     </>
   );
 }

@@ -7,8 +7,9 @@
 
   export let data;
 
-  const { query, options, auth } = data;
-  const result = useQuery({ query, options });
+  const { query, options, auth, params } = data;
+
+  const result = useQuery({ query, options, params });
 
   $: ({ data: event } = $result);
 </script>

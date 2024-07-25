@@ -26,8 +26,10 @@ import {
 import { eventQuery as query } from "$lib/server/sanity/queries";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
+  const params = { id };
   const auth = await locals.auth();
-  const initial = await locals.loadQuery<Event>(query, { id });
+
+  const initial = await locals.loadQuery<Event>(query, params);
   const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
 
   if (auth?.user?.name && auth.user.email) {
@@ -42,6 +44,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
 
     return {
       query,
+      params,
       options: { initial },
       registrationForm,
       unregistrationForm,
@@ -56,6 +59,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
 
   return {
     query,
+    params,
     options: { initial },
     registrationForm,
     unregistrationForm,

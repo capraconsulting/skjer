@@ -5,7 +5,12 @@ import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } fro
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
 
-type Props = { documentId: string; title?: string; isDigital: boolean; openForExternals: boolean };
+type Props = {
+  documentId: string;
+  title?: string;
+  isDigital: boolean;
+  openForExternals: boolean;
+};
 
 export default function EventParticipant({
   documentId,

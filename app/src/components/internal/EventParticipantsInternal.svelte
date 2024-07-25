@@ -4,7 +4,7 @@
   export let names;
 </script>
 
-{#if names.length}
+{#if names?.length}
   {#each names as name}
     <span>
       <Badge rounded class="mb-1 mr-1 h-6 border border-black bg-transparent dark:bg-zinc-800"

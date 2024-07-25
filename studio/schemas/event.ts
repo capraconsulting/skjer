@@ -190,12 +190,4 @@ export default defineType({
       ],
     }),
   ],
-  preview: {
-    select: {
-      title: "title",
-      start: "start",
-      category: "category.name",
-      media: "image",
-    },
-  },
 });

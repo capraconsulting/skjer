@@ -7,7 +7,7 @@
   import { onMount } from "svelte";
 
   type Palette = {
-    dominant: { background: string };
+    darkMuted: { background: string };
   };
 
   interface EventWithImagePalette extends Event {
@@ -40,23 +40,22 @@
     <EventInfoBox {event} />
   </div>
   {#if event.image?.palette}
-    <div class="relative w-full sm:h-60 sm:w-[60%]">
+    <div class="group relative w-full sm:h-60 sm:w-[60%]">
       <div
         aria-hidden="true"
-        class="absolute left-0 top-0 h-full w-full rounded-xl"
-        style="background: {event.image.palette.dominant.background}"
+        class="ease-in-ou absolute left-0 top-0 h-full w-full rounded-xl duration-1000 group-hover:translate-x-2 group-hover:translate-y-2"
+        style="background: {event.image.palette.darkMuted.background}"
       ></div>
-      <div class="relative h-full w-full overflow-hidden rounded-xl">
-        <img
-          fetchpriority="high"
-          class="relative h-full w-full rounded-xl object-cover opacity-0 transition duration-1000 ease-in-out hover:-translate-y-2"
-          src={urlFor(event.image).url()}
-          alt={`Bilde for arrangementet: ${event.title}`}
-          class:opacity-100={imageLoaded}
-          on:load={() => (imageLoaded = true)}
-          bind:this={imageElement}
-        />
-      </div>
+
+      <img
+        fetchpriority="high"
+        class="relative h-full w-full rounded-xl object-cover opacity-0 duration-1000 ease-in-out"
+        src={urlFor(event.image).url()}
+        alt={`Bilde for arrangementet: ${event.title}`}
+        class:opacity-100={imageLoaded}
+        on:load={() => (imageLoaded = true)}
+        bind:this={imageElement}
+      />
     </div>
   {/if}
 </div>
