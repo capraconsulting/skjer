@@ -9,7 +9,7 @@ jobs:
   sanity-deploy:
     runs-on: ubuntu-latest
     name: Deploy Sanity
-    environment: prod
+    environment: Sanity Production
     defaults:
       run:
         working-directory: ./studio
