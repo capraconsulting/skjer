@@ -50,13 +50,20 @@ For å kjøre koden:
 2. Installer dependencies:
 
 ```bash
-cd capra-web
+cd capra-web/app
+pnpm install
+
+cd capra-web/studio
 pnpm install
 ```
 
 3.  Start dev serverene:
 
 ```bash
+cd capra-web/app
+pnpm dev
+
+cd capra-web/studio
 pnpm dev
 ```
 
