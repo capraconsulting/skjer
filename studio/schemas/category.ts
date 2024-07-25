@@ -8,7 +8,7 @@ const categories = [
 
 export default defineType({
   name: "category",
-  title: "Category",
+  title: "Kategory",
   type: "string",
   options: {
     list: categories,
