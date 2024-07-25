@@ -130,6 +130,10 @@ vercel deploy
 
 SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) har en eslint konfigurasjon som ikke funker. Har prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
 
+### CRON
+
+CRON jobben "daily-event-cleaner" kjører daglig i vercel for å finne arrangementer som ble avsluttet for mer enn 7 dager siden. Sletter deretter database arrangementer, deltagerinformasjonen og matpreferanser for å sikre samsvar med GDPR regelverket. Sanity arrangementet beholdes.
+
 ## Supabase
 
 Supabase Postgres database kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>).
