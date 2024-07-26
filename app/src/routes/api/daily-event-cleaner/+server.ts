@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ request }) => {
       return new Response("No events to delete", { status: 204 });
     }
 
-    const result = await supabase.from("event").delete().eq("document_id", events);
+    const result = await supabase.from("event").delete().in("document_id", events);
 
     if (result.error) {
       return new Response(result.error.message, { status: 500 });
