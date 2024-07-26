@@ -53,9 +53,6 @@ dependencies:
   sanity:
     specifier: ^3.52.2
     version: 3.52.2(@types/node@18.19.42)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.12)
-  sanity-plugin-plausible-analytics:
-    specifier: ^1.0.0
-    version: 1.0.0(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.52.2)(styled-components@6.1.12)
   styled-components:
     specifier: ^6.1.11
     version: 6.1.12(react-dom@18.3.1)(react@18.3.1)
@@ -2528,28 +2525,6 @@ packages:
   /@sanity/color@3.0.6:
     resolution: {integrity: sha512-2TjYEvOftD0v7ukx3Csdh9QIu44P2z7NDJtlC3qITJRYV36J7R6Vfd3trVhFnN77/7CZrGjqngrtohv8VqO5nw==}
     engines: {node: '>=18.0.0'}
-    dev: false
-
-  /@sanity/dashboard@3.1.6(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.52.2)(styled-components@6.1.12):
-    resolution: {integrity: sha512-Ebz+K4h6bXN0xuj3EJylTMXc2O3WBU5rSimngJPuASXjYhOPRqOTQJcLT5lgQ/yxVN4U9CDN0JBmQDOrmFNXew==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: ^18
-      sanity: ^3
-      styled-components: ^5.2 || ^6.0.0
-    dependencies:
-      '@sanity/icons': 2.11.8(react@18.3.1)
-      '@sanity/image-url': 1.0.2
-      '@sanity/incompatible-plugin': 1.0.4(react-dom@18.3.1)(react@18.3.1)
-      '@sanity/ui': 1.9.3(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.12)
-      lodash: 4.17.21
-      react: 18.3.1
-      rxjs: 7.8.1
-      sanity: 3.52.2(@types/node@18.19.42)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.12)
-      styled-components: 6.1.12(react-dom@18.3.1)(react@18.3.1)
-    transitivePeerDependencies:
-      - react-dom
-      - react-is
     dev: false
 
   /@sanity/dashboard@4.0.0(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.52.2)(styled-components@6.1.12):
@@ -7487,23 +7462,6 @@ packages:
     engines: {node: '>=14.18'}
     dependencies:
       '@sanity/diff-match-patch': 3.1.1
-    dev: false
-
-  /sanity-plugin-plausible-analytics@1.0.0(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.52.2)(styled-components@6.1.12):
-    resolution: {integrity: sha512-gxoG3RPII//hODIJFewcXEQiDRRTZDXaSNjOe23i7WNQDbU+PQJaDP6tbYbQMVI4iYcd8ExWV25E2XkDE37Baw==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: ^18
-      sanity: ^3
-    dependencies:
-      '@sanity/dashboard': 3.1.6(react-dom@18.3.1)(react-is@18.3.1)(react@18.3.1)(sanity@3.52.2)(styled-components@6.1.12)
-      '@sanity/incompatible-plugin': 1.0.4(react-dom@18.3.1)(react@18.3.1)
-      react: 18.3.1
-      sanity: 3.52.2(@types/node@18.19.42)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.12)
-    transitivePeerDependencies:
-      - react-dom
-      - react-is
-      - styled-components
     dev: false
 
   /sanity@3.52.2(@types/node@18.19.42)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.12):

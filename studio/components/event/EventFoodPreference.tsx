@@ -56,11 +56,11 @@ export default function EventFoodPreference({ documentId }: { documentId: string
       </Grid>
 
       <Grid gap={4} style={{ maxHeight: "400px", overflowY: "scroll", marginTop: "3rem" }}>
-        {data.map(({ text }, index) => (
+        {data.map(({ value }, index) => (
           <Card {...cardProps} key={index}>
             <Stack space={4}>
               <Flex align="center">
-                <Text>{text}</Text>
+                <Text>{value}</Text>
               </Flex>
             </Stack>
           </Card>

@@ -22,17 +22,17 @@ export type Database = {
         Row: {
           event_food_preference_id: number;
           event_id: number;
-          text: string;
+          value: string | null;
         };
         Insert: {
           event_food_preference_id?: number;
           event_id: number;
-          text: string;
+          value?: string | null;
         };
         Update: {
           event_food_preference_id?: number;
           event_id?: number;
-          text?: string;
+          value?: string | null;
         };
         Relationships: [
           {
@@ -47,8 +47,8 @@ export type Database = {
       event_participant: {
         Row: {
           attending: boolean;
-          attending_digital: boolean | null;
-          created_at: string | null;
+          attending_digital: boolean;
+          created_at: string;
           email: string;
           event_id: number;
           event_participant_id: number;
@@ -58,8 +58,8 @@ export type Database = {
         };
         Insert: {
           attending?: boolean;
-          attending_digital?: boolean | null;
-          created_at?: string | null;
+          attending_digital?: boolean;
+          created_at?: string;
           email: string;
           event_id: number;
           event_participant_id?: number;
@@ -69,8 +69,8 @@ export type Database = {
         };
         Update: {
           attending?: boolean;
-          attending_digital?: boolean | null;
-          created_at?: string | null;
+          attending_digital?: boolean;
+          created_at?: string;
           email?: string;
           event_id?: number;
           event_participant_id?: number;

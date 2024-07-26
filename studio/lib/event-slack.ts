@@ -5,7 +5,9 @@ export const createSlackMessage = async (
   id: string,
   { title, category, place, start, summary, image }: Event
 ) => {
-  const imageUrl = urlFor(image).width(400).url();
+  if (process.env.MODE === "development") return;
+
+  const imageUrl = image ? urlFor(image).width(400).url() : null;
   const eventUrl = `${process.env.SANITY_STUDIO_APP_BASE_URL}/event/${id}`;
 
   const startDate = new Date(start).toLocaleDateString("nb-NO", {
@@ -84,6 +86,7 @@ export const createSlackMessage = async (
       fields,
     });
   }
+
   try {
     await fetch(process.env.SANITY_STUDIO_SLACK_HOOK!, {
       method: "POST",
