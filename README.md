@@ -173,12 +173,6 @@ pnpm playwright test example.spec.ts
 
 Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `--ui` på slutten 🚀 Vi trenger flere tester 👷!
 
-## Plausible
-
-Plausible tilbyr en måte å analysere trafikk på nettstedet. Den er fritt for cookies og samler ingen personopplysninger. Vi trenger derfor ingen cookie consent. For å integrere Plausible er det lagt til et sporingsskriptet i HTML-headeren. Sporingen for å måle og analysere besøksstatistikk vises i et Sanity dashboard.
-
-Vi er på en trial-plan foreløpig 👷
-
 ## Slack
 
 Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp_arrangementer. For å bygge meldingen kan man benytte [Block Kit Builder](https://app.slack.com/block-kit-builder). Denne tjenesten lar deg visuelt designe layouten av meldingen med ulike blokker som knapper, tekstfelter og bilder.

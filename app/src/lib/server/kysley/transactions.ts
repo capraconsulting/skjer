@@ -43,7 +43,7 @@ export const insertEventParticipantOptions = async (
 
 export const insertEventFoodPreference = async (
   transaction: Transaction<KyselyDatabase>,
-  values: Pick<Tables<"event_food_preference">, "event_id" | "text">
+  values: Pick<Tables<"event_food_preference">, "event_id" | "value">
 ) => {
   return await transaction.insertInto("event_food_preference").values(values).execute();
 };

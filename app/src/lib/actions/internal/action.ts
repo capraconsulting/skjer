@@ -161,7 +161,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
       }
 
       if (foodPreference) {
-        await insertEventFoodPreference(transaction, { event_id, text: foodPreference });
+        await insertEventFoodPreference(transaction, { event_id, value: foodPreference });
       }
     });
   } catch (error) {
