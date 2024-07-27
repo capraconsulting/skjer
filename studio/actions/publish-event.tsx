@@ -25,6 +25,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
     return {
       ...originalResult,
       label: "Publiser",
+      disabled: !!draftEvent?.title.endsWith("Avlyst"),
       onHandle: () => {
         if (!originalResult?.onHandle) {
           return;

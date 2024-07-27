@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DocumentActionProps, DocumentActionComponent, useDocumentOperation } from "sanity";
 import { Event } from "../models/sanity.model";
 import { sendEmailEventCanceled } from "../lib/event-email";
+import { deleteEvent } from "../supabase/queries";
 
 export const CancelAction: DocumentActionComponent = (props: DocumentActionProps) => {
   const toast = useToast();
@@ -26,23 +27,24 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
       onConfirm: async () => {
         if (publishedEvent) {
           const result = await handleEventCancel(publishedEvent);
-          if (result) {
-            if (!publishedEvent.title.endsWith("Avlyst")) {
-              patch.execute([{ set: { title: `${publishedEvent.title} | Avlyst` } }]);
-            }
-
-            unpublish.execute();
-
-            toast.push({
-              status: "success",
-              title: "Arrangementet er avlyst",
-            });
-          } else {
+          if (!result) {
             toast.push({
               status: "error",
               title: "En feil oppstod ved avlysing av arrangementet",
             });
+            return;
           }
+
+          if (!publishedEvent.title.endsWith("Avlyst")) {
+            patch.execute([{ set: { title: `${publishedEvent.title} - Avlyst` } }]);
+          }
+
+          unpublish.execute();
+
+          toast.push({
+            status: "success",
+            title: "Arrangementet er avlyst",
+          });
         }
         props.onComplete();
       },
@@ -83,6 +85,8 @@ const handleEventCancel = async ({ _id, title, summary, start, end, place, organ
     if (result?.error) {
       return false;
     }
+
+    await deleteEvent({ document_id: _id });
     return true;
   } catch (error) {
     console.error("Error handling cancel event:", error);
