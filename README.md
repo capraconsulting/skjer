@@ -42,10 +42,12 @@ Design drodling finner man her: [Nettside design](https://www.figma.com/design/Z
 
 ## Komme i gang
 
-For å kjøre koden:
+For å kjøre koden loaklt:
 
 1. Be om environment variabler for lokal testing i kanalen [#tmp_arrangementsoversikt]().
-   Du må selv opprette en `.env` fil i /studio og /app.
+   Du må selv opprette en `.env.local` fil i /studio og /app.
+
+Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og Supabase, må dette også spesifikt forespørres.
 
 2. Installer dependencies:
 
@@ -67,12 +69,12 @@ cd capra-web/studio
 pnpm dev
 ```
 
-- SvelteKit skal nå kjøre på [http://localhost:5173](http://localhost:517/)
+- SvelteKit applikasjonen skal nå kjøre på [http://localhost:5173](http://localhost:517/)
 - Sanity Studio skal kjøre på [http://localhost:3333](http://localhost:3333)
 
-NB: Du kan også starte dev serverne hver for seg i deres respektive mapper.
-
 ## Sanity
+
+Vi har to dataset i Sanity studio, en for dev testing og en for produksjon.
 
 ### Bygg
 
@@ -87,7 +89,7 @@ Bygg bør alltid kjøres som en del av vår pull request policy 👷
 ### Deploy
 
 Sanity Studio blir deployet til [https://capra.sanity.studio](https://capra.sanity.studio).
-GitHub Actions CI/CD deploy kjører automatisk ved push til main-branch og ved endringer i /studio mappen. Alternativt kan deploy også utføres manuelt ved å navigere til /studio-katalogen og kjøre følgende kommando:
+GitHub Actions deploy kjører automatisk ved push til main-branch og ved endringer i /studio mappen. Alternativt kan deploy også utføres manuelt ved å navigere til /studio og kjøre følgende kommando:
 
 ```bash
 sanity deploy
@@ -105,11 +107,6 @@ sanity typegen generate
 ```
 
 NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres til /app.
-
-### Lage Innhold
-
-1. Gå inn i Sanity Studio og legg til nye events, og trykk publiser
-2. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises
 
 ## SvelteKit
 
@@ -137,13 +134,9 @@ vercel deploy
 
 SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) har en eslint konfigurasjon som ikke funker. Har prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
 
-### CRON
-
-CRON jobben "daily-event-cleaner" kjører daglig i vercel for å finne arrangementer som ble avsluttet for mer enn 7 dager siden. Sletter deretter database arrangementer, deltagerinformasjonen og matpreferanser for å sikre samsvar med GDPR regelverket. Sanity arrangementet beholdes.
-
 ## Supabase
 
-Supabase Postgres database kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>).
+Postgres-databasen kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>). Vi har to prosjekter i supabase dashboardet, en for dev testing og en for produksjon.
 
 ### TypeScript Generering
 
@@ -183,12 +176,69 @@ E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. P
 
 E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og 👷
 
+### Testing av E-post Lokalt
+
+For å teste e-postfunksjonaliteten lokalt:
+
+1. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
+2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
+
+### Kalenderinvitasjon 👷
+
+Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke toveis kommunikasjon gjennom kalenderinvitasjonene, og kan derfor ikke se endringer hvis en deltager svarer Ja, Kanskje eller Nei. For å løse dette, vurderer vi å sette opp en MandrillApp webhook som kan lytte på deltagerens svar. Inntil videre må avmeldinger skje via vår nettside.
+
+---
+
+## Sanity Arbeidsflyt
+
+### Publisering
+
+1. Gå inn i Sanity Studio og legg først til et nytt arrangement, og trykk "Publiser".
+2. Når et arrangement publiseres, blir det automatisk opprettet et arrangement i Postgres-databasen.
+3. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises.
+
+Hvis tid eller lokasjon for et publisert arrangement endres i Sanity, følges denne prosessen:
+
+1. En dialogboks for å bekrefte endringen vises.
+2. En e-post sendes til alle påmeldte deltagere for å informere om ny tid/lokasjon.
+3. Den eksisterende kalenderinvitasjonen oppdateres med de nye detaljene, slik at deltagerne har oppdatert informasjon i kalenderen.
+4. Innhodet blir publisert på nytt.
+
+### Avpublisering
+
+1. Gå inn i Sanity Studio og trykk "Avpubliser" på et publisert arrangement.
+2. Arrangement blir avpublisert og vises ikke i SvelteKit-appen.
+
+Innholdet kan republiseres uten noen konsekvenser.
+
+### Sletting
+
+1. Gå inn i Sanity Studio og trykk "Slett".
+2. En dialogboks for å bekrefte slettingen vises.
+3. Arrangementinformasjon lagret i Sanity og Postgres-databasen blir permanent slettet.
+
+### Avlysning
+
+1. Gå inn i Sanity Studio og trykk "Avlys arrangement".
+2. En dialogboks for å bekrefte avlysningen vises.
+3. En e-post sendes ut til alle påmeldte deltagere for å informere om avlysningen.
+4. Kalenderinvitasjonen markeres som avlyst i deltagerens kalender.
+5. Arrangementet blir avpublisert i Sanity og innholdet blir "Read only".
+
+Innholdet kan ikke republiseres på nytt, men kan dupliseres for nytt bruk.
+
+### Opprydding av Arrangementer
+
+For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer fra Postgres-databasen som ble avsluttet for mer enn 7 dager siden. Dette håndteres av CRON-jobben "daily-event-cleaner". Innholdet forblir lagret i Sanity.
+
+## SvelteKit Arbeidsflyt
+
 ### Påmelding
 
 Når en bruker melder seg på et arrangement, utløses følgende prosess:
 
 1. En e-postbekreftelse sendes til brukeren.
-2. Denne e-posten inkluderer en kalenderinvitasjon med deltagerstatus satt som akseptert.
+2. E-posten inkluderer en kalenderinvitasjon med deltagerstatus satt som akseptert.
 3. Kalenderinvitasjonen legges automatisk inn i deltagerens kalender, slik at arrangementet blir synlig i kalenderen umiddelbart etter påmelding.
 
 ### Avmelding
@@ -205,33 +255,3 @@ Avhengig av om deltageren er intern eller ekstern, håndteres avmeldinger på fo
 1. Eksterne deltagere som ønsker å melde seg av, mottar først en e-post med en lenke for å bekrefte avmeldingen.
 2. Når mottaker klikker på bekreftelseslenken og den blir godkjent på nettsiden, sendes en ny e-post som bekrefter avmeldingen.
 3. Kalenderinvitasjonen oppdateres til å vise status som avslått, på samme måte som for interne deltagere.
-
-### Endring av Tid/Lokasjon
-
-Hvis tid eller lokasjon for et arrangement endres i Sanity, følges denne prosessen:
-
-1. Brukeren får en dialogboks for å bekrefte endringen.
-2. En e-post sendes til alle påmeldte deltagere for å informere om ny tid/lokasjon.
-3. Den eksisterende kalenderinvitasjonen oppdateres med de nye detaljene, slik at deltagerne har oppdatert informasjon i sine kalendere.
-
-### Avlysing av Arrangement
-
-Ved avlysing av et arrangement i Sanity:
-
-1. Brukeren får en dialogboks for å bekrefte avlysningen.
-2. En e-post sendes ut til alle påmeldte deltagere for å informere om avlysningen.
-3. Kalenderinvitasjonen markeres som avlyst i deltagerens kalender.
-4. Arrangementet blir avpublisert i Sanity og tittelen blir markert med "Avlyst"
-
-### Testing av E-post Lokalt
-
-For å teste e-postfunksjonaliteten lokalt:
-
-1. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
-2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
-
-### Kalenderinvitasjon 👷
-
-Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke toveis kommunikasjon gjennom kalenderinvitasjonene, og kan derfor ikke se endringer hvis en deltager svarer Ja, Kanskje eller Nei. For å løse dette, vurderer vi å sette opp en MandrillApp webhook som kan lytte på deltagerens svar. Inntil videre må avmeldinger skje via vår nettside.
-
----

@@ -1,9 +1,9 @@
 import groq from "groq";
 import type { Event } from "$models/sanity.model";
 import type { RequestHandler } from "@sveltejs/kit";
-import { client as sanityClient } from "$lib/sanity/client";
 import { supabase } from "$lib/server/supabase/client";
 import { CRON_SECRET } from "$env/static/private";
+import { previewDraftsClient } from "$lib/server/sanity/client";
 
 export const GET: RequestHandler = async ({ request }) => {
   const authHeader = request.headers.get("authorization");
@@ -13,10 +13,10 @@ export const GET: RequestHandler = async ({ request }) => {
 
   try {
     const query = groq`*[_type == "event" && dateTime(end) < dateTime(now()) - 7*24*60*60]._id`;
-    const events = await sanityClient.fetch<Event[]>(query);
+    const events = await previewDraftsClient.fetch<Event[]>(query);
 
     if (!events.length) {
-      return new Response("No events to delete", { status: 204 });
+      return new Response("No events to delete", { status: 200 });
     }
 
     const result = await supabase.from("event").delete().in("document_id", events);

@@ -391,23 +391,7 @@
                 },
                 {
                   "type": "string",
-                  "value": "h1"
-                },
-                {
-                  "type": "string",
                   "value": "h2"
-                },
-                {
-                  "type": "string",
-                  "value": "h3"
-                },
-                {
-                  "type": "string",
-                  "value": "h4"
-                },
-                {
-                  "type": "string",
-                  "value": "blockquote"
                 }
               ]
             },
@@ -548,6 +532,13 @@
           "type": "string"
         }
       },
+      "cancleId": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "title": {
         "type": "objectAttribute",
         "value": {
@@ -668,6 +659,13 @@
         },
         "optional": false
       },
+      "maxParticipant": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
       "organisers": {
         "type": "objectAttribute",
         "value": {
@@ -710,13 +708,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
-        },
-        "optional": true
-      },
-      "maxParticipant": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
         },
         "optional": true
       },

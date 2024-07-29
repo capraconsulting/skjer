@@ -5,7 +5,21 @@ export default defineType({
   name: "event",
   title: "Arrangement",
   type: "document",
+  readOnly: ({ document }) => {
+    if (!document?.cancleId) {
+      return false;
+    }
+    if (document?._id.endsWith(document.cancleId as string)) {
+      return true;
+    }
+    return false;
+  },
   fields: [
+    defineField({
+      name: "cancleId",
+      type: "string",
+      hidden: true,
+    }),
     defineField({
       name: "title",
       title: "Tittel på arrangementet",
