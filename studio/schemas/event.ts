@@ -6,17 +6,17 @@ export default defineType({
   title: "Arrangement",
   type: "document",
   readOnly: ({ document }) => {
-    if (!document?.cancleId) {
+    if (!document?.cancelId) {
       return false;
     }
-    if (document?._id.endsWith(document.cancleId as string)) {
+    if (document?._id.endsWith(document.cancelId as string)) {
       return true;
     }
     return false;
   },
   fields: [
     defineField({
-      name: "cancleId",
+      name: "cancelId",
       type: "string",
       hidden: true,
     }),

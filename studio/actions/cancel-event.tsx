@@ -38,7 +38,7 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
         return;
       }
 
-      patch.execute([{ set: { cancleId: props.id } }]);
+      patch.execute([{ set: { cancelId: props.id } }]);
       unpublish.execute();
 
       toast.push({
