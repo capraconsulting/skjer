@@ -31,7 +31,7 @@ export const sendEmailEventUpdate = async (props: EventProps) => {
 };
 
 export const sendEmailEventCanceled = async (props: EventProps) => {
-  if (process.env.MODE === "development") return;
+  if (process.env.MODE === "development") return true;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;
 

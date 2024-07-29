@@ -75,7 +75,7 @@ export type BlockContent = Array<{
     _type: "span";
     _key: string;
   }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+  style?: "normal" | "h2";
   listItem?: "bullet";
   markDefs?: Array<{
     href?: string;
@@ -95,6 +95,7 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  cancleId?: string;
   title: string;
   image?: {
     asset?: {
@@ -114,13 +115,13 @@ export type Event = {
   deadline: string;
   category: Category;
   place: string;
+  maxParticipant?: number;
   organisers: Array<string>;
   isDigital: boolean;
   visibleForExternals: boolean;
   openForExternals: boolean;
   foodPreference: boolean;
   food?: string;
-  maxParticipant?: number;
   customOptions?: Array<{
     fieldOption: string;
     fieldType: "radio" | "checkbox" | "input";

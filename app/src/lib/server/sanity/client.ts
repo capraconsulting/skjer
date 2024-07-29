@@ -12,3 +12,10 @@ export const clientWithoutStega = client.withConfig({
   useCdn: false,
   stega: false,
 });
+
+export const previewDraftsClient = client.withConfig({
+  token,
+  stega: false,
+  useCdn: false, // must be false, required for this perspective
+  perspective: "previewDrafts",
+});

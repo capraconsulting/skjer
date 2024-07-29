@@ -1,10 +1,9 @@
-import { ErrorOutlineIcon, WarningOutlineIcon } from "@sanity/icons";
-import { useToast, Card, Text } from "@sanity/ui";
+import { ErrorOutlineIcon } from "@sanity/icons";
+import { useToast, Stack, Button, Card, Text } from "@sanity/ui";
 import { useState } from "react";
 import { DocumentActionProps, DocumentActionComponent, useDocumentOperation } from "sanity";
 import { Event } from "../models/sanity.model";
 import { sendEmailEventCanceled } from "../lib/event-email";
-import { deleteEvent } from "../supabase/queries";
 
 export const CancelAction: DocumentActionComponent = (props: DocumentActionProps) => {
   const toast = useToast();
@@ -13,6 +12,49 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
   const { patch, unpublish } = useDocumentOperation(props.id, props.type);
 
   const publishedEvent = props.published as Event | null;
+
+  const handleCancelEvent = async () => {
+    if (!publishedEvent) return;
+
+    const emailProps = {
+      id: publishedEvent._id,
+      summary: publishedEvent.title,
+      description: publishedEvent.summary,
+      start: publishedEvent.start,
+      end: publishedEvent.end,
+      location: publishedEvent.place,
+      organiser: publishedEvent.organisers.join(" | "),
+    };
+
+    try {
+      const result = await sendEmailEventCanceled(emailProps);
+
+      if (!result) {
+        toast.push({
+          status: "error",
+          title: "En feil oppstod ved utsending av e-post",
+        });
+        props.onComplete();
+        return;
+      }
+
+      patch.execute([{ set: { cancleId: props.id } }]);
+      unpublish.execute();
+
+      toast.push({
+        status: "success",
+        title: "Arrangementet er avlyst",
+      });
+    } catch (error) {
+      console.error("Error handling cancel event:", error);
+      toast.push({
+        status: "error",
+        title: "En feil oppstod ved avlysning av arrangementet",
+      });
+    }
+    props.onComplete();
+  };
+
   return {
     disabled: !publishedEvent,
     label: "Avlys arrangement",
@@ -22,74 +64,29 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
       setDialogOpen(true);
     },
     dialog: dialogOpen && {
-      type: "confirm",
-      onCancel: props.onComplete,
-      onConfirm: async () => {
-        if (publishedEvent) {
-          const result = await handleEventCancel(publishedEvent);
-          if (!result) {
-            toast.push({
-              status: "error",
-              title: "En feil oppstod ved avlysing av arrangementet",
-            });
-            return;
-          }
-
-          if (!publishedEvent.title.endsWith("Avlyst")) {
-            patch.execute([{ set: { title: `${publishedEvent.title} - Avlyst` } }]);
-          }
-
-          unpublish.execute();
-
-          toast.push({
-            status: "success",
-            title: "Arrangementet er avlyst",
-          });
-        }
-        props.onComplete();
-      },
-      message: (
-        <Card padding={4}>
-          <Text>
-            <WarningOutlineIcon
-              style={{
-                color: "red",
-                fontSize: "24px",
-                marginRight: "3px",
-                marginLeft: "1px",
-              }}
-            />
-            <span>
-              Vennligst bekreft at du ønsker å avlyse arrangementet. Alle påmeldte blir varslet på
-              e-post om at arrangementet er avlyst.
-            </span>
-          </Text>
+      header: "Bekreft avlysning",
+      type: "dialog",
+      onClose: props.onComplete,
+      content: (
+        <Card padding={3}>
+          <Stack space={3}>
+            <Text>
+              <span>
+                Vennligst bekreft at du ønsker å avlyse arrangementet. Alle påmeldte blir varslet på
+                e-post om at arrangementet er avlyst.
+              </span>
+            </Text>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+              <Button mode="ghost" tone="critical" onClick={handleCancelEvent}>
+                Ja, avlys
+              </Button>
+              <Button mode="ghost" tone="default" onClick={props.onComplete}>
+                Avbryt
+              </Button>
+            </div>
+          </Stack>
         </Card>
       ),
     },
   };
-};
-
-const handleEventCancel = async ({ _id, title, summary, start, end, place, organisers }: Event) => {
-  const emailProps = {
-    id: _id,
-    summary: title,
-    description: summary,
-    start,
-    end,
-    location: place,
-    organiser: organisers.join(" | "),
-  };
-  try {
-    const result = await sendEmailEventCanceled(emailProps);
-    if (result?.error) {
-      return false;
-    }
-
-    await deleteEvent({ document_id: _id });
-    return true;
-  } catch (error) {
-    console.error("Error handling cancel event:", error);
-    return false;
-  }
 };
