@@ -70,7 +70,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
     return {
       ...originalResult,
       label: "Publiser",
-      disabled: originalResult?.disabled || draftEvent?.cancleId === props.id,
+      disabled: originalResult?.disabled || draftEvent?.cancelId === props.id,
 
       onHandle: () => {
         if (!originalResult?.onHandle) return;

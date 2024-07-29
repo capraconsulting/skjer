@@ -95,7 +95,7 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  cancleId?: string;
+  cancelId?: string;
   title: string;
   image?: {
     asset?: {
