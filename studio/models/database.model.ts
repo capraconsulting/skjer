@@ -44,6 +44,32 @@ export type Database = {
           },
         ];
       };
+      event_invitation: {
+        Row: {
+          email: string;
+          event_id: number;
+          full_name: string | null;
+        };
+        Insert: {
+          email: string;
+          event_id: number;
+          full_name?: string | null;
+        };
+        Update: {
+          email?: string;
+          event_id?: number;
+          full_name?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_invitation_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["event_id"];
+          },
+        ];
+      };
       event_participant: {
         Row: {
           attending: boolean;

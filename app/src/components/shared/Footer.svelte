@@ -20,31 +20,31 @@
       <div class="pt-6 text-base sm:p-0 sm:text-lg">Sertifiseringer</div>
       <div class="flex gap-2">
         <img
-          class="block h-16 dark:hidden sm:h-20"
+          class="block h-16 sm:h-20 dark:hidden"
           alt="Miljøfyrtårn-sertifisering"
           src={miljofyrtarnDark}
         />
         <img
-          class="hidden h-16 dark:block sm:h-20"
+          class="hidden h-16 sm:h-20 dark:block"
           alt="Miljøfyrtårn-sertifisering"
           src={miljofyrtarnLight}
         />
-        <img class="block h-16 dark:hidden sm:h-20" alt="DNV-sertifisering" src={dnvDark} />
-        <img class="hidden h-16 dark:block sm:h-20" alt="DNV-sertifisering" src={dnvLight} />
+        <img class="block h-16 sm:h-20 dark:hidden" alt="DNV-sertifisering" src={dnvDark} />
+        <img class="hidden h-16 sm:h-20 dark:block" alt="DNV-sertifisering" src={dnvLight} />
       </div>
     </div>
     <div class="flex gap-11">
       <a href="https://www.capraconsulting.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Capra-logo" src={capraLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Capra-logo" src={capraLogoWhite} />
+        <img class="block h-20 sm:h-28 dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
+        <img class="hidden h-20 sm:h-28 dark:block" alt="Capra-logo" src={capraLogoWhite} />
       </a>
       <a href="https://www.liflig.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Liflig-logo" src={lifligLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Liflig-logo" src={lifligLogoWhite} />
+        <img class="block h-20 sm:h-28 dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
+        <img class="hidden h-20 sm:h-28 dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
       </a>
       <a href="https://www.fryde.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Fryde-logo" src={frydeLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Fryde-logo" src={frydeLogoWhite} />
+        <img class="block h-20 sm:h-28 dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
+        <img class="hidden h-20 sm:h-28 dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
       </a>
     </div>
     <div>
