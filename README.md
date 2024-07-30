@@ -42,10 +42,10 @@ Design drodling finner man her: [Nettside design](https://www.figma.com/design/Z
 
 ## Komme i gang
 
-For å kjøre koden loaklt:
+For å kjøre koden lokalt:
 
 1. Be om environment variabler for lokal testing i kanalen [#tmp_arrangementsoversikt]().
-   Du må selv opprette en `.env.local` fil i /studio og /app.
+   Du må selv opprette en `.env.local` fil i både /studio og /app.
 
 Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og Supabase, må dette også spesifikt forespørres.
 

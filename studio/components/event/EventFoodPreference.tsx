@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Flex, Grid, Heading, Spinner, Stack, Text } from "@sanity/ui";
-import { getEventFoodPreferences } from "../../supabase/queries";
+import { getEventFoodPreferenceList } from "../../supabase/queries";
 
 export default function EventFoodPreference({ documentId }: { documentId: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["event-food-preference-list", documentId],
-    queryFn: () => getEventFoodPreferences({ documentId }),
+    queryFn: () => getEventFoodPreferenceList({ documentId }),
   });
 
   const cardProps = { border: true, padding: 3, radius: 2 };

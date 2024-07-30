@@ -3,6 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 import EventFoodPreference from "../components/event/EventFoodPreference";
 import EventLayout from "../components/event/EventLayout";
 import EventParticipant from "../components/event/EventParticipant";
+import EventInvitation from "../components/event/EventInvitation";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,15 @@ export const getDefaultDocumentNode = (
           );
         })
         .title("Allergier/matpreferanser"),
+      S.view
+        .component(({ documentId }: { documentId: string }) => {
+          return (
+            <EventLayout queryClient={queryClient}>
+              <EventInvitation documentId={documentId} />
+            </EventLayout>
+          );
+        })
+        .title("Invitasjoner"),
     ]);
   }
   return S.document().views([S.view.form()]);
