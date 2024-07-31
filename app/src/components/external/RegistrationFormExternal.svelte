@@ -106,7 +106,7 @@
       {/if}
     {/if}
 
-    <div class="pt-4 text-sm">
+    <div class="text-balance pt-4 text-sm">
       <span class="font-light"
         >Ved å melde deg på arrangementet samtykker du til at du har lest og forstått
       </span>
