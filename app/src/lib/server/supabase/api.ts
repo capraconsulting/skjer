@@ -1,4 +1,4 @@
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from "$env/static/public";
+import { SUPABASE_URL, SUPABASE_KEY } from "$env/static/private";
 
 export function assertEnvVar<T>(value: T | undefined, name: string): T {
   if (value === undefined) {
@@ -7,5 +7,5 @@ export function assertEnvVar<T>(value: T | undefined, name: string): T {
   return value;
 }
 
-export const supabaseUrl = assertEnvVar(PUBLIC_SUPABASE_URL, "PUBLIC_SUPABASE_URL");
-export const supabaseKey = assertEnvVar(PUBLIC_SUPABASE_KEY, "PUBLIC_SUPABASE_KEY");
+export const supabaseUrl = assertEnvVar(SUPABASE_URL, "SUPABASE_URL");
+export const supabaseKey = assertEnvVar(SUPABASE_KEY, "SUPABASE_KEY");

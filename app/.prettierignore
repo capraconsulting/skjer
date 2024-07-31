@@ -6,3 +6,7 @@ node_modules
 .env
 .env.*
 !.env.example
+pnpm-lock.yaml
+sanity.model.ts
+kysely.model.ts
+database.model.ts
