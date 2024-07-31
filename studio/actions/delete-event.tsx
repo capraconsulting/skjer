@@ -4,7 +4,7 @@ import { Card, Stack, Text, Button, useToast } from "@sanity/ui";
 import { useState } from "react";
 
 export function createExtendedEventDeleteAction(originalDeleteAction: DocumentActionComponent) {
-  const EventDeleteAction = (props: DocumentActionProps) => {
+  const EventDeleteAction: DocumentActionComponent = (props: DocumentActionProps) => {
     const toast = useToast();
     const originalResult = originalDeleteAction(props);
     const operation = useDocumentOperation(props.id, props.type);
