@@ -33,7 +33,7 @@ export default defineConfig({
     }),
     structureTool({ title: "Struktur", defaultDocumentNode: getDefaultDocumentNode }),
     presentationTool({
-      title: "Presentasjon",
+      title: "Forhåndsvisning",
       previewUrl: {
         origin: process.env.SANITY_STUDIO_PREVIEW_URL,
         previewMode: {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dateHasPassed } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
-  import { Button, Spinner } from "flowbite-svelte";
+  import { Badge, Button, Spinner } from "flowbite-svelte";
 
   export let event: Event;
   export let enhance;
@@ -21,7 +21,7 @@
       use:enhance
     >
       <div class="flex w-full">
-        <Button pill color="light" type="submit" disabled={$delayed}>
+        <Button pill color="dark" type="submit" disabled={$delayed}>
           <span class="ml-3">Meld meg av</span>
           <span class="w-3">
             {#if $delayed}
