@@ -117,12 +117,12 @@
       >
     </div>
 
-    <div class="flex w-full justify-end">
-      <Button class="mt-4" pill color="dark" type="submit" disabled={$delayed}>
-        <span class="ml-3">Meld meg på</span>
-        <span class="w-3">
+    <div class="flex w-full">
+      <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed}>
+        <span class="ml-2">Meld meg på</span>
+        <span class="w-2">
           {#if $delayed}
-            <Spinner color="gray" class="ml-2 " size="4" />
+            <Spinner color="gray" class="ml-2" size="4" />
           {/if}
         </span>
       </Button>

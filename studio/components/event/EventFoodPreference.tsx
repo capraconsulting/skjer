@@ -38,7 +38,7 @@ export default function EventFoodPreference({ documentId }: { documentId: string
           Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Ingen allergier/matpreferanser
+          Ingen matpreferanser/allergier
         </Heading>
       </Grid>
     );
@@ -51,7 +51,7 @@ export default function EventFoodPreference({ documentId }: { documentId: string
           Arrangement
         </Text>
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
-          Allergier/matpreferanser ({data.length})
+          Matpreferanser/allergier ({data.length})
         </Heading>
       </Grid>
 

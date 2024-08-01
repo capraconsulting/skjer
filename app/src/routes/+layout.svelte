@@ -12,15 +12,15 @@
 {#if $isPreviewing}
   <a
     href={`/preview/disable?redirect=${$page.url.pathname}`}
-    class="box-shadow group fixed bottom-14 right-4 z-50 block rounded bg-white px-3 py-2 text-center text-xs font-medium leading-4 shadow hover:bg-red-500 hover:text-white dark:text-gray-800"
+    class="box-shadow group fixed bottom-4 right-4 z-50 block rounded bg-white px-3 py-2 text-center text-xs font-medium leading-4 shadow hover:bg-red-500 hover:text-white dark:text-gray-800"
   >
     <span class="block group-hover:hidden">Forhåndsvisning på</span>
     <span class="hidden group-hover:block">Forhåndsvisning av</span>
   </a>
   <span
-    class="box-shadow group fixed bottom-4 right-4 z-50 block rounded bg-black px-3 py-2 text-center text-xs font-medium leading-4 text-white shadow"
+    class="box-shadow group fixed bottom-14 right-4 z-50 block rounded bg-black px-3 py-2 text-center text-xs font-medium leading-4 text-white shadow"
   >
-    <span>For å se forhåndsvisning må arrangementet være publisert</span>
+    <span> For å se forhåndsvisning må arrangementet være publisert</span>
   </span>
 {/if}
 

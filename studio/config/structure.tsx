@@ -15,6 +15,15 @@ export const getDefaultDocumentNode = (
     return S.document().views([
       S.view.form(),
       S.view
+        .component(({ documentId }: { documentId: string }) => {
+          return (
+            <EventLayout queryClient={queryClient}>
+              <EventInvitation documentId={documentId} />
+            </EventLayout>
+          );
+        })
+        .title("Invitasjoner"),
+      S.view
         .component((props) => {
           return (
             <EventLayout queryClient={queryClient}>
@@ -36,16 +45,7 @@ export const getDefaultDocumentNode = (
             </EventLayout>
           );
         })
-        .title("Allergier/matpreferanser"),
-      S.view
-        .component(({ documentId }: { documentId: string }) => {
-          return (
-            <EventLayout queryClient={queryClient}>
-              <EventInvitation documentId={documentId} />
-            </EventLayout>
-          );
-        })
-        .title("Invitasjoner"),
+        .title("Matpreferanser/allergier"),
     ]);
   }
   return S.document().views([S.view.form()]);

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dateHasPassed } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
-  import { Badge, Button, Spinner } from "flowbite-svelte";
+  import { Button, Spinner } from "flowbite-svelte";
 
   export let event: Event;
   export let enhance;
@@ -10,26 +10,19 @@
 </script>
 
 {#if isAttending}
-  <h2 class="pb-4 text-base font-bold sm:text-xl">Avmelding:</h2>
+  <h2 id="unregistration" class="pb-4 text-base font-bold sm:text-xl">Ønsker du å melde deg av?</h2>
   {#if dateHasPassed(event.deadline)}
     <p>Det er ikke lenger mulig å melde seg av dette arrangementet 😢</p>
   {:else}
-    <form
-      class="flex flex-col gap-4"
-      method="POST"
-      action="?/submitUnregistrationInternal"
-      use:enhance
-    >
-      <div class="flex w-full">
-        <Button pill color="dark" type="submit" disabled={$delayed}>
-          <span class="ml-3">Meld meg av</span>
-          <span class="w-3">
-            {#if $delayed}
-              <Spinner color="gray" class="ml-2 " size="4" />
-            {/if}
-          </span>
-        </Button>
-      </div>
+    <form method="POST" action="?/submitUnregistrationInternal" use:enhance>
+      <Button pill color="dark" type="submit" disabled={$delayed}>
+        <span class="ml-2">Meld meg av</span>
+        <span class="w-2">
+          {#if $delayed}
+            <Spinner color="gray" class="ml-1 " size="4" />
+          {/if}
+        </span>
+      </Button>
     </form>
   {/if}
 {/if}

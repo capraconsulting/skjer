@@ -23,27 +23,26 @@
       Ønsker du å melde deg av?
     </h2>
 
-    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div class="flex flex-wrap gap-3 sm:flex-nowrap">
       <Input
-        class="bg-white"
+        class=" bg-white"
         type="text"
         placeholder="din-epost@epost.no"
         name="email"
         bind:value={$form.email}
       />
-      <div class="flex items-center">
-        <Button pill color="dark" type="submit" disabled={$delayed}>
-          <span class="ml-3">Meld meg av</span>
-          <span class="w-3">
-            {#if $delayed}
-              <Spinner color="gray" class="ml-2 " size="4" />
-            {/if}
-          </span>
-        </Button>
-      </div>
-      {#if $errors.email}
-        <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
-      {/if}
+      <Button pill color="dark" type="submit" disabled={$delayed} class="w-max whitespace-nowrap">
+        <span class="ml-2">Meld meg av</span>
+        <span class="w-2">
+          {#if $delayed}
+            <Spinner color="gray" class="ml-2" size="4" />
+          {/if}
+        </span>
+      </Button>
     </div>
+
+    {#if $errors.email}
+      <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
+    {/if}
   </form>
 {/if}

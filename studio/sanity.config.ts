@@ -31,7 +31,10 @@ export default defineConfig({
         },
       ],
     }),
-    structureTool({ title: "Struktur", defaultDocumentNode: getDefaultDocumentNode }),
+    structureTool({
+      title: "Struktur",
+      defaultDocumentNode: getDefaultDocumentNode,
+    }),
     presentationTool({
       title: "Forhåndsvisning",
       previewUrl: {
