@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>Arrangementer | Capra Liflig Fryde</title>
+  <title>Skjer | Capra Liflig Fryde</title>
 </svelte:head>
 
 <section class="pb-8">

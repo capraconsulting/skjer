@@ -6,7 +6,7 @@ Styling med [Tailwind](https://tailwindcss.com)\
 Hosted hos [Vercel](https://vercel.com/)\
 Innhold og bilder i [Sanity](https://www.sanity.io)
 
-En MVP løsning for administrasjon og visning av både interne og eksterne arrangementer hos Liflig, Fryde og Capra. Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen.
+En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig. Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen, også kalt <strong>skjer</strong>.
 
 Dette er et levende dokument, denne arbeideren 👷 betyr at vi trenger hjelp!
 
