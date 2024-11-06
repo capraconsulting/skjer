@@ -24,8 +24,8 @@
   </div>
 {:else}
   <Button
-    color="dark"
-    class="h-7"
+    color="light"
+    class="h-7 border-none"
     pill
     on:click={async () => {
       isSigningIn = true;
