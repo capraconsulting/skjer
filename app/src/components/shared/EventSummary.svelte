@@ -43,7 +43,7 @@
     <div class="group relative w-full sm:h-60 sm:w-[60%]">
       <div
         aria-hidden="true"
-        class="absolute left-0 top-0 h-full w-full rounded-xl duration-1000 group-hover:translate-x-2 group-hover:translate-y-2"
+        class="absolute left-0 top-0 h-full w-full rounded-xl"
         style="background: {event.image.palette.darkMuted.background}"
       ></div>
 

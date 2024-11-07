@@ -12,6 +12,7 @@
     type="text"
     name="foodPreference"
     id="foodPreference"
+    placeholder="Skriv dine allergier og preferanser"
     bind:value={$form.foodPreference}
   />
 </div>

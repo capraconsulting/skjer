@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class="flex h-full w-full flex-col gap-1 hyphens-auto rounded-xl border hover:border-gray-400 p-3 text-sm font-light dark:bg-zinc-800 sm:p-6 sm:text-base"
+  class="flex h-full w-full flex-col gap-1 hyphens-auto rounded-xl border p-3 text-sm font-light dark:bg-zinc-800 sm:p-6 sm:text-base"
 >
   <div class="flex items-center">
     <Lightbulb class="mr-2 flex-none" />

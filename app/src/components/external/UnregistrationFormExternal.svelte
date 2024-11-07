@@ -42,7 +42,7 @@
     </div>
 
     {#if $errors.email}
-      <p class="text-xs text-red-600">Fyll inn gyldig epost.</p>
+      <p class="text-xs text-red-600">Fyll inn gyldig e-post.</p>
     {/if}
   </form>
 {/if}
