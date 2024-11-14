@@ -14,6 +14,22 @@ export const sendUnregistrationConfirmed = async (props: {
 }) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${props.id}`;
 
+  const html = `<span style="font-family: Roboto, sans-serif;
+                             font-style: normal;
+                             font-weight: 400;
+                             font-size: 14px;
+                             line-height: 20px;
+                             letter-spacing: 0.2px;
+                             color: #3c4043;">
+                <p><b>Hei,</b></p>
+                <p>Vi fikk nettopp beskjed om at du har meldt deg av vårt arrangement.</p>
+                <p>Ingen bekymringer – det kommer flere muligheter til å få litt faglig eller sosialt påfyll hos oss.
+                Følg med på her eller meld deg på vårt nyhetsbrev. </p>
+                <p>Vi håper å se deg på et av våre fremtidige arrangementer!</p>
+                <p>Med vennlig hilsen,</p>
+                <p>oss i Capra, Liflig og Fryde</p>
+                </span>`;
+
   const calendar = ical({ name: props.organiser, method: ICalCalendarMethod.REQUEST });
   calendar.createEvent({
     id: props.id,
@@ -42,6 +58,7 @@ export const sendUnregistrationConfirmed = async (props: {
     from: `${props.organiser} <no-reply@capraconsulting.no>`,
     to: props.mailTo,
     subject: `Avregistrering bekreftet: ${props.summary}`,
+    html,
     icalEvent: {
       method: "request",
       content: icsFile,
