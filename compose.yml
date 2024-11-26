@@ -1,0 +1,65 @@
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: traefik:v3.2.1
+    command:
+      # Enables the Web UI
+      - "--api.dashboard=true"
+      # Enabling docker provider
+      - "--providers.docker"
+      # Do not expose containers unless explicitly told so
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      # Http
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.localhost`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "dave.relativeSubdomain=dashboard"
+      - "dave.icon=simple-icons:traefikproxy"
+
+  dave:
+    image: theknarf/dave
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dave.rule=Host(`localhost`)"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: dialogporten
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 20s
+      retries: 5
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin4.rule=Host(`pgadmin4.localhost`)"
+      - "dave.relativeSubdomain=pgadmin4"
+      - "dave.icon=simple-icons:postgresql"
+
+volumes:
+  pgadmin_data:
+  postgres_data:
