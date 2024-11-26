@@ -10,30 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy Sanity
     environment: Sanity Production
-    defaults:
-      run:
-        working-directory: ./studio
-
     steps:
-      - name: Checkout Repository
+      - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('studio/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - name: Install Packages
-        run: pnpm install
+      - name: 'Installing Dependencies'
+        uses: ./.github/actions/install
 
       - name: Deploy Sanity
-        run: pnpm run deploy
+        run: pnpm --filter "studio" run deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
