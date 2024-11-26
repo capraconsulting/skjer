@@ -12,20 +12,14 @@ jobs:
     name: 'Test & lint'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checking Out Code'
+      - name: 'Checkout Repository'
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install Packages
-        run: pnpm install
-        working-directory: ./app
+      - name: 'Installing Dependencies'
+        uses: ./.github/actions/install
 
       - name: 'Running Unit Tests'
-        run: pnpm test
-        working-directory: ./app
+        run: pnpm turbo test
 
-      - name: 'Building'
-        run: pnpm lint
-        working-directory: ./app
+      - name: 'Running linting'
+        run: pnpm turbo lint
