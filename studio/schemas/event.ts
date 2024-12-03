@@ -45,6 +45,12 @@ export default defineType({
       validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
+      name: "place",
+      title: "Sted",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "image",
       title: "Bilde til arrangementet (valgfritt)",
       type: "image",
@@ -73,12 +79,6 @@ export default defineType({
       name: "category",
       title: "Arrangementskategori",
       type: "category",
-    }),
-    defineField({
-      name: "place",
-      title: "Sted",
-      type: "string",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "maxParticipant",
