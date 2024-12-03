@@ -81,20 +81,20 @@ export default defineType({
       type: "category",
     }),
     defineField({
-      name: "maxParticipant",
-      title: "Maks antall deltagere",
-      description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
-      type: "number",
-    }),
-    defineField({
       name: "organisers",
-      title: "Hvem holder arrangementet?",
+      title: "Hvilke(t) selskap er arrangør?",
       type: "array",
       of: [{ type: "string" }],
       options: {
         list: ["Capra", "Fryde", "Liflig"],
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "maxParticipant",
+      title: "Maks antall deltagere",
+      description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
+      type: "number",
     }),
     defineField({
       name: "isDigital",
