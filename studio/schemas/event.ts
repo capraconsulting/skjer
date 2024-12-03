@@ -27,6 +27,24 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "start",
+      title: "Startddato og tid",
+      type: "datetime",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "end",
+      title: "Sluttdato og tid",
+      type: "datetime",
+      validation: (Rule) => Rule.required().min(Rule.valueOfField("start")),
+    }),
+    defineField({
+      name: "deadline",
+      title: "Påmeldingsfrist",
+      type: "datetime",
+      validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
+    }),
+    defineField({
       name: "image",
       title: "Bilde til arrangementet (valgfritt)",
       type: "image",
@@ -50,24 +68,6 @@ export default defineType({
       type: "blockContent",
       description:
         "Her kan du skrive mer detaljer om arrangementet, men prøv å hold det kort likevel. Inkluder gjerne program og alt annet deltakerne trenger å vite.",
-    }),
-    defineField({
-      name: "start",
-      title: "Startddato og tid",
-      type: "datetime",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "end",
-      title: "Sluttdato og tid",
-      type: "datetime",
-      validation: (Rule) => Rule.required().min(Rule.valueOfField("start")),
-    }),
-    defineField({
-      name: "deadline",
-      title: "Påmeldingsfrist",
-      type: "datetime",
-      validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
       name: "category",
