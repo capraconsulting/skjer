@@ -117,8 +117,8 @@ export default defineType({
     }),
     defineField({
       name: "openForExternals",
-      title: "Arrangementet skal være åpent for eksterne",
-      description: "Kryss av her dersom arrangementet også skal være åpent for eksterne.",
+      title: "Eksterne kan delta på arrangementet",
+      description: "Kryss av her dersom eksterne også kan delta på arrangementet.",
       type: "boolean",
       initialValue: false,
       options: {
