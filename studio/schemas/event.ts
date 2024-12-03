@@ -116,9 +116,9 @@ export default defineType({
       hidden: ({ document }) => !document?.isDigital,
     }),
     defineField({
-      name: "visibleForExternals",
-      title: "Arrangementet skal være synlig for eksterne",
-      description: "Kryss av her dersom arrangementet også skal være synlig for eksterne.",
+      name: "openForExternals",
+      title: "Arrangementet skal være åpent for eksterne",
+      description: "Kryss av her dersom arrangementet også skal være åpent for eksterne.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -127,9 +127,9 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "openForExternals",
-      title: "Arrangementet skal være åpent for eksterne",
-      description: "Kryss av her dersom arrangementet også skal være åpent for eksterne.",
+      name: "visibleForExternals",
+      title: "Arrangementet skal være synlig for alle, også eksterne",
+      description: "Dersom arrangementet KUN skal være synlig for de som er logget inn med Fryde-, Capra- eller Liflig-epost, lar du denne stå tom.",
       type: "boolean",
       initialValue: false,
       options: {
