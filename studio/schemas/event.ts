@@ -73,7 +73,6 @@ export default defineType({
       name: "category",
       title: "Arrangementskategori",
       type: "category",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "place",
