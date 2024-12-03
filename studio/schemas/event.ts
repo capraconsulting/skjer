@@ -109,6 +109,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      title: "Lenke til hvor arrangementet skal strømmes",
+      name: "linkStreaming",
+      type: "string",
+      description: "Link til møterom i meet?",
+      hidden: ({ document }) => !document?.isDigital,
+    }),
+    defineField({
       name: "visibleForExternals",
       title: "Arrangementet skal være synlig for eksterne",
       description: "Kryss av her dersom arrangementet også skal være synlig for eksterne.",
