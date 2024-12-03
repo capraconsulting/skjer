@@ -37,11 +37,12 @@ export default defineType({
     }),
     defineField({
       name: "summary",
-      title: "Kort intro til arrangementet",
+      title: "Ingress til arrangementet",
       type: "text",
       rows: 4,
       description:
-        "Dette skal være en teaser for arrangementet. Hold det kort, 2-3 setninger holder.",
+        "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
+      placeholder: "Eks. \"Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00\"",
     }),
     defineField({
       name: "body",
