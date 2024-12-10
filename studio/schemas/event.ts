@@ -92,11 +92,12 @@ export default defineType({
     defineField({
       name: "organisers",
       title: "Hvilke(t) selskap er arrangør?",
-      type: "array",
+      type: "string",
       of: [{ type: "string" }],
       options: {
-        list: ["Capra", "Fryde", "Liflig"],
+        list: ["Alle", "Capra", "Fryde", "Liflig"],
       },
+      initialValue: "Alle",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
