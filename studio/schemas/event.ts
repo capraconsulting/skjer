@@ -1,5 +1,6 @@
 import { CheckmarkIcon, CircleIcon, TextIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
+import { EventInfo } from "../components/EventInfo";
 
 export default defineType({
   name: "event",
@@ -15,6 +16,14 @@ export default defineType({
     return false;
   },
   fields: [
+    defineField({
+      name: "info",
+      type: "string",
+      components: {
+        field: EventInfo,
+      },
+      readOnly: true
+    }),
     defineField({
       name: "cancelId",
       type: "string",
