@@ -2,8 +2,5 @@
   "name": "sanity-template-sveltekit-clean",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@9.0.6",
-  "devDependencies": {
-    "supabase": "^1.207.9"
-  }
+  "packageManager": "pnpm@9.0.6"
 }

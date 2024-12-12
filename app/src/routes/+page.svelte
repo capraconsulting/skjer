@@ -15,7 +15,7 @@
     return category.toLowerCase() === selectedCategory;
   });
 
-  $: amountOfVisibleEvents = 6;
+  let amountOfVisibleEvents = 6;
 </script>
 
 <svelte:head>
