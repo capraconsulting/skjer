@@ -1,5 +1,6 @@
 import { CheckmarkIcon, CircleIcon, TextIcon } from "@sanity/icons";
 import { defineType, defineField } from "sanity";
+import { EventInfo } from "../components/EventInfo";
 
 export default defineType({
   name: "event",
@@ -16,6 +17,14 @@ export default defineType({
   },
   fields: [
     defineField({
+      name: "info",
+      type: "string",
+      components: {
+        field: EventInfo,
+      },
+      readOnly: true
+    }),
+    defineField({
       name: "cancelId",
       type: "string",
       hidden: true,
@@ -25,30 +34,6 @@ export default defineType({
       title: "Tittel på arrangementet",
       type: "string",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "image",
-      title: "Bilde til arrangementet (valgfritt)",
-      type: "image",
-      options: {
-        hotspot: true,
-        metadata: ["palette"],
-      },
-    }),
-    defineField({
-      name: "summary",
-      title: "Kort intro til arrangementet",
-      type: "text",
-      rows: 4,
-      description:
-        "Dette skal være en teaser for arrangementet. Hold det kort, 2-3 setninger holder.",
-    }),
-    defineField({
-      name: "body",
-      title: "Detaljert info om arrangementet",
-      type: "blockContent",
-      description:
-        "Her kan du skrive mer detaljer om arrangementet, men prøv å hold det kort likevel. Inkluder gjerne program og alt annet deltakerne trenger å vite.",
     }),
     defineField({
       name: "start",
@@ -69,15 +54,49 @@ export default defineType({
       validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
-      name: "category",
-      title: "Arrangementskategori",
-      type: "category",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "place",
       title: "Sted",
       type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Bilde til arrangementet (valgfritt)",
+      type: "image",
+      options: {
+        hotspot: true,
+        metadata: ["palette"],
+      },
+    }),
+    defineField({
+      name: "summary",
+      title: "Ingress til arrangementet",
+      type: "text",
+      rows: 4,
+      description:
+        "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
+      placeholder: "Eks. \"Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00\"",
+    }),
+    defineField({
+      name: "body",
+      title: "Detaljert info om arrangementet",
+      type: "blockContent",
+      description:
+        "Her kan du skrive mer detaljer om arrangementet, men prøv å hold det kort likevel. Inkluder gjerne program og alt annet deltakerne trenger å vite.",
+    }),
+    defineField({
+      name: "category",
+      title: "Arrangementskategori",
+      type: "category",
+    }),
+    defineField({
+      name: "organisers",
+      title: "Hvilke(t) selskap er arrangør?",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: ["Capra", "Fryde", "Liflig"],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -85,16 +104,6 @@ export default defineType({
       title: "Maks antall deltagere",
       description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
       type: "number",
-    }),
-    defineField({
-      name: "organisers",
-      title: "Hvem holder arrangementet?",
-      type: "array",
-      of: [{ type: "string" }],
-      options: {
-        list: ["Capra", "Fryde", "Liflig"],
-      },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "isDigital",
@@ -109,9 +118,16 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "visibleForExternals",
-      title: "Arrangementet skal være synlig for eksterne",
-      description: "Kryss av her dersom arrangementet også skal være synlig for eksterne.",
+      title: "Lenke til hvor arrangementet skal strømmes",
+      name: "linkStreaming",
+      type: "string",
+      description: "Link til møterom i meet?",
+      hidden: ({ document }) => !document?.isDigital,
+    }),
+    defineField({
+      name: "openForExternals",
+      title: "Eksterne kan delta på arrangementet",
+      description: "Kryss av her dersom eksterne også kan delta på arrangementet.",
       type: "boolean",
       initialValue: false,
       options: {
@@ -120,9 +136,9 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "openForExternals",
-      title: "Arrangementet skal være åpent for eksterne",
-      description: "Kryss av her dersom arrangementet også skal være åpent for eksterne.",
+      name: "visibleForExternals",
+      title: "Arrangementet skal være synlig for alle, også eksterne",
+      description: "Dersom arrangementet KUN skal være synlig for de som er logget inn med Fryde-, Capra- eller Liflig-epost, lar du denne stå tom.",
       type: "boolean",
       initialValue: false,
       options: {
