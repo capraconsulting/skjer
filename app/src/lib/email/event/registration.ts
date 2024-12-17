@@ -35,7 +35,7 @@ export const sendRegistrationConfirmed = async (props: EventProps) => {
                              letter-spacing: 0.2px;
                              color: #3c4043;">
                 <p>Du er påmeldt! 🎉 Velkommen til oss!</p>
-                <p>Gode nyheter – du er offisielt påmeldt til! 🎊 Vi gleder oss til å ha deg med! Har du noen
+                <p>Gode nyheter – du er offisielt påmeldt! 🎊 Vi gleder oss til å ha deg med! Har du noen
                 spørsmål så håper vi at du tar kontakt. Forbered deg på spennende innhold, nye bekjentskaper og en god
                 start på/avslutning på dagen. Dette vil du ikke gå glipp av!</p>
                 <p>Vennlig hilsen oss i Capra, Fryde og Liflig</p>
