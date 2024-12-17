@@ -27,11 +27,27 @@ interface EmailParams extends Pick<EventProps, "mailTo" | "organiser" | "summary
 export const sendRegistrationConfirmed = async (props: EventProps) => {
   const icsFile = createIcsFile(props);
 
+  const html = `<span style="font-family: Roboto, sans-serif;
+                             font-style: normal;
+                             font-weight: 400;
+                             font-size: 14px;
+                             line-height: 20px;
+                             letter-spacing: 0.2px;
+                             color: #3c4043;">
+                <p>Du er påmeldt! 🎉 Velkommen til oss!</p>
+                <p>Gode nyheter – du er offisielt påmeldt! 🎊 Vi gleder oss til å ha deg med! Har du noen
+                spørsmål så håper vi at du tar kontakt. Forbered deg på spennende innhold, nye bekjentskaper og en god
+                start på/avslutning på dagen. Dette vil du ikke gå glipp av!</p>
+                <p>Vennlig hilsen oss i Capra, Fryde og Liflig</p>
+                <p>P.S. Følg med på innboksen din for flere spennende oppdateringer og overraskelser før
+                arrangementet! 🚀</p>
+                </span>`;
+
   const url = `${PUBLIC_APP_BASE_URL}/event/${props.id}`;
   const mailParams = createMailParams({
     ...props,
     subject: `Påmelding bekreftet: ${props.summary}`,
-    html: `Ønsker du å melde deg av arrangementet, kan du gjøre det via vår <a href="${url}">nettside</a>.`,
+    html,
     icsFile,
   });
 
