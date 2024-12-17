@@ -37,6 +37,7 @@
         type="text"
         name="fullName"
         id="fullName"
+        placeholder="Fornavn Etternavn"
         bind:value={$form.fullName}
       />
       {#if $errors.fullName}
@@ -49,9 +50,10 @@
       <Input
         size="sm"
         class="bg-white"
-        type="text"
+        type="email"
         name="email"
         id="email"
+        placeholder="E-post"
         bind:value={$form.email}
       />
       {#if $errors.email}
@@ -67,6 +69,7 @@
         type="text"
         name="telephone"
         id="telephone"
+        placeholder="123 45 678"
         bind:value={$form.telephone}
       />
       {#if $errors.telephone}
@@ -75,8 +78,8 @@
     </div>
 
     <div class="flex flex-col gap-1">
-      <Label class="font-bold" for="firm">Selskap</Label>
-      <Input size="sm" class="bg-white" type="text" name="firm" id="firm" bind:value={$form.firm} />
+      <Label class="font-bold" for="firm">Bedrift/selskap</Label>
+      <Input size="sm" class="bg-white" type="text" name="firm" id="firm" bind:value={$form.firm} placeholder="Organisasjon" />
       {#if $errors.firm}
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}

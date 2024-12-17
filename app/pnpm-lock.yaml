@@ -56,6 +56,9 @@ importers:
       postgres:
         specifier: ^3.4.4
         version: 3.4.4
+      svelte-icons:
+        specifier: ^2.1.0
+        version: 2.1.0
       validator:
         specifier: ^13.12.0
         version: 13.12.0
@@ -2406,6 +2409,9 @@ packages:
     peerDependencies:
       svelte: ^3.19.0 || ^4.0.0
 
+  svelte-icons@2.1.0:
+    resolution: {integrity: sha512-rHPQjweEc9fGSnvM0/4gA3pDHwyZyYsC5KhttCZRhSMJfLttJST5Uq0B16Czhw+HQ+HbSOk8kLigMlPs7gZtfg==}
+
   svelte@4.2.18:
     resolution: {integrity: sha512-d0FdzYIiAePqRJEb90WlJDkjUEx42xhivxN8muUBmfZnP+tzUgz12DJ2hRJi8sIHCME7jeK1PTMgKPSfTd8JrA==}
     engines: {node: '>=16'}
@@ -4730,6 +4736,8 @@ snapshots:
   svelte-hmr@0.16.0(svelte@4.2.18):
     dependencies:
       svelte: 4.2.18
+
+  svelte-icons@2.1.0: {}
 
   svelte@4.2.18:
     dependencies:

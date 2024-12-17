@@ -26,7 +26,7 @@
 
 <Header {auth} />
 
-<div class="mx-auto min-h-[90vh] p-4 sm:max-w-[1000px]">
+<div class="mx-auto min-h-[90vh] p-4 sm:px-12 sm:max-w-[1200px]">
   <main class="mb-16 mt-8">
     <slot />
   </main>
