@@ -1,4 +1,4 @@
-# Skjer 
+# Skjer
 
 En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig.
 Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter.
@@ -17,8 +17,8 @@ Innhold og bilder i [Sanity](https://www.sanity.io)
 
 **Verktøy**
 
-- [Node.js](https://nodejs.org) (v18.19 eller senere)
-- [PNPM](https://pnpm.io/installation) (9.0.6 eller senere)
+- [Node.js](https://nodejs.org)
+- [PNPM](https://pnpm.io/installation)
 - [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
 - [Vercel CLI](https://vercel.com/docs/cli) (valgfritt)
@@ -35,16 +35,17 @@ Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og S
 2. Installer dependencies:
 
 ```bash
-cd app && pnpm install
-cd ..
-cd studio && pnpm install
+pnpm install
 ```
 
-3.  Start dev serverene:
+3. Kjør følgende 2 kommandoer i hver sin tab i terminalen for å starte dev serverene:
 
 ```bash
-cd app && pnpm dev
-cd studio && pnpm dev
+pnpm -F app dev
+```
+
+```bash
+pnpm -F studio dev
 ```
 
 - SvelteKit applikasjonen skal nå kjøre på [http://localhost:5173](http://localhost:517/)
@@ -59,7 +60,7 @@ Vi har to dataset i Sanity studio, en for dev testing og en for produksjon.
 For å bygge en produksjonsversjon av Sanity studio lokalt, naviger deg til /studio og kjør følgende kommando:
 
 ```bash
-cd studio && pnpm build
+pnpm -F studio build
 ```
 
 Bygg bør alltid kjøres som en del av vår pull request policy 👷
@@ -90,10 +91,10 @@ NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres t
 
 ### Bygg
 
-For å bygge en produksjonsversjon av SvelteKit lokalt, naviger til /app og kjør følgende kommando:
+For å bygge en produksjonsversjon av SvelteKit lokalt kjør:
 
 ```bash
-pnpm build
+pnpm -F app build
 ```
 
 Bygg bør alltid kjøres som en del av vår pull request policy 👷
