@@ -1,4 +1,7 @@
-# CapraWeb
+# Skjer 
+
+En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig.
+Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter.
 
 UI med [Svelte](https://svelte.dev) og [React](https://react.dev)\
 Server side rendering med [SvelteKit](https://kit.svelte.dev)\
@@ -6,39 +9,19 @@ Styling med [Tailwind](https://tailwindcss.com)\
 Hosted hos [Vercel](https://vercel.com/)\
 Innhold og bilder i [Sanity](https://www.sanity.io)
 
-En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig. Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter. Prosjektet har fått navnet CapraWeb for å inkludere hele nettsiden her i fremtiden. Foreløpig fokuserer vi på arrangementsdelen, også kalt <strong>skjer</strong>.
+**Nyttige lenker**
 
-Dette er et levende dokument, denne arbeideren 👷 betyr at vi trenger hjelp!
+[Kanban board i Notion](https://www.notion.so/capra/bc8fb2179c96417f9277b68124793f0e?v=e3a8a020427c4548b3c4628958d10817)
 
-## Kanban
+[Figma design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664)
 
-Kanban board finner man her: [Notion](https://www.notion.so/capra/bc8fb2179c96417f9277b68124793f0e?v=e3a8a020427c4548b3c4628958d10817)
-
-## Figma
-
-Design drodling finner man her: [Nettside design](https://www.figma.com/design/ZFgYAb0tYd8LUwKMomOfBx/Nettsideting?node-id=1-664&t=96Kmh2v9JKb1BpLY-0)
-
-- 👷 Venter på oppdatert Sanity views for Påmeldinger og Matallergier/preferanser
-- 👷 Venter på oppdatert design for avmelding
-- 👷 Venter på e-post template
-
-## Krav
-
-### Verktøy
+**Verktøy**
 
 - [Node.js](https://nodejs.org) (v18.19 eller senere)
 - [PNPM](https://pnpm.io/installation) (9.0.6 eller senere)
 - [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
 - [Vercel CLI](https://vercel.com/docs/cli) (valgfritt)
-
-### Utvidelser
-
-- ESLint
-- EditorConfig
-- Prettier
-- Svelte
-- Tailwind CSS IntelliSense
 
 ## Komme i gang
 
@@ -52,21 +35,16 @@ Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og S
 2. Installer dependencies:
 
 ```bash
-cd capra-web/app
-pnpm install
-
-cd capra-web/studio
-pnpm install
+cd app && pnpm install
+cd ..
+cd studio && pnpm install
 ```
 
 3.  Start dev serverene:
 
 ```bash
-cd capra-web/app
-pnpm dev
-
-cd capra-web/studio
-pnpm dev
+cd app && pnpm dev
+cd studio && pnpm dev
 ```
 
 - SvelteKit applikasjonen skal nå kjøre på [http://localhost:5173](http://localhost:517/)
@@ -81,7 +59,7 @@ Vi har to dataset i Sanity studio, en for dev testing og en for produksjon.
 For å bygge en produksjonsversjon av Sanity studio lokalt, naviger deg til /studio og kjør følgende kommando:
 
 ```bash
-pnpm build
+cd studio && pnpm build
 ```
 
 Bygg bør alltid kjøres som en del av vår pull request policy 👷

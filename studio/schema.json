@@ -493,6 +493,18 @@
         {
           "type": "string",
           "value": "Tech"
+        },
+        {
+          "type": "string",
+          "value": "Fagarrangement"
+        },
+        {
+          "type": "string",
+          "value": "Moderne organisasjonsdesign"
+        },
+        {
+          "type": "string",
+          "value": "Teknologiledelse"
         }
       ]
     }

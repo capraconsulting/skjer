@@ -17,6 +17,14 @@ import {
 import { getEvent, getEventInvitationList, insertInvitation } from "../../supabase/queries";
 import { AddIcon } from "@sanity/icons";
 
+const InvitasjonerInfo = () => {
+  return (
+    <div>
+      <i>Dette er kun for å gi en GDPR-vennlig oversikt over hvem som er invitert (ikke påmeldt). Ved å registrere noen her sender du ikke ut en invitasjon eller informasjon, men noterer at personen ble invitert.</i>
+    </div>
+  );
+};
+
 export default function EventInvitation({ documentId }: { documentId: string }) {
   const toast = useToast();
 
@@ -92,6 +100,7 @@ export default function EventInvitation({ documentId }: { documentId: string }) 
         <Heading as="h2" size={4} style={{ paddingTop: "3.5px" }}>
           Ingen invitasjoner
         </Heading>
+        <InvitasjonerInfo />
 
         {event?.data ? (
           <>
@@ -149,6 +158,7 @@ export default function EventInvitation({ documentId }: { documentId: string }) 
         <Heading as={"h2"} size={4} style={{ paddingTop: "3.5px" }}>
           Invitasjoner ({data.length})
         </Heading>
+        <InvitasjonerInfo />
 
         <Grid columns={[1]} gap={4} style={{ width: "100%", marginTop: "3rem" }}>
           <Box>
