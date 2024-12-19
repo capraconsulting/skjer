@@ -60,6 +60,15 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "summary",
+      title: "Ingress til arrangementet",
+      type: "text",
+      rows: 4,
+      description:
+        "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
+      placeholder: "Eks. \"Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00\"",
+    }),
+    defineField({
       name: "image",
       title: "Bilde til arrangementet (valgfritt)",
       type: "image",
@@ -69,15 +78,6 @@ export default defineType({
         hotspot: true,
         metadata: ["palette"],
       },
-    }),
-    defineField({
-      name: "summary",
-      title: "Ingress til arrangementet",
-      type: "text",
-      rows: 4,
-      description:
-        "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
-      placeholder: "Eks. \"Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00\"",
     }),
     defineField({
       name: "body",
