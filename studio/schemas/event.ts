@@ -63,6 +63,8 @@ export default defineType({
       name: "image",
       title: "Bilde til arrangementet (valgfritt)",
       type: "image",
+      description:
+        'Du finner bibliotek med allerede lagt til bilder under "velg"',
       options: {
         hotspot: true,
         metadata: ["palette"],
