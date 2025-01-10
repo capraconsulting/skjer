@@ -23,7 +23,7 @@ export const sendUnregistrationConfirmed = async (props: {
                              color: #3c4043;">
                 <p><b>Hei,</b></p>
                 <p>Vi fikk nettopp beskjed om at du har meldt deg av vårt arrangement.</p>
-                <p>Ingen bekymringer – det kommer flere muligheter til å få litt faglig eller sosialt påfyll hos oss.
+                <p>Ingen bekymringer - det kommer flere muligheter til å få litt faglig eller sosialt påfyll hos oss.
                 Følg med på her eller meld deg på vårt nyhetsbrev. </p>
                 <p>Vi håper å se deg på et av våre fremtidige arrangementer!</p>
                 <p>Med vennlig hilsen,</p>
