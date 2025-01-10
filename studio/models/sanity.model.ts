@@ -95,8 +95,13 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  info?: string;
   cancelId?: string;
   title: string;
+  start: string;
+  end: string;
+  deadline: string;
+  place: string;
   image?: {
     asset?: {
       _ref: string;
@@ -110,16 +115,13 @@ export type Event = {
   };
   summary?: string;
   body?: BlockContent;
-  start: string;
-  end: string;
-  deadline: string;
-  category: Category;
-  place: string;
-  maxParticipant?: number;
+  category?: Category;
   organisers: Array<string>;
+  maxParticipant?: number;
   isDigital: boolean;
-  visibleForExternals: boolean;
+  linkStreaming?: string;
   openForExternals: boolean;
+  visibleForExternals: boolean;
   foodPreference: boolean;
   food?: string;
   customOptions?: Array<{
