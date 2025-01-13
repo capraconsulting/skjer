@@ -15,7 +15,7 @@
 
   $: futureEventsFiltered = futureEvents.filter(({ category }) => {
     if (!selectedCategory) return true;
-    return category.toLowerCase() === selectedCategory;
+    return category?.toLowerCase() === selectedCategory;
   });
 </script>
 

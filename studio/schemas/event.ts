@@ -22,7 +22,7 @@ export default defineType({
       components: {
         field: EventInfo,
       },
-      readOnly: true
+      readOnly: true,
     }),
     defineField({
       name: "cancelId",
@@ -66,7 +66,8 @@ export default defineType({
       rows: 4,
       description:
         "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
-      placeholder: "Eks. \"Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00\"",
+      placeholder:
+        'Eks. "Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00"',
     }),
     defineField({
       name: "image",
@@ -140,7 +141,8 @@ export default defineType({
     defineField({
       name: "visibleForExternals",
       title: "Arrangementet skal være synlig for alle, også eksterne",
-      description: "Dersom arrangementet KUN skal være synlig for de som er logget inn med Fryde-, Capra- eller Liflig-epost, lar du denne stå tom.",
+      description:
+        "Dersom arrangementet KUN skal være synlig for de som er logget inn med Fryde-, Capra- eller Liflig-epost, lar du denne stå tom.",
       type: "boolean",
       initialValue: false,
       options: {

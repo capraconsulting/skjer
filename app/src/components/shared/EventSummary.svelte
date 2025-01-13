@@ -26,9 +26,12 @@
   });
 </script>
 
-<Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
-  >{event.category}</Badge
->
+{#if event.category}
+  <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
+    >{event.category}</Badge
+  >
+{/if}
+
 <h1 class="break-words pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
 
 {#if event.summary}

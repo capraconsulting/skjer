@@ -43,7 +43,6 @@ export const sendRegistrationConfirmed = async (props: EventProps) => {
                 arrangementet! 🚀</p>
                 </span>`;
 
-  const url = `${PUBLIC_APP_BASE_URL}/event/${props.id}`;
   const mailParams = createMailParams({
     ...props,
     subject: `Påmelding bekreftet: ${props.summary}`,

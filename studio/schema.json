@@ -493,18 +493,6 @@
         {
           "type": "string",
           "value": "Tech"
-        },
-        {
-          "type": "string",
-          "value": "Fagarrangement"
-        },
-        {
-          "type": "string",
-          "value": "Moderne organisasjonsdesign"
-        },
-        {
-          "type": "string",
-          "value": "Teknologiledelse"
         }
       ]
     }
@@ -544,6 +532,13 @@
           "type": "string"
         }
       },
+      "info": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "cancelId": {
         "type": "objectAttribute",
         "value": {
@@ -552,6 +547,34 @@
         "optional": true
       },
       "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "start": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "end": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "deadline": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -635,46 +658,11 @@
         },
         "optional": true
       },
-      "start": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
-      "end": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
-      "deadline": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
       "category": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "category"
-        },
-        "optional": false
-      },
-      "place": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
-      "maxParticipant": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
         },
         "optional": true
       },
@@ -688,6 +676,13 @@
         },
         "optional": false
       },
+      "maxParticipant": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
       "isDigital": {
         "type": "objectAttribute",
         "value": {
@@ -695,14 +690,21 @@
         },
         "optional": false
       },
-      "visibleForExternals": {
+      "linkStreaming": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "openForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
         "optional": false
       },
-      "openForExternals": {
+      "visibleForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
