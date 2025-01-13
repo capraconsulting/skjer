@@ -17,7 +17,7 @@ export default defineType({
   },
   fields: [
     defineField({
-      name: "info",
+      name: "metaInfo",
       type: "string",
       components: {
         field: EventInfo,
@@ -222,6 +222,16 @@ export default defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "emailReminder",
+      title: "E-post påminnelser",
+      type: "emailReminder",
+    }),
+    defineField({
+      name: "emailTemplate",
+      title: "E-post maler",
+      type: "emailTemplate",
     }),
   ],
 });
