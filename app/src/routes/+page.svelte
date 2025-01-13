@@ -10,12 +10,13 @@
 
   let { futureEvents, pastEvents, selectedCategory } = data;
 
+  let amountOfVisibleFutureEvents = 6;
+  let amountOfVisiblePastEvents = 6;
+
   $: futureEventsFiltered = futureEvents.filter(({ category }) => {
     if (!selectedCategory) return true;
     return category.toLowerCase() === selectedCategory;
   });
-
-  let amountOfVisibleEvents = 6;
 </script>
 
 <svelte:head>
@@ -36,17 +37,17 @@
 
   <div class="flex flex-col gap-4 py-5">
     {#if futureEventsFiltered.length}
-      {#each futureEventsFiltered.slice(0, amountOfVisibleEvents) as event}
+      {#each futureEventsFiltered.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
       {/each}
-      {#if futureEventsFiltered.length >= amountOfVisibleEvents}
-        <div class="flex flex-wrap self-center mt-6">
+      {#if futureEventsFiltered.length > amountOfVisibleFutureEvents}
+        <div class="mt-6 flex flex-wrap self-center">
           <Button
             class="hover:bg-zinc-800 hover:text-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
             pill
             color="light"
-            on:click={() => amountOfVisibleEvents += 6}
             padding={3}
+            on:click={() => (amountOfVisibleFutureEvents += 6)}
           >
             <span>Se flere arrangementer</span>
             <span class="ml-2 w-[12px]"><ArrowDownIcon /></span>
@@ -61,14 +62,27 @@
 
 <section class="pb-8">
   <h1 class="pb-12 pt-10 text-4xl font-semibold md:w-[30%] md:text-5xl">Tidligere arrangementer</h1>
-
-  <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
-    {#if pastEvents.length}
-      {#each pastEvents as event}
+  {#if pastEvents.length}
+    <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
+      {#each pastEvents.slice(0, amountOfVisiblePastEvents) as event}
         <EventCard {event} />
       {/each}
-    {:else}
-      <div class="text-xl font-light">Fant ingen tidligere arrangementer 😭</div>
+    </div>
+    {#if pastEvents.length > amountOfVisiblePastEvents}
+      <div class="mt-6 flex flex-wrap self-center">
+        <Button
+          class="hover:bg-zinc-800 hover:text-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
+          pill
+          color="light"
+          padding={3}
+          on:click={() => (amountOfVisiblePastEvents += 6)}
+        >
+          <span>Se flere arrangementer</span>
+          <span class="ml-2 w-[12px]"><ArrowDownIcon /></span>
+        </Button>
+      </div>
     {/if}
-  </div>
+  {:else}
+    <div class="text-xl font-light">Fant ingen tidligere arrangementer 😭</div>
+  {/if}
 </section>

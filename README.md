@@ -1,4 +1,4 @@
-# Skjer 
+# Skjer
 
 En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig.
 Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter.
@@ -17,7 +17,7 @@ Innhold og bilder i [Sanity](https://www.sanity.io)
 
 **Verktøy**
 
-- [Node.js](https://nodejs.org) (v18.19 eller senere)
+- [Node.js](https://nodejs.org) (se .node-version)
 - [PNPM](https://pnpm.io/installation) (9.0.6 eller senere)
 - [Sanity CLI](https://www.sanity.io/docs/getting-started-with-sanity-cli) (anbefalt)
 - [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started) (anbefalt)
@@ -27,7 +27,7 @@ Innhold og bilder i [Sanity](https://www.sanity.io)
 
 For å kjøre koden lokalt:
 
-1. Be om environment variabler for lokal testing i kanalen [#tmp_arrangementsoversikt]().
+1. Be om environment variabler for lokal testing i kanalen [#skjer]().
    Du må selv opprette en `.env.local` fil i både /studio og /app.
 
 Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og Supabase, må dette også spesifikt forespørres.
@@ -105,8 +105,6 @@ SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app](https://ca
 ```bash
 vercel deploy
 ```
-
-👷 Vi er på en Vercel-plan som ikke tillater bygg og deploy i en organisasjon. Må undersøke CI/CD-løsninger på et tidspunkt for å automatisere vår deploy prosess.
 
 ### Lint
 

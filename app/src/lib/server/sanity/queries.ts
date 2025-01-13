@@ -14,7 +14,7 @@ export const eventQuery = groq`*[_type == "event" && _id == $id][0]{
 export const futureEventsQuery = groq`*[_type == "event" && start > now()] | order(start asc)`;
 export const pastEventsQuery = groq`*[_type == "event" && start <= now()] | order(start desc)`;
 
-export const externalFutureEventsQuery = groq`*[_type == "event" && start > now() && visibleForExternals] | order(start asc) `;
+export const externalFutureEventsQuery = groq`*[_type == "event" && start > now() && visibleForExternals] | order(start asc)`;
 export const externalPastEventsQuery = groq`*[_type == "event" && start <= now() && visibleForExternals] | order(start desc)`;
 
 export const getEventContent = async ({ document_id }: { document_id: string }) => {
