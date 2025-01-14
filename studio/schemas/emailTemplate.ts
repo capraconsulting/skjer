@@ -11,7 +11,7 @@ export default defineType({
       name: "registrationSubject",
       title: "Tilpass emne for påmelding",
       type: "string",
-      initialValue: "Du er påmeldt! 🎉 Velkommen til oss!",
+      initialValue: "Du er påmeldt! 🎉",
       validation: (Rule) => Rule.required().min(3).max(100),
     }),
     defineField({
@@ -319,10 +319,102 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "updateSubject",
+      title: "Tilpass emne for oppdatering",
+      type: "string",
+      initialValue: "Oppdatering av tid og sted:",
+      validation: (Rule) => Rule.required().min(3).max(100),
+    }),
+    defineField({
+      name: "updateMessage",
+      title: "Tilpass innhold for oppdatering",
+      type: "blockContent",
+      initialValue: [
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [
+            {
+              _key: uuid(),
+              _type: "span",
+              marks: [],
+              text: "Vi ønsker å informere deg om at tidspunkt/sted har blitt oppdatert.",
+            },
+          ],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [
+            {
+              _key: uuid(),
+              _type: "span",
+              marks: [],
+              text: "Vi beklager eventuelle ulemper dette måtte medføre og setter stor pris på din forståelse.",
+            },
+          ],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [
+            {
+              _key: uuid(),
+              _type: "span",
+              marks: [],
+              text: "Har du noen spørsmål eller trenger mer informasjon, er du hjertelig velkommen til å kontakte oss.",
+            },
+          ],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [],
+          markDefs: [],
+          style: "normal",
+        },
+        {
+          _key: uuid(),
+          _type: "block",
+          children: [
+            {
+              _key: uuid(),
+              _type: "span",
+              marks: [],
+              text: "Vennlig hilsen oss i Capra, Fryde og Liflig",
+            },
+          ],
+          markDefs: [],
+          style: "normal",
+        },
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "cancelSubject",
       title: "Tilpass emne for avlysning",
       type: "string",
-      initialValue: "Viktig beskjed: Arrangementet er dessverre avlyst",
+      initialValue: "Arrangementet er dessverre avlyst:",
       validation: (Rule) => Rule.required().min(3).max(100),
     }),
     defineField({

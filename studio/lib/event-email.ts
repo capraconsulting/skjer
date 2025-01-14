@@ -1,4 +1,6 @@
-interface EventProps {
+import { BlockContent, EmailReminder } from "../models/sanity.model";
+
+interface EventUpdatedProps {
   id: string;
   summary: string;
   description?: string;
@@ -6,9 +8,12 @@ interface EventProps {
   end: string;
   location: string;
   organiser: string;
+  subject: string;
+  message: BlockContent;
+  reminder: EmailReminder;
 }
 
-export const sendEmailEventUpdate = async (props: EventProps) => {
+export const sendEmailEventUpdate = async (props: EventUpdatedProps) => {
   if (process.env.MODE === "development") return;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;
@@ -30,7 +35,19 @@ export const sendEmailEventUpdate = async (props: EventProps) => {
   }
 };
 
-export const sendEmailEventCanceled = async (props: EventProps) => {
+interface EventCanceledProps {
+  id: string;
+  summary: string;
+  description?: string;
+  start: string;
+  end: string;
+  location: string;
+  organiser: string;
+  subject: string;
+  message: BlockContent;
+}
+
+export const sendEmailEventCanceled = async (props: EventCanceledProps) => {
   if (process.env.MODE === "development") return true;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;

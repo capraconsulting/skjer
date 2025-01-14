@@ -46,6 +46,9 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
         end: draftEvent.end,
         location: draftEvent.place,
         organiser: draftEvent.organisers.join(" | "),
+        subject: draftEvent.emailTemplate.updateSubject,
+        message: draftEvent.emailTemplate.updateMessage,
+        reminder: draftEvent.emailReminder,
       };
 
       const result = await sendEmailEventUpdate(emailProps);

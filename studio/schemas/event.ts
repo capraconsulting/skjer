@@ -227,11 +227,13 @@ export default defineType({
       name: "emailReminder",
       title: "E-post påminnelser",
       type: "emailReminder",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "emailTemplate",
       title: "E-post maler",
       type: "emailTemplate",
+      validation: (Rule) => Rule.required(),
     }),
   ],
 });

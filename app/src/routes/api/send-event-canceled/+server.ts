@@ -1,17 +1,19 @@
 import { APP_API_TOKEN } from "$env/static/private";
-import { sendCanceled } from "$lib/email/event/canceled";
+import { sendEmailCanceled } from "$lib/email/event/canceled";
 import { getAttendingParticipants } from "$lib/server/supabase/queries";
+import type { BlockContent } from "$models/sanity.model";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
-interface EventProps {
+export interface EventCanceledProps {
   id: string;
-  mailTo: string;
   summary: string;
   description?: string;
   start: string;
   end: string;
   location: string;
   organiser: string;
+  subject: string;
+  message: BlockContent;
 }
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -26,7 +28,7 @@ export const POST: RequestHandler = async ({ request }) => {
       return json({ error: "Invalid API token" }, { status: 403 });
     }
 
-    const props = (await request.json()) as EventProps | null;
+    const props = (await request.json()) as EventCanceledProps | null;
     if (!props?.id) {
       return json({ error: "Event properties missing or incomplete" }, { status: 400 });
     }
@@ -38,9 +40,9 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     const sendPromises = participants.map(({ email }) =>
-      sendCanceled({
+      sendEmailCanceled({
         ...props,
-        mailTo: email,
+        to: email,
       })
     );
 
@@ -48,7 +50,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const failedSends = results.filter(({ status }) => status === "rejected");
     if (failedSends.length) {
-      console.error("Failed email sends:", failedSends);
+      console.error("Failed email sends", failedSends);
 
       return json(
         { error: "One or more emails failed to send", failedSends: failedSends.length },

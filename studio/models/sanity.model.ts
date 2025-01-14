@@ -129,8 +129,8 @@ export type Event = {
     fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
-  emailReminder?: EmailReminder;
-  emailTemplate?: EmailTemplate;
+  emailReminder: EmailReminder;
+  emailTemplate: EmailTemplate;
 };
 
 export type EmailTemplate = {
@@ -139,6 +139,8 @@ export type EmailTemplate = {
   registrationMessage: BlockContent;
   unregistrationSubject: string;
   unregistrationMessage: BlockContent;
+  updateSubject: string;
+  updateMessage: BlockContent;
   cancelSubject: string;
   cancelMessage: BlockContent;
 };
