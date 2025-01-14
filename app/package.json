@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{js,ts,svelte}'",
     "format": "prettier . --write .",
-    "prepare": "svelte-kit sync"
+    "prepare": "svelte-kit sync",
+    "test": "echo 'no tests'"
   },
   "dependencies": {
     "@auth/core": "^0.34.1",
