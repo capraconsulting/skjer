@@ -20,7 +20,11 @@ import { AddIcon } from "@sanity/icons";
 const InvitasjonerInfo = () => {
   return (
     <div>
-      <i>Dette er kun for å gi en GDPR-vennlig oversikt over hvem som er invitert (ikke påmeldt). Ved å registrere noen her sender du ikke ut en invitasjon eller informasjon, men noterer at personen ble invitert.</i>
+      <i>
+        Dette er kun for å gi en GDPR-vennlig oversikt over hvem som er invitert (ikke påmeldt). Ved
+        å registrere noen her sender du ikke ut en invitasjon eller informasjon, men noterer at
+        personen ble invitert.
+      </i>
     </div>
   );
 };
