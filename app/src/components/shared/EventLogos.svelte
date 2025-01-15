@@ -12,15 +12,20 @@
 </script>
 
 <div class="flex items-center gap-4">
-  {#if event.organisers.includes("Capra")}
+  {#if event.organisers === "Alle"}
     <img class="block h-{height} dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
     <img class="hidden h-{height} dark:block" alt="Capra-logo" src={capraLogoWhite} />
-  {/if}
-  {#if event.organisers.includes("Liflig")}
     <img class="block h-{height} dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
     <img class="hidden h-{height} dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
-  {/if}
-  {#if event.organisers.includes("Fryde")}
+    <img class="block h-{height} dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
+    <img class="hidden h-{height} dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
+  {:else if event.organisers === "Capra"}
+    <img class="block h-{height} dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
+    <img class="hidden h-{height} dark:block" alt="Capra-logo" src={capraLogoWhite} />
+  {:else if event.organisers === "Liflig"}
+    <img class="block h-{height} dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
+    <img class="hidden h-{height} dark:block" alt="Liflig-logo" src={lifligLogoWhite} />
+  {:else if event.organisers === "Fryde"}
     <img class="block h-{height} dark:hidden" alt="Fryde-logo" src={frydeLogoBlack} />
     <img class="hidden h-{height} dark:block" alt="Fryde-logo" src={frydeLogoWhite} />
   {/if}

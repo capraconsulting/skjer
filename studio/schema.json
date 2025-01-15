@@ -669,10 +669,25 @@
       "organisers": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "string"
-          }
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "Alle"
+            },
+            {
+              "type": "string",
+              "value": "Capra"
+            },
+            {
+              "type": "string",
+              "value": "Fryde"
+            },
+            {
+              "type": "string",
+              "value": "Liflig"
+            }
+          ]
         },
         "optional": false
       },

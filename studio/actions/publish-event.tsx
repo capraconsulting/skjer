@@ -45,7 +45,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
         start: draftEvent.start,
         end: draftEvent.end,
         location: draftEvent.place,
-        organiser: draftEvent.organisers.join(" | "),
+        organiser: draftEvent.organisers,
         subject: draftEvent.emailTemplate.updateSubject,
         message: draftEvent.emailTemplate.updateMessage,
         reminder: draftEvent.emailReminder,

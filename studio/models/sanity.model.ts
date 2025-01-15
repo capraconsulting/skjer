@@ -116,7 +116,7 @@ export type Event = {
   };
   body?: BlockContent;
   category?: Category;
-  organisers: Array<string>;
+  organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
   isDigital: boolean;
   linkStreaming?: string;

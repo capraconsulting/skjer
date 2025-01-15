@@ -1,7 +1,7 @@
 import { APP_API_TOKEN } from "$env/static/private";
 import { sendEmailCanceled } from "$lib/email/event/canceled";
 import { getAttendingParticipants } from "$lib/server/supabase/queries";
-import type { BlockContent } from "$models/sanity.model";
+import type { Event, BlockContent } from "$models/sanity.model";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export interface EventCanceledProps {
@@ -11,7 +11,7 @@ export interface EventCanceledProps {
   start: string;
   end: string;
   location: string;
-  organiser: string;
+  organiser: Event["organisers"];
   subject: string;
   message: BlockContent;
 }

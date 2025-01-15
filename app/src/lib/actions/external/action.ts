@@ -161,7 +161,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
     reminder: eventContent.emailReminder,
@@ -268,7 +268,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     id,
     to: email,
     summary: eventContent.title,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     token,
   };
 

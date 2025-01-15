@@ -181,7 +181,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
     reminder: eventContent.emailReminder,
@@ -300,7 +300,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
     message: eventContent.emailTemplate.unregistrationMessage,
   };

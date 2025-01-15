@@ -58,7 +58,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser,
+      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
       email: "no-reply@capragruppen.no",
     },
   });

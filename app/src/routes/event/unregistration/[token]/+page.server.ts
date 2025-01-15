@@ -61,7 +61,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
     message: eventContent.emailTemplate.unregistrationMessage,
   };
