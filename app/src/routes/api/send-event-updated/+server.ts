@@ -1,7 +1,7 @@
 import { APP_API_TOKEN } from "$env/static/private";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { getAttendingParticipants } from "$lib/server/supabase/queries";
-import type { Event, BlockContent, EmailReminder } from "$models/sanity.model";
+import type { Event, BlockContent } from "$models/sanity.model";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export interface EventUpdatedProps {
@@ -14,7 +14,6 @@ export interface EventUpdatedProps {
   organiser: Event["organisers"];
   subject: string;
   message: BlockContent;
-  reminder: EmailReminder;
 }
 
 export const POST: RequestHandler = async ({ request }) => {

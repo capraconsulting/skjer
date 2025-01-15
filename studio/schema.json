@@ -791,14 +791,6 @@
         },
         "optional": true
       },
-      "emailReminder": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "emailReminder"
-        },
-        "optional": false
-      },
       "emailTemplate": {
         "type": "objectAttribute",
         "value": {
@@ -881,66 +873,6 @@
             "name": "blockContent"
           },
           "optional": false
-        }
-      }
-    }
-  },
-  {
-    "name": "emailReminder",
-    "type": "type",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "emailReminder"
-          }
-        },
-        "hasThreeDaysBefore": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": false
-        },
-        "threeDaysSubject": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": false
-        },
-        "threeDaysMessage": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "blockContent"
-          },
-          "optional": true
-        },
-        "hasOneHourBefore": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": false
-        },
-        "oneHourSubject": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": false
-        },
-        "oneHourMessage": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "blockContent"
-          },
-          "optional": true
         }
       }
     }

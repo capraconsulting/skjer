@@ -129,7 +129,6 @@ export type Event = {
     fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
-  emailReminder: EmailReminder;
   emailTemplate: EmailTemplate;
 };
 
@@ -143,16 +142,6 @@ export type EmailTemplate = {
   updateMessage: BlockContent;
   cancelSubject: string;
   cancelMessage: BlockContent;
-};
-
-export type EmailReminder = {
-  _type: "emailReminder";
-  hasThreeDaysBefore: boolean;
-  threeDaysSubject: string;
-  threeDaysMessage?: BlockContent;
-  hasOneHourBefore: boolean;
-  oneHourSubject: string;
-  oneHourMessage?: BlockContent;
 };
 
 export type BlogPost = {

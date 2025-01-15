@@ -184,7 +184,6 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
-    reminder: eventContent.emailReminder,
   };
 
   if (process.env.NODE_ENV !== "development") {

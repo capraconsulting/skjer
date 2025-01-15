@@ -48,7 +48,6 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
         organiser: draftEvent.organisers,
         subject: draftEvent.emailTemplate.updateSubject,
         message: draftEvent.emailTemplate.updateMessage,
-        reminder: draftEvent.emailReminder,
       };
 
       const result = await sendEmailEventUpdated(emailProps);

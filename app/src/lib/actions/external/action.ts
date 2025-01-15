@@ -164,7 +164,6 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
-    reminder: eventContent.emailReminder,
   };
 
   if (process.env.NODE_ENV !== "development") {
