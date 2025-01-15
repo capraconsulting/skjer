@@ -1,3 +1,5 @@
+import { BlockContent } from "../models/sanity.model";
+
 interface EventProps {
   id: string;
   summary: string;
@@ -6,15 +8,17 @@ interface EventProps {
   end: string;
   location: string;
   organiser: string;
+  subject: string;
+  message: BlockContent;
 }
 
-export const sendEmailEventUpdate = async (props: EventProps) => {
+export const sendEmailEventUpdated = async (props: EventProps) => {
   if (process.env.MODE === "development") return;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;
 
   try {
-    const response = await fetch(`${url}/api/send-event-update`, {
+    const response = await fetch(`${url}/api/send-event-updated`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.SANITY_STUDIO_APP_API_TOKEN}`,

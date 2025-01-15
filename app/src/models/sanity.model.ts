@@ -95,13 +95,14 @@ export type Event = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  info?: string;
+  metaInfo?: string;
   cancelId?: string;
   title: string;
   start: string;
   end: string;
   deadline: string;
   place: string;
+  summary?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -113,10 +114,9 @@ export type Event = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  summary?: string;
   body?: BlockContent;
   category?: Category;
-  organisers: Array<string>;
+  organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
   isDigital: boolean;
   linkStreaming?: string;
@@ -129,6 +129,19 @@ export type Event = {
     fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
+  emailTemplate: EmailTemplate;
+};
+
+export type EmailTemplate = {
+  _type: "emailTemplate";
+  registrationSubject: string;
+  registrationMessage: BlockContent;
+  unregistrationSubject: string;
+  unregistrationMessage: BlockContent;
+  updateSubject: string;
+  updateMessage: BlockContent;
+  cancelSubject: string;
+  cancelMessage: BlockContent;
 };
 
 export type BlogPost = {

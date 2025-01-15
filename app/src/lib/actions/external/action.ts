@@ -17,9 +17,9 @@ import {
   registrationSchemaExternal,
   unregistrationSchemaExternal,
 } from "$lib/schemas/external/schema";
-import { sendRegistrationConfirmed } from "$lib/email/event/registration";
-import { sendConfirmUnregistration } from "$lib/email/event/unregistration";
 import { RateLimiter } from "sveltekit-rate-limiter/server";
+import { sendEmailAccepted } from "$lib/email/event/accepted";
+import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
 
 const limiter = new RateLimiter({
   IP: [20, "h"], // 20 rquests per hour from the same IP
@@ -155,17 +155,19 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
 
   const emailPayload = {
     id,
-    mailTo: email,
+    to: email,
     summary: eventContent.title,
     description: eventContent.summary,
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
+    subject: eventContent.emailTemplate.registrationSubject,
+    message: eventContent.emailTemplate.registrationMessage,
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendRegistrationConfirmed(emailPayload);
+    const { error: emailError } = await sendEmailAccepted(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");
@@ -263,14 +265,14 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
 
   const emailPayload = {
     id,
-    mailTo: email,
+    to: email,
     summary: eventContent.title,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
     token,
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendConfirmUnregistration(emailPayload);
+    const { error: emailError } = await sendEmailConfirmDecline(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");

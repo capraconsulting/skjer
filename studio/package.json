@@ -23,6 +23,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/locale-nb-no": "^1.1.11",
     "@sanity/ui": "^2.8.8",
+    "@sanity/uuid": "^3.0.2",
     "@sanity/vision": "^3.52.4",
     "@supabase/supabase-js": "^2.45.0",
     "@tanstack/react-query": "^5.51.16",

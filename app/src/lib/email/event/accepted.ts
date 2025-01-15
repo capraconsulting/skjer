@@ -1,22 +1,22 @@
-import { PUBLIC_APP_BASE_URL } from "$env/static/public";
-import { composeEmail, sendEmail } from "$lib/email/nodemailer";
 import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
-import type { EventCanceledProps } from "../../../routes/api/send-event-canceled/+server";
+import { composeEmail, sendEmail } from "../nodemailer";
+import { PUBLIC_APP_BASE_URL } from "$env/static/public";
+import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
 
-interface EmailCanceledProps extends EventCanceledProps {
+interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
 }
 
-export const sendEmailCanceled = async (props: EmailCanceledProps) => {
+export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
   const icsFile = createIcsFile(props);
 
-  const email = composeEmail({
+  const emailTemplate = composeEmail({
     ...props,
     subject: `${props.subject} ${props.summary}`,
     icsFile,
   });
 
-  const result = await sendEmail(email);
+  const result = await sendEmail(emailTemplate);
   return result;
 };
 
@@ -29,9 +29,10 @@ const createIcsFile = ({
   end,
   location,
   organiser,
-}: EmailCanceledProps) => {
+}: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.CANCEL });
+  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+
   calendar.createEvent({
     id,
     summary,

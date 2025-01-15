@@ -1,13 +1,9 @@
-import validator from "validator";
-import { type Actions } from "@sveltejs/kit";
-import { superValidate, message } from "sveltekit-superforms/server";
-import { zod } from "sveltekit-superforms/adapters";
-import { getEventContent } from "$lib/server/sanity/queries";
+import { sendEmailAccepted } from "$lib/email/event/accepted";
+import { sendEmailDeclined } from "$lib/email/event/declined";
 import {
-  getEvent,
-  getEventParticipant,
-  setParticipantNotAttending,
-} from "$lib/server/supabase/queries";
+  registrationSchemaInternal,
+  unregistrationSchemaInternal,
+} from "$lib/schemas/internal/schema";
 import {
   deleteEventParticipant,
   executeTransaction,
@@ -15,13 +11,17 @@ import {
   insertEventFoodPreference,
   insertEventParticipantOptions,
 } from "$lib/server/kysley/transactions";
+import { getEventContent } from "$lib/server/sanity/queries";
 import {
-  registrationSchemaInternal,
-  unregistrationSchemaInternal,
-} from "$lib/schemas/internal/schema";
-import { sendRegistrationConfirmed } from "$lib/email/event/registration";
-import { sendUnregistrationConfirmed } from "$lib/email/event/unregistration";
+  getEvent,
+  getEventParticipant,
+  setParticipantNotAttending,
+} from "$lib/server/supabase/queries";
+import { type Actions } from "@sveltejs/kit";
 import { RateLimiter } from "sveltekit-rate-limiter/server";
+import { zod } from "sveltekit-superforms/adapters";
+import { message, superValidate } from "sveltekit-superforms/server";
+import validator from "validator";
 
 /**
  ** IP: Allows 40 requests per hour from the same IP address.
@@ -175,17 +175,19 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 
   const emailPayload = {
     id,
-    mailTo: email,
+    to: email,
     summary: eventContent.title,
     description: eventContent.summary,
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
+    subject: eventContent.emailTemplate.registrationSubject,
+    message: eventContent.emailTemplate.registrationMessage,
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendRegistrationConfirmed(emailPayload);
+    const { error: emailError } = await sendEmailAccepted(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");
@@ -291,23 +293,25 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
   const emailPayload = {
     id,
-    mailTo: email,
+    to: email,
     summary: eventContent.title,
     description: eventContent.summary,
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
-    organiser: eventContent.organisers.join(" | "),
+    organiser: eventContent.organisers,
+    subject: eventContent.emailTemplate.unregistrationSubject,
+    message: eventContent.emailTemplate.unregistrationMessage,
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendUnregistrationConfirmed(emailPayload);
+    const { error: emailError } = await sendEmailDeclined(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");
 
       return message(unregistrationForm, {
-        text: "Du er nå meldt av arrangement 👋 Vi kunne dessverre ikke sende e-post bekreftelse.",
+        text: "Du er nå meldt av arrangementet 👋 Vi kunne dessverre ikke sende en e-post bekreftelse.",
         warning: true,
       });
     }

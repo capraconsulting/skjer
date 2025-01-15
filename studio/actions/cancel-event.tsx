@@ -23,7 +23,9 @@ export const CancelAction: DocumentActionComponent = (props: DocumentActionProps
       start: publishedEvent.start,
       end: publishedEvent.end,
       location: publishedEvent.place,
-      organiser: publishedEvent.organisers.join(" | "),
+      organiser: publishedEvent.organisers,
+      subject: publishedEvent.emailTemplate.cancelSubject,
+      message: publishedEvent.emailTemplate.cancelMessage,
     };
 
     try {
