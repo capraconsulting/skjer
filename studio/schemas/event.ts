@@ -95,7 +95,6 @@ export default defineType({
       name: "organisers",
       title: "Hvilke(t) selskap er arrangør?",
       type: "string",
-      of: [{ type: "string" }],
       options: {
         list: ["Alle", "Capra", "Fryde", "Liflig"],
       },
