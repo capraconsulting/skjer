@@ -17,7 +17,7 @@ export default defineType({
   },
   fields: [
     defineField({
-      name: "info",
+      name: "metaInfo",
       type: "string",
       components: {
         field: EventInfo,
@@ -95,7 +95,6 @@ export default defineType({
       name: "organisers",
       title: "Hvilke(t) selskap er arrangør?",
       type: "string",
-      of: [{ type: "string" }],
       options: {
         list: ["Alle", "Capra", "Fryde", "Liflig"],
       },
@@ -222,6 +221,18 @@ export default defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "emailReminder",
+      title: "E-post påminnelser",
+      type: "emailReminder",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "emailTemplate",
+      title: "E-post maler",
+      type: "emailTemplate",
+      validation: (Rule) => Rule.required(),
     }),
   ],
 });

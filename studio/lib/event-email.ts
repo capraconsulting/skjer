@@ -1,3 +1,5 @@
+import { BlockContent, EmailReminder } from "../models/sanity.model";
+
 interface EventProps {
   id: string;
   summary: string;
@@ -6,15 +8,20 @@ interface EventProps {
   end: string;
   location: string;
   organiser: string;
+  subject: string;
+  message: BlockContent;
+  reminder: EmailReminder;
 }
+interface EventUpdatedProps extends EventProps {}
+interface EventCanceledProps extends Omit<EventProps, "reminder"> {}
 
-export const sendEmailEventUpdate = async (props: EventProps) => {
+export const sendEmailEventUpdated = async (props: EventUpdatedProps) => {
   if (process.env.MODE === "development") return;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;
 
   try {
-    const response = await fetch(`${url}/api/send-event-update`, {
+    const response = await fetch(`${url}/api/send-event-updated`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.SANITY_STUDIO_APP_API_TOKEN}`,
@@ -30,7 +37,7 @@ export const sendEmailEventUpdate = async (props: EventProps) => {
   }
 };
 
-export const sendEmailEventCanceled = async (props: EventProps) => {
+export const sendEmailEventCanceled = async (props: EventCanceledProps) => {
   if (process.env.MODE === "development") return true;
 
   const url = process.env.SANITY_STUDIO_APP_BASE_URL;

@@ -144,7 +144,7 @@ Vil du klikke deg rundt i browser for å se hva som skjer i testene, sleng på `
 
 ## Slack
 
-Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #tmp_arrangementer. For å bygge meldingen kan man benytte [Block Kit Builder](https://app.slack.com/block-kit-builder). Denne tjenesten lar deg visuelt designe layouten av meldingen med ulike blokker som knapper, tekstfelter og bilder.
+Når et arrangement publiseres for første gang, vil det automatisk genereres en Slack-melding til kanalen #skjer. For å bygge meldingen kan man benytte [Block Kit Builder](https://app.slack.com/block-kit-builder). Denne tjenesten lar deg visuelt designe layouten av meldingen med ulike blokker som knapper, tekstfelter og bilder.
 
 ## E-posthåndtering
 
