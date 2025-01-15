@@ -39,21 +39,18 @@ export const POST: RequestHandler = async ({ request }) => {
       return json({ message: "No participants found for this event" }, { status: 200 });
     }
 
-    const sendPromises = participants.map(({ email }) =>
-      sendEmailCanceled({
-        ...props,
-        to: email,
-      })
+    const sendEmailPromises = participants.map(({ email }) =>
+      sendEmailCanceled({ ...props, to: email })
     );
 
-    const results = await Promise.allSettled(sendPromises);
+    const results = await Promise.allSettled(sendEmailPromises);
 
-    const failedSends = results.filter(({ status }) => status === "rejected");
-    if (failedSends.length) {
-      console.error("Failed email sends", failedSends);
+    const failedEmailSends = results.filter(({ status }) => status === "rejected");
+    if (failedEmailSends.length) {
+      console.error("Failed email sends", failedEmailSends);
 
       return json(
-        { error: "One or more emails failed to send", failedSends: failedSends.length },
+        { error: "One or more emails failed to send", failedSends: failedEmailSends.length },
         { status: 207 }
       );
     }

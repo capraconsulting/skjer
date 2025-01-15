@@ -4,9 +4,24 @@ import { getUnsubscribeSecret } from "$lib/auth/secret";
 import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
-import { sendUnregistrationConfirmed } from "$lib/email/event/unregistration";
+import { sendEmailDeclined } from "$lib/email/event/declined";
+
+const rateLimitMap: Map<string, number> = new Map();
 
 export const load: PageServerLoad = async ({ params: { token } }) => {
+  const now = Date.now();
+  const lastAccess = rateLimitMap.get(token);
+
+  if (lastAccess && now - lastAccess < 30000) {
+    return {
+      error: true,
+      message:
+        "Du har nådd grensen for antall forsøk. Vennligst vent 30 sekunder før du prøver igjen.",
+    };
+  }
+
+  rateLimitMap.set(token, now);
+
   const tokenDecoded = jwt.decode(token, { complete: true }) as {
     payload: DecodedToken | null;
   } | null;
@@ -40,17 +55,19 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
 
   const emailPayload = {
     id: document_id,
-    mailTo: email,
+    to: email,
     summary: eventContent.title,
     description: eventContent.summary,
     start: eventContent.start,
     end: eventContent.end,
     location: eventContent.place,
     organiser: eventContent.organisers.join(" | "),
+    subject: eventContent.emailTemplate.unregistrationSubject,
+    message: eventContent.emailTemplate.unregistrationMessage,
   };
 
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendUnregistrationConfirmed(emailPayload);
+    const { error: emailError } = await sendEmailDeclined(emailPayload);
 
     if (emailError) {
       console.error("Error: Failed to send email");

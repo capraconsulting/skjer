@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Stack, Button, Card, Text, useToast } from "@sanity/ui";
 import { createEventIfNotExist } from "../supabase/queries";
 import { createSlackMessage } from "../lib/event-slack";
-import { sendEmailEventUpdate } from "../lib/event-email";
+import { sendEmailEventUpdated } from "../lib/event-email";
 import { eventChangeRequiresUpdate } from "../lib/event-check";
 
 export function createExtendedEventPublishAction(originalPublishAction: DocumentActionComponent) {
@@ -51,7 +51,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
         reminder: draftEvent.emailReminder,
       };
 
-      const result = await sendEmailEventUpdate(emailProps);
+      const result = await sendEmailEventUpdated(emailProps);
 
       if (result) {
         toast.push({

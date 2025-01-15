@@ -5,18 +5,20 @@ import ical, {
   ICalCalendarMethod,
 } from "ical-generator";
 import { toHTML } from "@portabletext/to-html";
-import { sendMail as sendEmail } from "../nodemailer";
+import { composeEmail, sendEmail, wrapWithStyles } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
-import type { EventUpdatedProps } from "../../../routes/api/send-event-update/+server";
+import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
 
-interface EventUpdatedExtendedProps extends EventUpdatedProps {
+interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
 }
-export const sendEmailUpdated = async (props: EventUpdatedExtendedProps) => {
+
+export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
   const icsFile = createIcsFile(props);
 
-  const emailTemplate = createEmailTemplate({
+  const emailTemplate = composeEmail({
     ...props,
+    subject: `${props.subject} ${props.summary}`,
     icsFile,
   });
 
@@ -34,7 +36,7 @@ const createIcsFile = ({
   location,
   organiser,
   reminder,
-}: EventUpdatedExtendedProps) => {
+}: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
   const alarms = [];
@@ -43,7 +45,9 @@ const createIcsFile = ({
     alarms.push({
       type: ICalAlarmType.email,
       summary: reminder.threeDaysSubject,
-      description: reminder.threeDaysMessage ? toHTML(reminder.threeDaysMessage) : "",
+      description: reminder.threeDaysMessage
+        ? wrapWithStyles(toHTML(reminder.threeDaysMessage))
+        : "",
       trigger: 259200, // ->3 days before event starts
     });
   }
@@ -52,7 +56,7 @@ const createIcsFile = ({
     alarms.push({
       type: ICalAlarmType.email,
       summary: reminder.oneHourSubject,
-      description: reminder.oneHourMessage ? toHTML(reminder.oneHourMessage) : "",
+      description: reminder.oneHourMessage ? wrapWithStyles(toHTML(reminder.oneHourMessage)) : "",
       trigger: 3600, // -> 1 hour before event starts
     });
   }
@@ -80,22 +84,4 @@ const createIcsFile = ({
   });
 
   return Buffer.from(calendar.toString());
-};
-
-interface EmailProps
-  extends Pick<EventUpdatedExtendedProps, "to" | "subject" | "message" | "summary"> {
-  icsFile: Buffer;
-}
-
-const createEmailTemplate = ({ to, subject, message, summary, icsFile }: EmailProps) => {
-  return {
-    to,
-    from: "Skjer <no-reply@capragruppen.no>",
-    subject: `${subject} ${summary}`,
-    html: toHTML(message),
-    icalEvent: {
-      method: "request",
-      content: icsFile,
-    },
-  };
 };

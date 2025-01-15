@@ -1,5 +1,5 @@
 import { APP_API_TOKEN } from "$env/static/private";
-import { sendEmailUpdated } from "$lib/email/event/updated";
+import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { getAttendingParticipants } from "$lib/server/supabase/queries";
 import type { BlockContent, EmailReminder } from "$models/sanity.model";
 import { json, type RequestHandler } from "@sveltejs/kit";
@@ -40,21 +40,19 @@ export const POST: RequestHandler = async ({ request }) => {
       return json({ message: "No participants found for this event" }, { status: 200 });
     }
 
-    const sendPromises = participants.map(({ email }) =>
-      sendEmailUpdated({
-        ...props,
-        to: email,
-      })
+    const sendEmailPromises = participants.map(({ email }) =>
+      sendEmailAccepted({ ...props, to: email })
     );
 
-    const results = await Promise.allSettled(sendPromises);
+    const results = await Promise.allSettled(sendEmailPromises);
 
-    const failedSends = results.filter(({ status }) => status === "rejected");
-    if (failedSends.length) {
-      console.error("Failed email sends", failedSends);
+    const failedEmailSends = results.filter(({ status }) => status === "rejected");
+
+    if (failedEmailSends.length) {
+      console.error("Failed email sends", failedEmailSends);
 
       return json(
-        { error: "One or more emails failed to send", failedSends: failedSends.length },
+        { error: "One or more emails failed to send", failedSends: failedEmailSends.length },
         { status: 207 }
       );
     }
