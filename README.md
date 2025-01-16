@@ -106,10 +106,6 @@ SvelteKit blir foreløpig deployet til [https://capra-web.vercel.app](https://ca
 vercel deploy
 ```
 
-### Lint
-
-SvelteKit templaten [sanity-template-sveltekit-clean](https://github.com/sanity-io/sanity-template-sveltekit-clean) har en eslint konfigurasjon som ikke funker. Har prøvd å oppgradere til eslint 9 med flatconfig fra denne [issuen](https://github.com/sveltejs/eslint-plugin-svelte/issues/732). 👷 Det er en del lint-errors som må undersøkes.
-
 ## Supabase
 
 Postgres-databasen kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>). Vi har to prosjekter i supabase dashboardet, en for dev testing og en for produksjon.
