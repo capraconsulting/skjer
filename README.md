@@ -27,7 +27,7 @@ Innhold og bilder i [Sanity](https://www.sanity.io)
 
 For å kjøre koden lokalt:
 
-1. Be om environment variabler for lokal testing i kanalen [#skjer]().
+1. Be om environment variabler for lokal testing i kanalen [#tmp_skjer_no]().
    Du må selv opprette en `.env.local` fil i både /studio og /app.
 
 Hvis du trenger tilgang til Sanity Studio, eventuelt Google Console, Vercel og Supabase, må dette også spesifikt forespørres.
@@ -150,8 +150,6 @@ Når et arrangement publiseres for første gang, vil det automatisk genereres en
 
 E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrillapp](https://mandrillapp.com/). Autentisering skjer via Mailchimp.
 
-E-post domene for alle selskaper må verifiseres. Vi er på en trial-plan her og 👷
-
 ### Testing av E-post Lokalt
 
 For å teste e-postfunksjonaliteten lokalt:
@@ -159,9 +157,9 @@ For å teste e-postfunksjonaliteten lokalt:
 1. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
 2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
 
-### Kalenderinvitasjon 👷
+### Kalenderinvitasjon
 
-Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke toveis kommunikasjon gjennom kalenderinvitasjonene, og kan derfor ikke se endringer hvis en deltager svarer Ja, Kanskje eller Nei. For å løse dette, vurderer vi å sette opp en MandrillApp webhook som kan lytte på deltagerens svar. Inntil videre må avmeldinger skje via vår nettside.
+Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke toveis kommunikasjon gjennom kalenderinvitasjonene, og kan derfor ikke se endringer hvis en deltager svarer Ja, Kanskje eller Nei.
 
 ---
 
