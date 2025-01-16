@@ -171,23 +171,43 @@ export default defineType({
     defineField({
       name: "customOptions",
       title: "Legg til egendefinerte spørsmål",
-      description: "Her kan du legge til andre spørsmål enn de som er standard.",
+      description:
+        "Her kan du legge til andre spørsmål, slik som hvor personen så arrangementet, om den skal ha med seg noen, motivasjon til å delta osv.",
       type: "array",
       of: [
         {
+          title: "Skriv ditt spørsmål",
           type: "object",
           options: { columns: 1 },
           fields: [
             defineField({
               name: "fieldOption",
-              title: "Label",
+              title: "Spørsmål",
               type: "string",
-              description: "Tekst som skal vises over feltet (må være unik).",
+              description:
+                "Skriv inn spørsmålet ditt her. Eksempel: “Hvor så du arrangementet?”, “Skal du ha med deg noen?”, “Ønsker du å leie eller har du badebukser når du skal bade og ta badstue?”.",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
+              title: "Svaralternativ",
+              name: "fieldValueCheckbox",
+              type: "string",
+              description:
+                "Skriv inn svaralternativet ditt her. Eksempel: “Ja, jeg ønsker å leie badebukse“",
+              hidden: ({ parent }) => parent?.fieldType !== "checkbox",
+            }),
+            defineField({
+              title: "Svaralternativer",
+              name: "fieldValueRadio",
+              type: "array",
+              of: [{ type: "string" }],
+              description: "Skriv inn de to svaralternativene dine her. Eksempel: “Ja” og “Nei”",
+              validation: (Rule) => Rule.min(2).max(2),
+              hidden: ({ parent }) => parent?.fieldType !== "radio",
+            }),
+            defineField({
               name: "fieldType",
-              title: "Type felt",
+              title: "Velg input-type",
               type: "string",
               options: {
                 list: [

@@ -5,6 +5,8 @@
   export let form = writable<FormData>({ customOptions: [] });
   export let optionLabel: string;
   export let inputType: string;
+  export let radioValues = ["Ja", "Nei"];
+  export let checkboxValue = "Ja";
 
   interface CustomOption {
     value: string;
@@ -22,7 +24,7 @@
 
   const handleCheckboxChange = (event: Event) => {
     const { checked } = event.target as HTMLInputElement;
-    updateFormValue(optionLabel, checked ? "Ja" : "");
+    updateFormValue(optionLabel, checked ? checkboxValue : "");
   };
 
   const handleInputChange = (event: Event) => {
@@ -41,25 +43,33 @@
   };
 
   if (inputType === "radio") {
-    updateFormValue(optionLabel, "Ja");
+    updateFormValue(optionLabel, radioValues[0]);
   }
 </script>
 
 <div class="flex flex-col gap-1">
-  <span class="block text-sm font-bold text-gray-900 dark:text-gray-300 rtl:text-right">
+  <span class="block text-sm font-bold text-gray-900 rtl:text-right dark:text-gray-300">
     {optionLabel}
   </span>
   {#if inputType === "checkbox"}
-    <Checkbox name="customOptions" on:change={handleCheckboxChange}>Ja</Checkbox>
+    <Checkbox name="customOptions" on:change={handleCheckboxChange}>{checkboxValue}</Checkbox>
   {:else if inputType === "radio"}
     <div class="flex gap-6 text-sm">
       <div class="flex gap-2">
-        <Radio inline name="customOptions" group="Ja" value="Ja" on:change={handleRadioChange}>
-          Ja
+        <Radio
+          inline
+          name="customOptions"
+          group={radioValues[0]}
+          value={radioValues[0]}
+          on:change={handleRadioChange}
+        >
+          {radioValues[0]}
         </Radio>
       </div>
       <div class="flex gap-2">
-        <Radio inline name="customOptions" value="Nei" on:change={handleRadioChange}>Nei</Radio>
+        <Radio inline name="customOptions" value={radioValues[1]} on:change={handleRadioChange}>
+          {radioValues[1]}
+        </Radio>
       </div>
     </div>
   {:else}
