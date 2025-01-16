@@ -32,7 +32,9 @@ export default defineConfig({
       ],
     }),
     structureTool({
-      title: "Struktur",
+      name: "event",
+      title: "Arrangementer",
+      structure: (S) => S.documentTypeList("event"),
       defaultDocumentNode: getDefaultDocumentNode,
     }),
     presentationTool({
