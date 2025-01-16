@@ -51,6 +51,8 @@
             {form}
             inputType={stegaClean(customOption.fieldType)}
             optionLabel={stegaClean(customOption.fieldOption)}
+            radioValues={stegaClean(customOption.fieldValueRadio)}
+            checkboxValue={stegaClean(customOption.fieldValueCheckbox)}
           />
         {/each}
         {#if $errors.customOptions}

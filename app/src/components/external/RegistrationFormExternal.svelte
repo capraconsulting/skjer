@@ -79,7 +79,15 @@
 
     <div class="flex flex-col gap-1">
       <Label class="font-bold" for="firm">Bedrift/selskap</Label>
-      <Input size="sm" class="bg-white" type="text" name="firm" id="firm" bind:value={$form.firm} placeholder="Organisasjon" />
+      <Input
+        size="sm"
+        class="bg-white"
+        type="text"
+        name="firm"
+        id="firm"
+        bind:value={$form.firm}
+        placeholder="Organisasjon"
+      />
       {#if $errors.firm}
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
@@ -102,6 +110,8 @@
           {form}
           inputType={stegaClean(customOption.fieldType)}
           optionLabel={stegaClean(customOption.fieldOption)}
+          radioValues={stegaClean(customOption.fieldValueRadio)}
+          checkboxValue={stegaClean(customOption.fieldValueCheckbox)}
         />
       {/each}
       {#if $errors.customOptions}
