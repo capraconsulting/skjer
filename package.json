@@ -1,6 +1,11 @@
 {
-  "name": "sanity-template-sveltekit-clean",
-  "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@9.0.6"
+  "engines": {
+    "node": "= 22"
+  },
+  "packageManager": "pnpm@9.0.6",
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "vercel": "^39.3.0"
+  }
 }
