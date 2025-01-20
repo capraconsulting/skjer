@@ -3,10 +3,9 @@
   import logoDark from "$lib/assets/logo-dark.webp";
   import logoDarkSm from "$lib/assets/logo-dark-sm.webp";
   import logoLightSm from "$lib/assets/logo-light-sm.webp";
-  import SignInOrOut from "$components/shared/SignInOrOut.svelte";
   import { page } from "$app/stores";
-  import { DarkMode } from "flowbite-svelte";
   import { isSafariOrIOS } from "$lib/utils/device.util";
+  import HeaderActions from "$components/shared/HeaderActions.svelte";
 
   export let auth;
   $: isRoot = $page.url.pathname === "/";
@@ -35,7 +34,6 @@
   </a>
 
   <div class="flex flex-row items-center justify-end gap-2">
-    <SignInOrOut {auth} />
-    <DarkMode />
+    <HeaderActions {auth} />
   </div>
 </header>
