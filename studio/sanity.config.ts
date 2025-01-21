@@ -16,7 +16,7 @@ export const dataset = process.env.SANITY_STUDIO_DATASET!;
 export const enivornment = process.env.MODE;
 
 export default defineConfig({
-  name: "capra-web",
+  name: "skjer",
   title: "Skjer",
   projectId,
   dataset,
