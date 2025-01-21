@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArrowDownIcon from "svelte-icons/fa/FaArrowDown.svelte";
+  import { ArrowDownIcon } from "svelte-feather-icons";
   import { Button } from "flowbite-svelte";
 
   import EventCard from "$components/shared/EventCard.svelte";
@@ -43,14 +43,13 @@
       {#if futureEventsFiltered.length > amountOfVisibleFutureEvents}
         <div class="mt-6 flex flex-wrap self-center">
           <Button
-            class="hover:bg-zinc-800 hover:text-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
             pill
-            color="light"
+            color="alternative"
             padding={3}
             on:click={() => (amountOfVisibleFutureEvents += 6)}
           >
-            <span>Se flere arrangementer</span>
-            <span class="ml-2 w-[12px]"><ArrowDownIcon /></span>
+            <span class="mr-2">Se flere arrangementer</span>
+            <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
           </Button>
         </div>
       {/if}
@@ -71,14 +70,13 @@
     {#if pastEvents.length > amountOfVisiblePastEvents}
       <div class="mt-6 flex flex-wrap self-center">
         <Button
-          class="hover:bg-zinc-800 hover:text-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
           pill
-          color="light"
+          color="alternative"
           padding={3}
           on:click={() => (amountOfVisiblePastEvents += 6)}
         >
-          <span>Se flere arrangementer</span>
-          <span class="ml-2 w-[12px]"><ArrowDownIcon /></span>
+          <span class="mr-2">Se flere arrangementer</span>
+          <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
         </Button>
       </div>
     {/if}

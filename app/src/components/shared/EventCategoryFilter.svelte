@@ -30,14 +30,14 @@
   };
 </script>
 
-<ButtonGroup class="pb-7 flex-row md:self-end gap-2 shadow-none">
+<ButtonGroup class="flex-row flex-wrap gap-2 pb-7 shadow-none md:self-end">
   {#each categories as { title, keyword }}
     <Button
       on:click={() => handleCategoryChange(keyword)}
       class={`${
         selectedCategory === keyword
-          ? "h-7 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
-          : "h-7 !rounded-lg border border-black hover:bg-zinc-800 hover:text-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
+          ? "h-8 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
+          : "h-8 !rounded-lg border border-[#999] hover:border-black hover:bg-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
       }`}
     >
       {title}

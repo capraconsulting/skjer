@@ -1,4 +1,4 @@
-import flowbite from 'flowbite/plugin';
+import flowbite from "flowbite/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,6 +7,9 @@ export default {
     "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["Inter"],
+    },
     extend: {
       colors: {
         capraDarkMode: "#0c1c35",
