@@ -107,6 +107,8 @@ export type Event = {
   start: string;
   end: string;
   deadline: string;
+  frequence: "none" | "daily" | "weekly" | "monthly" | "yearly";
+  interval: number;
   place: string;
   summary?: string;
   image?: {
