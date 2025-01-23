@@ -54,6 +54,34 @@ export default defineType({
       validation: (Rule) => Rule.required().max(Rule.valueOfField("start")),
     }),
     defineField({
+      title: "Repetisjon frekvens",
+      name: "frequence",
+      type: "string",
+      initialValue: "none",
+      description:
+        "Velg hvor ofte arrangementet skal repeteres. Hvis arrangementet ikke skal repeteres, velg 'Ingen repetisjon'.",
+      options: {
+        list: [
+          { title: "Ingen repetisjon", value: "none" },
+          { title: "Daglig", value: "daily" },
+          { title: "Ukentlig", value: "weekly" },
+          { title: "Månedelig", value: "monthly" },
+          { title: "Årlig", value: "yearly" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "interval",
+      title: "Repetisjon intervall",
+      description:
+        "Angi hvor mange intervaller som skal gå mellom hver repetisjon. For eksempel, hvis du velger 'Ukentlig' og setter intervallet til 2, vil arrangementet repeteres annenhver uke.",
+      type: "number",
+      initialValue: 1,
+      hidden: ({ document }) => !document?.frequence || document?.frequence === "none",
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
       name: "place",
       title: "Sted",
       type: "string",
