@@ -11,8 +11,8 @@
   export let height: number;
 </script>
 
-<div class="flex items-center gap-4">
-  {#if event.organisers === "Alle"}
+<div class="flex flex-wrap items-center gap-4">
+{#if event.organisers === "Alle"}
     <img class="block h-{height} dark:hidden" alt="Capra-logo" src={capraLogoBlack} />
     <img class="hidden h-{height} dark:block" alt="Capra-logo" src={capraLogoWhite} />
     <img class="block h-{height} dark:hidden" alt="Liflig-logo" src={lifligLogoBlack} />
