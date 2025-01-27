@@ -604,42 +604,6 @@
         },
         "optional": false
       },
-      "frequence": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "none"
-            },
-            {
-              "type": "string",
-              "value": "daily"
-            },
-            {
-              "type": "string",
-              "value": "weekly"
-            },
-            {
-              "type": "string",
-              "value": "monthly"
-            },
-            {
-              "type": "string",
-              "value": "yearly"
-            }
-          ]
-        },
-        "optional": false
-      },
-      "interval": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
-        },
-        "optional": false
-      },
       "place": {
         "type": "objectAttribute",
         "value": {
@@ -763,6 +727,75 @@
           "type": "number"
         },
         "optional": true
+      },
+      "isRecurring": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": false
+      },
+      "interval": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "number",
+              "value": 1
+            },
+            {
+              "type": "number",
+              "value": 2
+            },
+            {
+              "type": "number",
+              "value": 3
+            },
+            {
+              "type": "number",
+              "value": 4
+            },
+            {
+              "type": "number",
+              "value": 5
+            },
+            {
+              "type": "number",
+              "value": 6
+            },
+            {
+              "type": "number",
+              "value": 7
+            }
+          ]
+        },
+        "optional": false
+      },
+      "frequence": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "day"
+            },
+            {
+              "type": "string",
+              "value": "week"
+            },
+            {
+              "type": "string",
+              "value": "month"
+            },
+            {
+              "type": "string",
+              "value": "year"
+            }
+          ]
+        },
+        "optional": false
       },
       "isDigital": {
         "type": "objectAttribute",

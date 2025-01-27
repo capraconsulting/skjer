@@ -107,8 +107,6 @@ export type Event = {
   start: string;
   end: string;
   deadline: string;
-  frequence: "none" | "daily" | "weekly" | "monthly" | "yearly";
-  interval: number;
   place: string;
   summary?: string;
   image?: {
@@ -126,6 +124,9 @@ export type Event = {
   category?: Category;
   organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
+  isRecurring: boolean;
+  interval: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  frequence: "day" | "week" | "month" | "year";
   isDigital: boolean;
   linkStreaming?: string;
   openForExternals: boolean;
@@ -219,5 +220,3 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
-
-
