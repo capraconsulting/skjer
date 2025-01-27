@@ -1,5 +1,5 @@
 import { client } from "$lib/sanity/client";
-import { clientWithoutStega } from "$lib/server/sanity/client";
+import { sanityClientWithoutStega } from "$lib/server/sanity/client";
 import type { Event } from "$models/sanity.model";
 import groq from "groq";
 
@@ -18,7 +18,7 @@ export const externalFutureEventsQuery = groq`*[_type == "event" && start > now(
 export const externalPastEventsQuery = groq`*[_type == "event" && start <= now() && visibleForExternals] | order(start desc)`;
 
 export const getEventContent = async ({ document_id }: { document_id: string }) => {
-  return await clientWithoutStega.fetch<Event>(eventQuery, { id: document_id });
+  return await sanityClientWithoutStega.fetch<Event>(eventQuery, { id: document_id });
 };
 
 export const getFutureEvents = async () => {
