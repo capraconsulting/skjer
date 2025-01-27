@@ -108,7 +108,7 @@ vercel deploy
 
 ## Supabase
 
-Postgres-databasen kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>). Vi har to prosjekter i supabase dashboardet, en for dev testing og en for produksjon.
+Postgres-databasen kan konfigures fra [https://supabase.com/dashboard/project/<project-id>](https://supabase.com/dashboard/project/<project-id>). Vi har to prosjekter i Supabase dashboardet, en for dev testing og en for produksjon.
 
 ### TypeScript Generering
 
@@ -164,7 +164,7 @@ Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke 
 ### Publisering
 
 1. Gå inn i Sanity Studio og legg først til et nytt arrangement, og trykk "Publiser".
-2. Når et arrangement publiseres, blir det automatisk opprettet et arrangement i Postgres-databasen.
+2. Når et arrangement publiseres, blir det automatisk opprettet et arrangement i Suppabase.
 3. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises.
 
 Hvis tid eller lokasjon for et publisert arrangement endres i Sanity, følges denne prosessen:
@@ -185,7 +185,7 @@ Innholdet kan republiseres uten noen konsekvenser.
 
 1. Gå inn i Sanity Studio og trykk "Slett".
 2. En dialogboks for å bekrefte slettingen vises.
-3. Arrangementinformasjon lagret i Sanity og Postgres-databasen blir permanent slettet.
+3. Arrangementinformasjon lagret i Sanity og Supabase dataen blir permanent slettet.
 
 ### Avlysning
 
@@ -199,7 +199,16 @@ Innholdet kan ikke republiseres på nytt, men kan dupliseres for nytt bruk.
 
 ### Opprydding av Arrangementer
 
-For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer fra Postgres-databasen som ble avsluttet for mer enn 7 dager siden. Dette håndteres av CRON-jobben "daily-event-cleaner". Innholdet forblir lagret i Sanity.
+For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer og tilhørende data fra Supabase som ble avsluttet for mer enn 7 dager siden. Dette håndteres av CRON-jobben "daily-event-cleaner". Innholdet forblir lagret i Sanity.
+
+### Gjentakende Arrangementer
+
+Gjentakende arrangementer håndteres av CRON-jobben "daily-recurring-event-scheduler". Når et gjentakende arrangement er ferdig, utfører jobben følgende:
+
+1. Fjerner det gamle arrangementet og tilhørende data fra Supabase
+2. Oppdaterer arrangementet med nye tider og publiserer det i Sanity
+3. Oppretter et nytt arrangement i Supabase
+4. Sender ut en varsling gjennom Slack
 
 ## SvelteKit Arbeidsflyt
 
