@@ -3,6 +3,10 @@
     {
       "path": "/api/daily-event-cleaner",
       "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/daily-recurring-event-scheduler",
+      "schedule": "30 6 * * *"
     }
   ]
 }
