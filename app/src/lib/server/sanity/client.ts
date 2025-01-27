@@ -1,20 +1,31 @@
 import { client } from "$lib/sanity/client";
-import { token } from "$lib/server/sanity/api";
+import { readToken, writeToken } from "$lib/server/sanity/api";
 
-export const serverClient = client.withConfig({
-  token,
+// Read client and with stega
+export const sanityClient = client.withConfig({
+  token: readToken,
   useCdn: false,
   stega: true,
 });
 
-export const clientWithoutStega = client.withConfig({
-  token,
+// Read client and without stega
+export const sanityClientWithoutStega = client.withConfig({
+  token: readToken,
   useCdn: false,
   stega: false,
 });
 
-export const previewDraftsClient = client.withConfig({
-  token,
+// Writeable client and without stega
+export const sanityClientWriteable = client.withConfig({
+  token: writeToken,
+  useCdn: false,
+  stega: false,
+  perspective: "published",
+});
+
+// Read client in preview and without stega
+export const sanityClientPreviewDrafts = client.withConfig({
+  token: readToken,
   stega: false,
   useCdn: false, // must be false, required for this perspective
   perspective: "previewDrafts",

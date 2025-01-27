@@ -1,5 +1,5 @@
 import { createRequestHandler, setServerClient } from "@sanity/svelte-loader";
-import { serverClient } from "$lib/server/sanity/client";
+import { sanityClient } from "$lib/server/sanity/client";
 import { sequence } from "@sveltejs/kit/hooks";
 import { createAuthHandler } from "$lib/auth";
 import { createCorsHandler } from "$lib/auth/cors";
@@ -8,7 +8,7 @@ import { createCorsHandler } from "$lib/auth/cors";
 // The loader will handle setting the correct fetch parameters, including
 // perspective. This isn't a hook, but it's a good place to call this function
 // as this file is executed once per app initialization.
-setServerClient(serverClient);
+setServerClient(sanityClient);
 
 // This convenience function sets up preview mode endpoints and attaches useful
 // helpers to the `event.locals` Svelte object, such as a preconfigured

@@ -6,6 +6,14 @@ export default defineType({
   name: "event",
   title: "Arrangement",
   type: "document",
+  fieldsets: [
+    {
+      title: "Gjentakelse innstillinger",
+      name: "recurrence",
+      options: { columns: 2 },
+      group: "recurrence",
+    },
+  ],
   readOnly: ({ document }) => {
     if (!document?.cancelId) {
       return false;
@@ -106,6 +114,55 @@ export default defineType({
       title: "Maks antall deltagere",
       description: "Dersom det ikke er noe maksantall lar du denne stå tom.",
       type: "number",
+    }),
+    defineField({
+      name: "isRecurring",
+      title: "Arrangementet skal gjentas",
+      description:
+        "Kryss av her dersom arrangementet skal gjentas for eksempel hver andre uke eller månedlig.",
+      type: "boolean",
+      initialValue: false,
+      options: {
+        layout: "checkbox",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "interval",
+      title: "Hvor ofte skal det gjentas?",
+      type: "number",
+      initialValue: 1,
+      options: {
+        list: [
+          { title: "Hver", value: 1 },
+          { title: "Hver andre", value: 2 },
+          { title: "Hver tredje", value: 3 },
+          { title: "Hver fjerde", value: 4 },
+          { title: "Hver femte", value: 5 },
+          { title: "Hver sjette", value: 6 },
+          { title: "Hver syvende", value: 7 },
+        ],
+      },
+      hidden: ({ document }) => !document?.isRecurring,
+      validation: (Rule) => Rule.required(),
+      fieldset: "recurrence",
+    }),
+    defineField({
+      title: " ",
+      name: "frequence",
+      type: "string",
+      initialValue: "day",
+      options: {
+        list: [
+          { title: "Dag", value: "day" },
+          { title: "Uke", value: "week" },
+          { title: "Måned", value: "month" },
+          { title: "År", value: "year" },
+        ],
+      },
+      hidden: ({ document }) => !document?.isRecurring,
+      validation: (Rule) => Rule.required(),
+      fieldset: "recurrence",
     }),
     defineField({
       name: "isDigital",
