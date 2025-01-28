@@ -4,26 +4,27 @@
   import type { Category } from "$models/sanity.model";
   import { goto } from "$app/navigation";
 
-  export let selectedCategory: string;
+  export let selectedFilter: string;
 
   const dispatch = createEventDispatcher();
   const searchParams = new URLSearchParams();
 
-  type Categories = { keyword: string; title: Category | "Alle" }[];
-  const categories: Categories = [
+  type Filters = { keyword: string; title: Category | "Alle" | "For alle" | "Kun interne" }[];
+  const filter: Filters = [
     { title: "Alle", keyword: "" },
-    { title: "Tech", keyword: "tech" },
-    { title: "Design", keyword: "design" },
+    { title: "For alle", keyword: "for-alle" },
+    { title: "Kun interne", keyword: "kun-interne" },
+    { title: "Fag", keyword: "fag" },
     { title: "Sosialt", keyword: "sosialt" },
   ];
 
-  const handleCategoryChange = async (category: string) => {
-    dispatch("categoryChange", category);
+  const handleFilterChange = async (filter: string) => {
+    dispatch("filterChange", filter);
 
-    if (category) {
-      searchParams.set("category", category);
+    if (filter) {
+      searchParams.set("filter", filter);
     } else {
-      searchParams.delete("category");
+      searchParams.delete("filter");
     }
 
     await goto(`?${searchParams.toString()}`, { noScroll: true });
@@ -31,11 +32,11 @@
 </script>
 
 <ButtonGroup class="flex-row flex-wrap gap-2 pb-7 shadow-none md:self-end">
-  {#each categories as { title, keyword }}
+  {#each filter as { title, keyword }}
     <Button
-      on:click={() => handleCategoryChange(keyword)}
+      on:click={() => handleFilterChange(keyword)}
       class={`${
-        selectedCategory === keyword
+        selectedFilter === keyword
           ? "h-8 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
           : "h-8 !rounded-lg border border-[#999] hover:border-black hover:bg-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
       }`}

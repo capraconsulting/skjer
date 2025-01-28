@@ -10,7 +10,7 @@ import type { EventWithAttending } from "$models/databaseView.model";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   const auth = await locals.auth();
-  const selectedCategory = url.searchParams.get("category")?.toLowerCase() || "";
+  const selectedFilter = url.searchParams.get("filter")?.toLowerCase() || "";
 
   if (auth?.user?.email) {
     const futureEventsContent = await getFutureEvents();
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
     return {
       futureEvents,
       pastEvents,
-      selectedCategory,
+      selectedFilter,
     };
   }
 
@@ -38,6 +38,6 @@ export const load: PageServerLoad = async ({ url, locals }) => {
   return {
     futureEvents,
     pastEvents,
-    selectedCategory,
+    selectedFilter,
   };
 };
