@@ -1,21 +1,28 @@
 <script lang="ts">
   import { ArrowDownIcon } from "svelte-feather-icons";
   import { Button } from "flowbite-svelte";
-
   import EventCard from "$components/shared/EventCard.svelte";
   import EventListItem from "$components/shared/EventListItem.svelte";
-  import EventCategoryFilter from "$components/shared/EventCategoryFilter.svelte";
+  import EventFilter from "$components/shared/EventFilter.svelte";
 
   export let data;
 
-  let { futureEvents, pastEvents, selectedCategory } = data;
+  let { futureEvents, pastEvents, selectedFilter } = data;
 
   let amountOfVisibleFutureEvents = 6;
   let amountOfVisiblePastEvents = 6;
 
-  $: futureEventsFiltered = futureEvents.filter(({ category }) => {
-    if (!selectedCategory) return true;
-    return category?.toLowerCase() === selectedCategory;
+  $: futureEventsFiltered = futureEvents.filter(({ category, openForExternals }) => {
+    if (!selectedFilter) {
+      return true;
+    }
+    if (selectedFilter === "kun-interne") {
+      return !openForExternals;
+    }
+    if (selectedFilter === "for-alle") {
+      return openForExternals;
+    }
+    return category?.toLowerCase() === selectedFilter;
   });
 </script>
 
@@ -28,11 +35,7 @@
     <h1 class="pb-6 text-4xl font-semibold md:w-[30%] md:pt-10 md:text-5xl">
       Kommende arrangementer
     </h1>
-
-    <EventCategoryFilter
-      {selectedCategory}
-      on:categoryChange={({ detail }) => (selectedCategory = detail)}
-    />
+    <EventFilter {selectedFilter} on:filterChange={({ detail }) => (selectedFilter = detail)} />
   </div>
 
   <div class="flex flex-col gap-4 py-5">

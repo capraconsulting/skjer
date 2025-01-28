@@ -2,8 +2,7 @@ import { defineType } from "sanity";
 
 const categories = [
   { value: "Sosialt", title: "Sosialt" },
-  { value: "Design", title: "Design" },
-  { value: "Tech", title: "Tech" },
+  { value: "Fag", title: "Fag" },
 ];
 
 export default defineType({
