@@ -518,11 +518,7 @@
         },
         {
           "type": "string",
-          "value": "Design"
-        },
-        {
-          "type": "string",
-          "value": "Tech"
+          "value": "Fag"
         }
       ]
     }

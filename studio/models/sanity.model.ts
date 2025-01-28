@@ -93,7 +93,7 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Category = "Sosialt" | "Design" | "Tech";
+export type Category = "Sosialt" | "Fag";
 
 export type Event = {
   _id: string;
