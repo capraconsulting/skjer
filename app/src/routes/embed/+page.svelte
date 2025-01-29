@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "@iframe-resizer/child";
   import EventListItem from "$components/shared/EventListItem.svelte";
 
   export let data;
