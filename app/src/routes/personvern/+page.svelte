@@ -172,7 +172,7 @@
 
     Capra AS <br />
     v/personvernansvarlig <br />
-    Stenersgata 2 N-0184 <br />
+    Torggata 2-4, 0180 Oslo <br />
     Oslo <br /> <br />
 
     <a href="mailto:gdpr@capraconsulting.no" class="font-normal underline"
