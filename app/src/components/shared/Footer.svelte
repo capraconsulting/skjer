@@ -9,6 +9,8 @@
   import miljofyrtarnLight from "$lib/assets/miljofyrtarn-light.webp";
   import dnvDark from "$lib/assets/dnv-dark.webp";
   import dnvLight from "$lib/assets/dnv-light.webp";
+
+  const currentYear = new Date().getFullYear();
 </script>
 
 <footer
@@ -54,8 +56,7 @@
     </div>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
-    2024 © Capra | Stenersgata 2 | N-0168 Oslo | <a href="mailto:post@capraconsulting.no"
-      >post@capraconsulting.no</a
-    >
+    {currentYear} © Capra | Torggata 2-4, 0180 Oslo |
+    <a href="mailto:post@capraconsulting.no">post@capraconsulting.no</a>
   </p>
 </footer>
