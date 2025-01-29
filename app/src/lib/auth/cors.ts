@@ -1,4 +1,9 @@
-import { PUBLIC_SANITY_STUDIO_URL } from "$env/static/public";
+import {
+  PUBLIC_CAPRA_BASE_URL,
+  PUBLIC_FRYDE_BASE_URL,
+  PUBLIC_LIFLIG_BASE_URL,
+  PUBLIC_SANITY_STUDIO_URL,
+} from "$env/static/public";
 import type { Handle } from "@sveltejs/kit";
 
 const ALLOWED_ORIGIN = PUBLIC_SANITY_STUDIO_URL;
@@ -13,9 +18,20 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": ALLOWED_HEADERS,
 };
 
-function applyCorsHeaders(headers: Headers): Headers {
+function applyCustomHeaders(headers: Headers, pathname: string): Headers {
   for (const [key, value] of Object.entries(corsHeaders)) {
     headers.set(key, value);
+  }
+
+  if (pathname === "/embed") {
+    headers.set("X-Frame-Options", "ALLOWALL");
+    headers.set(
+      "Content-Security-Policy",
+      `frame-ancestors 'self' ${PUBLIC_CAPRA_BASE_URL} ${PUBLIC_LIFLIG_BASE_URL} ${PUBLIC_FRYDE_BASE_URL}`
+    );
+  } else {
+    headers.set("X-Frame-Options", "DENY");
+    headers.set("Content-Security-Policy", "frame-ancestors 'none'");
   }
   return headers;
 }
@@ -26,7 +42,7 @@ export const createCorsHandler: Handle = async ({ event, resolve }) => {
   }
 
   const response = await resolve(event);
-  const headers = applyCorsHeaders(new Headers(response.headers));
+  const headers = applyCustomHeaders(new Headers(response.headers), event.url.pathname);
 
   return new Response(response.body, { ...response, headers });
 };
