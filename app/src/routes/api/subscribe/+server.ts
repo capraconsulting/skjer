@@ -24,7 +24,7 @@ export const GET: RequestHandler = async () => {
       }
     );
 
-    const icalFeed = Buffer.from(calendar.toString());
+    const icalFeed = calendar.toString();
 
     return new Response(icalFeed, {
       headers: {
