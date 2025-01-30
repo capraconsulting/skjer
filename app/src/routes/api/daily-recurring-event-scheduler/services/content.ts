@@ -25,17 +25,22 @@ export function filterPublishedEvents(
 }
 
 export async function updateAndPublishEvents(events: Event[]) {
-  const updateAndPublishPromises = events.map(async (currentEvent) => {
-    const updatedEventSchedule = computeNextEventSchedule(currentEvent);
+  const updateAndPublishPromises = events.map(async (event) => {
+    const updatedEventSchedule = computeNextEventSchedule(event);
     const result = await sanityClientWriteable
       .transaction()
-      .patch(currentEvent._id, {
+      .patch(event._id, {
         set: updatedEventSchedule,
       })
       .commit();
 
-    const event: Event = { ...currentEvent, ...updatedEventSchedule };
-    return { result, event };
+    return {
+      result,
+      event: {
+        ...event,
+        ...updatedEventSchedule,
+      } as Event,
+    };
   });
 
   const results = await Promise.allSettled(updateAndPublishPromises);
