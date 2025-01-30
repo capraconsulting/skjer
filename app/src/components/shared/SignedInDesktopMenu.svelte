@@ -9,7 +9,7 @@
   export let openSanityStudio;
   export let signOutHandler;
 
-  const subscribeLink = `https://www.google.com/calendar/render?cid=${$page.url.origin}/api/subscribe`;
+  const subscribeLink = `https://www.google.com/calendar/render?cid=webcal://${$page.url.host}/api/subscribe`;
 </script>
 
 <div class="hidden flex-row items-center gap-3 md:flex">
