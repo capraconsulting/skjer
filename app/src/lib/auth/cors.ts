@@ -27,7 +27,7 @@ function applyCustomHeaders(headers: Headers, pathname: string): Headers {
     headers.set("X-Frame-Options", "ALLOWALL");
     headers.set(
       "Content-Security-Policy",
-      `frame-ancestors 'self' ${PUBLIC_CAPRA_BASE_URL} ${PUBLIC_LIFLIG_BASE_URL} ${PUBLIC_FRYDE_BASE_URL}`
+      `frame-ancestors 'self' ${PUBLIC_CAPRA_BASE_URL} ${PUBLIC_LIFLIG_BASE_URL} ${PUBLIC_FRYDE_BASE_URL} ${PUBLIC_SANITY_STUDIO_URL}`
     );
   } else {
     headers.set("X-Frame-Options", "DENY");
