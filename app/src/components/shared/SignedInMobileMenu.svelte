@@ -1,6 +1,6 @@
 <script>
   import { Button } from "flowbite-svelte";
-  import { LogOutIcon, PlusIcon } from "svelte-feather-icons";
+  import { DownloadIcon, LogOutIcon, PlusIcon } from "svelte-feather-icons";
   import DarkMode from "./DarkMode.svelte";
 
   export let auth;
@@ -41,6 +41,10 @@
       >
         <span class="mr-1.5">Logg ut</span>
         <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
+      </Button>
+      <Button color="alternative" class="h-9 w-32 border-[#999]" pill href="/api/subscribe">
+        <span class="mr-1.5">Subscribe</span>
+        <DownloadIcon strokeWidth={1.5} class="w-[16px]" />
       </Button>
       <DarkMode size="sm" value="Modus" btnClass="h-9 border-[#999] w-32 rounded-2xl" />
     </div>
