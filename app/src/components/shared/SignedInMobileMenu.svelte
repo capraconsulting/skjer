@@ -9,7 +9,6 @@
   export let isSigningOut;
   export let signOutHandler;
 
-  console.log($page.url);
   const subscribeLink = `https://www.google.com/calendar/render?cid=webcal://${$page.url.host}/api/subscribe`;
   let isMenuOpen = false;
 

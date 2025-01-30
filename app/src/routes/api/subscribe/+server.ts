@@ -8,23 +8,21 @@ export const GET: RequestHandler = async () => {
     const events = await getFutureEvents();
     const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.PUBLISH });
 
-    events.forEach(
-      ({ _id: id, title: summary, summary: description, start, end, place: location }) => {
-        const url = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
-        const eventData: ICalEventData = {
-          id,
-          summary,
-          description: `${url}\n\n${description ?? ""}`,
-          location,
-          start,
-          end,
-          url,
-        };
-        calendar.createEvent(eventData);
-      }
-    );
+    events.forEach(({ _id: id, title: summary, start, end, place: location }) => {
+      const url = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
+      const eventData: ICalEventData = {
+        id,
+        summary,
+        description: url,
+        location,
+        start,
+        end,
+        url,
+      };
+      calendar.createEvent(eventData);
+    });
 
-    const icalFeed = calendar.toString();
+    const icalFeed = Buffer.from(calendar.toString());
 
     return new Response(icalFeed, {
       headers: {
