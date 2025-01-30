@@ -40,7 +40,7 @@ const createIcsFile = ({
   organiser,
 }: EmailDeclinedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: "skjer", method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.REQUEST });
 
   calendar.createEvent({
     id,
