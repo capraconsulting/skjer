@@ -31,7 +31,7 @@ const createIcsFile = ({
   organiser,
 }: EmailCanceledProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.CANCEL });
+  const calendar = ical({ name: organiser, method: ICalCalendarMethod.CANCEL });
 
   calendar.createEvent({
     id,
