@@ -1,13 +1,15 @@
 <script>
   import { Button } from "flowbite-svelte";
-  import { DownloadIcon, LogOutIcon, PlusIcon } from "svelte-feather-icons";
+  import { CalendarIcon, LogOutIcon, PlusIcon } from "svelte-feather-icons";
   import DarkMode from "./DarkMode.svelte";
+  import { page } from "$app/stores";
 
   export let auth;
   export let openSanityStudio;
   export let isSigningOut;
   export let signOutHandler;
 
+  const subscribeLink = `https://www.google.com/calendar/render?cid=${$page.url.origin}/api/subscribe`;
   let isMenuOpen = false;
 
   const toggleMenu = () => {
@@ -42,9 +44,16 @@
         <span class="mr-1.5">Logg ut</span>
         <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
       </Button>
-      <Button color="alternative" class="h-9 w-32 border-[#999]" pill href="/api/subscribe">
+      <Button
+        color="alternative"
+        class="h-9 w-32 border-[#999]"
+        pill
+        target="_blank"
+        rel="noopener noreferrer"
+        href={subscribeLink}
+      >
         <span class="mr-1.5">Subscribe</span>
-        <DownloadIcon strokeWidth={1.5} class="w-[16px]" />
+        <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
       </Button>
       <DarkMode size="sm" value="Modus" btnClass="h-9 border-[#999] w-32 rounded-2xl" />
     </div>
