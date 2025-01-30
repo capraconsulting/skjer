@@ -31,7 +31,7 @@ function applyCustomHeaders(headers: Headers, pathname: string): Headers {
     );
   } else {
     headers.set("X-Frame-Options", "DENY");
-    headers.set("Content-Security-Policy", "frame-ancestors 'none'");
+    headers.set("Content-Security-Policy", `frame-ancestors 'self' ${ALLOWED_ORIGIN}`);
   }
   return headers;
 }
