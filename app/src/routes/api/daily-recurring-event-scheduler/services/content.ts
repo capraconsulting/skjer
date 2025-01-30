@@ -16,22 +16,31 @@ export async function getExpiredRecurringEvents(): Promise<Event[]> {
 }
 
 export function filterPublishedEvents(
-  events: Event[],
-  successes: PromiseFulfilledResult<MultipleMutationResult>[]
+  successes: PromiseFulfilledResult<{
+    result: MultipleMutationResult;
+    event: Event;
+  }>[]
 ) {
-  const publishedDocumentIds = successes.flatMap(({ value: { documentIds } }) => documentIds);
-  return events.filter(({ _id: id }) => publishedDocumentIds.includes(id));
+  return successes.map(({ value: { event } }) => event);
 }
 
 export async function updateAndPublishEvents(events: Event[]) {
-  const updateAndPublishPromises = events.map((event) => {
+  const updateAndPublishPromises = events.map(async (event) => {
     const updatedEventSchedule = computeNextEventSchedule(event);
-    return sanityClientWriteable
+    const result = await sanityClientWriteable
       .transaction()
       .patch(event._id, {
         set: updatedEventSchedule,
       })
       .commit();
+
+    return {
+      result,
+      event: {
+        ...event,
+        ...updatedEventSchedule,
+      } as Event,
+    };
   });
 
   const results = await Promise.allSettled(updateAndPublishPromises);

@@ -41,7 +41,7 @@ export const GET: RequestHandler = async ({ request }) => {
 
     const publishResult = await updateAndPublishEvents(events);
 
-    const publishedEvents = filterPublishedEvents(events, publishResult.successes);
+    const publishedEvents = filterPublishedEvents(publishResult.successes);
     const notifyResult = await sendSlackNotifications(publishedEvents);
 
     return createStatusResponse({
