@@ -6,7 +6,7 @@ import ical, { ICalCalendarMethod, type ICalEventData } from "ical-generator";
 export const GET: RequestHandler = async () => {
   try {
     const events = await getFutureEvents();
-    const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.PUBLISH });
+    const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.REQUEST });
 
     events.forEach(
       ({ _id: id, title: summary, summary: description, start, end, place: location }) => {
