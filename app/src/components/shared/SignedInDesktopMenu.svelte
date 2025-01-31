@@ -33,7 +33,7 @@
   </Button>
   <Button
     color="alternative"
-    class="hidden h-9 rounded-2xl border-[#999] p-2.5"
+    class="h-9 rounded-2xl border-[#999] p-2.5"
     target="_blank"
     rel="noopener noreferrer"
     href={subscribeLink}
