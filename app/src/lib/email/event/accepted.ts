@@ -41,17 +41,6 @@ const createIcsFile = ({
     start,
     end,
     url,
-    attendees: [
-      {
-        email: to,
-        status: ICalAttendeeStatus.ACCEPTED,
-        role: ICalAttendeeRole.REQ,
-      },
-    ],
-    organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
-      email: "no-reply@capragruppen.no",
-    },
   });
 
   return Buffer.from(calendar.toString());

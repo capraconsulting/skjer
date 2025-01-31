@@ -40,7 +40,7 @@ const createIcsFile = ({
   organiser,
 }: EmailDeclinedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: organiser, method: ICalCalendarMethod.PUBLISH });
 
   calendar.createEvent({
     id,
@@ -50,17 +50,6 @@ const createIcsFile = ({
     start,
     end,
     url,
-    attendees: [
-      {
-        email: to,
-        status: ICalAttendeeStatus.DECLINED,
-        role: ICalAttendeeRole.REQ,
-      },
-    ],
-    organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
-      email: "no-reply@capragruppen.no",
-    },
   });
 
   return Buffer.from(calendar.toString());
