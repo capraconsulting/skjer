@@ -6,15 +6,15 @@ import ical, { ICalCalendarMethod, type ICalEventData } from "ical-generator";
 export const GET: RequestHandler = async () => {
   try {
     const events = await getFutureEvents();
-    const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.REQUEST });
+    const calendar = ical({ name: "Capra Gruppen", method: ICalCalendarMethod.REQUEST });
 
     events.forEach(
       ({ _id: id, title: summary, summary: description, start, end, place: location }) => {
         const url = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
         const eventData: ICalEventData = {
           id,
-          summary,
-          description: `${description ?? ""} ${url}`,
+          summary: `${summary} (Feed)`,
+          description: `${url} ${description ?? ""}`,
           location,
           start,
           end,
