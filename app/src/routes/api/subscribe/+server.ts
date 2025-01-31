@@ -1,7 +1,11 @@
 import { PUBLIC_APP_DEFAULT_BASE_URL } from "$env/static/public";
 import { getFutureEvents } from "$lib/server/sanity/queries";
 import type { RequestHandler } from "@sveltejs/kit";
-import ical, { ICalCalendarMethod, type ICalEventData } from "ical-generator";
+import ical, {
+  ICalCalendarMethod,
+  ICalEventTransparency,
+  type ICalEventData,
+} from "ical-generator";
 
 export const GET: RequestHandler = async () => {
   try {
@@ -19,6 +23,11 @@ export const GET: RequestHandler = async () => {
           start,
           end,
           url,
+          transparency: ICalEventTransparency.TRANSPARENT,
+          organizer: {
+            name: "Capra Gruppen",
+            email: "no-reply@capragruppen.no",
+          },
         };
         calendar.createEvent(eventData);
       }
