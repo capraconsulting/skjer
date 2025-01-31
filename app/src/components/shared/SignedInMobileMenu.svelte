@@ -46,7 +46,7 @@
       </Button>
       <Button
         color="alternative"
-        class="h-9 w-32 border-[#999]"
+        class="hidden h-9 w-32 border-[#999]"
         pill
         target="_blank"
         rel="noopener noreferrer"
