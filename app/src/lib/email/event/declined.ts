@@ -1,4 +1,4 @@
-import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
+import ical, { ICalCalendarMethod } from "ical-generator";
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { BlockContent } from "$models/sanity.model";
@@ -31,7 +31,6 @@ export const sendEmailDeclined = async (props: EmailDeclinedProps) => {
 
 const createIcsFile = ({
   id,
-  to,
   summary,
   description,
   start,

@@ -1,4 +1,4 @@
-import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
+import ical, { ICalCalendarMethod } from "ical-generator";
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
@@ -20,16 +20,7 @@ export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
   return result;
 };
 
-const createIcsFile = ({
-  id,
-  to,
-  summary,
-  description,
-  start,
-  end,
-  location,
-  organiser,
-}: EmailAcceptedProps) => {
+const createIcsFile = ({ id, summary, description, start, end, location }: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: "Capra Gruppen", method: ICalCalendarMethod.REQUEST });
 
