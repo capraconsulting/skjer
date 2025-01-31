@@ -31,11 +31,11 @@
   };
 </script>
 
-<ButtonGroup class="flex-row flex-wrap gap-2 pb-7 shadow-none md:self-end">
+<ButtonGroup class="flex-row flex-wrap gap-2 shadow-none md:justify-end md:self-end">
   {#each filter as { title, keyword }}
     <Button
       on:click={() => handleFilterChange(keyword)}
-      class={`${
+      class={`basis-1/4 whitespace-nowrap sm:basis-auto ${
         selectedFilter === keyword
           ? "h-8 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
           : "h-8 !rounded-lg border border-[#999] hover:border-black hover:bg-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
