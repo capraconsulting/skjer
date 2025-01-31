@@ -10,24 +10,27 @@ import ical, {
 export const GET: RequestHandler = async () => {
   try {
     const events = await getFutureEvents();
-    const calendar = ical({ name: "Capra Gruppen", method: ICalCalendarMethod.REQUEST });
+    const calendar = ical({ name: "Capra Gruppen", method: ICalCalendarMethod.PUBLISH });
 
     events.forEach(
-      ({ _id: id, title: summary, summary: description, start, end, place: location }) => {
+      ({
+        _id: id,
+        title: summary,
+        summary: description = "",
+        place: location = "",
+        start,
+        end,
+      }) => {
         const url = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
         const eventData: ICalEventData = {
           id,
-          summary: `${summary} (Feed)`,
-          description: `${url} ${description ?? ""}`,
+          summary: `${summary}`,
+          description: `${url} ${description}`,
           location,
           start,
           end,
           url,
           transparency: ICalEventTransparency.TRANSPARENT,
-          organizer: {
-            name: "Capra Gruppen",
-            email: "no-reply@capragruppen.no",
-          },
         };
         calendar.createEvent(eventData);
       }
