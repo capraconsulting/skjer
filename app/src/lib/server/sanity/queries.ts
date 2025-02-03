@@ -17,7 +17,7 @@ export const pastEventsQuery = groq`*[_type == "event" && start <= now()] | orde
 export const externalFutureEventsQuery = groq`*[_type == "event" && start > now() && visibleForExternals] | order(start asc)`;
 export const externalPastEventsQuery = groq`*[_type == "event" && start <= now() && visibleForExternals] | order(start desc)`;
 
-export const embedExternalFutureEventsQuery = groq`*[_type == "event" && start > now() && visibleForExternals] | order(startDate asc)[0...3]`;
+export const embedExternalFutureEventsQuery = groq`*[_type == "event" && start > now() && visibleForExternals] | order(start asc)[0...3]`;
 
 export const getEventContent = async ({ document_id }: { document_id: string }) => {
   return await sanityClientWithoutStega.fetch<Event>(eventQuery, { id: document_id });
