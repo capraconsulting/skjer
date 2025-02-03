@@ -51,6 +51,7 @@
         target="_blank"
         rel="noopener noreferrer"
         href={subscribeLink}
+        alt="Abonner på kalender"
       >
         <span class="mr-1.5">Subscribe</span>
         <CalendarIcon strokeWidth={1.5} class="w-[16px]" />

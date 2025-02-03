@@ -37,6 +37,7 @@
     target="_blank"
     rel="noopener noreferrer"
     href={subscribeLink}
+    alt="Abonner på kalender"
   >
     <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
