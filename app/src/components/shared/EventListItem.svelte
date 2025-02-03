@@ -5,7 +5,7 @@
   import EventBadges from "./EventBadges.svelte";
 
   export let event: EventWithAttending;
-  export let target: string = "_self"; // Default to "_self" if not provided
+  export let target;
 </script>
 
 <a
