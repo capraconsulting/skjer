@@ -5,7 +5,7 @@
   import EventBadges from "./EventBadges.svelte";
 
   export let event: EventWithAttending;
-  export let target;
+  export let target: string | null = null;
 </script>
 
 <a
