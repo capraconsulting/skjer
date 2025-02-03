@@ -1,24 +1,36 @@
-import { PUBLIC_APP_DEFAULT_BASE_URL } from "$env/static/public";
+import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import { getFutureEvents } from "$lib/server/sanity/queries";
 import type { RequestHandler } from "@sveltejs/kit";
-import ical, { ICalCalendarMethod, type ICalEventData } from "ical-generator";
+import ical, {
+  ICalCalendarMethod,
+  ICalEventTransparency,
+  type ICalEventData,
+} from "ical-generator";
 
 export const GET: RequestHandler = async () => {
   try {
     const events = await getFutureEvents();
-    const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.REQUEST });
+    const calendar = ical({ name: "Skjer", method: ICalCalendarMethod.PUBLISH });
 
     events.forEach(
-      ({ _id: id, title: summary, summary: description, start, end, place: location }) => {
-        const url = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
+      ({
+        _id: id,
+        title: summary,
+        summary: description = "",
+        place: location = "",
+        start,
+        end,
+      }) => {
+        const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
         const eventData: ICalEventData = {
           id,
           summary,
-          description: `${description ?? ""} ${url}`,
+          description: `${url} ${description}`,
           location,
           start,
           end,
           url,
+          transparency: ICalEventTransparency.TRANSPARENT,
         };
         calendar.createEvent(eventData);
       }

@@ -31,14 +31,14 @@
 </svelte:head>
 
 <section class="pb-8">
-  <div class="flex flex-col justify-between md:flex-row md:items-center">
-    <h1 class="pb-6 text-4xl font-semibold md:w-[30%] md:pt-10 md:text-5xl">
-      Kommende arrangementer
+  <div class="flex flex-col justify-between gap-4 py-6 md:flex-row md:items-center md:py-10">
+    <h1 class="text-4xl font-semibold md:text-5xl">
+      Kommende<br />arrangementer
     </h1>
     <EventFilter {selectedFilter} on:filterChange={({ detail }) => (selectedFilter = detail)} />
   </div>
 
-  <div class="flex flex-col gap-4 py-5">
+  <div class="flex flex-col gap-4 pb-5">
     {#if futureEventsFiltered.length}
       {#each futureEventsFiltered.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
@@ -63,7 +63,9 @@
 </section>
 
 <section class="pb-8">
-  <h1 class="pb-12 pt-10 text-4xl font-semibold md:w-[30%] md:text-5xl">Tidligere arrangementer</h1>
+  <h1 class="pb-6 pt-10 text-4xl font-semibold md:pb-10 md:text-5xl">
+    Tidligere<br /> arrangementer
+  </h1>
   {#if pastEvents.length}
     <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
       {#each pastEvents.slice(0, amountOfVisiblePastEvents) as event}

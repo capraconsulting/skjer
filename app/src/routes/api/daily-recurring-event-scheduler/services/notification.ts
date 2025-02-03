@@ -1,4 +1,4 @@
-import { PUBLIC_APP_DEFAULT_BASE_URL } from "$env/static/public";
+import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import { SLACK_HOOK } from "$env/static/private";
 import { urlFor } from "$lib/sanity/image";
 import type { Event } from "$models/sanity.model";
@@ -15,7 +15,7 @@ export const sendSlackNotification = async ({
   if (process.env.NODE_ENV === "development") return;
 
   const imageUrl = image ? urlFor(image).width(400).url() : null;
-  const eventUrl = `${PUBLIC_APP_DEFAULT_BASE_URL}/event/${id}`;
+  const eventUrl = `${PUBLIC_APP_BASE_URL}/event/${id}`;
 
   const startDate = new Date(start).toLocaleDateString("nb-NO", {
     hour: "2-digit",
