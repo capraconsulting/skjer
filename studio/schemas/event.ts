@@ -226,6 +226,14 @@ export default defineType({
       hidden: ({ document }) => !document?.foodPreference,
     }),
     defineField({
+      name: "foodDeadline",
+      title: "Matpåmeldingsfrist",
+      type: "datetime",
+      validation: (Rule) => Rule.max(Rule.valueOfField("deadline")),
+      description: "Du kan også velge å legge til en påmeldingsfrist for maten.",
+      hidden: ({ document }) => !document?.foodPreference,
+    }),
+    defineField({
       name: "customOptions",
       title: "Legg til egendefinerte spørsmål",
       description:
