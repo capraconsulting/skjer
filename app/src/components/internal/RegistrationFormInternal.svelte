@@ -7,6 +7,7 @@
   import { dateHasPassed } from "$lib/utils/date.util";
   import Deadline from "$components/shared/Deadline.svelte";
   import { stegaClean } from "@sanity/client/stega";
+  import FoodDeadline from "$components/shared/FoodDeadline.svelte";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -25,8 +26,11 @@
   {:else if event.maxParticipant && numberOfParticipants >= event.maxParticipant}
     <p>Det er dessverre ikke flere ledige plasser på dette arrangementet 😢</p>
   {:else}
-    <div class="pb-6">
+    <div class="flex flex-wrap gap-4 pb-6">
       <Deadline deadline={event.deadline} />
+      {#if event.foodPreference && event.foodDeadline}
+        <FoodDeadline foodDeadline={event.foodDeadline} />
+      {/if}
     </div>
     <form
       class="flex flex-col gap-4"
@@ -39,9 +43,13 @@
       {/if}
 
       {#if event.foodPreference}
-        <RegistrationFoodPreference {form} />
-        {#if $errors.foodPreference}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+        {#if event.foodDeadline && dateHasPassed(event.foodDeadline)}
+          <p>Fristen for å melde seg på matbestilling har dessverre gått ut 😐</p>
+        {:else}
+          <RegistrationFoodPreference {form} />
+          {#if $errors.foodPreference}
+            <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+          {/if}
         {/if}
       {/if}
 

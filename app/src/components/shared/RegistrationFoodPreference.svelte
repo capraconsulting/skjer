@@ -5,14 +5,14 @@
 </script>
 
 <div class="flex flex-col gap-1">
-  <Label class="font-bold" for="foodPreference">Allergier og matpreferanser</Label>
+  <Label class="font-bold" for="foodPreference">Matpreferanser og allergier</Label>
   <Textarea
     size="sm"
     class="bg-white"
     type="text"
     name="foodPreference"
     id="foodPreference"
-    placeholder="Skriv dine allergier og preferanser"
+    placeholder="Skriv dine matpreferanser og allergier"
     bind:value={$form.foodPreference}
   />
 </div>
