@@ -133,6 +133,7 @@ export type Event = {
   visibleForExternals: boolean;
   foodPreference: boolean;
   food?: string;
+  foodDeadline?: string;
   customOptions?: Array<{
     fieldOption: string;
     fieldValueCheckbox?: string;
