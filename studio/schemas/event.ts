@@ -108,6 +108,7 @@ export default defineType({
       },
       initialValue: "Alle",
       validation: (Rule) => Rule.required(),
+      readOnly: ({ document }) => !document?._id.startsWith("drafts."),
     }),
     defineField({
       name: "maxParticipant",

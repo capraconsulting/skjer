@@ -36,7 +36,7 @@ const createIcsFile = ({
   calendar.createEvent({
     id,
     summary,
-    description,
+    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
     location,
     start,
     end,
