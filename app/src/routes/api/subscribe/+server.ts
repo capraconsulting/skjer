@@ -25,7 +25,7 @@ export const GET: RequestHandler = async () => {
         const eventData: ICalEventData = {
           id,
           summary,
-          description: `${url} ${description}`,
+          description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
           location,
           start,
           end,
