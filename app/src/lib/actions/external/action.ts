@@ -5,7 +5,7 @@ import { superValidate, message } from "sveltekit-superforms/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { getUnsubscribeSecret } from "$lib/auth/secret";
 import { getEventContent } from "$lib/server/sanity/queries";
-import { getEvent, getEventParticipant } from "$lib/server/supabase/queries";
+import { getEventParticipant, getOrCreateEvent } from "$lib/server/supabase/queries";
 import {
   deleteEventParticipant,
   executeTransaction,
@@ -61,10 +61,10 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
-  const { data: event } = await getEvent({ document_id: id });
+  const eventContent = await getEventContent({ document_id: id });
 
-  if (!event) {
-    console.error("Error: The specified event does not exist");
+  if (!eventContent) {
+    console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
@@ -72,10 +72,10 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
-  const eventContent = await getEventContent({ document_id: id });
+  const { data: event } = await getOrCreateEvent({ document_id: id });
 
-  if (!eventContent) {
-    console.error("Error: The specified event does not exist as content");
+  if (!event) {
+    console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
@@ -220,10 +220,10 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     });
   }
 
-  const event = await getEvent({ document_id: id });
+  const event = await getOrCreateEvent({ document_id: id });
 
   if (!event.data?.event_id) {
-    console.error("Error: The specified event does not exist");
+    console.error("Error: The specified event does not exist or cannot be created");
 
     return message(unregistrationForm, {
       text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",

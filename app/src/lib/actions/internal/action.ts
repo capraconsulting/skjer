@@ -13,8 +13,8 @@ import {
 } from "$lib/server/kysley/transactions";
 import { getEventContent } from "$lib/server/sanity/queries";
 import {
-  getEvent,
   getEventParticipant,
+  getOrCreateEvent,
   setParticipantNotAttending,
 } from "$lib/server/supabase/queries";
 import { type Actions } from "@sveltejs/kit";
@@ -79,10 +79,10 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     });
   }
 
-  const { data: event } = await getEvent({ document_id: id });
+  const eventContent = await getEventContent({ document_id: id });
 
-  if (!event) {
-    console.error("Error: The specified event does not exist");
+  if (!eventContent) {
+    console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
@@ -90,10 +90,10 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     });
   }
 
-  const eventContent = await getEventContent({ document_id: id });
+  const { data: event } = await getOrCreateEvent({ document_id: id });
 
-  if (!eventContent) {
-    console.error("Error: The specified event does not exist as content");
+  if (!event) {
+    console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
       text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
@@ -242,10 +242,10 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     });
   }
 
-  const event = await getEvent({ document_id: id });
+  const event = await getOrCreateEvent({ document_id: id });
 
   if (!event.data?.event_id) {
-    console.error("Error: The specified event does not exist");
+    console.error("Error: The specified event does not exist and cannot be created");
 
     return message(unregistrationForm, {
       text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",

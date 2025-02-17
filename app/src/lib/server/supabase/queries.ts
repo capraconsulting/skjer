@@ -2,11 +2,20 @@ import { validateDomain } from "$lib/utils/domain";
 import type { Tables } from "$models/database.model";
 import { supabase } from "$lib/server/supabase/client";
 
-export const getEvent = async ({ document_id }: Pick<Tables<"event">, "document_id">) => {
+export const getOrCreateEvent = async ({ document_id }: Pick<Tables<"event">, "document_id">) => {
   const result = await supabase.from("event").select().eq("document_id", document_id).maybeSingle();
+
+  if (!result.data) {
+    const createResult = await supabase
+      .from("event")
+      .insert({ document_id })
+      .select()
+      .maybeSingle();
+
+    return createResult;
+  }
   return result;
 };
-
 export const getEventParticipant = async ({
   event_id,
   email,
