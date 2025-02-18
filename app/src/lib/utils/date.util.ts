@@ -1,8 +1,14 @@
-import { parseISO, isSameDay, format } from "date-fns";
+import { parseISO, isSameDay, format, isToday } from "date-fns";
 import { nb } from "date-fns/locale";
 
 export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString("nb-NO", {
+  const dateObj = new Date(date);
+
+  if (isToday(dateObj)) {
+    return "I dag";
+  }
+
+  return dateObj.toLocaleDateString("nb-NO", {
     month: "long",
     day: "numeric",
     year: "numeric",
