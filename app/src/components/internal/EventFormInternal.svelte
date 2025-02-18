@@ -29,7 +29,7 @@
     dataType: "json",
     delayMs: 500,
     async onSubmit() {
-      await new Promise((result) => setTimeout(result, 250));
+      await new Promise((result) => setTimeout(result, 500));
     },
   });
 
@@ -41,7 +41,7 @@
     validators: zod(unregistrationSchemaInternal),
     delayMs: 500,
     async onSubmit() {
-      await new Promise((result) => setTimeout(result, 250));
+      await new Promise((result) => setTimeout(result, 500));
     },
   });
 </script>

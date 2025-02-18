@@ -12,7 +12,7 @@
 
 {#if !dateHasPassed(event.deadline)}
   <form
-    class="mt-20 flex flex-col gap-2"
+    class="mt-20 flex flex-col gap-1"
     method="POST"
     action="?/submitUnregistrationExternal"
     use:enhance
@@ -27,7 +27,7 @@
       <Input
         class=" bg-white"
         type="text"
-        placeholder="din-epost@epost.no"
+        placeholder="Skriv inn din e-post her"
         name="email"
         bind:value={$form.email}
       />
