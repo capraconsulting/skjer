@@ -68,7 +68,7 @@
       <Alert class="mt-20" color={getAlertColor($unregistrationMessage)}>
         {$unregistrationMessage.text}
       </Alert>
-    {:else}
+    {:else if event.openForExternals}
       <UnregistrationFormExternal
         {event}
         form={unregistrationForm}

@@ -1,9 +1,22 @@
 <script lang="ts">
-  import { endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
+  import { dateHasPassed, endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
-  import { CalendarBlank, Clock, MapPin, ForkKnife, Tag, Lightbulb } from "phosphor-svelte";
+  import { CalendarBlank, Clock, MapPin, ForkKnife, Tag, Lightbulb, Users } from "phosphor-svelte";
 
   export let event: Event;
+  export let numberOfParticipants: number;
+
+  function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
+    const availableSpots = maxParticipant - numberOfParticipants;
+
+    if (availableSpots === 0) {
+      return "Ingen ledige plasser";
+    } else if (availableSpots === 1) {
+      return "1 ledig plass";
+    } else {
+      return `${availableSpots} ledige plasser`;
+    }
+  }
 </script>
 
 <div
@@ -18,8 +31,8 @@
 
   <div class="flex items-center">
     <CalendarBlank class="mr-2 flex-none" />
-    <span
-      >{formatDate(event.start)}
+    <span>
+      {formatDate(event.start)}
       {endsOnDifferentDay(event.start, event.end) ? `- ${formatDate(event.end)}` : ""}
     </span>
   </div>
@@ -39,6 +52,14 @@
       <span>{event.food}</span>
     </div>
   {/if}
+
+  {#if event.maxParticipant && !dateHasPassed(event.deadline)}
+    <div class="flex items-center">
+      <Users class="mr-2 flex-none" />
+      <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
+    </div>
+  {/if}
+
   <div class="flex items-center">
     <Tag class="mr-2 flex-none" />
     <span>{event.openForExternals ? "Åpent for alle" : "Kun for interne"}</span>

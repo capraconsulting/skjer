@@ -199,7 +199,7 @@ export default defineType({
       name: "visibleForExternals",
       title: "Arrangementet skal være synlig for alle, også eksterne",
       description:
-        "Dersom arrangementet KUN skal være synlig for de som er logget inn med Fryde-, Capra- eller Liflig-epost, lar du denne stå tom.",
+        "Dersom arrangementet KUN skal være synlig for de som er logget inn med Capra, Liflig eller Fryde e-post, lar du denne stå tom.",
       type: "boolean",
       initialValue: false,
       options: {

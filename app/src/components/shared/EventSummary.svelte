@@ -14,6 +14,7 @@
     image?: Event["image"] & { palette?: Palette };
   }
 
+  export let data;
   export let event: EventWithImagePalette;
 
   let imageElement: HTMLImageElement | null;
@@ -40,7 +41,7 @@
 
 <div class="flex min-h-[60px] flex-col gap-5 pb-6 sm:flex-row">
   <div class="w-full sm:min-h-60 sm:w-[40%]">
-    <EventInfoBox {event} />
+    <EventInfoBox {event} numberOfParticipants={data.numberOfParticipants} />
   </div>
   {#if event.image?.palette}
     <div class="group relative w-full sm:h-60 sm:w-[60%]">

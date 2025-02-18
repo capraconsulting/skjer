@@ -21,13 +21,14 @@
   <section>
     <div class="mb-9">
       <a class="flex items-center font-bold hover:underline" href="/">
-        <ArrowLeft weight="bold" class="mr-2 inline-flex" /> Alle arrangementer
+        <ArrowLeft weight="bold" class="mr-2 inline-flex" />
+        <span>Alle arrangementer</span>
       </a>
     </div>
-    <EventSummary {event} />
+    <EventSummary {event} {data} />
     {#if auth?.user?.email && auth.user.name}
       <EventFormInternal {event} {data} />
-    {:else if event.openForExternals}
+    {:else}
       <EventFormExternal {event} {data} />
     {/if}
   </section>
