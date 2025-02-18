@@ -33,17 +33,6 @@
         <span class="mr-1.5">Opprett</span>
         <PlusIcon strokeWidth={1.5} class="w-[16px]" />
       </Button>
-
-      <Button
-        color="alternative"
-        class="h-9 w-32 border-[#999]"
-        pill
-        on:click={signOutHandler}
-        disabled={isSigningOut}
-      >
-        <span class="mr-1.5">Logg ut</span>
-        <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
-      </Button>
       <Button
         color="alternative"
         class="h-9 w-32 border-[#999]"
@@ -53,8 +42,18 @@
         href={subscribeLink}
         alt="Abonner på kalender"
       >
-        <span class="mr-1.5">Subscribe</span>
+        <span class="mr-1.5">Abonner</span>
         <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
+      </Button>
+      <Button
+        color="alternative"
+        class="h-9 w-32 border-[#999]"
+        pill
+        on:click={signOutHandler}
+        disabled={isSigningOut}
+      >
+        <span class="mr-1.5">Logg ut</span>
+        <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
       </Button>
       <DarkMode size="sm" value="Modus" btnClass="h-9 border-[#999] w-32 rounded-2xl" />
     </div>
