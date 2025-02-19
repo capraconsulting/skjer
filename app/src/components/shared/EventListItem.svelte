@@ -14,8 +14,8 @@
   href={`/event/${event._id}`}
   {target}
 >
-  <div class="flex flex-col font-light lg:flex-row">
-    <h2 class="max-w-md truncate whitespace-pre-wrap text-xl font-light">
+  <div class="flex flex-col gap-4 font-light lg:flex-row">
+    <h2 class="max-w-[23rem] truncate whitespace-pre-wrap text-xl font-light">
       {event.title}
     </h2>
     <EventBadges {event} />
