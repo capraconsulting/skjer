@@ -7,7 +7,7 @@
   const startDate = formatDate(event.start);
 </script>
 
-<div class="flex flex-wrap items-center gap-2">
+<div class="flex flex-row flex-wrap content-center gap-2">
   {#if event.openForExternals}
     <Badge
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
@@ -42,7 +42,7 @@
   </Badge>
 
   {#if event.attending}
-    <Badge rounded class="bg-yellowSpark h-6 whitespace-nowrap rounded-lg border-none text-black">
+    <Badge rounded class="h-6 whitespace-nowrap rounded-lg border-none bg-yellowSpark text-black">
       Du er påmeldt
     </Badge>
   {/if}
