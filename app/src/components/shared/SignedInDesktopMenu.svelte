@@ -20,7 +20,17 @@
     <span class="mr-1.5">Opprett</span>
     <PlusIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
-
+  <Button
+    color="alternative"
+    class="h-9 rounded-2xl border-[#999] p-2.5"
+    target="_blank"
+    rel="noopener noreferrer"
+    href={subscribeLink}
+    alt="Abonner på kalender"
+  >
+    <span class="mr-1.5">Abonner</span>
+    <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
+  </Button>
   <Button
     color="alternative"
     class="h-9 border-[#999]"
@@ -31,15 +41,6 @@
     <span class="mr-1.5">Logg ut</span>
     <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
-  <Button
-    color="alternative"
-    class="h-9 rounded-2xl border-[#999] p-2.5"
-    target="_blank"
-    rel="noopener noreferrer"
-    href={subscribeLink}
-    alt="Abonner på kalender"
-  >
-    <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
-  </Button>
+
   <DarkMode size="sm" btnClass="h-9 border-[#999] rounded-2xl p-2.5" />
 </div>
