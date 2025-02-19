@@ -7,7 +7,7 @@
   const startDate = formatDate(event.start);
 </script>
 
-<div class="flex flex-row flex-wrap content-center gap-2 pt-2 lg:pt-0">
+<div class="flex flex-row flex-wrap content-center gap-2">
   {#if event.openForExternals}
     <Badge
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
