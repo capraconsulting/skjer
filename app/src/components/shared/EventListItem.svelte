@@ -14,11 +14,13 @@
   href={`/event/${event._id}`}
   {target}
 >
-  <h2 class="max-w-md truncate whitespace-pre-wrap text-xl font-light">
-    {event.title}
-  </h2>
-  <EventBadges {event} />
-  <div class="flex flex-row items-center justify-between gap-4 pt-4 md:pt-0">
+  <div class="flex flex-col font-light lg:flex-row">
+    <h2 class="max-w-md truncate whitespace-pre-wrap text-xl font-light">
+      {event.title}
+    </h2>
+    <EventBadges {event} />
+  </div>
+  <div class="flex flex-row items-center justify-between gap-4 pt-3 md:pt-0">
     <EventLogos {event} height={5} />
     <ArrowRight class="mr-2" />
   </div>
