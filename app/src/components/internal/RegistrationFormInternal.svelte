@@ -57,6 +57,7 @@
         {#each event.customOptions as customOption}
           <RegistrationCustomOption
             {form}
+            key={customOption._key}
             inputType={stegaClean(customOption.fieldType)}
             optionLabel={stegaClean(customOption.fieldOption)}
             radioValues={stegaClean(customOption.fieldValueRadio)}
