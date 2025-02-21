@@ -1,13 +1,6 @@
 {
-  "short_name": "skjer",
-  "name": "skjer",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "type": "image/x-icon",
-      "sizes": "32x32"
-    }
-  ],
+  "short_name": "Skjer",
+  "name": "Skjer",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
