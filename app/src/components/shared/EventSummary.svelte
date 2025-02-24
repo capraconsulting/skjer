@@ -66,6 +66,6 @@
 
 {#if event.body}
   <div class="portable-text flex flex-col gap-4 text-base sm:w-[60%]">
-    <PortableText components={{}} value={event.body} />
+    <PortableText components={{}} onMissingComponent={false} value={event.body} />
   </div>
 {/if}
