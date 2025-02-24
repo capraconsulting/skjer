@@ -103,14 +103,10 @@
       <RegistrationAttendingType {form} />
     {/if}
 
-    {#if event.foodPreference}
-      {#if event.foodDeadline && dateHasPassed(event.foodDeadline)}
-        <p>Fristen for å melde seg på matbestilling har dessverre gått ut 😐</p>
-      {:else}
-        <RegistrationFoodPreference {form} />
-        {#if $errors.foodPreference}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
-        {/if}
+    {#if event.foodPreference && !(event.foodDeadline && dateHasPassed(event.foodDeadline))}
+      <RegistrationFoodPreference {form} />
+      {#if $errors.foodPreference}
+        <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
       {/if}
     {/if}
 
