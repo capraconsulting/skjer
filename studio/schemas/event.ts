@@ -181,7 +181,7 @@ export default defineType({
       title: "Lenke til hvor arrangementet skal strømmes",
       name: "linkStreaming",
       type: "string",
-      description: "Link til møterom i meet?",
+      description: "Har du en lenke til hvor arrangementet skal strømmes?",
       hidden: ({ document }) => !document?.isDigital,
     }),
     defineField({

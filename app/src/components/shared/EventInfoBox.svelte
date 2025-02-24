@@ -1,14 +1,22 @@
 <script lang="ts">
   import { dateHasPassed, endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
   import type { Event } from "$models/sanity.model";
-  import { CalendarBlank, Clock, MapPin, ForkKnife, Tag, Lightbulb, Users } from "phosphor-svelte";
+  import {
+    CalendarBlank,
+    Clock,
+    MapPin,
+    ForkKnife,
+    Tag,
+    Lightbulb,
+    Users,
+    VideoCamera,
+  } from "phosphor-svelte";
 
   export let event: Event;
   export let numberOfParticipants: number;
 
   function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
     const availableSpots = maxParticipant - numberOfParticipants;
-
     if (availableSpots === 0) {
       return "Ingen ledige plasser";
     } else if (availableSpots === 1) {
@@ -57,6 +65,20 @@
     <div class="flex items-center">
       <Users class="mr-2 flex-none" />
       <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
+    </div>
+  {/if}
+
+  {#if event.linkStreaming}
+    <div class="flex items-center">
+      <VideoCamera class="mr-2 flex-none" />
+      <a
+        class="text-[#1b64f2] underline"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={event.linkStreaming}
+      >
+        {event.linkStreaming}
+      </a>
     </div>
   {/if}
 
