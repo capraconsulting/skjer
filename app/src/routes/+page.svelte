@@ -45,12 +45,7 @@
       {/each}
       {#if futureEventsFiltered.length > amountOfVisibleFutureEvents}
         <div class="mt-6 flex flex-wrap self-center">
-          <Button
-            pill
-            color="alternative"
-            padding={3}
-            on:click={() => (amountOfVisibleFutureEvents += 6)}
-          >
+          <Button pill color="alternative" on:click={() => (amountOfVisibleFutureEvents += 6)}>
             <span class="mr-2">Se flere arrangementer</span>
             <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
           </Button>
@@ -74,12 +69,7 @@
     </div>
     {#if pastEvents.length > amountOfVisiblePastEvents}
       <div class="mt-6 flex flex-wrap self-center">
-        <Button
-          pill
-          color="alternative"
-          padding={3}
-          on:click={() => (amountOfVisiblePastEvents += 6)}
-        >
+        <Button pill color="alternative" on:click={() => (amountOfVisiblePastEvents += 6)}>
           <span class="mr-2">Se flere arrangementer</span>
           <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
         </Button>

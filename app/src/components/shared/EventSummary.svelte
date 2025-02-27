@@ -4,6 +4,8 @@
   import { urlFor } from "$lib/sanity/image";
   import { PortableText } from "@portabletext/svelte";
   import EventInfoBox from "$components/shared/EventInfoBox.svelte";
+  import Link from "$components/shared/Link.svelte";
+
   import { onMount } from "svelte";
 
   type Palette = {
@@ -66,6 +68,14 @@
 
 {#if event.body}
   <div class="portable-text flex flex-col gap-4 text-base sm:w-[60%]">
-    <PortableText components={{}} onMissingComponent={false} value={event.body} />
+    <PortableText
+      components={{
+        marks: {
+          link: Link,
+        },
+      }}
+      onMissingComponent={false}
+      value={event.body}
+    />
   </div>
 {/if}
