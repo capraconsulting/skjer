@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { formatDate } from "$lib/utils/date.util";
+  import { formatDate, formatTime, TODAY_STRING } from "$lib/utils/date.util";
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
 
   export let event: EventWithAttending;
-  $: startDate = formatDate(event.start);
+  $: formattedStartDate = formatDate(event.start);
+  $: startDate = formattedStartDate === TODAY_STRING ? TODAY_STRING + " kl. " + formatTime(event.start): formattedStartDate;
 </script>
 
 <div class="flex flex-row flex-wrap content-center gap-2">
@@ -33,7 +34,7 @@
   <Badge
     rounded
     class={`h-6 whitespace-nowrap rounded-lg border ${
-      startDate === "I dag"
+      startDate === TODAY_STRING
         ? "border-transparent bg-zinc-800 text-white dark:bg-white dark:text-black"
         : "border-gray-300 bg-transparent dark:bg-zinc-800"
     }`}
