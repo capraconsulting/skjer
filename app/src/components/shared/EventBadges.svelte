@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { formatDate } from "$lib/utils/date.util";
+  import { formatDate, formatTime } from "$lib/utils/date.util";
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
+  import { isToday } from "date-fns";
 
   export let event: EventWithAttending;
-  $: startDate = formatDate(event.start);
+  $: startDateIsToday = isToday(event.start);
+  $: startDate = startDateIsToday ? `I dag kl. ${formatTime(event.start)}` : formatDate(event.start);
 </script>
 
 <div class="flex flex-row flex-wrap content-center gap-2">
