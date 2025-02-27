@@ -1,13 +1,11 @@
 import { parseISO, isSameDay, format, isToday } from "date-fns";
 import { nb } from "date-fns/locale";
 
-export const TODAY_STRING = "I dag";
-
 export function formatDate(date: string): string {
   const dateObj = new Date(date);
 
   if (isToday(dateObj)) {
-    return TODAY_STRING;
+    return "I dag";
   }
 
   return dateObj.toLocaleDateString("nb-NO", {
