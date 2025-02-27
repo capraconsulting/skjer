@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { ArrowRight } from "phosphor-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import EventLogos from "$components/shared/EventLogos.svelte";
@@ -10,8 +9,8 @@
 </script>
 
 <a
-  class="flex flex-col justify-between gap-3 rounded-md border border-gray-200 px-3 py-4 hover:border-gray-800 hover:transition-[3s] dark:border-zinc-800
-  dark:bg-zinc-800 dark:hover:bg-zinc-700 md:flex-row"
+  class="flex flex-col justify-between gap-3 rounded-md border border-gray-200 px-3 py-4 hover:border-gray-800 hover:transition-[3s] md:flex-row
+  dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
   href={`/event/${event._id}`}
   {target}
 >
