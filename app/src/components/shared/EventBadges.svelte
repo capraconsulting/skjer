@@ -4,7 +4,7 @@
   import type { EventWithAttending } from "$models/databaseView.model";
 
   export let event: EventWithAttending;
-  const startDate = formatDate(event.start);
+  $: startDate = formatDate(event.start);
 </script>
 
 <div class="flex flex-row flex-wrap content-center gap-2">
