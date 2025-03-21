@@ -48,7 +48,13 @@
 
 <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
   <div>
-    <h2 class="mt-8 pb-4 text-base font-bold sm:text-xl">Deltagere:</h2>
+    <h2 class="mt-8 pb-4 text-base font-bold sm:text-xl">
+      Deltagere
+      {#if data.internalParticipantNames && data.internalParticipantNames.length > 0}
+        ({data.internalParticipantNames.length})
+      {/if}
+      :
+    </h2>
     <EventParticipantsInternal names={data.internalParticipantNames} />
   </div>
   <div>
