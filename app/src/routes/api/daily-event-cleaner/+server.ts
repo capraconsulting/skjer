@@ -12,7 +12,7 @@ export const GET: RequestHandler = async ({ request }) => {
   }
 
   try {
-    const query = groq`*[_type == "event" && dateTime(end) < dateTime(now()) - 7*24*60*60]._id`;
+    const query = groq`*[_type == "event" && dateTime(end) < dateTime(now()) - 30*24*60*60]._id`;
     const events = await sanityClientPreviewDrafts.fetch<Event[]>(query);
 
     if (!events.length) {
