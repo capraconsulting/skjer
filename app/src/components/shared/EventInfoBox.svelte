@@ -15,16 +15,22 @@
   export let event: Event;
   export let numberOfParticipants: number;
 
-  function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
+  const availableSpotsMessage = ((maxParticipant: number, numberOfParticipants: number) => {
+
+    if (!event.maxParticipant || dateHasPassed(event.deadline)) {
+      return "";
+    }
+
     const availableSpots = maxParticipant - numberOfParticipants;
     if (availableSpots === 0) {
       return "Ingen ledige plasser";
-    } else if (availableSpots === 1) {
-      return "1 ledig plass";
-    } else {
-      return `${availableSpots} ledige plasser`;
+    } else if (availableSpots / maxParticipant <= 0.15) {
+      return `Få plasser igjen`;
     }
-  }
+    return "";
+
+  })(event.maxParticipant ?? 0, numberOfParticipants);
+
 </script>
 
 <div
@@ -61,10 +67,10 @@
     </div>
   {/if}
 
-  {#if event.maxParticipant && !dateHasPassed(event.deadline)}
+  {#if availableSpotsMessage !== ''}
     <div class="flex items-center">
       <Users class="mr-2 flex-none" />
-      <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
+      <span>{availableSpotsMessage}</span>
     </div>
   {/if}
 
