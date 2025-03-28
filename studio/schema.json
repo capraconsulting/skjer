@@ -724,6 +724,13 @@
         },
         "optional": true
       },
+      "hideMaxParticipant": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "isRecurring": {
         "type": "objectAttribute",
         "value": {

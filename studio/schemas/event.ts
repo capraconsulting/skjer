@@ -117,6 +117,18 @@ export default defineType({
       type: "number",
     }),
     defineField({
+      name: "hideMaxParticipant",
+      title: "Ikke vis maks antall deltagere",
+      description:
+        "Kryss av her dersom du har lagt inn maks antall deltagere men ikke ønsker at de skal vises på arrangementet.",
+      type: "boolean",
+      initialValue: false,
+      options: {
+        layout: "checkbox",
+      },
+      hidden: ({ parent }) => parent?.maxParticipant == null,
+    }),
+    defineField({
       name: "isRecurring",
       title: "Arrangementet skal gjentas",
       description:

@@ -124,6 +124,7 @@ export type Event = {
   category?: Category;
   organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
+  hideMaxParticipant?: boolean;
   isRecurring: boolean;
   interval: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   frequence: "day" | "week" | "month" | "year";
