@@ -118,9 +118,9 @@ export default defineType({
     }),
     defineField({
       name: "hideMaxParticipant",
-      title: "Ikke vis maks antall deltagere",
+      title: "Ikke vis antall ledige plasser igjen",
       description:
-        "Kryss av her dersom du har lagt inn maks antall deltagere men ikke ønsker at de skal vises på arrangementet.",
+        "Kryss av her dersom du har lagt inn maks antall deltagere men ikke ønsker at antall ledige plasser skal vises på arrangementet.",
       type: "boolean",
       initialValue: false,
       options: {
