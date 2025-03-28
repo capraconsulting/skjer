@@ -61,7 +61,7 @@
     </div>
   {/if}
 
-  {#if event.maxParticipant && !dateHasPassed(event.deadline)}
+  {#if event.maxParticipant &&  !event.hideMaxParticipant && !dateHasPassed(event.deadline)}
     <div class="flex items-center">
       <Users class="mr-2 flex-none" />
       <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
