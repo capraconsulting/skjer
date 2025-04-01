@@ -11,6 +11,7 @@ export const createSlackMessage = async (
   const eventUrl = `${process.env.SANITY_STUDIO_APP_BASE_URL}/event/${id}`;
 
   const startDate = new Date(start).toLocaleDateString("nb-NO", {
+    timeZone: "Europe/Oslo",
     hour: "2-digit",
     minute: "2-digit",
   });
