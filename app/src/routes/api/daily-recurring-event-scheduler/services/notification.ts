@@ -18,6 +18,7 @@ export const sendSlackNotification = async ({
   const eventUrl = `${PUBLIC_APP_BASE_URL}/event/${id}`;
 
   const startDate = new Date(start).toLocaleDateString("nb-NO", {
+    timeZone: "Europe/Oslo",
     hour: "2-digit",
     minute: "2-digit",
   });
