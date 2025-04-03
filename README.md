@@ -164,7 +164,7 @@ Vi kan kun oppdatere kalenderinvitasjoner som allerede er sendt ut. Vi har ikke 
 ### Publisering
 
 1. Gå inn i Sanity Studio og legg først til et nytt arrangement, og trykk "Publiser".
-2. Når et arrangement publiseres, blir det automatisk opprettet et arrangement i Suppabase.
+2. Når et arrangement publiseres, blir det automatisk opprettet et arrangement i Supabase.
 3. Besøk SvelteKit appen, eventuelt refresh siden, og se at innholdet vises.
 
 Hvis tid eller lokasjon for et publisert arrangement endres i Sanity, følges denne prosessen:
@@ -199,7 +199,7 @@ Innholdet kan ikke republiseres på nytt, men kan dupliseres for nytt bruk.
 
 ### Opprydding av Arrangementer
 
-For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer og tilhørende data fra Supabase som ble avsluttet for mer enn 7 dager siden. Dette håndteres av CRON-jobben "daily-event-cleaner". Innholdet forblir lagret i Sanity.
+For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer og tilhørende data fra Supabase som ble avsluttet for mer enn 30 dager siden. Dette håndteres av CRON-jobben "daily-event-cleaner". Innholdet forblir lagret i Sanity.
 
 ### Gjentakende Arrangementer
 
