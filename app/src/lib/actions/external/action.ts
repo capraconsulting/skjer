@@ -20,6 +20,7 @@ import {
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
+import { toLocalIsoString } from "$lib/utils/date.util";
 
 const limiter = new RateLimiter({
   IP: [20, "h"], // 20 rquests per hour from the same IP
@@ -158,8 +159,8 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,

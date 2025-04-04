@@ -5,6 +5,7 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
+import { toLocalIsoString } from "$lib/utils/date.util";
 
 const rateLimitMap: Map<string, number> = new Map();
 
@@ -58,8 +59,8 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,

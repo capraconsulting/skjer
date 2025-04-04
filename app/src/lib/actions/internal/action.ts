@@ -22,6 +22,7 @@ import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { message, superValidate } from "sveltekit-superforms/server";
 import validator from "validator";
+import { toLocalIsoString } from "$lib/utils/date.util";
 
 /**
  ** IP: Allows 40 requests per hour from the same IP address.
@@ -178,15 +179,15 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
   };
 
-  if (process.env.NODE_ENV !== "development") {
+  //if (process.env.NODE_ENV !== "development") {
     const { error: emailError } = await sendEmailAccepted(emailPayload);
 
     if (emailError) {
@@ -197,7 +198,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
         warning: true,
       });
     }
-  }
+  //}
 
   return message(registrationForm, {
     text: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
@@ -296,15 +297,15 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
     message: eventContent.emailTemplate.unregistrationMessage,
   };
 
-  if (process.env.NODE_ENV !== "development") {
+ // if (process.env.NODE_ENV !== "development") {
     const { error: emailError } = await sendEmailDeclined(emailPayload);
 
     if (emailError) {
@@ -315,7 +316,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
         warning: true,
       });
     }
-  }
+  // }
 
   return message(unregistrationForm, {
     text: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
