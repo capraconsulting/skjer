@@ -129,7 +129,10 @@ export const getInternalParticipantNames = async ({
     .eq("event_participant.attending", true)
     .maybeSingle();
 
-  return result.data?.event_participant
+  const participants = result.data?.event_participant;
+  if (!participants) return [];
+
+  return participants
     .filter(({ email }) => validateDomain(email))
     .map(({ full_name }) => full_name);
 };
@@ -144,7 +147,8 @@ export const getNumberOfParticipants = async ({
     .eq("event_participant.attending", true)
     .maybeSingle();
 
-  return result.data?.event_participant.length || 0;
+  const participants = result.data?.event_participant;
+  return participants ? participants.length : 0;
 };
 
 export const getIsParticipantAttendingEvent = async ({
@@ -162,10 +166,8 @@ export const getIsParticipantAttendingEvent = async ({
     .eq("event_participant.email", email)
     .maybeSingle();
 
-  if (result.data?.event_participant.length) {
-    return true;
-  }
-  return false;
+  const participants = result.data?.event_participant;
+  return participants ? participants.length > 0 : false;
 };
 
 export const getParticipantAttendingEvents = async ({
@@ -179,8 +181,9 @@ export const getParticipantAttendingEvents = async ({
     .eq("attending", true)
     .eq("email", email);
 
-  if (result.data?.length) {
-    return result.data.map((item) => item.event?.document_id);
+  const data = result.data;
+  if (data && data.length > 0) {
+    return data.map((item) => item.event?.document_id).filter((id): id is string => id !== undefined);
   }
   return [];
 };
@@ -194,8 +197,9 @@ export const getAttendingParticipants = async ({
     .eq("document_id", document_id)
     .eq("event_participant.attending", true);
 
-  if (result.data?.length) {
-    return result.data.flatMap((item) => item.event_participant);
+  const data = result.data;
+  if (data && data.length > 0) {
+    return data.flatMap((item) => item.event_participant || []);
   }
   return [];
 };

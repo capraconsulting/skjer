@@ -73,7 +73,8 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
-  const { data: event } = await getOrCreateEvent({ document_id: id });
+  const result = await getOrCreateEvent({ document_id: id });
+  const event = result.data;
 
   if (!event) {
     console.error("Error: The specified event does not exist or cannot be created");
@@ -86,16 +87,23 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
 
   const { event_id } = event;
 
-  const {
-    data: { fullName, telephone, email, firm, attendingType, foodPreference, customOptions },
-  } = registrationForm;
+  // Extract form data with null checks
+  const formData = registrationForm.data;
+  if (!formData) {
+    return message(registrationForm, {
+      text: "Det har oppstått et problem. Skjemadata mangler.",
+      error: true,
+    });
+  }
 
-  const eventParticipant = await getEventParticipant({
+  const { fullName, telephone, email, firm, attendingType, foodPreference, customOptions } = formData;
+
+  const eventParticipantResult = await getEventParticipant({
     event_id,
     email,
   });
 
-  if (eventParticipant.error) {
+  if (!eventParticipantResult || eventParticipantResult.error) {
     console.error("Error: Participant cannot be loaded");
 
     return message(registrationForm, {
@@ -104,7 +112,9 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
-  if (eventParticipant.data?.attending) {
+  const participantData = eventParticipantResult.data;
+
+  if (participantData && participantData.attending) {
     return message(registrationForm, {
       text: "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
       warning: true,
@@ -131,11 +141,11 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
         participantPayload
       );
 
-      if (customOptions.length) {
+      if (customOptions && customOptions.length > 0) {
         const participantOptionsPayload = customOptions.map(({ option, value }) => ({
           event_participant_id,
           option,
-          value,
+          value: value || null,
         }));
 
         await insertEventParticipantOptions(transaction, participantOptionsPayload);
@@ -154,17 +164,25 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     });
   }
 
+  // Ensure eventContent and its properties exist
+  if (!eventContent || !eventContent.emailTemplate) {
+    return message(registrationForm, {
+      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse kan ikke sendes.",
+      warning: true,
+    });
+  }
+
   const emailPayload = {
     id,
     to: email,
-    summary: eventContent.title,
-    description: eventContent.summary,
-    start: toLocalIsoString(eventContent.start),
-    end: toLocalIsoString(eventContent.end),
-    location: eventContent.place,
-    organiser: eventContent.organisers,
-    subject: eventContent.emailTemplate.registrationSubject,
-    message: eventContent.emailTemplate.registrationMessage,
+    summary: eventContent.title || '',
+    description: eventContent.summary || '',
+    start: eventContent.start ? toLocalIsoString(eventContent.start) : '',
+    end: eventContent.end ? toLocalIsoString(eventContent.end) : '',
+    location: eventContent.place || '',
+    organiser: eventContent.organisers || '',
+    subject: eventContent.emailTemplate.registrationSubject || 'Bekreftelse på påmelding',
+    message: eventContent.emailTemplate.registrationMessage || '',
   };
 
   if (process.env.NODE_ENV !== "development") {
@@ -221,9 +239,10 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     });
   }
 
-  const event = await getOrCreateEvent({ document_id: id });
+  const result = await getOrCreateEvent({ document_id: id });
+  const eventData = result.data;
 
-  if (!event.data?.event_id) {
+  if (!eventData || !eventData.event_id) {
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(unregistrationForm, {
@@ -232,17 +251,24 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     });
   }
 
-  const {
-    data: { event_id },
-  } = event;
+  const event_id = eventData.event_id;
 
-  const {
-    data: { email },
-  } = unregistrationForm;
+  // Extract form data with null checks
+  const formData = unregistrationForm.data;
+  if (!formData) {
+    return message(unregistrationForm, {
+      text: "Det har oppstått et problem. Skjemadata mangler.",
+      error: true,
+    });
+  }
 
-  const eventParticipant = await getEventParticipant({ event_id, email });
+  const { email } = formData;
 
-  if (!eventParticipant.data?.email || !eventParticipant.data?.attending) {
+  const eventParticipantResult = await getEventParticipant({ event_id, email });
+  const participantData = eventParticipantResult.data;
+
+  // Check if participant data exists and has valid properties
+  if (!participantData || !participantData.email || !participantData.attending) {
     return message(unregistrationForm, {
       text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet. Vennligst sjekk at du har oppgitt riktig e-postadresse.",
       warning: true,
@@ -264,11 +290,19 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
   const secret = getUnsubscribeSecret(data);
   const token = jwt.sign({ data }, secret, { expiresIn: "2h" });
 
+  // Ensure eventContent properties exist
+  if (!eventContent) {
+    return message(unregistrationForm, {
+      text: "Det har oppstått en feil. Vi kunne ikke sende bekreftelse på avmelding.",
+      warning: true,
+    });
+  }
+
   const emailPayload = {
     id,
     to: email,
-    summary: eventContent.title,
-    organiser: eventContent.organisers,
+    summary: eventContent.title || '',
+    organiser: eventContent.organisers || '',
     token,
   };
 
