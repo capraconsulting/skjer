@@ -123,7 +123,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
 
   try {
     await executeTransaction(async (transaction) => {
-      if (eventParticipant.data) {
+      if (eventParticipantResult.data) {
         await deleteEventParticipant(transaction, { event_id, email });
       }
 

@@ -38,6 +38,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.12
       globals:
         specifier: ^15.8.0
         version: 15.8.0
@@ -4047,8 +4050,7 @@ snapshots:
 
   date-fns@3.6.0: {}
 
-  dayjs@1.11.12:
-    optional: true
+  dayjs@1.11.12: {}
 
   debug@4.3.5:
     dependencies:

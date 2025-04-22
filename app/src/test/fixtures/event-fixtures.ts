@@ -7,9 +7,8 @@ import type { Tables } from "$models/database.model";
  */
 export function createTestEvent(overrides?: Partial<Tables<"event">>): Tables<"event"> {
   return {
-    id: 1,
+    event_id: 1,
     document_id: "test-document-id",
-    created_at: new Date().toISOString(),
     ...overrides
   };
 }
@@ -21,7 +20,7 @@ export function createTestEvent(overrides?: Partial<Tables<"event">>): Tables<"e
  */
 export function createTestParticipant(overrides?: Partial<Tables<"event_participant">>): Tables<"event_participant"> {
   return {
-    id: 1,
+    event_participant_id: 1,
     event_id: 1,
     full_name: "Test User",
     email: "test@example.com",
@@ -46,7 +45,7 @@ export function createTestParticipants(
 ): Tables<"event_participant">[] {
   return Array.from({ length: count }, (_, index) =>
     createTestParticipant({
-      id: index + 1,
+      event_participant_id: index + 1,
       email: `test${index + 1}@example.com`,
       full_name: `Test User ${index + 1}`,
       ...baseOverrides
@@ -63,11 +62,9 @@ export function createTestParticipantOption(
   overrides?: Partial<Tables<"event_participant_option">>
 ): Tables<"event_participant_option"> {
   return {
-    id: 1,
     event_participant_id: 1,
-    option_id: "test-option-id",
-    option_value: "test-option-value",
-    created_at: new Date().toISOString(),
+    option: "test-option",
+    value: "test-value",
     ...overrides
   };
 }
