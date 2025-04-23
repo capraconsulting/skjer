@@ -9,8 +9,8 @@
     "lint": "eslint 'src/**/*.{js,ts,svelte}'",
     "format": "prettier . --write .",
     "prepare": "svelte-kit sync",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --environment jsdom",
+    "test:watch": "vitest --environment jsdom"
   },
   "dependencies": {
     "@auth/core": "^0.34.1",
@@ -41,6 +41,7 @@
     "@sveltejs/adapter-vercel": "^5.5.1",
     "@sveltejs/kit": "^2.5.17",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@testing-library/svelte": "^5.2.7",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/nodemailer": "^6.4.15",
     "@types/validator": "^13.12.0",
@@ -51,6 +52,7 @@
     "eslint-plugin-svelte": "^2.43.0",
     "flowbite": "^2.5.2",
     "flowbite-svelte": "^0.46.23",
+    "jsdom": "^26.1.0",
     "kysely-supabase": "^0.2.0",
     "phosphor-svelte": "^2.0.1",
     "playwright": "^1.45.0",
