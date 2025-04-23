@@ -1,21 +1,21 @@
 <script lang="ts">
   import { Button, ButtonGroup } from "flowbite-svelte";
   import { createEventDispatcher } from "svelte";
-  import type { Category } from "$models/sanity.model";
   import { goto } from "$app/navigation";
+  import { _ } from "$lib/i18n";
 
   export let selectedFilter: string;
 
   const dispatch = createEventDispatcher();
   const searchParams = new URLSearchParams();
 
-  type Filters = { keyword: string; title: Category | "Alle" | "For alle" | "Kun interne" }[];
+  type Filters = { keyword: string; titleKey: string }[];
   const filter: Filters = [
-    { title: "Alle", keyword: "" },
-    { title: "For alle", keyword: "for-alle" },
-    { title: "Kun interne", keyword: "kun-interne" },
-    { title: "Fag", keyword: "fag" },
-    { title: "Sosialt", keyword: "sosialt" },
+    { titleKey: "filter.all", keyword: "" },
+    { titleKey: "filter.forAll", keyword: "for-alle" },
+    { titleKey: "filter.internalOnly", keyword: "kun-interne" },
+    { titleKey: "filter.academic", keyword: "fag" },
+    { titleKey: "filter.social", keyword: "sosialt" },
   ];
 
   const handleFilterChange = async (filter: string) => {
@@ -32,7 +32,7 @@
 </script>
 
 <ButtonGroup class="flex-row flex-wrap gap-2 shadow-none md:justify-end md:self-end">
-  {#each filter as { title, keyword }}
+  {#each filter as { titleKey, keyword }}
     <Button
       on:click={() => handleFilterChange(keyword)}
       class={`basis-1/4 whitespace-nowrap sm:basis-auto ${
@@ -41,7 +41,7 @@
           : "h-8 !rounded-lg border border-[#999] hover:border-black hover:bg-white dark:border-zinc-800 dark:bg-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-700"
       }`}
     >
-      {title}
+      {$_(titleKey)}
     </Button>
   {/each}
 </ButtonGroup>

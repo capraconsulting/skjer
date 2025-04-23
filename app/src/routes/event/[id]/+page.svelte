@@ -4,6 +4,7 @@
   import EventFormInternal from "$components/internal/EventFormInternal.svelte";
   import EventSummary from "$components/shared/EventSummary.svelte";
   import { ArrowLeft } from "phosphor-svelte";
+  import { _ } from "$lib/i18n";
 
   export let data;
 
@@ -22,7 +23,7 @@
     <div class="mb-9">
       <a class="flex items-center font-bold hover:underline" href="/">
         <ArrowLeft weight="bold" class="mr-2 inline-flex" />
-        <span>Alle arrangementer</span>
+        <span>{$_('common.allEvents')}</span>
       </a>
     </div>
     <EventSummary {event} {data} />

@@ -5,6 +5,25 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
+
+// Helper function to get translations
+function getTranslation(key: string): string {
+  // Get the dictionary for the default language (nb)
+  const dict = get(dictionary)['nb'];
+  if (!dict) return key; // Fallback if language not found
+
+  // Parse the key path (e.g., "errors.cannotRegisterEvent")
+  const parts = key.split('.');
+  let value = dict;
+  for (const part of parts) {
+    if (!value[part]) return key; // Fallback if key not found
+    value = value[part];
+  }
+
+  return value;
+};
 
 const rateLimitMap: Map<string, number> = new Map();
 
@@ -15,8 +34,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   if (lastAccess && now - lastAccess < 30000) {
     return {
       error: true,
-      message:
-        "Du har nådd grensen for antall forsøk. Vennligst vent 30 sekunder før du prøver igjen.",
+      message: getTranslation("errors.rateLimitReached30Sec"),
     };
   }
 
@@ -29,7 +47,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   if (!tokenDecoded?.payload?.data) {
     return {
       error: true,
-      message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
+      message: getTranslation("errors.cannotUnregisterEvent"),
     };
   }
 
@@ -44,7 +62,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     if (error instanceof jwt.TokenExpiredError) {
       return {
         error: true,
-        message: "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere.",
+        message: getTranslation("errors.linkExpired"),
       };
     }
   }
@@ -73,7 +91,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
       console.error("Error: Failed to send email");
 
       return {
-        text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+        text: getTranslation("errors.unregistrationEmailNotSent"),
         warning: true,
       };
     }
@@ -81,6 +99,6 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
 
   return {
     success: true,
-    message: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    message: getTranslation("success.unregistrationComplete"),
   };
 };

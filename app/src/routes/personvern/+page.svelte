@@ -1,9 +1,13 @@
+<script>
+  import { _ } from "$lib/i18n";
+</script>
+
 <svelte:head>
-  <title>Personvernerklæring | Capra Liflig Fryde</title>
+  <title>{$_('common.privacyPolicy')} | Capra Liflig Fryde</title>
 </svelte:head>
 
 <section class="text-lg font-light sm:w-[80%]">
-  <h1 class="pb-4 pt-8 text-5xl font-light">Personvernerklæring</h1>
+  <h1 class="pb-4 pt-8 text-5xl font-light">{$_('common.privacyPolicy')}</h1>
 
   <p class="py-4">
     Denne personvernerklæringen forteller hvordan Capra AS, Liflig AS og Fryde AS samler inn og

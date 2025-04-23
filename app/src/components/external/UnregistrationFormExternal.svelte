@@ -2,6 +2,7 @@
   import { dateHasPassed } from "$lib/utils/date.util";
   import { Input, Button, Spinner } from "flowbite-svelte";
   import type { Event } from "$models/sanity.model";
+  import { _ } from "$lib/i18n";
 
   export let event: Event;
   export let form;
@@ -20,7 +21,7 @@
     <input type="text" name="subject" id="subject" class="hidden" />
 
     <h2 id="unregistration" class="pb-4 text-base font-bold sm:text-xl">
-      Ønsker du å melde deg av?
+      {$_('common.wantToUnregister')}
     </h2>
 
     <div class="flex flex-wrap gap-3 sm:flex-nowrap">
@@ -32,7 +33,7 @@
         bind:value={$form.email}
       />
       <Button pill color="dark" type="submit" disabled={$delayed} class="w-max whitespace-nowrap">
-        <span class="ml-2">Meld meg av</span>
+        <span class="ml-2">{$_('common.unregisterMe')}</span>
         <span class="w-2">
           {#if $delayed}
             <Spinner color="gray" class="ml-2" size="4" />

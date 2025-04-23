@@ -1,0 +1,90 @@
+{
+  "common": {
+    "today": "Today",
+    "clock": "at",
+    "registration": "Registration",
+    "registerHere": "Register here",
+    "category": "Category",
+    "when": "When",
+    "where": "Where",
+    "forAll": "For everyone",
+    "internalOnly": "Internal only",
+    "youAreRegistered": "You are registered",
+    "login": "Log in",
+    "logout": "Log out",
+    "create": "Create",
+    "subscribe": "Subscribe",
+    "upcomingEvents": "Upcoming events",
+    "pastEvents": "Past events",
+    "seeMoreEvents": "See more events",
+    "noUpcomingEventsInCategory": "No upcoming events found in this category 😭",
+    "noPastEvents": "No past events found 😭",
+    "partOfCapraGroup": "We are part of the Capra group",
+    "privacyPolicy": "Privacy Policy",
+    "certifications": "Certifications",
+    "allEvents": "All events",
+    "participants": "Participants",
+    "registerMe": "Register me",
+    "wantToUnregister": "Do you want to unregister?",
+    "unregisterMe": "Unregister me"
+  },
+  "errors": {
+    "cannotRegisterEvent": "There was a problem. You cannot register for this event.",
+    "invalidForm": "There was a problem. The form is not valid.",
+    "rateLimitReached": "You have reached the limit for the number of attempts. Please wait a while before trying again.",
+    "rateLimitReached30Sec": "You have reached the limit for the number of attempts. Please wait 30 seconds before trying again.",
+    "registrationFailed": "An error occurred. You have not been registered for the event. Please try again later.",
+    "emailNotSent": "An error occurred. You have been registered for the event, but the email confirmation was not sent.",
+    "cannotUnregisterEvent": "An error occurred. You cannot unregister from this event.",
+    "noRegistrationFound": "Unfortunately, we cannot find any information about your registration for the event.",
+    "noRegistrationFoundCheckEmail": "Unfortunately, we cannot find any information about your registration for the event. Please check that you have entered the correct email address.",
+    "unregistrationEmailNotSent": "You have now unregistered from the event 👋 Unfortunately, we could not send an email confirmation.",
+    "linkExpired": "The link you used is no longer valid. Please try again later."
+  },
+  "success": {
+    "registrationComplete": "You have registered for the event! You will receive a confirmation at {email} any moment. We look forward to seeing you!",
+    "alreadyRegistered": "This email address is already registered for participation in the event. Please unregister if this is an error.",
+    "alreadyUnregistered": "You are already unregistered from the event. Thank you for your interest!",
+    "unregistrationComplete": "You have now unregistered from the event 👋 We have sent you a confirmation by email.",
+    "unregistrationEmailSent": "An email has been sent to the address you provided. Please follow the instructions in the email to complete the process."
+  },
+  "filter": {
+    "all": "All",
+    "forAll": "For everyone",
+    "internalOnly": "Internal only",
+    "academic": "Academic",
+    "social": "Social"
+  },
+  "slack": {
+    "registration": "Registration",
+    "registerHere": "Register here",
+    "category": "Category",
+    "when": "When",
+    "where": "Where"
+  },
+  "date": {
+    "month_long": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "weekday_long": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  }
+}

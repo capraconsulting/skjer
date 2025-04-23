@@ -8,6 +8,7 @@
   import Deadline from "$components/shared/Deadline.svelte";
   import { stegaClean } from "@sanity/client/stega";
   import FoodDeadline from "$components/shared/FoodDeadline.svelte";
+  import { _ } from "$lib/i18n";
 
   export let event: Event;
   export let numberOfParticipants: number;
@@ -20,7 +21,7 @@
 </script>
 
 {#if !isAttending}
-  <h2 class="pb-4 text-base font-bold sm:text-xl">Påmelding:</h2>
+  <h2 class="pb-4 text-base font-bold sm:text-xl">{$_('common.registration')}:</h2>
   {#if dateHasPassed(event.deadline)}
     <p>Det er ikke lenger mulig å melde seg på dette arrangementet 😢</p>
   {:else if event.maxParticipant && numberOfParticipants >= event.maxParticipant}
@@ -67,7 +68,7 @@
 
       <div class="flex w-full">
         <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed}
-          ><span class="ml-2">Meld meg på</span>
+          ><span class="ml-2">{$_('common.registerMe')}</span>
           <span class="w-2">
             {#if $delayed}
               <Spinner color="gray" class="ml-2" size="4" />

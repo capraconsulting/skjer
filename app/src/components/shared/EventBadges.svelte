@@ -3,10 +3,13 @@
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import { isToday } from "date-fns";
+  import { _ } from "$lib/i18n";
 
   export let event: EventWithAttending;
   $: startDateIsToday = isToday(event.start);
-  $: startDate = startDateIsToday ? `I dag kl. ${formatTime(event.start)}` : formatDate(event.start);
+  $: startDate = startDateIsToday
+    ? `${$_('common.today')} ${$_('common.clock')} ${formatTime(event.start)}`
+    : formatDate(event.start);
 </script>
 
 <div class="flex flex-row flex-wrap content-center gap-2">
@@ -14,14 +17,14 @@
     <Badge
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      For alle
+      {$_('common.forAll')}
     </Badge>
   {:else}
     <Badge
       rounded
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      Kun interne
+      {$_('common.internalOnly')}
     </Badge>
   {/if}
   {#if event.category}
@@ -35,7 +38,7 @@
   <Badge
     rounded
     class={`h-6 whitespace-nowrap rounded-lg border ${
-      startDate === "I dag"
+      startDateIsToday
         ? "border-transparent bg-zinc-800 text-white dark:bg-white dark:text-black"
         : "border-gray-300 bg-transparent dark:bg-zinc-800"
     }`}
@@ -45,7 +48,7 @@
 
   {#if event.attending}
     <Badge rounded class="h-6 whitespace-nowrap rounded-lg border-none bg-yellowSpark text-black">
-      Du er påmeldt
+      {$_('common.youAreRegistered')}
     </Badge>
   {/if}
 </div>

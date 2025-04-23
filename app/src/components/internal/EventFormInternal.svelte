@@ -13,6 +13,7 @@
   import { Alert } from "flowbite-svelte";
   import { getAlertColor } from "$lib/utils/form.util";
   import { zod } from "sveltekit-superforms/adapters";
+  import { _ } from "$lib/i18n";
 
   export let data;
   export let event: Event;
@@ -49,7 +50,7 @@
 <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
   <div>
     <h2 class="mt-8 pb-4 text-base font-bold sm:text-xl">
-      Deltagere
+      {$_('common.participants')}
       {#if data.internalParticipantNames && data.internalParticipantNames.length > 0}
         ({data.internalParticipantNames.length})
       {/if}

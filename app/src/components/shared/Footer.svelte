@@ -9,6 +9,7 @@
   import miljofyrtarnLight from "$lib/assets/miljofyrtarn-light.webp";
   import dnvDark from "$lib/assets/dnv-dark.webp";
   import dnvLight from "$lib/assets/dnv-light.webp";
+  import { _ } from "$lib/i18n";
 
   const currentYear = new Date().getFullYear();
 </script>
@@ -16,10 +17,10 @@
 <footer
   class="gap-8py-16 flex h-[470px] w-full flex-col items-center justify-center text-lg font-light sm:gap-12"
 >
-  <p class="pb-2 pt-6">Vi er en del av Capra-gruppen</p>
+  <p class="pb-2 pt-6">{$_('common.partOfCapraGroup')}</p>
   <div class="flex w-full flex-col items-center justify-evenly gap-6 sm:flex-row sm:gap-0">
     <div class="flex flex-col items-center justify-center gap-4 font-normal">
-      <div class="pt-6 text-base sm:p-0 sm:text-lg">Sertifiseringer</div>
+      <div class="pt-6 text-base sm:p-0 sm:text-lg">{$_('common.certifications')}</div>
       <div class="flex gap-2">
         <img
           class="block h-16 dark:hidden sm:h-20"
@@ -51,7 +52,7 @@
     </div>
     <div>
       <a href="/personvern" class="text-base font-normal underline sm:text-lg"
-        >Personvernerklæring</a
+        >{$_('common.privacyPolicy')}</a
       >
     </div>
   </div>

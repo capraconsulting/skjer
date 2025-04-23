@@ -20,6 +20,25 @@ import {
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
+
+// Helper function to get translations
+function getTranslation(key: string): string {
+  // Get the dictionary for the default language (nb)
+  const dict = get(dictionary)['nb'];
+  if (!dict) return key; // Fallback if language not found
+
+  // Parse the key path (e.g., "errors.cannotRegisterEvent")
+  const parts = key.split('.');
+  let value = dict;
+  for (const part of parts) {
+    if (!value[part]) return key; // Fallback if key not found
+    value = value[part];
+  }
+
+  return value;
+}
 
 const limiter = new RateLimiter({
   IP: [20, "h"], // 20 rquests per hour from the same IP
@@ -40,7 +59,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Invalid form submission detected");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
+      text: getTranslation("errors.invalidForm"),
       error: true,
     });
   }
@@ -49,14 +68,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent"),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(registrationForm, {
-      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
+      text: getTranslation("errors.rateLimitReached"),
       error: true,
     });
   }
@@ -67,7 +86,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent"),
       error: true,
     });
   }
@@ -78,7 +97,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent"),
       error: true,
     });
   }
@@ -98,14 +117,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Participant cannot be loaded");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent"),
       error: true,
     });
   }
 
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
-      text: "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
+      text: getTranslation("success.alreadyRegistered"),
       warning: true,
     });
   }
@@ -148,7 +167,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Transaction failed", JSON.stringify(error));
 
     return message(registrationForm, {
-      text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+      text: getTranslation("errors.registrationFailed"),
       error: true,
     });
   }
@@ -173,14 +192,17 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
       console.error("Error: Failed to send email");
 
       return message(registrationForm, {
-        text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+        text: getTranslation("errors.emailNotSent"),
         warning: true,
       });
     }
   }
 
+  // Replace {email} placeholder with actual email
+  const successMessage = getTranslation("success.registrationComplete").replace("{email}", email);
+
   return message(registrationForm, {
-    text: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
+    text: successMessage,
     success: true,
   });
 };
@@ -199,7 +221,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: Invalid form submission detected");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Det ufylte skjemaet er ikke gyldig.",
+      text: getTranslation("errors.invalidForm"),
       error: true,
     });
   }
@@ -208,14 +230,14 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent"),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(unregistrationForm, {
-      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
+      text: getTranslation("errors.rateLimitReached"),
       error: true,
     });
   }
@@ -226,7 +248,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent"),
       error: true,
     });
   }
@@ -243,7 +265,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
 
   if (!eventParticipant.data?.email || !eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet. Vennligst sjekk at du har oppgitt riktig e-postadresse.",
+      text: getTranslation("errors.noRegistrationFoundCheckEmail"),
       warning: true,
     });
   }
@@ -254,7 +276,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: The specified event does not exist as content");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent"),
       error: true,
     });
   }
@@ -278,14 +300,14 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
       console.error("Error: Failed to send email");
 
       return message(unregistrationForm, {
-        text: "Det har oppstått et problem. Du kan ikke melde deg av dette arrangementet.",
+        text: getTranslation("errors.cannotUnregisterEvent"),
         warning: true,
       });
     }
   }
 
   return message(unregistrationForm, {
-    text: "En e-post har blitt sendt til adressen du oppga. Vennligst følg instruksjonen i e-posten for å fullføre.",
+    text: getTranslation("success.unregistrationEmailSent"),
     success: true,
   });
 };

@@ -5,6 +5,14 @@
   import "../app.css";
   import Header from "$components/shared/Header.svelte";
   import Footer from "$components/shared/Footer.svelte";
+  import { browser } from "$app/environment";
+  import { initI18n } from "$lib/i18n";
+
+  // Initialize i18n with user preferences on the client side
+  // Note: i18n is already initialized with default locale when the module is imported
+  if (browser) {
+    initI18n();
+  }
 
   let auth = $page.data.session;
 </script>
