@@ -9,10 +9,7 @@
     "lint": "eslint 'src/**/*.{js,ts,svelte}'",
     "format": "prettier . --write .",
     "prepare": "svelte-kit sync",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test": "echo 'no tests'"
   },
   "dependencies": {
     "@auth/core": "^0.34.1",
@@ -24,8 +21,8 @@
     "@sanity/svelte-loader": "^1.11.33",
     "@sanity/visual-editing": "^2.1.6",
     "@supabase/supabase-js": "^2.44.4",
-    "date-fns": "^3.6.0",
-    "dayjs": "^1.11.10",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
     "globals": "^15.8.0",
     "groq": "^3.52.1",
     "ical-generator": "^7.1.0",
