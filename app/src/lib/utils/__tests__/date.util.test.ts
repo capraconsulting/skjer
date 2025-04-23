@@ -1,10 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { parseISO, isSameDay, format, isToday } from "date-fns";
-import dayjs from 'dayjs';
+import { parseISO, isSameDay, format, isToday, formatISO } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 import {
   toLocalIsoString,
   formatDate,
-  formatDateWithWeekDay,
   formatTime,
   endsOnDifferentDay,
   dateHasPassed
@@ -18,54 +17,21 @@ vi.mock('date-fns', async () => {
     isToday: vi.fn(),
     parseISO: vi.fn((date: string) => new Date(date)),
     isSameDay: vi.fn(),
-    format: vi.fn()
+    format: vi.fn(),
+    formatISO: vi.fn()
   };
 });
 
-// Mock dayjs
-vi.mock('dayjs', () => {
-  const mockInstance = {
-    tz: vi.fn().mockReturnThis(),
-    format: vi.fn().mockReturnValue('2023-05-15T12:00:00+02:00')
-  };
-
-  const mockDayjs = vi.fn(() => mockInstance) as unknown as MockDayjs;
-  mockDayjs.extend = vi.fn();
-  mockDayjs.tz = vi.fn();
-
+// Mock date-fns-tz functions
+vi.mock('date-fns-tz', async () => {
+  const actual = await vi.importActual('date-fns-tz');
   return {
-    default: mockDayjs,
-    __esModule: true
+    ...actual,
+    zonedTimeToUtc: vi.fn()
   };
 });
 
-// Type for mocked dayjs instance
-type MockDayjsInstance = {
-  tz: ReturnType<typeof vi.fn>;
-  format: ReturnType<typeof vi.fn>;
-};
-
-// Type for mocked dayjs function
-interface MockDayjs {
-  (date?: string): MockDayjsInstance;
-  extend: ReturnType<typeof vi.fn>;
-  tz: ReturnType<typeof vi.fn>;
-}
-
-// Mock dayjs plugins
-vi.mock('dayjs/plugin/utc', () => {
-  return {
-    default: 'utc-plugin-mock',
-    __esModule: true
-  };
-});
-
-vi.mock('dayjs/plugin/timezone', () => {
-  return {
-    default: 'timezone-plugin-mock',
-    __esModule: true
-  };
-});
+// No need for dayjs mocks as we're using date-fns and date-fns-tz
 
 describe('Date Utilities', () => {
   // Save original Date implementation
@@ -85,22 +51,21 @@ describe('Date Utilities', () => {
     it('should convert UTC date string to local ISO string', () => {
       // Arrange
       const utcDateString = '2023-05-15T10:00:00Z';
-      const expectedFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+      const parsedDate = new Date(utcDateString);
+      const osloDate = new Date('2023-05-15T12:00:00+02:00');
       const expectedResult = '2023-05-15T12:00:00+02:00';
 
-      // Setup mock
-      const mockDayjsInstance = dayjs(utcDateString) as unknown as MockDayjsInstance;
-      // Ensure tz returns the mockDayjsInstance for chaining
-      mockDayjsInstance.tz.mockReturnValue(mockDayjsInstance);
-      mockDayjsInstance.format.mockReturnValue(expectedResult);
+      vi.mocked(parseISO).mockReturnValue(parsedDate);
+      vi.mocked(zonedTimeToUtc).mockReturnValue(osloDate);
+      vi.mocked(formatISO).mockReturnValue(expectedResult);
 
       // Act
       const result = toLocalIsoString(utcDateString);
 
       // Assert
-      expect(dayjs).toHaveBeenCalledWith(utcDateString);
-      expect(mockDayjsInstance.tz).toHaveBeenCalledWith('Europe/Oslo');
-      expect(mockDayjsInstance.format).toHaveBeenCalledWith(expectedFormat);
+      expect(parseISO).toHaveBeenCalledWith(utcDateString);
+      expect(zonedTimeToUtc).toHaveBeenCalledWith(parsedDate, 'Europe/Oslo');
+      expect(formatISO).toHaveBeenCalledWith(osloDate);
       expect(result).toBe(expectedResult);
     });
   });
@@ -145,34 +110,6 @@ describe('Date Utilities', () => {
         year: 'numeric'
       });
       expect(result).toBe('15. mai 2023');
-    });
-  });
-
-  describe('formatDateWithWeekDay', () => {
-    it('should format the date with weekday', () => {
-      // Arrange
-      const dateString = '2023-05-15T10:00:00Z';
-
-      // Mock Date.prototype.toLocaleDateString
-      const mockToLocaleDateString = vi.fn().mockReturnValue('mandag 15. mai');
-      const mockDate = {
-        toLocaleDateString: mockToLocaleDateString
-      };
-
-      // Create a proper mock for the Date constructor
-      const MockDateConstructor = vi.fn(() => mockDate) as unknown as DateConstructor;
-      global.Date = MockDateConstructor;
-
-      // Act
-      const result = formatDateWithWeekDay(dateString);
-
-      // Assert
-      expect(mockToLocaleDateString).toHaveBeenCalledWith('nb-NO', {
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
-      });
-      expect(result).toBe('mandag 15. mai');
     });
   });
 

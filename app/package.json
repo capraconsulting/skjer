@@ -9,7 +9,8 @@
     "lint": "eslint 'src/**/*.{js,ts,svelte}'",
     "format": "prettier . --write .",
     "prepare": "svelte-kit sync",
-    "test": "echo 'no tests'"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@auth/core": "^0.34.1",
