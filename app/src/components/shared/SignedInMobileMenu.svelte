@@ -24,7 +24,7 @@
     <span class="mr-1.5 max-w-[150px] truncate text-sm font-semibold" title={auth.user.name}
       >{auth.user.name}</span
     >
-    <img class="h-8 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
+    <img class="h-8 rounded-2xl" alt={$_('common.profilePicture')} src={auth.user.image} />
   </Button>
 
   {#if isMenuOpen}
@@ -42,7 +42,7 @@
         target="_blank"
         rel="noopener noreferrer"
         href={subscribeLink}
-        alt="Abonner på kalender"
+        alt={$_('common.subscribeToCalendar')}
       >
         <span class="mr-1.5">{$_('common.subscribe')}</span>
         <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
@@ -60,7 +60,7 @@
       <div class="w-32">
         <LanguageSwitcher />
       </div>
-      <DarkMode size="sm" value="Modus" btnClass="h-9 border-[#999] w-32 rounded-2xl" />
+      <DarkMode size="sm" value={$_('common.darkMode')} btnClass="h-9 border-[#999] w-32 rounded-2xl" />
     </div>
   {/if}
 </div>

@@ -1,6 +1,8 @@
 <script lang="ts">
   import { dateHasPassed, endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
+  import { translateCategory } from "$lib/utils/category.util";
   import type { Event } from "$models/sanity.model";
+  import { _ } from "$lib/i18n";
   import {
     CalendarBlank,
     Clock,
@@ -18,11 +20,11 @@
   function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
     const availableSpots = maxParticipant - numberOfParticipants;
     if (availableSpots === 0) {
-      return "Ingen ledige plasser";
+      return $_('common.noAvailableSpots');
     } else if (availableSpots === 1) {
-      return "1 ledig plass";
+      return $_('common.oneAvailableSpot');
     } else {
-      return `${availableSpots} ledige plasser`;
+      return $_('common.availableSpots', { count: availableSpots });
     }
   }
 </script>
@@ -33,7 +35,7 @@
   {#if event.category}
     <div class="flex items-center">
       <Lightbulb class="mr-2 flex-none" />
-      <span>{event.category}</span>
+      <span>{translateCategory(event.category)}</span>
     </div>
   {/if}
 
@@ -84,6 +86,6 @@
 
   <div class="flex items-center">
     <Tag class="mr-2 flex-none" />
-    <span>{event.openForExternals ? "Åpent for alle" : "Kun for interne"}</span>
+    <span>{event.openForExternals ? $_('common.openForAll') : $_('common.onlyForInternal')}</span>
   </div>
 </div>

@@ -23,10 +23,32 @@
     "privacyPolicy": "Privacy Policy",
     "certifications": "Certifications",
     "allEvents": "All events",
+    "allOrganizers": "All",
+    "capraGroup": "Capra Group",
     "participants": "Participants",
     "registerMe": "Register me",
     "wantToUnregister": "Do you want to unregister?",
-    "unregisterMe": "Unregister me"
+    "unregisterMe": "Unregister me",
+    "eventImageAlt": "Image for the event: {title}",
+    "capraLogo": "Capra logo",
+    "lifligLogo": "Liflig logo",
+    "frydeLogo": "Fryde logo",
+    "miljofyrtarnCertification": "Miljøfyrtårn certification",
+    "dnvCertification": "DNV certification",
+    "copyright": "{year} © Capra | Torggata 2-4, 0180 Oslo | post@capraconsulting.no",
+    "openForAll": "Open for everyone",
+    "onlyForInternal": "Internal only",
+    "noAvailableSpots": "No available spots",
+    "oneAvailableSpot": "1 available spot",
+    "availableSpots": "{count} available spots",
+    "previewOn": "Preview on",
+    "previewOff": "Preview off",
+    "previewRequiresPublished": "To see the preview, the event must be published",
+    "animatedLogo": "Animated Capra, Fryde and Liflig logo",
+    "logo": "Capra, Fryde and Liflig logo",
+    "profilePicture": "Profile picture",
+    "subscribeToCalendar": "Subscribe to calendar",
+    "darkMode": "Dark mode"
   },
   "errors": {
     "cannotRegisterEvent": "There was a problem. You cannot register for this event.",
@@ -60,7 +82,20 @@
     "registerHere": "Register here",
     "category": "Category",
     "when": "When",
-    "where": "Where"
+    "where": "Where",
+    "image": "Image"
+  },
+  "registration": {
+    "foodPreferences": "Food preferences and allergies",
+    "enterFoodPreferences": "Enter your food preferences and allergies"
+  },
+  "email": {
+    "registerOrUnregister": "Register or unregister from the event:",
+    "hello": "Hello,",
+    "unregisterRequestReceived": "We have received a request to unregister you from \"{summary}\".",
+    "confirmAction": "To confirm this action, please click on the following link:",
+    "confirmUnregistration": "Confirm unregistration",
+    "confirmUnregistrationSubject": "Confirm unregistration: {summary}"
   },
   "date": {
     "month_long": {
@@ -86,5 +121,65 @@
       "saturday": "Saturday",
       "sunday": "Sunday"
     }
+  },
+  "privacy": {
+    "intro": "This privacy policy explains how Capra AS, Liflig AS, and Fryde AS collect and use personal data.",
+    "responsibility": "Capra AS, Liflig AS, and Fryde AS, represented by their managing directors, are responsible for the company's processing of personal data. Where daily responsibility is delegated, this is specified under each section. The delegation covers only the tasks and not the responsibility. This statement contains information you are entitled to when information is collected from our website, recruitment system, sales system (Personal Data Act § 19), and general information about how we process personal data (Personal Data Act § 18, paragraph 1).",
+    "nonEmployeeTitle": "Processing of personal data for non-employees",
+    "nonEmployeeText": "There are 3 cases where Capra, Liflig, and Fryde collect personal data about external/non-employees. The first case is recruitment, where candidates are entered into the recruitment system. The second and third cases are in sales contexts, where subcontractors and customers are entered into the sales system. In the first two cases, a candidate/customer/subcontractor can end up in our systems in two ways: a) By registering themselves through an advertised application, or b) They are added as a result of tips from others or sourcing (LinkedIn, recruitment agency, etc.). For customers, contact information is added as soon as we are in a negotiation process with them.",
+    "recruitmentTitle": "Recruitment",
+    "recruitmentText": "Depending on what information the candidate provides us or we find about the candidate, we collect, among other things, the following information: Name, email address, telephone number, education, work experience, URLs to relevant social media (such as LinkedIn, GitHub, etc.), reference persons, and uploaded documents (such as CV, application letter, grades, etc.).",
+    "selfRegistrationTitle": "Candidate registers themselves",
+    "selfRegistrationList": [
+      "The candidate must accept consent to be able to submit an application via our application pages.",
+      "Information is stored in the systems as long as they are up-to-date and it is relevant to keep them, but for a maximum of 2 years provided consent has been obtained."
+    ],
+    "tippedCandidateTitle": "Candidate is tipped to Capra, Liflig, or Fryde without their knowledge",
+    "tippedCandidateList": [
+      "We contact candidates through tips from our own searches, networking events, recommendations from employees, or forwarded from recruitment agencies.",
+      "We obtain consent no later than 30 days from when the candidates' data is processed by recruitment. Information is stored in the systems as long as they are up-to-date and relevant to keep, but for a maximum of 2 years provided consent has been obtained.",
+      "Without obtained consent, the candidate will be deleted after 30 days.",
+      "Candidates who have been tipped by employees before the introduction of the new privacy legislation have received an information email and will be deleted at the request of the candidate or automatically after 2 years from when the new privacy legislation came into force."
+    ],
+    "salesTitle": "Sales",
+    "salesText": "Depending on what information the customer or subcontractor gives us or we find about them, we collect, among other things, the following information: Name, email address, telephone number, education, work experience.",
+    "customerInfoTitle": "Customer information",
+    "customerInfoList": [
+      "At Capra, Liflig, and Fryde, we store personal information about KAMs and other relevant contact persons at the customer. These are stored as long as the customer relationship lasts."
+    ],
+    "subcontractorSelfRegTitle": "Subcontractor registers themselves",
+    "subcontractorSelfRegList": [
+      "The subcontractor receives an automatically generated message to consent to the storage of personal data.",
+      "After 10 years, the subcontractor will receive a notice asking if they still want to be registered in our database. If they do not want this, they will be deleted."
+    ],
+    "tippedSubcontractorTitle": "Subcontractor is tipped to Capra, Liflig, or Fryde without their knowledge.",
+    "tippedSubcontractorList": [
+      "The sales manager is then responsible for weekly reviewing subcontractors who have been tipped.",
+      "Then, no later than 7 days after the tip is registered, an email is sent with information about the personal data we have, with a request to keep this data.",
+      "If consent is not received within 14 days, the subcontractor will be deleted from the database."
+    ],
+    "employeeDataTitle": "Processing of personal data for employees",
+    "employeeDataText1": "Capra AS, Liflig AS, and Fryde AS process personal data about their employees to administer salary and personnel responsibilities. The legal basis follows from the Personal Data Act § 8, first paragraph and § 8 a), b) or f) as well as § 9 a), b) and f). The Administration, represented by the financial manager, has the daily responsibility for this. Necessary information is registered for salary payment, for example basic data, salary level, time registration, tax percentage, tax municipality, and union membership. Other information about employees is related to their work instructions and facilitation of their work.",
+    "employeeDataText2": "In addition, information is registered in connection with key card administration of entries and exits and information about access control in our IT systems. The information is obtained from the employees themselves. The information is only disclosed in connection with salary payments and other statutory disclosures. Deletion routines for personnel information follow the Accounting Act and the Archives Act; all personal data we cannot store under these laws is removed after the last working day. Information about name, position, and work area is considered to be public information and can be published on Capra AS, Liflig AS, or Fryde AS's websites. Information about the employee that is not required to be archived by the Accounting Act and the Archives Act will be deleted as soon as the employee has completed their last working day.",
+    "employeeDataText3": "At Capra, Liflig, and Fryde, we collect the following personal information from our employees for use in our internal IT systems:",
+    "employeeDataList": [
+      "First name",
+      "Last name",
+      "Personal identification number",
+      "Address",
+      "Email",
+      "Phone number",
+      "Account number",
+      "Previous employer",
+      "Nationality"
+    ],
+    "securityTitle": "Security",
+    "securityText": "Each third-party system maintains the security of the data they process. This should be documented in accordance with each supplier of third-party systems' data processing agreement with Capra AS, Liflig AS, and Fryde AS.",
+    "rightsTitle": "Rights",
+    "rightsText": "Everyone who asks has the right to basic information about the processing of personal data in a business according to the Personal Data Act § 18, paragraph 1. Capra AS, Liflig AS, and Fryde AS have provided this information in this statement and will refer to it in case of inquiries. Those who are registered in one of Capra AS, Liflig AS, and Fryde AS's systems have the right to access their own information. They also have the right to request that incorrect, incomplete, or information that Capra AS, Liflig AS, and Fryde AS do not have access to process be corrected, deleted, or supplemented. Requests from the registered person shall be answered free of charge and no later than within 30 days.",
+    "contactTitle": "Contact us",
+    "contactText": "For inquiries related to the rights of the registered person, Capra AS, Liflig AS, and Fryde AS can be contacted at:",
+    "contactInfo": "Capra AS\nAttn: Privacy Officer\nTorggata 2-4, 0180 Oslo\nOslo",
+    "contactEmail": "gdpr@capraconsulting.no"
   }
 }

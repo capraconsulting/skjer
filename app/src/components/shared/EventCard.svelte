@@ -1,6 +1,7 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$models/sanity.model";
+  import { _ } from "$lib/i18n";
 
   export let event: Event;
 </script>
@@ -15,7 +16,7 @@
         <img
           class="h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105"
           src={urlFor(event.image).url()}
-          alt="Bilde for arrangementet: {event.title}"
+          alt={$_('common.eventImageAlt', { title: event.title })}
         />
       {:else}
         <div class="h-full w-full bg-zinc-100 dark:bg-zinc-800" />

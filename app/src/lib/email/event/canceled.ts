@@ -2,6 +2,8 @@ import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import { composeEmail, sendEmail } from "$lib/email/nodemailer";
 import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
 import type { EventCanceledProps } from "../../../routes/api/send-event-canceled/+server";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
 
 interface EmailCanceledProps extends EventCanceledProps {
   to: string;
@@ -33,6 +35,9 @@ const createIcsFile = ({
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.CANCEL });
 
+  // Get the dictionary for the default language (nb)
+  const dict = get(dictionary)['nb'];
+
   calendar.createEvent({
     id,
     summary,
@@ -49,7 +54,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+      name: organiser === dict?.common?.allOrganizers ? dict?.common?.capraGroup : organiser,
       email: "no-reply@capragruppen.no",
     },
   });

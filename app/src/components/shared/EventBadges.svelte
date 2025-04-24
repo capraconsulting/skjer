@@ -1,5 +1,6 @@
 <script lang="ts">
   import { formatDate, formatTime } from "$lib/utils/date.util";
+  import { translateCategory } from "$lib/utils/category.util";
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import { isToday } from "date-fns";
@@ -32,7 +33,7 @@
       rounded
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      {event.category}
+      {translateCategory(event.category)}
     </Badge>
   {/if}
   <Badge

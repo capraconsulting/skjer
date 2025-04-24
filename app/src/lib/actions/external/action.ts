@@ -20,13 +20,14 @@ import {
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
-import { dictionary } from "$lib/i18n";
+import { dictionary, locale } from "$lib/i18n";
 import { get } from "svelte/store";
 
 // Helper function to get translations
 function getTranslation(key: string): string {
-  // Get the dictionary for the default language (nb)
-  const dict = get(dictionary)['nb'];
+  // Get the dictionary for the current language
+  const currentLocale = get(locale) || 'nb';
+  const dict = get(dictionary)[currentLocale];
   if (!dict) return key; // Fallback if language not found
 
   // Parse the key path (e.g., "errors.cannotRegisterEvent")

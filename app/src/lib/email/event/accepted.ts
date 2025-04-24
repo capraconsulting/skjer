@@ -2,6 +2,8 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
 
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
@@ -33,10 +35,14 @@ const createIcsFile = ({
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
 
+  // Get the dictionary for the default language (nb)
+  const dict = get(dictionary)['nb'];
+  const registerOrUnregister = dict?.email?.registerOrUnregister || "Meld deg på eller av arrangementet:";
+
   calendar.createEvent({
     id,
     summary,
-    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
+    description: `${description}\n\n${registerOrUnregister} ${url}`,
     location,
     start,
     end,
@@ -49,7 +55,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+      name: organiser === dict?.common?.allOrganizers ? dict?.common?.capraGroup : organiser,
       email: "no-reply@capragruppen.no",
     },
   });

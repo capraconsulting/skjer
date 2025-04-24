@@ -5,8 +5,8 @@ import { init, register, locale, dictionary, _ } from 'svelte-i18n';
 register('en', () => import('./locales/en.json'));
 register('nb', () => import('./locales/nb.json'));
 
-// Initialize with default locale immediately to prevent "Cannot format a message without first setting the initial locale" error
-init({
+// Initialize with the default locale immediately to prevent a "Cannot format a message without first setting the initial locale" error
+void init({
   fallbackLocale: 'nb',
   initialLocale: 'nb',
 });
@@ -25,7 +25,7 @@ export function initI18n() {
     } else {
       // If no preferred language, use the browser's language
       const browserLang = window.navigator.language.split('-')[0];
-      // Only use browser language if it's one of our supported languages
+      // Only use the browser language if it's one of our supported languages
       if (['nb', 'en'].includes(browserLang)) {
         initialLocale = browserLang;
       }
@@ -33,7 +33,7 @@ export function initI18n() {
 
     // Update the locale if it's different from the default
     if (initialLocale !== 'nb') {
-      locale.set(initialLocale);
+      void locale.set(initialLocale);
     }
   }
 }

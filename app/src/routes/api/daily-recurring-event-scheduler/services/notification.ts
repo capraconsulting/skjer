@@ -64,7 +64,7 @@ export const sendSlackNotification = async ({
     blocks.push({
       type: "image",
       image_url: imageUrl,
-      alt_text: "Image",
+      alt_text: getSlackTranslation("slack.image"),
     });
   }
 

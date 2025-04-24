@@ -24,30 +24,30 @@
       <div class="flex gap-2">
         <img
           class="block h-16 dark:hidden sm:h-20"
-          alt="Miljøfyrtårn-sertifisering"
+          alt={$_('common.miljofyrtarnCertification')}
           src={miljofyrtarnDark}
         />
         <img
           class="hidden h-16 dark:block sm:h-20"
-          alt="Miljøfyrtårn-sertifisering"
+          alt={$_('common.miljofyrtarnCertification')}
           src={miljofyrtarnLight}
         />
-        <img class="block h-16 dark:hidden sm:h-20" alt="DNV-sertifisering" src={dnvDark} />
-        <img class="hidden h-16 dark:block sm:h-20" alt="DNV-sertifisering" src={dnvLight} />
+        <img class="block h-16 dark:hidden sm:h-20" alt={$_('common.dnvCertification')} src={dnvDark} />
+        <img class="hidden h-16 dark:block sm:h-20" alt={$_('common.dnvCertification')} src={dnvLight} />
       </div>
     </div>
     <div class="flex gap-11">
       <a href="https://www.capraconsulting.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Capra-logo" src={capraLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Capra-logo" src={capraLogoWhite} />
+        <img class="block h-20 dark:hidden sm:h-28" alt={$_('common.capraLogo')} src={capraLogoBlack} />
+        <img class="hidden h-20 dark:block sm:h-28" alt={$_('common.capraLogo')} src={capraLogoWhite} />
       </a>
       <a href="https://www.liflig.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Liflig-logo" src={lifligLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Liflig-logo" src={lifligLogoWhite} />
+        <img class="block h-20 dark:hidden sm:h-28" alt={$_('common.lifligLogo')} src={lifligLogoBlack} />
+        <img class="hidden h-20 dark:block sm:h-28" alt={$_('common.lifligLogo')} src={lifligLogoWhite} />
       </a>
       <a href="https://www.fryde.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Fryde-logo" src={frydeLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Fryde-logo" src={frydeLogoWhite} />
+        <img class="block h-20 dark:hidden sm:h-28" alt={$_('common.frydeLogo')} src={frydeLogoBlack} />
+        <img class="hidden h-20 dark:block sm:h-28" alt={$_('common.frydeLogo')} src={frydeLogoWhite} />
       </a>
     </div>
     <div>
@@ -57,7 +57,6 @@
     </div>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
-    {currentYear} © Capra | Torggata 2-4, 0180 Oslo |
-    <a href="mailto:post@capraconsulting.no">post@capraconsulting.no</a>
+    {$_('common.copyright', { year: currentYear })}
   </p>
 </footer>

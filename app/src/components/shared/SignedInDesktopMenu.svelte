@@ -16,7 +16,7 @@
 
 <div class="hidden flex-row items-center gap-3 md:flex">
   <span class="text-sm font-semibold">{auth.user.name}</span>
-  <img class="h-8 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
+  <img class="h-8 rounded-2xl" alt={$_('common.profilePicture')} src={auth.user.image} />
 
   <Button color="dark" class="h-9" pill on:click={openSanityStudio}>
     <span class="mr-1.5">{$_('common.create')}</span>
@@ -28,7 +28,7 @@
     target="_blank"
     rel="noopener noreferrer"
     href={subscribeLink}
-    alt="Abonner på kalender"
+    alt={$_('common.subscribeToCalendar')}
   >
     <span class="mr-1.5">{$_('common.subscribe')}</span>
     <CalendarIcon strokeWidth={1.5} class="w-[16px]" />

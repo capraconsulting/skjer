@@ -5,13 +5,14 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
-import { dictionary } from "$lib/i18n";
+import { dictionary, locale } from "$lib/i18n";
 import { get } from "svelte/store";
 
 // Helper function to get translations
 function getTranslation(key: string): string {
-  // Get the dictionary for the default language (nb)
-  const dict = get(dictionary)['nb'];
+  // Get the dictionary for the current language
+  const currentLocale = get(locale) || 'nb';
+  const dict = get(dictionary)[currentLocale];
   if (!dict) return key; // Fallback if language not found
 
   // Parse the key path (e.g., "errors.cannotRegisterEvent")
