@@ -1,4 +1,4 @@
-import type { Event, Category } from "$models/sanity.model";
+import type { Event } from "$models/sanity.model";
 import type { EventWithAttending } from "$models/databaseView.model";
 
 /**
