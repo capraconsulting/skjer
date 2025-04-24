@@ -28,7 +28,7 @@ describe('EventCard Component', () => {
 
     const { getByAltText } = render(EventCard, { props: { event: testEvent } });
 
-    const image = getByAltText(`Bilde for arrangementet: ${testEvent.title}`);
+    const image = getByAltText(`Bilde for arrangementet: ${testEvent.title}`) as HTMLImageElement;
     expect(image).toBeTruthy();
     expect(image.getAttribute('src')).toBe('https://test-image-url.com/image.jpg');
   });
@@ -39,7 +39,7 @@ describe('EventCard Component', () => {
     const { container } = render(EventCard, { props: { event: testEvent } });
 
     // Check that there's a div with the placeholder classes
-    const placeholder = container.querySelector('.h-full.w-full.bg-zinc-100.dark\\:bg-zinc-800');
+    const placeholder = container.querySelector('.h-full.w-full.bg-zinc-100.dark\\:bg-zinc-800') as HTMLDivElement;
     expect(placeholder).toBeTruthy();
   });
 
@@ -48,8 +48,8 @@ describe('EventCard Component', () => {
 
     const { container } = render(EventCard, { props: { event: testEvent } });
 
-    const link = container.querySelector('a');
+    const link = container.querySelector('a') as HTMLAnchorElement;
     expect(link).toBeTruthy();
-    expect(link?.getAttribute('href')).toBe('/event/test-event-id');
+    expect(link.getAttribute('href')).toBe('/event/test-event-id');
   });
 });

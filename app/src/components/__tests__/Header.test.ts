@@ -7,7 +7,7 @@ import Header from './Header.test.svelte';
 // Mock the $app/stores
 vi.mock('$app/stores', () => ({
   page: {
-    subscribe: (callback) => {
+    subscribe: (callback: (value: { url: { pathname: string } }) => void) => {
       callback({ url: { pathname: '/test' } });
       return () => {};
     }
@@ -42,7 +42,7 @@ describe('Header Component', () => {
     const headerActions = container.querySelector('[data-testid="header-actions"]');
     expect(headerActions).toBeTruthy();
 
-    const props = JSON.parse(headerActions?.getAttribute('data-props') || '{}');
+    const props = JSON.parse(headerActions?.getAttribute('data-props') || '{}') as Record<string, unknown>;
     expect(props).toHaveProperty('auth', mockAuth);
   });
 
@@ -57,29 +57,29 @@ describe('Header Component', () => {
       }
     });
 
-    const logoLink = container.querySelector('a');
+    const logoLink = container.querySelector('a') as HTMLAnchorElement;
     expect(logoLink).toBeTruthy();
-    expect(logoLink?.className).toContain('pointer-events-none');
+    expect(logoLink.className).toContain('pointer-events-none');
   });
 
   it('sets pointer-events-auto on the logo link when not on the root page', () => {
     // Mock the page store to return a non-root path
     vi.mock('$app/stores', () => ({
       page: {
-        subscribe: (callback) => {
+        subscribe: (callback: (value: { url: { pathname: string } }) => void) => {
           callback({ url: { pathname: '/test' } });
           return () => {};
         }
       }
-    }), { virtual: true });
+    }));
 
     const { container } = render(Header, {
       props: { auth: mockAuth }
     });
 
-    const logoLink = container.querySelector('a');
+    const logoLink = container.querySelector('a') as HTMLAnchorElement;
     expect(logoLink).toBeTruthy();
-    expect(logoLink?.className).toContain('pointer-events-auto');
+    expect(logoLink.className).toContain('pointer-events-auto');
   });
 
   it('uses smaller logos when on Safari or iOS', () => {
@@ -94,7 +94,7 @@ describe('Header Component', () => {
 
     // Check that the smaller logos are used
     expect(logoImages[0].getAttribute('src')).toBe('logo-dark-sm-mock-path');
-    expect(logoImages[1].getAttribute('src')).toBe('logo-light-sm-mock-path');
+    expect((logoImages[1]).getAttribute('src')).toBe('logo-light-sm-mock-path');
   });
 
   it('uses regular logos when not on Safari or iOS', () => {
@@ -108,8 +108,8 @@ describe('Header Component', () => {
     expect(logoImages.length).toBe(3);
 
     // Check that the regular logos are used
-    expect(logoImages[0].getAttribute('src')).toBe('logo-dark-mock-path');
-    expect(logoImages[1].getAttribute('src')).toBe('logo-light-mock-path');
+    expect((logoImages[0]).getAttribute('src')).toBe('logo-dark-mock-path');
+    expect((logoImages[1]).getAttribute('src')).toBe('logo-light-mock-path');
   });
 
   it('includes a reduced motion logo', () => {
@@ -121,8 +121,8 @@ describe('Header Component', () => {
     expect(logoImages.length).toBe(3);
 
     // Check that the reduced motion logo is included
-    expect(logoImages[2].getAttribute('src')).toBe('logo-reduced-motion-mock-path');
-    expect(logoImages[2].className).toContain('motion-reduce:flex');
+    expect((logoImages[2]).getAttribute('src')).toBe('logo-reduced-motion-mock-path');
+    expect((logoImages[2]).className).toContain('motion-reduce:flex');
   });
 
   it('sets the correct alt text on the logo images', () => {
@@ -134,9 +134,9 @@ describe('Header Component', () => {
     expect(logoImages.length).toBe(3);
 
     // Check that the alt text is correct
-    expect(logoImages[0].getAttribute('alt')).toBe('Animert Capra, Fryde og Liflig-logo');
-    expect(logoImages[1].getAttribute('alt')).toBe('Animert Capra, Fryde og Liflig-logo');
-    expect(logoImages[2].getAttribute('alt')).toBe('Capra, Fryde og Liflig-logo');
+    expect((logoImages[0]).getAttribute('alt')).toBe('Animert Capra, Fryde og Liflig-logo');
+    expect((logoImages[1]).getAttribute('alt')).toBe('Animert Capra, Fryde og Liflig-logo');
+    expect((logoImages[2]).getAttribute('alt')).toBe('Capra, Fryde og Liflig-logo');
   });
 
   it('links the logo to the home page', () => {
@@ -144,8 +144,8 @@ describe('Header Component', () => {
       props: { auth: mockAuth }
     });
 
-    const logoLink = container.querySelector('a');
+    const logoLink = container.querySelector('a') as HTMLAnchorElement;
     expect(logoLink).toBeTruthy();
-    expect(logoLink?.getAttribute('href')).toBe('/');
+    expect(logoLink.getAttribute('href')).toBe('/');
   });
 });

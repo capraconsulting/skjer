@@ -30,9 +30,9 @@ describe('EventListItem Component', () => {
     const { container } = render(EventListItem, { props: { event: testEvent } });
 
     // Assert
-    const link = container.querySelector('a');
+    const link = container.querySelector('a') as HTMLAnchorElement;
     expect(link).toBeTruthy();
-    expect(link?.getAttribute('href')).toBe('/event/test-event-id');
+    expect(link.getAttribute('href')).toBe('/event/test-event-id');
   });
 
   it('applies the target attribute when provided', () => {
@@ -44,9 +44,9 @@ describe('EventListItem Component', () => {
     const { container } = render(EventListItem, { props: { event: testEvent, target } });
 
     // Assert
-    const link = container.querySelector('a');
+    const link = container.querySelector('a') as HTMLAnchorElement;
     expect(link).toBeTruthy();
-    expect(link?.getAttribute('target')).toBe('_blank');
+    expect(link.getAttribute('target')).toBe('_blank');
   });
 
   it('does not apply the target attribute when not provided', () => {
@@ -57,8 +57,8 @@ describe('EventListItem Component', () => {
     const { container } = render(EventListItem, { props: { event: testEvent } });
 
     // Assert
-    const link = container.querySelector('a');
+    const link = container.querySelector('a') as HTMLAnchorElement;
     expect(link).toBeTruthy();
-    expect(link?.getAttribute('target')).toBeNull();
+    expect(link.getAttribute('target')).toBeNull();
   });
 });

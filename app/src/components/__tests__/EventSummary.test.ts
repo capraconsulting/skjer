@@ -6,7 +6,7 @@ import EventSummary from './EventSummary.test.svelte';
 import { createTestSanityEventWithImage } from '../../test/fixtures/sanity-fixtures';
 
 // Mock the Sanity image URL builder
-vi.mock('$lib/sanity/image', () => ({
+vi.mock('$lib/sanity/image', (): { urlFor: () => { url: () => string } } => ({
   urlFor: vi.fn().mockReturnValue({
     url: vi.fn().mockReturnValue('https://test-image-url.com/image.jpg')
   })
@@ -43,13 +43,13 @@ describe('EventSummary Component', () => {
     const testEvent = createTestSanityEventWithImage({ category: undefined });
     const testData = { numberOfParticipants: 5 };
 
-    const { queryByTestId } = render(EventSummary, {
+    const { container } = render(EventSummary, {
       props: { event: testEvent, data: testData }
     });
 
-    // Check that no badge is rendered
-    const badges = queryByTestId('badge');
-    expect(badges).toBeFalsy();
+    // Check that no category div is rendered
+    const categoryDiv = container.querySelector('.mb-4.h-6.border.border-black');
+    expect(categoryDiv).toBeFalsy();
   });
 
   it('renders the event summary when available', () => {
@@ -84,10 +84,11 @@ describe('EventSummary Component', () => {
       props: { event: testEvent, data: testData }
     });
 
-    const eventInfoBox = container.querySelector('[data-testid="event-info-box"]');
+    const eventInfoBox = container.querySelector('[data-testid="event-info-box"]') as HTMLElement;
     expect(eventInfoBox).toBeTruthy();
 
-    const props = JSON.parse(eventInfoBox?.getAttribute('data-props') || '{}');
+    const propsString = eventInfoBox.getAttribute('data-props') || '{}';
+    const props = JSON.parse(propsString) as Record<string, unknown>;
     expect(props).toHaveProperty('event', testEvent);
     expect(props).toHaveProperty('numberOfParticipants', 5);
   });
@@ -100,10 +101,10 @@ describe('EventSummary Component', () => {
       props: { event: testEvent, data: testData }
     });
 
-    const image = container.querySelector('img');
+    const image = container.querySelector('img') as HTMLImageElement;
     expect(image).toBeTruthy();
-    expect(image?.getAttribute('src')).toBe('https://test-image-url.com/image.jpg');
-    expect(image?.getAttribute('alt')).toBe(`Bilde for arrangementet: ${testEvent.title}`);
+    expect(image.getAttribute('src')).toBe('https://test-image-url.com/image.jpg');
+    expect(image.getAttribute('alt')).toBe(`Bilde for arrangementet: ${testEvent.title}`);
   });
 
   it('does not render the image when not available', () => {
@@ -120,17 +121,18 @@ describe('EventSummary Component', () => {
   });
 
   it('renders the event body when available', () => {
-    const testEvent = createTestSanityEventWithImage({ body: [{ _type: 'block', children: [] }] });
+    const testEvent = createTestSanityEventWithImage({ body: [{ _type: 'block', children: [], _key: 'test-block-key-1' }] });
     const testData = { numberOfParticipants: 5 };
 
     const { container } = render(EventSummary, {
       props: { event: testEvent, data: testData }
     });
 
-    const portableText = container.querySelector('[data-testid="portable-text"]');
+    const portableText = container.querySelector('[data-testid="portable-text"]') as HTMLElement;
     expect(portableText).toBeTruthy();
 
-    const props = JSON.parse(portableText?.getAttribute('data-props') || '{}');
+    const propsString = portableText.getAttribute('data-props') || '{}';
+    const props = JSON.parse(propsString) as Record<string, unknown>;
     expect(props).toHaveProperty('value', testEvent.body);
   });
 
@@ -147,17 +149,18 @@ describe('EventSummary Component', () => {
   });
 
   it('sets up the Link component for PortableText', () => {
-    const testEvent = createTestSanityEventWithImage({ body: [{ _type: 'block', children: [] }] });
+    const testEvent = createTestSanityEventWithImage({ body: [{ _type: 'block', children: [], _key: 'test-block-key-2' }] });
     const testData = { numberOfParticipants: 5 };
 
     const { container } = render(EventSummary, {
       props: { event: testEvent, data: testData }
     });
 
-    const portableText = container.querySelector('[data-testid="portable-text"]');
+    const portableText = container.querySelector('[data-testid="portable-text"]') as HTMLElement;
     expect(portableText).toBeTruthy();
 
-    const props = JSON.parse(portableText?.getAttribute('data-props') || '{}');
+    const propsString = portableText.getAttribute('data-props') || '{}';
+    const props = JSON.parse(propsString) as Record<string, unknown>;
     expect(props).toHaveProperty('components.marks.link');
   });
 
@@ -169,8 +172,10 @@ describe('EventSummary Component', () => {
       props: { event: testEvent, data: testData }
     });
 
-    const image = container.querySelector('img');
+    const image = container.querySelector('img') as HTMLImageElement;
     expect(image).toBeTruthy();
-    expect(image?.className).not.toContain('opacity-100');
+    // Check that the image has the opacity-0 class and not the opacity-100 class
+    expect(image.classList.contains('opacity-0')).toBeTruthy();
+    expect(image.classList.contains('opacity-100')).toBeFalsy();
   });
 });

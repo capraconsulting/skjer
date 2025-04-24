@@ -131,7 +131,7 @@ describe('Supabase Queries', () => {
       const mockResult: SupabaseQueryResult<typeof testParticipant> = { data: testParticipant, error: null };
 
       // Get references to the mock functions
-      const mockFrom = vi.mocked(supabase.from);
+      const mockFrom = vi.mocked(supabase.from.bind(supabase));
       const mockSelect = vi.fn();
       const mockEq = vi.fn();
       const mockMaybeSingle = vi.fn().mockResolvedValue(mockResult);
@@ -145,7 +145,7 @@ describe('Supabase Queries', () => {
         url: new URL('https://example.com'),
         headers: {},
         upsert: vi.fn()
-      } satisfies MockFromReturn);
+      } as unknown as MockFromReturn);
 
       mockSelect.mockReturnValue({
         eq: mockEq
@@ -194,7 +194,7 @@ describe('Supabase Queries', () => {
         url: new URL('https://example.com'),
         headers: {},
         upsert: vi.fn()
-      } satisfies MockFromReturn);
+      } as unknown as MockFromReturn);
 
       mockSelect.mockReturnValue({
         eq: mockEq

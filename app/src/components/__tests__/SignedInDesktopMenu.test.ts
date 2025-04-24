@@ -7,7 +7,7 @@ import SignedInDesktopMenu from './SignedInDesktopMenu.test.svelte';
 // Mock the $app/stores
 vi.mock('$app/stores', () => ({
   page: {
-    subscribe: (callback) => {
+    subscribe: (callback: (data: { url: { host: string } }) => void) => {
       callback({ url: { host: 'example.com' } });
       return () => {};
     }

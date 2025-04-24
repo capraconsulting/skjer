@@ -11,7 +11,7 @@ const createMockFormStore = (initialValue = '') => {
   };
 
   // Make the store subscribable
-  store.subscribe.mockImplementation(callback => {
+  store.subscribe.mockImplementation((callback: (value: typeof store) => void) => {
     callback(store);
     return () => {};
   });
@@ -63,6 +63,6 @@ describe('RegistrationFoodPreference Component', () => {
     // Check that the form store was updated
     // Note: In a real test with a real Svelte store, this would work automatically
     // Here we're just checking that the component is set up correctly
-    expect(textarea.value).toBe('Vegetarian');
+    expect((textarea as HTMLTextAreaElement).value).toBe('Vegetarian');
   });
 });

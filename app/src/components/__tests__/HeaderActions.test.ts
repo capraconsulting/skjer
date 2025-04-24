@@ -61,17 +61,17 @@ describe('HeaderActions Component', () => {
       props: { auth: null }
     });
 
-    const signedOutMenu = container.querySelector('[data-testid="signed-out-menu"]');
+    const signedOutMenu = container.querySelector('[data-testid="signed-out-menu"]') as HTMLElement;
     expect(signedOutMenu).toBeTruthy();
 
     // Parse the props passed to SignedOutMenu
-    const props = JSON.parse(signedOutMenu?.getAttribute('data-props') || '{}');
+    const props = JSON.parse(signedOutMenu.getAttribute('data-props') || '{}') as Record<string, unknown>;
 
     // Check that the props include isSigningIn
     expect(props).toHaveProperty('isSigningIn', false);
 
     // Check that signInHandler is present (as a data attribute)
-    expect(signedOutMenu?.hasAttribute('data-has-sign-in-handler')).toBe(true);
+    expect(signedOutMenu.hasAttribute('data-has-sign-in-handler')).toBe(true);
   });
 
   it('passes the correct props to SignedInDesktopMenu and SignedInMobileMenu', () => {
@@ -81,33 +81,33 @@ describe('HeaderActions Component', () => {
       props: { auth: mockAuth }
     });
 
-    const signedInDesktopMenu = container.querySelector('[data-testid="signed-in-desktop-menu"]');
+    const signedInDesktopMenu = container.querySelector('[data-testid="signed-in-desktop-menu"]') as HTMLElement;
     expect(signedInDesktopMenu).toBeTruthy();
 
-    const signedInMobileMenu = container.querySelector('[data-testid="signed-in-mobile-menu"]');
+    const signedInMobileMenu = container.querySelector('[data-testid="signed-in-mobile-menu"]') as HTMLElement;
     expect(signedInMobileMenu).toBeTruthy();
 
     // Parse the props passed to SignedInDesktopMenu
-    const desktopProps = JSON.parse(signedInDesktopMenu?.getAttribute('data-props') || '{}');
+    const desktopProps = JSON.parse(signedInDesktopMenu.getAttribute('data-props') || '{}') as Record<string, unknown>;
 
     // Check that the props include auth and isSigningOut
     expect(desktopProps).toHaveProperty('auth', mockAuth);
     expect(desktopProps).toHaveProperty('isSigningOut', false);
 
     // Check that openSanityStudio and signOutHandler are present (as data attributes)
-    expect(signedInDesktopMenu?.hasAttribute('data-has-open-sanity-studio')).toBe(true);
-    expect(signedInDesktopMenu?.hasAttribute('data-has-sign-out-handler')).toBe(true);
+    expect(signedInDesktopMenu.hasAttribute('data-has-open-sanity-studio')).toBe(true);
+    expect(signedInDesktopMenu.hasAttribute('data-has-sign-out-handler')).toBe(true);
 
     // Parse the props passed to SignedInMobileMenu
-    const mobileProps = JSON.parse(signedInMobileMenu?.getAttribute('data-props') || '{}');
+    const mobileProps = JSON.parse(signedInMobileMenu.getAttribute('data-props') || '{}') as Record<string, unknown>;
 
     // Check that the props include auth and isSigningOut
     expect(mobileProps).toHaveProperty('auth', mockAuth);
     expect(mobileProps).toHaveProperty('isSigningOut', false);
 
     // Check that openSanityStudio and signOutHandler are present (as data attributes)
-    expect(signedInMobileMenu?.hasAttribute('data-has-open-sanity-studio')).toBe(true);
-    expect(signedInMobileMenu?.hasAttribute('data-has-sign-out-handler')).toBe(true);
+    expect(signedInMobileMenu.hasAttribute('data-has-open-sanity-studio')).toBe(true);
+    expect(signedInMobileMenu.hasAttribute('data-has-sign-out-handler')).toBe(true);
   });
 
   it('calls window.open with the correct URL when openSanityStudio is called', async () => {

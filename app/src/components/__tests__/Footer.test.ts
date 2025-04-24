@@ -61,9 +61,9 @@ describe('Footer Component', () => {
     const links = container.querySelectorAll('a');
 
     // Find the company links
-    const capraLink = Array.from(links).find(link => link.href.includes('capraconsulting.no'));
-    const lifligLink = Array.from(links).find(link => link.href.includes('liflig.no'));
-    const frydeLink = Array.from(links).find(link => link.href.includes('fryde.no'));
+    const capraLink = Array.from(links).find(link => link.href.includes('capraconsulting.no')) as HTMLAnchorElement;
+    const lifligLink = Array.from(links).find(link => link.href.includes('liflig.no')) as HTMLAnchorElement;
+    const frydeLink = Array.from(links).find(link => link.href.includes('fryde.no')) as HTMLAnchorElement;
 
     expect(capraLink).toBeTruthy();
     expect(lifligLink).toBeTruthy();
@@ -74,20 +74,20 @@ describe('Footer Component', () => {
     const { container } = render(Footer);
 
     const links = container.querySelectorAll('a');
-    const privacyLink = Array.from(links).find(link => link.href.includes('/personvern'));
+    const privacyLink = Array.from(links).find(link => link.href.includes('/personvern')) as HTMLAnchorElement;
 
     expect(privacyLink).toBeTruthy();
-    expect(privacyLink?.textContent).toBe('Personvernerklæring');
+    expect(privacyLink.textContent).toBe('Personvernerklæring');
   });
 
   it('has a mailto link', () => {
     const { container } = render(Footer);
 
     const links = container.querySelectorAll('a');
-    const mailtoLink = Array.from(links).find(link => link.href.includes('mailto:'));
+    const mailtoLink = Array.from(links).find(link => link.href.includes('mailto:')) as HTMLAnchorElement;
 
     expect(mailtoLink).toBeTruthy();
-    expect(mailtoLink?.href).toBe('mailto:post@capraconsulting.no');
-    expect(mailtoLink?.textContent).toBe('post@capraconsulting.no');
+    expect(mailtoLink.href).toBe('mailto:post@capraconsulting.no');
+    expect(mailtoLink.textContent).toBe('post@capraconsulting.no');
   });
 });
