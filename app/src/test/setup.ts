@@ -1,5 +1,5 @@
 // This file is used to set up the test environment
-import { expect, vi } from 'vitest';
+import { vi } from 'vitest';
 
 // Mock environment variables
 vi.mock('$env/static/private', () => ({
