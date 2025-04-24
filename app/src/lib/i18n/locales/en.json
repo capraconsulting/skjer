@@ -26,7 +26,14 @@
     "participants": "Participants",
     "registerMe": "Register me",
     "wantToUnregister": "Do you want to unregister?",
-    "unregisterMe": "Unregister me"
+    "unregisterMe": "Unregister me",
+    "eventImageAlt": "Image for the event: {title}",
+    "capraLogo": "Capra logo",
+    "lifligLogo": "Liflig logo",
+    "frydeLogo": "Fryde logo",
+    "miljofyrtarnCertification": "Miljøfyrtårn certification",
+    "dnvCertification": "DNV certification",
+    "copyright": "{year} © Capra | Torggata 2-4, 0180 Oslo | post@capraconsulting.no"
   },
   "errors": {
     "cannotRegisterEvent": "There was a problem. You cannot register for this event.",

@@ -6,6 +6,7 @@
   import capraLogoWhite from "$lib/assets/capra-white-small.webp";
   import frydeLogoWhite from "$lib/assets/fryde-white-small.webp";
   import lifligLogoWhite from "$lib/assets/liflig-white-small.webp";
+  import { _ } from "$lib/i18n";
 
   export let event: Event;
   export let height: number;
@@ -14,23 +15,23 @@
 <div class="flex w-max">
   {#if event.organisers === "Alle"}
     <div class="flex gap-4 dark:hidden">
-      <img class="h-{height}" alt="Capra logo" src={capraLogoBlack} />
-      <img class="h-{height}" alt="Liflig logo" src={lifligLogoBlack} />
-      <img class="h-{height}" alt="Fryde logo" src={frydeLogoBlack} />
+      <img class="h-{height}" alt={$_('common.capraLogo')} src={capraLogoBlack} />
+      <img class="h-{height}" alt={$_('common.lifligLogo')} src={lifligLogoBlack} />
+      <img class="h-{height}" alt={$_('common.frydeLogo')} src={frydeLogoBlack} />
     </div>
     <div class="hidden gap-4 dark:flex">
-      <img class="h-{height}" alt="Capra logo" src={capraLogoWhite} />
-      <img class="h-{height}" alt="Liflig logo" src={lifligLogoWhite} />
-      <img class="h-{height}" alt="Fryde logo" src={frydeLogoWhite} />
+      <img class="h-{height}" alt={$_('common.capraLogo')} src={capraLogoWhite} />
+      <img class="h-{height}" alt={$_('common.lifligLogo')} src={lifligLogoWhite} />
+      <img class="h-{height}" alt={$_('common.frydeLogo')} src={frydeLogoWhite} />
     </div>
   {:else if event.organisers === "Capra"}
-    <img class="flex h-{height} dark:hidden" alt="Capra logo" src={capraLogoBlack} />
-    <img class="hidden h-{height} dark:flex" alt="Capra logo" src={capraLogoWhite} />
+    <img class="flex h-{height} dark:hidden" alt={$_('common.capraLogo')} src={capraLogoBlack} />
+    <img class="hidden h-{height} dark:flex" alt={$_('common.capraLogo')} src={capraLogoWhite} />
   {:else if event.organisers === "Liflig"}
-    <img class="flex h-{height} dark:hidden" alt="Liflig logo" src={lifligLogoBlack} />
-    <img class="hidden h-{height} dark:flex" alt="Liflig logo" src={lifligLogoWhite} />
+    <img class="flex h-{height} dark:hidden" alt={$_('common.lifligLogo')} src={lifligLogoBlack} />
+    <img class="hidden h-{height} dark:flex" alt={$_('common.lifligLogo')} src={lifligLogoWhite} />
   {:else if event.organisers === "Fryde"}
-    <img class="flex h-{height} dark:hidden" alt="Fryde logo" src={frydeLogoBlack} />
-    <img class="hidden h-{height} dark:flex" alt="Fryde logo" src={frydeLogoWhite} />
+    <img class="flex h-{height} dark:hidden" alt={$_('common.frydeLogo')} src={frydeLogoBlack} />
+    <img class="hidden h-{height} dark:flex" alt={$_('common.frydeLogo')} src={frydeLogoWhite} />
   {/if}
 </div>

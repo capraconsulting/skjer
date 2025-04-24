@@ -10,7 +10,7 @@
 
   function switchLanguage(langCode: string) {
     // Set the locale in the store
-    locale.set(langCode);
+    void locale.set(langCode);
 
     // Store the language preference in localStorage for persistence
     if (browser) {
@@ -27,7 +27,7 @@
     if (browser) {
       const preferredLanguage = localStorage.getItem('preferredLanguage');
       if (preferredLanguage) {
-        locale.set(preferredLanguage);
+        void locale.set(preferredLanguage);
       }
     }
   });

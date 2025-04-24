@@ -26,7 +26,14 @@
     "participants": "Deltagere",
     "registerMe": "Meld meg på",
     "wantToUnregister": "Ønsker du å melde deg av?",
-    "unregisterMe": "Meld meg av"
+    "unregisterMe": "Meld meg av",
+    "eventImageAlt": "Bilde for arrangementet: {title}",
+    "capraLogo": "Capra-logo",
+    "lifligLogo": "Liflig-logo",
+    "frydeLogo": "Fryde-logo",
+    "miljofyrtarnCertification": "Miljøfyrtårn-sertifisering",
+    "dnvCertification": "DNV-sertifisering",
+    "copyright": "{year} © Capra | Torggata 2-4, 0180 Oslo | post@capraconsulting.no"
   },
   "errors": {
     "cannotRegisterEvent": "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
