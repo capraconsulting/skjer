@@ -8,6 +8,18 @@ import { sendEmailDeclined } from "$lib/email/event/declined";
 import { dictionary, locale } from "$lib/i18n";
 import { get } from "svelte/store";
 
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
+// Define a consistent return type for the load function
+interface LoadReturn {
+  success?: boolean;
+  error?: boolean;
+  warning?: boolean;
+  message?: string;
+  text?: string;
+}
+
 // Helper function to get translations
 function getTranslation(key: string): string {
   // Get the dictionary for the current language
@@ -17,18 +29,18 @@ function getTranslation(key: string): string {
 
   // Parse the key path (e.g., "errors.cannotRegisterEvent")
   const parts = key.split('.');
-  let value = dict;
+  let value: DictionaryValue = dict;
   for (const part of parts) {
-    if (!value[part]) return key; // Fallback if key not found
+    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
     value = value[part];
   }
 
-  return value;
+  return String(value);
 };
 
 const rateLimitMap: Map<string, number> = new Map();
 
-export const load: PageServerLoad = async ({ params: { token } }) => {
+export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) => {
   const now = Date.now();
   const lastAccess = rateLimitMap.get(token);
 
@@ -56,7 +68,9 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   const secret = getUnsubscribeSecret(data);
 
   try {
-    if (jwt.verify(token, secret)) {
+    // Verify token and explicitly type the return value
+    const verified = jwt.verify(token, secret) as DecodedToken;
+    if (verified) {
       await setParticipantNotAttending(tokenDecoded.payload.data);
     }
   } catch (error) {
@@ -66,6 +80,11 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
         message: getTranslation("errors.linkExpired"),
       };
     }
+    // Handle other JWT verification errors
+    return {
+      error: true,
+      message: getTranslation("errors.cannotUnregisterEvent"),
+    };
   }
 
   const { document_id, email } = data;

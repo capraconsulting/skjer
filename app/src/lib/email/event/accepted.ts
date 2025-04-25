@@ -5,6 +5,9 @@ import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+
 import { dictionary } from "$lib/i18n";
 import { get } from "svelte/store";
 
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
 }
@@ -37,7 +40,14 @@ const createIcsFile = ({
 
   // Get the dictionary for the default language (nb)
   const dict = get(dictionary)['nb'];
-  const registerOrUnregister = dict?.email?.registerOrUnregister || "Meld deg på eller av arrangementet:";
+
+  // Safely access the registerOrUnregister property with type guards
+  let registerOrUnregister = "Meld deg på eller av arrangementet:"; // Default fallback
+  if (dict && typeof dict === 'object' && 'email' in dict &&
+      dict.email && typeof dict.email === 'object' && !Array.isArray(dict.email) &&
+      'registerOrUnregister' in dict.email) {
+    registerOrUnregister = String(dict.email.registerOrUnregister);
+  }
 
   calendar.createEvent({
     id,
@@ -55,7 +65,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser === dict?.common?.allOrganizers ? dict?.common?.capraGroup : organiser,
+      name: organiser,
       email: "no-reply@capragruppen.no",
     },
   });
