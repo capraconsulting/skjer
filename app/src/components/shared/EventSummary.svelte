@@ -46,24 +46,22 @@
     <EventInfoBox {event} numberOfParticipants={data.numberOfParticipants} />
   </div>
   {#if event.image?.palette}
-    <div class="group relative w-full sm:h-60 sm:w-[60%]">
+    <div class="group relative max-h-60 overflow-hidden flex justify-center sm:h-60 sm:w-[60%]">
       <div
         aria-hidden="true"
-        class="absolute left-0 top-0 h-full w-full rounded-xl"
-        style="background: {event.image.palette.darkMuted.background}"
+        class="absolute left-0 top-0 w-full h-full rounded-xl"
       ></div>
 
       <img
         fetchpriority="high"
-        class="relative h-full w-full rounded-xl object-cover opacity-0 duration-1000 ease-in-out"
+        class="relative rounded-xl object-contain opacity-0 duration-1000 ease-in-out max-h-full w-auto "
         src={urlFor(event.image).url()}
         alt={`Bilde for arrangementet: ${event.title}`}
         class:opacity-100={imageLoaded}
         on:load={() => (imageLoaded = true)}
         bind:this={imageElement}
       />
-    </div>
-  {/if}
+    </div>  {/if}
 </div>
 
 {#if event.body}
