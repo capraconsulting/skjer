@@ -28,7 +28,7 @@
       <Input
         class=" bg-white"
         type="text"
-        placeholder="Skriv inn din e-post her"
+        placeholder={$_('common.enterEmailHere')}
         name="email"
         bind:value={$form.email}
       />
@@ -43,7 +43,7 @@
     </div>
 
     {#if $errors.email}
-      <p class="text-xs text-red-600">Fyll inn gyldig e-post.</p>
+      <p class="text-xs text-red-600">{$_('errors.invalidEmail')}</p>
     {/if}
   </form>
 {/if}
