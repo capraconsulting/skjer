@@ -133,7 +133,7 @@
       </span>
       <span>
         <a href="/personvern" target="_blank" class="font-normal underline"
-          >Capra, Liflig og Fryde sin {$_('common.privacyPolicy').toLowerCase()}</a
+          >{$_('common.companyNames')} {$_('common.privacyPolicy').toLowerCase()}</a
         >.</span
       >
     </div>

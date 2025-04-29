@@ -5,11 +5,9 @@ import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+
 import { dictionary } from "$lib/i18n";
 import { get } from "svelte/store";
 
-// Define a type for dictionary values (can be a string, array, null, or a nested object)
-type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
-
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
+  language?: string; // Optional language parameter, defaults to 'nb'
 }
 
 export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
@@ -21,8 +19,7 @@ export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
     icsFile,
   });
 
-  const result = await sendEmail(emailTemplate);
-  return result;
+  return await sendEmail(emailTemplate);
 };
 
 const createIcsFile = ({
@@ -34,18 +31,19 @@ const createIcsFile = ({
   end,
   location,
   organiser,
+  language = "nb", // Default to Norwegian if not specified
 }: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
 
-  // Get the dictionary for the default language (nb)
-  const dict = get(dictionary)['nb'];
+  // Get the dictionary for the specified language or default to 'nb'
+  const dict = get(dictionary)[language];
 
   // Safely access the registerOrUnregister property with type guards
   let registerOrUnregister = "Meld deg på eller av arrangementet:"; // Default fallback
-  if (dict && typeof dict === 'object' && 'email' in dict &&
-      dict.email && typeof dict.email === 'object' && !Array.isArray(dict.email) &&
-      'registerOrUnregister' in dict.email) {
+  if (dict && typeof dict === "object" && "email" in dict &&
+    dict.email && typeof dict.email === "object" && !Array.isArray(dict.email) &&
+    "registerOrUnregister" in dict.email) {
     registerOrUnregister = String(dict.email.registerOrUnregister);
   }
 

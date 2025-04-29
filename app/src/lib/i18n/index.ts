@@ -1,6 +1,9 @@
 import { browser } from '$app/environment';
 import { init, register, locale, dictionary, _ } from 'svelte-i18n';
 
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+export type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
 // Register locales
 register('en', () => import('./locales/en.json'));
 register('nb', () => import('./locales/nb.json'));
