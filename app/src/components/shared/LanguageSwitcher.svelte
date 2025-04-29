@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { locale } from '$lib/i18n';
+  import { locale, dictionary } from '$lib/i18n';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
 
@@ -10,15 +10,12 @@
 
   function switchLanguage(langCode: string) {
     // Set the locale in the store
+    // This will trigger reactivity in all components that use the $_ function
     void locale.set(langCode);
 
     // Store the language preference in localStorage for persistence
     if (browser) {
       localStorage.setItem('preferredLanguage', langCode);
-
-      // Force a page reload to ensure all components update with the new locale
-      // This is a workaround for components that might not be reactive to locale changes
-      window.location.reload();
     }
   }
 

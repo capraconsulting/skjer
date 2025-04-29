@@ -33,9 +33,10 @@
     <span class="mr-1.5">{$_('common.subscribe')}</span>
     <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
+  <LanguageSwitcher />
   <Button
     color="alternative"
-    class="h-9 border-[#999]"
+    class="h-9 border-[#999] w-[125px] justify-center"
     pill
     on:click={signOutHandler}
     disabled={isSigningOut}
@@ -43,7 +44,5 @@
     <span class="mr-1.5">{$_('common.logout')}</span>
     <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
-
-  <LanguageSwitcher />
   <DarkMode size="sm" btnClass="h-9 border-[#999] rounded-2xl p-2.5" />
 </div>

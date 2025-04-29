@@ -13,7 +13,7 @@
   <LanguageSwitcher />
   <Button
     color="alternative"
-    class="h-9 border-[#999]"
+    class="h-9 border-[#999] w-[125px] justify-center"
     pill
     on:click={signInHandler}
     disabled={isSigningIn}
