@@ -23,9 +23,9 @@
 {#if !isAttending}
   <h2 class="pb-4 text-base font-bold sm:text-xl">{$_('common.registration')}:</h2>
   {#if dateHasPassed(event.deadline)}
-    <p>Det er ikke lenger mulig å melde seg på dette arrangementet 😢</p>
+    <p>{$_('common.registrationClosed')}</p>
   {:else if event.maxParticipant && numberOfParticipants >= event.maxParticipant}
-    <p>Det er dessverre ikke flere ledige plasser på dette arrangementet 😢</p>
+    <p>{$_('common.noAvailableSpotsMessage')}</p>
   {:else}
     <div class="flex flex-wrap gap-4 pb-6">
       <Deadline deadline={event.deadline} />
@@ -46,7 +46,7 @@
       {#if event.foodPreference && !(event.foodDeadline && dateHasPassed(event.foodDeadline))}
         <RegistrationFoodPreference {form} />
         {#if $errors.foodPreference}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+          <p class="text-xs text-red-600">{$_('errors.textTooLong')}</p>
         {/if}
       {/if}
 
@@ -62,7 +62,7 @@
           />
         {/each}
         {#if $errors.customOptions}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+          <p class="text-xs text-red-600">{$_('errors.textTooLong')}</p>
         {/if}
       {/if}
 

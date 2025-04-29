@@ -25,6 +25,9 @@ import { message, superValidate } from "sveltekit-superforms/server";
 import validator from "validator";
 import { get } from "svelte/store";
 
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
 /**
  ** IP: Allows 40 requests per hour from the same IP address.
  ** IPUA (IP and User-Agent): Allows 20 requests per 5 minutes when both the IP address and the User-Agent of the requester are considered.
@@ -39,13 +42,13 @@ function getTranslation(key: string): string {
 
   // Parse the key path (e.g., "errors.cannotRegisterEvent")
   const parts = key.split('.');
-  let value = dict;
+  let value: DictionaryValue = dict;
   for (const part of parts) {
-    if (!value[part]) return key; // Fallback if key not found
+    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
     value = value[part];
   }
 
-  return value;
+  return String(value);
 }
 const limiter = new RateLimiter({
   IP: [40, "h"],

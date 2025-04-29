@@ -13,7 +13,7 @@
 {#if isAttending}
   <h2 id="unregistration" class="pb-4 text-base font-bold sm:text-xl">{$_('common.wantToUnregister')}</h2>
   {#if dateHasPassed(event.deadline)}
-    <p>Det er ikke lenger mulig å melde seg av dette arrangementet 😢</p>
+    <p>{$_('common.unregistrationClosed')}</p>
   {:else}
     <form method="POST" action="?/submitUnregistrationInternal" use:enhance>
       <Button pill color="dark" type="submit" disabled={$delayed}>

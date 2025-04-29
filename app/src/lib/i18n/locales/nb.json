@@ -48,7 +48,22 @@
     "logo": "Capra, Fryde og Liflig-logo",
     "profilePicture": "Profilbilde",
     "subscribeToCalendar": "Abonner på kalender",
-    "darkMode": "Modus"
+    "darkMode": "Modus",
+    "registrationClosed": "Det er ikke lenger mulig å melde seg på dette arrangementet 😢",
+    "loginRequired": "Du må logge inn for å melde deg på dette arrangementet 🤠",
+    "noAvailableSpotsMessage": "Det er dessverre ikke flere ledige plasser på dette arrangementet 😢",
+    "fullName": "Fullt navn*",
+    "fullNamePlaceholder": "Fornavn Etternavn",
+    "email": "E-post*",
+    "emailPlaceholder": "E-post",
+    "telephone": "Telefonnummer",
+    "telephonePlaceholder": "123 45 678",
+    "company": "Bedrift/selskap",
+    "companyPlaceholder": "Organisasjon",
+    "noColleaguesRegistered": "Det er foreløpig ingen kollegaer som er påmeldt 😔",
+    "unregistrationClosed": "Det er ikke lenger mulig å melde seg av dette arrangementet 😢",
+    "enterEmailHere": "Skriv inn din e-post her",
+    "consentText": "Ved å melde deg på arrangementet samtykker du til at du har lest og forstått"
   },
   "errors": {
     "cannotRegisterEvent": "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
@@ -61,7 +76,12 @@
     "noRegistrationFound": "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",
     "noRegistrationFoundCheckEmail": "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet. Vennligst sjekk at du har oppgitt riktig e-postadresse.",
     "unregistrationEmailNotSent": "Du er nå meldt av arrangementet 👋 Vi kunne dessverre ikke sende en e-post bekreftelse.",
-    "linkExpired": "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere."
+    "linkExpired": "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere.",
+    "invalidName": "Fyll inn gyldig navn (minst 2 bokstaver).",
+    "invalidEmail": "Fyll inn gyldig e-post.",
+    "invalidPhone": "Fyll inn gyldig telefonnummer.",
+    "invalidCompany": "Fyll inn gyldig selskapsnavn (minst 2 bokstaver).",
+    "textTooLong": "Vennligst begrens deg til maks 500 tegn."
   },
   "success": {
     "registrationComplete": "Du har meldt deg på arrangementet! Du får en bekreftelse på {email} hvert øyeblikk. Vi gleder oss til å se deg!",
@@ -87,7 +107,13 @@
   },
   "registration": {
     "foodPreferences": "Matpreferanser og allergier",
-    "enterFoodPreferences": "Skriv dine matpreferanser og allergier"
+    "enterFoodPreferences": "Skriv dine matpreferanser og allergier",
+    "deadline": "Påmeldingsfrist kl.",
+    "foodDeadline": "Matpåmeldingsfrist kl.",
+    "deadlineExpired": "(Fristen har gått ut)",
+    "howToParticipate": "Hvordan vil du delta?",
+    "physical": "Fysisk",
+    "digital": "Digitalt"
   },
   "email": {
     "registerOrUnregister": "Meld deg på eller av arrangementet:",

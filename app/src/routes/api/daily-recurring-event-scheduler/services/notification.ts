@@ -5,6 +5,9 @@ import type { Event } from "$models/sanity.model";
 import { get } from "svelte/store";
 import { dictionary } from "$lib/i18n";
 
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
 // Configure the language for Slack notifications
 // This can be set to a specific language or use the app's current language
 const SLACK_NOTIFICATION_LANGUAGE = "nb"; // Default to Norwegian
@@ -17,13 +20,24 @@ function getSlackTranslation(key: string): string {
 
   // Parse the key path (e.g., "slack.registration")
   const parts = key.split(".");
-  let value = dict;
+  let value: DictionaryValue = dict;
   for (const part of parts) {
-    if (!value[part]) return key; // Fallback if key not found
+    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
     value = value[part];
   }
 
-  return value;
+  return String(value);
+}
+
+// Define types for Slack message blocks
+interface SlackBlock {
+  type: string;
+  [key: string]: string | number | boolean | null | undefined | object | SlackBlock[] | SlackField[];
+}
+
+interface SlackField {
+  type: string;
+  text: string;
 }
 
 export const sendSlackNotification = async ({
@@ -34,8 +48,8 @@ export const sendSlackNotification = async ({
   start,
   summary,
   image,
-}: Event) => {
-  if (process.env.NODE_ENV === "development") return;
+}: Event): Promise<Response | undefined> => {
+  if (process.env.NODE_ENV === "development") return undefined;
 
   const imageUrl = image ? urlFor(image).width(400).url() : null;
   const eventUrl = `${PUBLIC_APP_BASE_URL}/event/${id}`;
@@ -48,7 +62,7 @@ export const sendSlackNotification = async ({
     minute: "2-digit",
   });
 
-  const blocks = [];
+  const blocks: SlackBlock[] = [];
 
   if (title) {
     blocks.push({
@@ -81,7 +95,7 @@ export const sendSlackNotification = async ({
   }
 
   if (eventUrl || category) {
-    const fields = [];
+    const fields: SlackField[] = [];
     if (eventUrl) {
       fields.push({
         type: "mrkdwn",
@@ -101,7 +115,7 @@ export const sendSlackNotification = async ({
   }
 
   if (startDate || place) {
-    const fields = [];
+    const fields: SlackField[] = [];
     if (startDate) {
       fields.push({
         type: "mrkdwn",
@@ -130,10 +144,16 @@ export const sendSlackNotification = async ({
   }
 };
 
-export async function sendSlackNotifications(events: Event[]) {
+// Define the return type for sendSlackNotifications
+interface SlackNotificationResult {
+  successes: PromiseSettledResult<Response | undefined>[];
+  failures: PromiseSettledResult<Response | undefined>[];
+}
+
+export async function sendSlackNotifications(events: Event[]): Promise<SlackNotificationResult> {
   const slackNotificationPromises = events.map((event) => sendSlackNotification(event));
 
-  const results = await Promise.allSettled(slackNotificationPromises);
+  const results: PromiseSettledResult<Response | undefined>[] = await Promise.allSettled(slackNotificationPromises);
   const successes = results.filter((result) => result.status === "fulfilled");
   const failures = results.filter((result) => result.status === "rejected");
 

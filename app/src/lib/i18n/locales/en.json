@@ -48,7 +48,22 @@
     "logo": "Capra, Fryde and Liflig logo",
     "profilePicture": "Profile picture",
     "subscribeToCalendar": "Subscribe to calendar",
-    "darkMode": "Dark mode"
+    "darkMode": "Dark mode",
+    "registrationClosed": "It is no longer possible to register for this event 😢",
+    "loginRequired": "You must log in to register for this event 🤠",
+    "noAvailableSpotsMessage": "Unfortunately, there are no more available spots for this event 😢",
+    "fullName": "Full name*",
+    "fullNamePlaceholder": "First name Last name",
+    "email": "Email*",
+    "emailPlaceholder": "Email",
+    "telephone": "Phone number",
+    "telephonePlaceholder": "123 45 678",
+    "company": "Company/organization",
+    "companyPlaceholder": "Organization",
+    "noColleaguesRegistered": "There are currently no colleagues registered 😔",
+    "unregistrationClosed": "It is no longer possible to unregister from this event 😢",
+    "enterEmailHere": "Enter your email here",
+    "consentText": "By registering for the event, you consent that you have read and understood"
   },
   "errors": {
     "cannotRegisterEvent": "There was a problem. You cannot register for this event.",
@@ -61,7 +76,12 @@
     "noRegistrationFound": "Unfortunately, we cannot find any information about your registration for the event.",
     "noRegistrationFoundCheckEmail": "Unfortunately, we cannot find any information about your registration for the event. Please check that you have entered the correct email address.",
     "unregistrationEmailNotSent": "You have now unregistered from the event 👋 Unfortunately, we could not send an email confirmation.",
-    "linkExpired": "The link you used is no longer valid. Please try again later."
+    "linkExpired": "The link you used is no longer valid. Please try again later.",
+    "invalidName": "Please enter a valid name (at least 2 characters).",
+    "invalidEmail": "Please enter a valid email.",
+    "invalidPhone": "Please enter a valid phone number.",
+    "invalidCompany": "Please enter a valid company name (at least 2 characters).",
+    "textTooLong": "Please limit your text to a maximum of 500 characters."
   },
   "success": {
     "registrationComplete": "You have registered for the event! You will receive a confirmation at {email} any moment. We look forward to seeing you!",
@@ -87,7 +107,13 @@
   },
   "registration": {
     "foodPreferences": "Food preferences and allergies",
-    "enterFoodPreferences": "Enter your food preferences and allergies"
+    "enterFoodPreferences": "Enter your food preferences and allergies",
+    "deadline": "Registration deadline at",
+    "foodDeadline": "Food registration deadline at",
+    "deadlineExpired": "(The deadline has expired)",
+    "howToParticipate": "How would you like to participate?",
+    "physical": "Physical",
+    "digital": "Digital"
   },
   "email": {
     "registerOrUnregister": "Register or unregister from the event:",
