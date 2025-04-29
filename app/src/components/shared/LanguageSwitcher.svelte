@@ -49,7 +49,7 @@
       aria-label="Select language"
     >
       {#each languages as lang}
-        <option value={lang.code} title={lang.name}>{lang.name}</option>
+        <option value={lang.code} title={lang.name}>{lang.flag}</option>
       {/each}
     </select>
   </Button>
