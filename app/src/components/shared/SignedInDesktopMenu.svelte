@@ -18,7 +18,7 @@
   <span class="text-sm font-semibold">{auth.user.name}</span>
   <img class="h-8 rounded-2xl" alt={$_('common.profilePicture')} src={auth.user.image} />
 
-  <Button color="dark" class="h-9 w-[110px]" pill on:click={openSanityStudio}>
+  <Button color="alternative" class="h-9 w-[110px]" pill on:click={openSanityStudio}>
     <span class="mr-1.5">{$_('common.create')}</span>
     <PlusIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
