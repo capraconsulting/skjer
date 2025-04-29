@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { locale, dictionary } from '$lib/i18n';
+  import { locale } from '$lib/i18n';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
+  import { Button } from "flowbite-svelte";
+  import { GlobeIcon } from "svelte-feather-icons";
 
   const languages = [
-    { code: 'nb', name: 'Norsk' },
-    { code: 'en', name: 'English' }
+    { code: 'nb', name: 'Norwegian', flag: '🇳🇴' },
+    { code: 'en', name: 'English', flag: '🇬🇧' }
   ];
 
   function switchLanguage(langCode: string) {
@@ -28,18 +30,29 @@
       }
     }
   });
+
+  // Get current language flag
+  $: currentLanguage = languages.find(lang => lang.code === $locale) || languages[0];
 </script>
 
-<div class="language-switcher">
-  <select
-    value={$locale}
-    on:change={(e) => switchLanguage(e.currentTarget.value)}
-    class="bg-transparent border border-gray-300 rounded px-2 py-1 text-sm"
+<div class="language-switcher relative">
+  <Button
+    color="alternative"
+    class="h-9 border-[#999] rounded-2xl p-2.5 flex items-center"
   >
-    {#each languages as lang}
-      <option value={lang.code}>{lang.name}</option>
-    {/each}
-  </select>
+    <span class="mr-1.5">{currentLanguage.flag}</span>
+    <GlobeIcon strokeWidth={1.5} class="w-[50px]" />
+    <select
+      value={$locale}
+      on:change={(e) => switchLanguage(e.currentTarget.value)}
+      class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+      aria-label="Select language"
+    >
+      {#each languages as lang}
+        <option value={lang.code} title={lang.name}>{lang.name}</option>
+      {/each}
+    </select>
+  </Button>
 </div>
 
 <style>
