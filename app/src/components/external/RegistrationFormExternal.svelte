@@ -32,7 +32,7 @@
       <FoodDeadline foodDeadline={event.foodDeadline} />
     {/if}
   </div>
-  <form class="flex flex-col gap-4" method="POST" action="?/submitRegistrationExternal" use:enhance>
+  <form class="flex flex-col gap-4 registration-form" method="POST" action="?/submitRegistrationExternal" use:enhance data-testid="registration-form">
     <input type="text" name="subject" id="subject" class="hidden" />
 
     <div class="flex flex-col gap-1">
@@ -45,9 +45,10 @@
         id="fullName"
         placeholder="Fornavn Etternavn"
         bind:value={$form.fullName}
+        data-testid="name-input"
       />
       {#if $errors.fullName}
-        <p class="text-xs text-red-600">Fyll inn gyldig navn (minst 2 bokstaver).</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Fyll inn gyldig navn (minst 2 bokstaver).</p>
       {/if}
     </div>
 
@@ -61,9 +62,10 @@
         id="email"
         placeholder="E-post"
         bind:value={$form.email}
+        data-testid="email-input"
       />
       {#if $errors.email}
-        <p class="text-xs text-red-600">Fyll inn gyldig e-post.</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Fyll inn gyldig e-post.</p>
       {/if}
     </div>
 
@@ -79,7 +81,7 @@
         bind:value={$form.telephone}
       />
       {#if $errors.telephone}
-        <p class="text-xs text-red-600">Fyll inn gyldig telefonnummer.</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Fyll inn gyldig telefonnummer.</p>
       {/if}
     </div>
 
@@ -95,7 +97,7 @@
         placeholder="Organisasjon"
       />
       {#if $errors.firm}
-        <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
     </div>
 
@@ -106,7 +108,7 @@
     {#if event.foodPreference && !(event.foodDeadline && dateHasPassed(event.foodDeadline))}
       <RegistrationFoodPreference {form} />
       {#if $errors.foodPreference}
-        <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Vennligst begrens deg til maks 500 tegn.</p>
       {/if}
     {/if}
 
@@ -122,7 +124,7 @@
         />
       {/each}
       {#if $errors.customOptions}
-        <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+        <p class="text-xs text-red-600 error-message" data-testid="error-message">Vennligst begrens deg til maks 500 tegn.</p>
       {/if}
     {/if}
 
@@ -138,7 +140,7 @@
     </div>
 
     <div class="flex w-full">
-      <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed}>
+      <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed} data-testid="submit-button">
         <span class="ml-2">Meld meg på</span>
         <span class="w-2">
           {#if $delayed}

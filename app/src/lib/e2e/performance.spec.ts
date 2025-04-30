@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { clickFirstEvent } from "./helpers";
 
 test("home page loads within acceptable time", async ({ page }) => {
   // Start measuring performance
@@ -27,8 +28,8 @@ test("event detail page loads within acceptable time", async ({ page }) => {
   // Start measuring performance
   const startTime = Date.now();
 
-  // Click on the first event card to navigate to the event detail page
-  await page.locator(".event-card, [data-testid='event-card']").first().click();
+  // Click on the first event to navigate to the event detail page
+  await clickFirstEvent(page);
 
   // Wait for the page to be fully loaded
   await page.waitForLoadState("networkidle");

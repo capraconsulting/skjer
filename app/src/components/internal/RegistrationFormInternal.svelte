@@ -33,10 +33,11 @@
       {/if}
     </div>
     <form
-      class="flex flex-col gap-4"
+      class="flex flex-col gap-4 registration-form"
       method="POST"
       action="?/submitRegistrationInternal"
       use:enhance
+      data-testid="registration-form"
     >
       {#if event.isDigital}
         <RegistrationAttendingType {form} />
@@ -45,7 +46,7 @@
       {#if event.foodPreference && !(event.foodDeadline && dateHasPassed(event.foodDeadline))}
         <RegistrationFoodPreference {form} />
         {#if $errors.foodPreference}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+          <p class="text-xs text-red-600 error-message" data-testid="error-message">Vennligst begrens deg til maks 500 tegn.</p>
         {/if}
       {/if}
 
@@ -61,12 +62,12 @@
           />
         {/each}
         {#if $errors.customOptions}
-          <p class="text-xs text-red-600">Vennligst begrens deg til maks 500 tegn.</p>
+          <p class="text-xs text-red-600 error-message" data-testid="error-message">Vennligst begrens deg til maks 500 tegn.</p>
         {/if}
       {/if}
 
       <div class="flex w-full">
-        <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed}
+        <Button class="mt-3" pill color="dark" type="submit" disabled={$delayed} data-testid="submit-button"
           ><span class="ml-2">Meld meg på</span>
           <span class="w-2">
             {#if $delayed}

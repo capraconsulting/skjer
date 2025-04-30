@@ -50,7 +50,7 @@
 <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
   <div class="py-6">
     {#if $registrationMessage?.text}
-      <Alert color={getAlertColor($registrationMessage)}>
+      <Alert color={getAlertColor($registrationMessage)} data-testid={$registrationMessage.type === 'success' ? 'success-message' : 'error-message'}>
         {$registrationMessage.text}
       </Alert>
     {:else}
@@ -65,7 +65,7 @@
     {/if}
 
     {#if $unregistrationMessage?.text}
-      <Alert class="mt-20" color={getAlertColor($unregistrationMessage)}>
+      <Alert class="mt-20" color={getAlertColor($unregistrationMessage)} data-testid={$unregistrationMessage.type === 'success' ? 'success-message' : 'error-message'}>
         {$unregistrationMessage.text}
       </Alert>
     {:else if event.openForExternals}

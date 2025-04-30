@@ -28,6 +28,13 @@
 
 <svelte:head>
   <title>Skjer | Capra Liflig Fryde</title>
+  <meta name="description" content="Skjer er en arrangementsplattform for Capra, Liflig og Fryde. Her finner du alle kommende og tidligere arrangementer, og kan melde deg på de du ønsker å delta på." />
+  <link rel="canonical" href="https://skjer.capraconsulting.no/" />
+  <meta property="og:title" content="Skjer | Capra Liflig Fryde" />
+  <meta property="og:description" content="Skjer er en arrangementsplattform for Capra, Liflig og Fryde. Her finner du alle kommende og tidligere arrangementer, og kan melde deg på de du ønsker å delta på." />
+  <meta property="og:image" content="https://skjer.capraconsulting.no/logo.png" />
+  <meta property="og:url" content="https://skjer.capraconsulting.no/" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <section class="pb-8">
@@ -38,7 +45,7 @@
     <EventFilter {selectedFilter} on:filterChange={({ detail }) => (selectedFilter = detail)} />
   </div>
 
-  <div class="flex flex-col gap-4 pb-5">
+  <div class="flex flex-col gap-4 pb-5" data-testid="upcoming-event-list">
     {#if futureEventsFiltered.length}
       {#each futureEventsFiltered.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
@@ -58,11 +65,11 @@
 </section>
 
 <section class="pb-8">
-  <h1 class="pb-6 pt-10 text-4xl font-semibold md:pb-10 md:text-5xl">
+  <h2 class="pb-6 pt-10 text-4xl font-semibold md:pb-10 md:text-5xl">
     Tidligere<br /> arrangementer
-  </h1>
+  </h2>
   {#if pastEvents.length}
-    <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3" data-testid="past-event-list">
       {#each pastEvents.slice(0, amountOfVisiblePastEvents) as event}
         <EventCard {event} />
       {/each}

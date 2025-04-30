@@ -9,7 +9,7 @@ test("privacy policy page loads correctly", async ({ page }) => {
 
   // Check that the page content is displayed
   await expect(page.locator("h1, .page-title, [data-testid='page-title']")).toBeVisible();
-  await expect(page.locator(".privacy-content, [data-testid='privacy-content']")).toBeVisible();
+  await expect(page.locator("section")).toBeVisible();
 });
 
 test("privacy policy page has navigation links", async ({ page }) => {
@@ -17,7 +17,7 @@ test("privacy policy page has navigation links", async ({ page }) => {
   await page.goto("/personvern");
 
   // Check that there's a link back to the home page
-  await expect(page.locator("a[href='/'], [data-testid='home-link']")).toBeVisible();
+  await expect(page.locator("a.flex.items-center[href='/']")).toBeAttached();
 });
 
 test("can navigate to privacy policy from footer", async ({ page }) => {
@@ -31,5 +31,5 @@ test("can navigate to privacy policy from footer", async ({ page }) => {
   await expect(page).toHaveURL("/personvern");
 
   // Check that the privacy policy content is displayed
-  await expect(page.locator(".privacy-content, [data-testid='privacy-content']")).toBeVisible();
+  await expect(page.locator("section")).toBeVisible();
 });

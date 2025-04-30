@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { clickFirstEvent } from "./helpers";
 
 test("home page has proper SEO metadata", async ({ page }) => {
   // Navigate to the home page
@@ -8,7 +9,7 @@ test("home page has proper SEO metadata", async ({ page }) => {
   await expect(page).toHaveTitle(/Skjer/);
 
   // Check that the page has a meta-description
-  const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
+  const metaDescription = await page.locator("meta[name='description']").nth(1).getAttribute("content");
   expect(metaDescription).toBeTruthy();
   expect(metaDescription!.length).toBeGreaterThan(50); // Good descriptions are typically 50-160 characters
 
@@ -29,14 +30,14 @@ test("event detail page has proper SEO metadata", async ({ page }) => {
   // Navigate to the home page first
   await page.goto("/");
 
-  // Click on the first event card to navigate to the event detail page
-  await page.locator(".event-card, [data-testid='event-card']").first().click();
+  // Click on the first event to navigate to the event detail page
+  await clickFirstEvent(page);
 
   // Check that the page has a title that includes the event name
   await expect(page).toHaveTitle(/./); // Any title is fine for now
 
   // Check that the page has a meta-description
-  const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
+  const metaDescription = await page.locator("meta[name='description']").nth(1).getAttribute("content");
   expect(metaDescription).toBeTruthy();
   expect(metaDescription!.length).toBeGreaterThan(50);
 
@@ -59,7 +60,7 @@ test("privacy policy page has proper SEO metadata", async ({ page }) => {
   await expect(page).toHaveTitle(/Personvern|Privacy Policy/);
 
   // Check that the page has a meta-description
-  const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
+  const metaDescription = await page.locator("meta[name='description']").nth(1).getAttribute("content");
   expect(metaDescription).toBeTruthy();
 
   // Check that the page has a canonical URL
@@ -79,7 +80,7 @@ test("pages have proper heading structure", async ({ page }) => {
   expect(h1Count).toBe(1);
 
   // Navigate to an event detail page
-  await page.locator(".event-card, [data-testid='event-card']").first().click();
+  await clickFirstEvent(page);
 
   // Check that the event detail page has an h1 heading
   await expect(page.locator("h1")).toBeVisible();

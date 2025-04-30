@@ -14,8 +14,8 @@
   {#if dateHasPassed(event.deadline)}
     <p>Det er ikke lenger mulig å melde seg av dette arrangementet 😢</p>
   {:else}
-    <form method="POST" action="?/submitUnregistrationInternal" use:enhance>
-      <Button pill color="dark" type="submit" disabled={$delayed}>
+    <form method="POST" action="?/submitUnregistrationInternal" use:enhance data-testid="unregistration-form">
+      <Button pill color="dark" type="submit" disabled={$delayed} data-testid="confirm-button">
         <span class="ml-2">Meld meg av</span>
         <span class="w-2">
           {#if $delayed}

@@ -16,6 +16,13 @@
 
 <svelte:head>
   <title>{event?.title || "Ikke funnet"} | Capra Liflig Fryde</title>
+  <meta name="description" content={event?.summary || "Detaljert informasjon om arrangementet. Her finner du all informasjon om arrangementet, inkludert tid, sted, og hvordan du melder deg på."} />
+  <link rel="canonical" href={`https://skjer.capraconsulting.no/event/${event?._id || ''}`} />
+  <meta property="og:title" content={event?.title || "Arrangement"} />
+  <meta property="og:description" content={event?.summary || "Detaljert informasjon om arrangementet. Her finner du all informasjon om arrangementet, inkludert tid, sted, og hvordan du melder deg på."} />
+  <meta property="og:image" content={event?.image ? `https://skjer.capraconsulting.no/api/image/${event._id}` : "https://skjer.capraconsulting.no/logo.png"} />
+  <meta property="og:url" content={`https://skjer.capraconsulting.no/event/${event?._id || ''}`} />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 {#if event}
   <section>

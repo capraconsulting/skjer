@@ -39,7 +39,7 @@
 
   <div class="flex items-center">
     <CalendarBlank class="mr-2 flex-none" />
-    <span>
+    <span data-testid="event-date">
       {formatDate(event.start)}
       {endsOnDifferentDay(event.start, event.end) ? `- ${formatDate(event.end)}` : ""}
     </span>
@@ -51,7 +51,7 @@
 
   <div class="flex items-center">
     <MapPin class="mr-2 flex-none" />
-    <span>{event.place}</span>
+    <span data-testid="event-location">{event.place}</span>
   </div>
 
   {#if event.food}
