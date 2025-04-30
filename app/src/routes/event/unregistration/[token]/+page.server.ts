@@ -36,7 +36,7 @@ function getTranslation(key: string): string {
   }
 
   return String(value);
-};
+}
 
 const rateLimitMap: Map<string, number> = new Map();
 

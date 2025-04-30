@@ -26,7 +26,7 @@ export function createExtendedEventPublishAction(originalPublishAction: Document
       try {
         const created = await createEventIfNotExist({ document_id: id });
         if (created) {
-          createSlackMessage(id, draftEvent);
+          await createSlackMessage(id, draftEvent);
         }
       } catch (error) {
         console.error("Error handling event creation or slack message:", error);

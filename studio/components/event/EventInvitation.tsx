@@ -7,7 +7,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Label,
   Spinner,
   Stack,
   Text,
@@ -54,7 +53,7 @@ export default function EventInvitation({ documentId }: { documentId: string }) 
     try {
       await insertInvitation({ document_id: documentId }, { full_name: fullName, email });
 
-      queryClient.invalidateQueries({ queryKey: ["event-invitation-list"] });
+      await queryClient.invalidateQueries({ queryKey: ["event-invitation-list"] });
 
       setEmail("");
       setFullName("");

@@ -18,10 +18,7 @@ export default defineType({
     if (!document?.cancelId) {
       return false;
     }
-    if (document?._id.endsWith(document.cancelId as string)) {
-      return true;
-    }
-    return false;
+    return !!document?._id.endsWith(document.cancelId as string);
   },
   fields: [
     defineField({

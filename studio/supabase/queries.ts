@@ -2,8 +2,7 @@ import { Tables } from "../models/database.model";
 import { supabase } from "./client";
 
 export const getEvent = async ({ document_id }: Pick<Tables<"event">, "document_id">) => {
-  const result = await supabase.from("event").select().eq("document_id", document_id).maybeSingle();
-  return result;
+  return supabase.from("event").select().eq("document_id", document_id).maybeSingle();
 };
 
 export async function getEventParticipantList({ documentId }: { documentId: string }) {

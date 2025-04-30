@@ -11,8 +11,7 @@ export async function getExpiredRecurringEvents(): Promise<Event[]> {
           && frequence in ["day", "week", "month", "year"]
           && interval >= 1]`;
 
-  const result = await sanityClientWriteable.fetch<Event[]>(query);
-  return result;
+  return await sanityClientWriteable.fetch<Event[]>(query);
 }
 
 export function filterPublishedEvents(
