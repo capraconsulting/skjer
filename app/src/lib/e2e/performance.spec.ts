@@ -68,7 +68,7 @@ test("check Largest Contentful Paint (LCP) timing", async ({ page }) => {
   await page.goto("/");
 
   // Measure LCP using Performance API
-  const lcpTime = await page.evaluate(() => {
+  const lcpTime = await page.evaluate<number>(() => {
     return new Promise((resolve) => {
       // Create a PerformanceObserver to observe LCP
       const observer = new PerformanceObserver((list) => {

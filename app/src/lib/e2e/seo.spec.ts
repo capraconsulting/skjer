@@ -7,10 +7,10 @@ test("home page has proper SEO metadata", async ({ page }) => {
   // Check that the page has a title
   await expect(page).toHaveTitle(/Skjer/);
 
-  // Check that the page has a meta description
+  // Check that the page has a meta-description
   const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
   expect(metaDescription).toBeTruthy();
-  expect(metaDescription.length).toBeGreaterThan(50); // Good descriptions are typically 50-160 characters
+  expect(metaDescription!.length).toBeGreaterThan(50); // Good descriptions are typically 50-160 characters
 
   // Check that the page has proper Open Graph tags
   await expect(page.locator("meta[property='og:title']")).toBeAttached();
@@ -35,10 +35,10 @@ test("event detail page has proper SEO metadata", async ({ page }) => {
   // Check that the page has a title that includes the event name
   await expect(page).toHaveTitle(/./); // Any title is fine for now
 
-  // Check that the page has a meta description
+  // Check that the page has a meta-description
   const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
   expect(metaDescription).toBeTruthy();
-  expect(metaDescription.length).toBeGreaterThan(50);
+  expect(metaDescription!.length).toBeGreaterThan(50);
 
   // Check that the page has proper Open Graph tags specific to the event
   await expect(page.locator("meta[property='og:title']")).toBeAttached();
@@ -58,7 +58,7 @@ test("privacy policy page has proper SEO metadata", async ({ page }) => {
   // Check that the page has a title related to privacy policy
   await expect(page).toHaveTitle(/Personvern|Privacy Policy/);
 
-  // Check that the page has a meta description
+  // Check that the page has a meta-description
   const metaDescription = await page.locator("meta[name='description']").getAttribute("content");
   expect(metaDescription).toBeTruthy();
 

@@ -12,7 +12,7 @@ test("handles non-existent event gracefully", async ({ page }) => {
 });
 
 test("handles invalid unregistration token gracefully", async ({ page }) => {
-  // Navigate to unregistration page with an invalid token
+  // Navigate to the unregistration page with an invalid token
   await page.goto("/event/unregistration/invalid-token");
 
   // Check that an appropriate error message is displayed

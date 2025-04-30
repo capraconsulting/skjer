@@ -20,10 +20,10 @@ test("event filtering works", async ({ page }) => {
   // Navigate to the home page
   await page.goto("/");
 
-  // Check that filter component exists
+  // Check that the filter component exists
   await expect(page.locator(".event-filter, [data-testid='event-filter']")).toBeVisible();
 
-  // Click on a filter option (assuming there's a filter for event type)
+  // Click on a filter option (assuming there's a filter for the event type)
   await page.locator(".filter-option, [data-testid='filter-option']").first().click();
 
   // Wait for the page to update with filtered results

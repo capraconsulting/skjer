@@ -20,7 +20,7 @@ test.describe("Mobile viewport", () => {
     const secondCardBox = await secondCard.boundingBox();
 
     // On mobile, cards should be stacked vertically, so the second card should be below the first
-    expect(secondCardBox?.y).toBeGreaterThan(firstCardBox?.y + firstCardBox?.height);
+    expect(secondCardBox!.y).toBeGreaterThan(firstCardBox!.y + firstCardBox!.height);
   });
 
   test("event detail page renders correctly on mobile", async ({ page }) => {
@@ -57,14 +57,21 @@ test.describe("Tablet viewport", () => {
     const firstCardBox = await firstCard.boundingBox();
     const secondCardBox = await secondCard.boundingBox();
 
-    // On tablet, cards might be side by side or stacked depending on the design
-    // This is a simplified check - adjust based on your actual design
-    if (secondCardBox?.x > firstCardBox?.x + firstCardBox?.width) {
+    // On the tablet, cards might be side by side or stacked depending on the design
+    // This is a simplified check - adjust it based on your actual design
+    if (
+      secondCardBox &&
+      firstCardBox &&
+      secondCardBox.x !== undefined &&
+      firstCardBox.x !== undefined &&
+      firstCardBox.width !== undefined &&
+      secondCardBox.x > firstCardBox.x + firstCardBox.width
+    ) {
       // Cards are side by side
       expect(secondCardBox?.x).toBeGreaterThan(firstCardBox?.x + firstCardBox?.width);
     } else {
       // Cards are stacked
-      expect(secondCardBox?.y).toBeGreaterThan(firstCardBox?.y + firstCardBox?.height);
+      expect(secondCardBox!.y).toBeGreaterThan(firstCardBox!.y + firstCardBox!.height);
     }
   });
 });
@@ -89,6 +96,6 @@ test.describe("Desktop viewport", () => {
     const secondCardBox = await secondCard.boundingBox();
 
     // On desktop, cards should be side by side
-    expect(secondCardBox?.x).toBeGreaterThan(firstCardBox?.x);
+    expect(secondCardBox!.x).toBeGreaterThan(firstCardBox!.x);
   });
 });

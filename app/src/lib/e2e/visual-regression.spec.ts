@@ -79,7 +79,7 @@ test("mobile view visual regression", async ({ page }) => {
 });
 
 test("tablet view visual regression", async ({ page }) => {
-  // Set viewport to tablet size
+  // Set the viewport to tablet size
   await page.setViewportSize({ width: 768, height: 1024 });
 
   // Navigate to the home page
