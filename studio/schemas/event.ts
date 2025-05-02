@@ -279,8 +279,8 @@ export default defineType({
               name: "fieldValueRadio",
               type: "array",
               of: [{ type: "string" }],
-              description: "Skriv inn de to svaralternativene dine her. Eksempel: “Ja” og “Nei”",
-              validation: (Rule) => Rule.min(2).max(2),
+              description: "Skriv inn svaralternativene dine her. Eksempel: “Ja” og “Nei”",
+              validation: (Rule) => Rule.min(2).max(5),
               hidden: ({ parent }) => parent?.fieldType !== "radio",
             }),
             defineField({

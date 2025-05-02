@@ -56,27 +56,19 @@
     <Checkbox name="customOptions" on:change={handleCheckboxChange}>{checkboxValue}</Checkbox>
   {:else if inputType === "radio"}
     <div class="flex gap-6 text-sm">
-      <div class="flex gap-2">
-        <Radio
-          inline
-          name={`customOption-${key}`}
-          group={radioValues[0]}
-          value={radioValues[0]}
-          on:change={handleRadioChange}
-        >
-          {radioValues[0]}
-        </Radio>
-      </div>
-      <div class="flex gap-2">
-        <Radio
-          inline
-          name={`customOption-${key}`}
-          value={radioValues[1]}
-          on:change={handleRadioChange}
-        >
-          {radioValues[1]}
-        </Radio>
-      </div>
+      {#each radioValues as radioValue}
+        <div class="flex gap-2">
+          <Radio
+            inline
+            name={`customOption-${key}`}
+            group={radioValues[0]}
+            value={radioValue}
+            on:change={handleRadioChange}
+          >
+            {radioValue}
+          </Radio>
+        </div>
+      {/each}
     </div>
   {:else}
     <Textarea name="customOptions" class="bg-white" on:input={handleInputChange} />
