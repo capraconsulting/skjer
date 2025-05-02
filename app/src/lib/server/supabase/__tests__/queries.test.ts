@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { supabase } from '$lib/server/supabase/client';
 import {
@@ -29,6 +30,41 @@ interface MockEqReturn<T = unknown> extends MockMaybeSingleReturn<T> {
 
 interface MockSelectReturn<T = unknown> extends MockEqReturn<T> {
   select: (columns?: string) => MockSelectReturn<T>;
+  neq: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  gt: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  gte: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  lt: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  lte: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  like: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  ilike: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  likeAllOf: <K extends string>(column: K, values: unknown[]) => MockSelectReturn<T>;
+  likeAnyOf: <K extends string>(column: K, values: unknown[]) => MockSelectReturn<T>;
+  ilikeAllOf: <K extends string>(column: K, values: unknown[]) => MockSelectReturn<T>;
+  ilikeAnyOf: <K extends string>(column: K, values: unknown[]) => MockSelectReturn<T>;
+  is: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  in: <K extends string>(column: K, values: unknown[]) => MockSelectReturn<T>;
+  contains: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  containedBy: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  rangeLt: <K extends string>(column: K, range: unknown) => MockSelectReturn<T>;
+  rangeGt: <K extends string>(column: K, range: unknown) => MockSelectReturn<T>;
+  rangeGte: <K extends string>(column: K, range: unknown) => MockSelectReturn<T>;
+  rangeLte: <K extends string>(column: K, range: unknown) => MockSelectReturn<T>;
+  rangeAdjacent: <K extends string>(column: K, range: unknown) => MockSelectReturn<T>;
+  overlaps: <K extends string>(column: K, value: unknown) => MockSelectReturn<T>;
+  textSearch: <K extends string>(column: K, query: string, options?: { config?: string }) => MockSelectReturn<T>;
+  filter: <K extends string>(column: K, operator: string, value: unknown) => MockSelectReturn<T>;
+  not: <K extends string>(column: K, operator: string, value: unknown) => MockSelectReturn<T>;
+  or: (filters: string, options?: { foreignTable?: string }) => MockSelectReturn<T>;
+  order: <K extends string>(column: K, options?: { ascending?: boolean; nullsFirst?: boolean; foreignTable?: string }) => MockSelectReturn<T>;
+  limit: (count: number, options?: { foreignTable?: string }) => MockSelectReturn<T>;
+  offset: (count: number, options?: { foreignTable?: string }) => MockSelectReturn<T>;
+  single: () => Promise<{ data: T | null; error: Error | null }>;
+  maybeSingle: () => Promise<{ data: T | null; error: Error | null }>;
+  csv: () => Promise<{ data: string | null; error: Error | null }>;
+  then: <TResult1 = { data: T | null; error: Error | null }, TResult2 = never>(
+    onfulfilled?: ((value: { data: T | null; error: Error | null }) => TResult1 | PromiseLike<TResult1>) | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null
+  ) => Promise<TResult1 | TResult2>;
 }
 
 interface MockInsertReturn<T = unknown> {
@@ -93,7 +129,38 @@ vi.mock('$lib/server/supabase/client', () => {
   mockSelect.mockImplementation(() => ({
     eq: mockEq,
     select: mockSelect,
-    maybeSingle: mockMaybeSingle
+    maybeSingle: mockMaybeSingle,
+    neq: mockEq,
+    gt: mockEq,
+    gte: mockEq,
+    lt: mockEq,
+    lte: mockEq,
+    like: mockEq,
+    ilike: mockEq,
+    likeAllOf: mockEq,
+    likeAnyOf: mockEq,
+    ilikeAllOf: mockEq,
+    ilikeAnyOf: mockEq,
+    is: mockEq,
+    in: mockEq,
+    contains: mockEq,
+    containedBy: mockEq,
+    rangeLt: mockEq,
+    rangeGt: mockEq,
+    rangeGte: mockEq,
+    rangeLte: mockEq,
+    rangeAdjacent: mockEq,
+    overlaps: mockEq,
+    textSearch: mockEq,
+    filter: mockEq,
+    not: mockEq,
+    or: mockEq,
+    order: mockEq,
+    limit: mockEq,
+    offset: mockEq,
+    single: mockMaybeSingle,
+    csv: mockMaybeSingle,
+    then: mockMaybeSingle
   } as unknown as MockSelectReturn));
 
   mockInsert.mockImplementation(() => ({
@@ -131,7 +198,7 @@ describe('Supabase Queries', () => {
       const mockResult: SupabaseQueryResult<typeof testParticipant> = { data: testParticipant, error: null };
 
       // Get references to the mock functions
-      const mockFrom = vi.mocked(supabase.from.bind(supabase));
+      const mockFrom = vi.mocked(supabase.from);
       const mockSelect = vi.fn();
       const mockEq = vi.fn();
       const mockMaybeSingle = vi.fn().mockResolvedValue(mockResult);
@@ -429,41 +496,41 @@ describe('Supabase Queries', () => {
 
       // Set up the mock chain for the first call
       let callCount = 0;
-      mockFrom.mockImplementation((table) => {
-        if (table === 'event') {
-          callCount++;
-          if (callCount === 1) {
-            return {
-              select: mockSelectFirst,
-              insert: mockInsert,
-              update: mockInsert,
-              delete: mockInsert,
-              url: new URL('https://example.com'),
-              headers: {},
-              upsert: mockInsert
-            } as unknown as MockFromReturn;
-          } else {
-            return {
-              select: mockSelectSecond,
-              insert: mockInsert,
-              update: mockInsert,
-              delete: mockInsert,
-              url: new URL('https://example.com'),
-              headers: {},
-              upsert: mockInsert
-            } as unknown as MockFromReturn;
-          }
-        }
-        return {
-          select: mockSelectFirst,
-          insert: mockInsert,
-          update: mockInsert,
-          delete: mockInsert,
-          url: new URL('https://example.com'),
-          headers: {},
-          upsert: mockInsert
-        } as unknown as MockFromReturn;
-      });
+      mockFrom.mockImplementation((table: keyof Database['public']['Tables']) => {
+              if (table === 'event') {
+                callCount++;
+                if (callCount === 1) {
+                  return {
+                    select: mockSelectFirst,
+                    insert: mockInsert,
+                    update: mockInsert,
+                    delete: mockInsert,
+                    url: new URL('https://example.com'),
+                    headers: {},
+                    upsert: mockInsert
+                  } as unknown as MockFromReturn;
+                } else {
+                  return {
+                    select: mockSelectSecond,
+                    insert: mockInsert,
+                    update: mockInsert,
+                    delete: mockInsert,
+                    url: new URL('https://example.com'),
+                    headers: {},
+                    upsert: mockInsert
+                  } as unknown as MockFromReturn;
+                }
+              }
+              return {
+                select: mockSelectFirst,
+                insert: mockInsert,
+                update: mockInsert,
+                delete: mockInsert,
+                url: new URL('https://example.com'),
+                headers: {},
+                upsert: mockInsert
+              } as unknown as MockFromReturn;
+            });
 
       mockSelectFirst.mockReturnValue({
         eq: mockEqFirst
