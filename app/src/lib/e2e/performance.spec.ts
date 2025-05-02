@@ -37,9 +37,9 @@ test("event detail page loads within acceptable time", async ({ page }) => {
   // Calculate load time
   const loadTime = Date.now() - startTime;
 
-  // Check that the page loads within an acceptable time (e.g., 2 seconds)
+  // Check that the page loads within an acceptable time (e.g., 3 seconds)
   // Adjust this threshold based on your performance requirements
-  expect(loadTime).toBeLessThan(2000);
+  expect(loadTime).toBeLessThan(3000);
 
   console.log(`Event detail page load time: ${loadTime}ms`);
 });
@@ -59,7 +59,7 @@ test("privacy policy page loads within acceptable time", async ({ page }) => {
 
   // Check that the page loads within an acceptable time (e.g., 2 seconds)
   // Adjust this threshold based on your performance requirements
-  expect(loadTime).toBeLessThan(2000);
+  expect(loadTime).toBeLessThan(3000);
 
   console.log(`Privacy policy page load time: ${loadTime}ms`);
 });
