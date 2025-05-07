@@ -139,3 +139,16 @@ test("links have descriptive text", async ({ page }) => {
     }
   }
 });
+
+test("structured data is present", async ({ page }) => {
+  await page.goto("/");
+
+  // Sjekk JSON-LD data
+  const structuredData = await page.evaluate(() => {
+    const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+    return Array.from(scripts).map(script => JSON.parse(script.textContent || ''));
+  });
+
+  expect(structuredData.length).toBeGreaterThan(0);
+});
+

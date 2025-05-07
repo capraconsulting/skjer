@@ -141,3 +141,15 @@ test("tablet view visual regression", async ({ page }) => {
     timeout: 10000
   });
 });
+
+test("dark mode visual regression", async ({ page }) => {
+  // Test dark mode
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto("/");
+
+  await expect(page).toHaveScreenshot("home-page-dark.png", {
+    threshold: 0.02,
+    maxDiffPixelRatio: 0.02
+  });
+});
+

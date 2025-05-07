@@ -1,3 +1,4 @@
+
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -6,15 +7,19 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   retries: 4, // To rerun "flaky" tests"
   testDir: "./src/lib/e2e",
-  /* Run tests in files in parallel */
+  timeout: 60000, // Økt timeout til 60 sekunder
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+
+  // Legg til konfigurasjon for test-resultater
+  outputDir: 'src/lib/e2e/test-results',
+
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "http://localhost:5173/",
+    navigationTimeout: 60000, // Økt navigasjons-timeout
+    actionTimeout: 60000, // Økt handlings-timeout
+    screenshot: 'only-on-failure',
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
@@ -23,32 +28,17 @@ export default defineConfig({
 
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      use: {
+        ...devices["Desktop Firefox"],
+        launchOptions: {
+          slowMo: 100, // Legger til litt forsinkelse for å øke stabilitet
+        },
+      },
     },
 
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
 });

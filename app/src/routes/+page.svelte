@@ -35,6 +35,21 @@
   <meta property="og:image" content="https://skjer.capraconsulting.no/logo.png" />
   <meta property="og:url" content="https://skjer.capraconsulting.no/" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Skjer | Capra Liflig Fryde",
+      "url": "https://skjer.capraconsulting.no/",
+      "description": "Skjer er en arrangementsplattform for Capra, Liflig og Fryde. Her finner du alle kommende og tidligere arrangementer, og kan melde deg på de du ønsker å delta på.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://skjer.capraconsulting.no/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 </svelte:head>
 
 <section class="pb-8">
