@@ -3,109 +3,30 @@ import AxeBuilder from "@axe-core/playwright";
 import { clickFirstEvent } from "./helpers";
 
 test.describe("Accessibility Tests", () => {
-  test("registration form meets accessibility standards", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
+    // Navigate to the application before each test
     await page.goto("/");
+  });
 
-    try {
-      await clickFirstEvent(page);
+  test("home page should have no accessibility violations", async ({ page }) => {
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
 
-      // Wait for the page to load
-      await page.waitForLoadState("networkidle");
+    expect(results.violations).toEqual([]);
+  });
 
-      // Ensure we're on an event detail page
-      await expect(page).toHaveURL(/\/event\/[^/]+/);
+  test("event page should have no accessibility violations", async ({ page }) => {
+    await clickFirstEvent(page);
 
-      // Check if the registration form exists
-      const formExists = await page.locator("[data-testid='registration-form']").count() > 0;
+    // Ensure we're on an event detail page
+    await expect(page).toHaveURL(/\/event\/[^/]+/);
 
-      if (formExists) {
-        console.log("Registration form found, checking accessibility");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
 
-        // Wait for the form to be fully loaded
-        await page.waitForSelector("[data-testid='registration-form']", { state: "visible", timeout: 5000 });
-
-        try {
-          // Run accessibility check on the form
-          const results = await new AxeBuilder({ page })
-            .include("[data-testid='registration-form']")
-            .analyze();
-
-          // Log any violations for debugging
-          if (results.violations.length > 0) {
-            console.log("Accessibility violations found:", results.violations.length);
-            console.log("Violations by impact:", results.violations.map(v => v.impact).join(", "));
-          } else {
-            console.log("No accessibility violations found");
-          }
-
-          // Instead of expecting zero violations, we'll check for critical violations only
-          const criticalViolations = results.violations.filter(v => v.impact === 'critical');
-
-          if (criticalViolations.length > 0) {
-            console.log("Critical violations:", JSON.stringify(criticalViolations, null, 2));
-          }
-
-          expect(criticalViolations.length).toBe(0);
-
-          // Check for basic form elements - but don't fail the test if they're not found
-          const nameInputExists = await page.locator("[data-testid='name-input']").count() > 0;
-          const emailInputExists = await page.locator("[data-testid='email-input']").count() > 0;
-          const submitButtonExists = await page.locator("[data-testid='submit-button']").count() > 0;
-
-          console.log("Form elements found:", {
-            nameInput: nameInputExists,
-            emailInput: emailInputExists,
-            submitButton: submitButtonExists
-          });
-
-          // The test passes if we've checked accessibility, regardless of form elements
-          expect(true).toBeTruthy();
-        } catch (axeError) {
-          console.error("Error running accessibility check:", axeError);
-          // If the accessibility check fails, the test should still pass
-          // This makes the test more robust against flaky behavior
-          expect(true).toBeTruthy();
-        }
-      } else {
-        console.log("Registration form not found, checking for valid reasons");
-
-        // If the form doesn't exist, check if there's a valid reason
-        const pageContent = await page.textContent("body");
-        const validReasons = [
-          "ikke lenger mulig å melde seg på",
-          "må logge inn",
-          "ikke flere ledige plasser",
-          "ikke tilgjengelig",
-          "stengt",
-          "avsluttet",
-          "påmelding",
-          "registrering"
-        ];
-
-        const foundReasons = validReasons.filter(reason =>
-          pageContent?.toLowerCase().includes(reason.toLowerCase())
-        );
-
-        console.log("Valid reasons found:", foundReasons);
-
-        // The test passes even if we don't find a valid reason
-        // This makes the test more robust
-        expect(true).toBeTruthy();
-      }
-    } catch (error) {
-      console.error("test-results/Error in accessibility test:", error);
-
-      // Take a screenshot for debugging
-      await page.screenshot({ path: 'test-results/accessibility-error.png' });
-
-      // Log the page content
-      const content = await page.content();
-      console.log("Page content:", content.substring(0, 500) + "...");
-
-      // The test passes even if there's an error
-      // This makes the test more robust against flaky behavior
-      expect(true).toBeTruthy();
-    }
+    expect(results.violations).toEqual([]);
   });
 
   test("form error messages are accessible", async ({ page }) => {
@@ -125,6 +46,8 @@ test.describe("Accessibility Tests", () => {
       for (const error of await errorMessages.all()) {
         await expect(error).toHaveAttribute("role", "alert");
       }
+    } else {
+      console.log("Registration form not displayed due to event conditions - test passed");
     }
   });
 
@@ -139,7 +62,6 @@ test.describe("Accessibility Tests", () => {
         // Wait for navigation, but don't fail if it doesn't happen
         try {
           await page.waitForURL(/\/event\/[^/]+/, { timeout: 5000 });
-          console.log("Successfully navigated to event detail page");
         } catch (navError) {
           console.log("Navigation to event detail page failed, continuing with current page");
         }
@@ -153,13 +75,15 @@ test.describe("Accessibility Tests", () => {
       console.log("Current URL:", page.url());
 
       // Sjekk om vi har noen interaktive elementer
-      const interactiveElements = await page.$$([
-        "button",
-        "input:not([type='hidden'])",
-        "a[href]",
-        "select",
-        "[tabindex]:not([tabindex='-1'])"
-      ].join(", "));
+      const interactiveElements = await page.$$(
+        [
+          "button",
+          "input:not([type='hidden'])",
+          "a[href]",
+          "select",
+          "[tabindex]:not([tabindex='-1'])",
+        ].join(", ")
+      );
 
       console.log(`Found ${interactiveElements.length} interactive elements`);
 
@@ -174,19 +98,32 @@ test.describe("Accessibility Tests", () => {
 
             // Sjekk at elementet har tilstrekkelig tilgjengelighet
             const isAccessible = await element.evaluate((el) => {
-              const hasLabel = el.hasAttribute('aria-label') ||
-                el.hasAttribute('aria-labelledby') ||
-                (el instanceof HTMLFormElement && 'labels' in el && el.labels && el.labels.length > 0) ||
-                (el instanceof HTMLInputElement && 'labels' in el && el.labels && el.labels.length > 0) ||
-                (el instanceof HTMLSelectElement && 'labels' in el && el.labels && el.labels.length > 0) ||
-                (el instanceof HTMLTextAreaElement && 'labels' in el && el.labels && el.labels.length > 0);
+              const hasLabel =
+                el.hasAttribute("aria-label") ||
+                el.hasAttribute("aria-labelledby") ||
+                (el instanceof HTMLFormElement &&
+                  "labels" in el &&
+                  el.labels &&
+                  el.labels.length > 0) ||
+                (el instanceof HTMLInputElement &&
+                  "labels" in el &&
+                  el.labels &&
+                  el.labels.length > 0) ||
+                (el instanceof HTMLSelectElement &&
+                  "labels" in el &&
+                  el.labels &&
+                  el.labels.length > 0) ||
+                (el instanceof HTMLTextAreaElement &&
+                  "labels" in el &&
+                  el.labels &&
+                  el.labels.length > 0);
               const hasVisibleText = (el.textContent?.trim()?.length ?? 0) > 0;
-              const hasTitle = el.hasAttribute('title');
-              const hasAlt = el.hasAttribute('alt');
-              const isButton = el.tagName.toLowerCase() === 'button';
-              const isInput = el.tagName.toLowerCase() === 'input';
-              const isLink = el.tagName.toLowerCase() === 'a';
-              const hasImage = el.querySelector('img') !== null;
+              const hasTitle = el.hasAttribute("title");
+              const hasAlt = el.hasAttribute("alt");
+              const isButton = el.tagName.toLowerCase() === "button";
+              const isInput = el.tagName.toLowerCase() === "input";
+              const isLink = el.tagName.toLowerCase() === "a";
+              const hasImage = el.querySelector("img") !== null;
 
               // Input-felt trenger bare label
               if (isInput) return hasLabel || hasTitle;
@@ -203,14 +140,18 @@ test.describe("Accessibility Tests", () => {
               accessibleCount++;
             } else {
               inaccessibleCount++;
-              console.log(`Element ikke tilgjengelig: ${await element.evaluate(el => el.outerHTML)}`);
+              console.log(
+                `Element ikke tilgjengelig: ${await element.evaluate((el) => el.outerHTML)}`
+              );
             }
           } catch (focusError) {
             console.log("Error focusing element:", focusError);
           }
         }
 
-        console.log(`Accessibility check complete: ${accessibleCount} accessible, ${inaccessibleCount} inaccessible elements`);
+        console.log(
+          `Accessibility check complete: ${accessibleCount} accessible, ${inaccessibleCount} inaccessible elements`
+        );
 
         // Alltid la testen passere, siden vi ikke kan fikse alle elementer
         expect(true).toBeTruthy();
@@ -225,10 +166,10 @@ test.describe("Accessibility Tests", () => {
           "ikke flere ledige plasser",
           "stengt",
           "avsluttet",
-          "ikke funnet"
+          "ikke funnet",
         ];
 
-        const foundStates = validStates.filter(state =>
+        const foundStates = validStates.filter((state) =>
           pageContent?.toLowerCase().includes(state.toLowerCase())
         );
 
@@ -241,7 +182,7 @@ test.describe("Accessibility Tests", () => {
       console.error("Error in interactive elements test:", error);
 
       // Take a screenshot for debugging
-      await page.screenshot({ path: 'test-results//interactive-elements-error.png' });
+      await page.screenshot({ path: "test-results//interactive-elements-error.png" });
 
       // Always pass the test to avoid flakiness
       expect(true).toBeTruthy();
@@ -265,6 +206,8 @@ test.describe("Accessibility Tests", () => {
       });
 
       expect(hasFocusStyles).toBeTruthy();
+    } else {
+      console.log("Registration form not displayed due to event conditions - test passed");
     }
   });
 });
