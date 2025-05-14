@@ -135,7 +135,7 @@ test.describe("Tablet viewport", () => {
       console.error("Error in event detail page test:", error);
 
       // Take a screenshot for debugging
-      await page.screenshot({ path: "test-results/event-detail-error.png" });
+      await page.screenshot({ path: "src/lib/e2e/test-results/event-detail-error.png" });
 
       // Log the page content
       const content = await page.content();

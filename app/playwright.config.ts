@@ -41,4 +41,9 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
   ],
+  webServer: {
+    command: 'pnpm run dev',
+    url: 'http://localhost:5173',
+    reuseExistingServer: true,
+  },
 });
