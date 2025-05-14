@@ -96,7 +96,7 @@ test.describe("Accessibility Tests", () => {
       console.error("test-results/Error in accessibility test:", error);
 
       // Take a screenshot for debugging
-      await page.screenshot({ path: 'accessibility-error.png' });
+      await page.screenshot({ path: 'test-results/accessibility-error.png' });
 
       // Log the page content
       const content = await page.content();
@@ -241,7 +241,7 @@ test.describe("Accessibility Tests", () => {
       console.error("Error in interactive elements test:", error);
 
       // Take a screenshot for debugging
-      await page.screenshot({ path: 'test-results/interactive-elements-error.png' });
+      await page.screenshot({ path: 'test-results//interactive-elements-error.png' });
 
       // Always pass the test to avoid flakiness
       expect(true).toBeTruthy();
