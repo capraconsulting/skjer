@@ -57,6 +57,6 @@
     </div>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
-    {$_('common.copyright', { year: currentYear })}
+    {$_('common.copyright')}
   </p>
 </footer>
