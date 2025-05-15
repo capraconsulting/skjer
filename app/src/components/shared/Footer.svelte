@@ -57,6 +57,7 @@
     </div>
   </div>
   <p class="pt-10 text-center text-sm sm:text-base">
-    {$_('common.copyright')}
+    {currentYear} © Capra | Torggata 2-4, 0180 Oslo |
+    <a href="mailto:post@capraconsulting.no">post@capraconsulting.no</a>
   </p>
 </footer>
