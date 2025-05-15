@@ -14,6 +14,9 @@ void init({
   initialLocale: 'nb',
 });
 
+// Set the locale synchronously to ensure it's available immediately
+void locale.set('nb');
+
 // Initialize the i18n library with user preferences
 export function initI18n() {
   // Only run this in the browser

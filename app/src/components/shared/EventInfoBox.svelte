@@ -17,17 +17,21 @@
   export let event: Event;
   export let numberOfParticipants: number;
 
-  function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
-    const availableSpots = maxParticipant - numberOfParticipants;
+  $: availableSpotsMessage = (() => {
+    if (typeof event.maxParticipant !== 'number') return '';
+
+    const availableSpots = event.maxParticipant - numberOfParticipants;
     if (availableSpots === 0) {
       return $_('common.noAvailableSpots');
     } else if (availableSpots === 1) {
       return $_('common.oneAvailableSpot');
     } else {
-      return $_('common.availableSpots', { count: availableSpots });
+      return `${availableSpots} ` + $_('common.availableSpots');
     }
-  }
-</script>
+  })();
+
+
+</script>'
 
 <div
   class="flex h-full w-full flex-col gap-1 hyphens-auto rounded-xl border p-3 text-sm font-light sm:p-6 sm:text-base dark:bg-zinc-800"
@@ -42,13 +46,14 @@
   <div class="flex items-center">
     <CalendarBlank class="mr-2 flex-none" />
     <span>
-      {formatDate(event.start)}
-      {endsOnDifferentDay(event.start, event.end) ? `- ${formatDate(event.end)}` : ""}
+      {endsOnDifferentDay(event.start, event.end)
+        ? $_('common.dateRange', { values: { start: formatDate(event.start), end: formatDate(event.end) } })
+        : formatDate(event.start)}
     </span>
   </div>
   <div class="flex items-center">
     <Clock class="mr-2 flex-none" />
-    <span>{formatTime(event.start)} - {formatTime(event.end)} </span>
+    <span>{$_('common.timeRange', { values: { start: formatTime(event.start), end: formatTime(event.end) } })}</span>
   </div>
 
   <div class="flex items-center">
@@ -63,10 +68,10 @@
     </div>
   {/if}
 
-  {#if event.maxParticipant &&  !event.hideMaxParticipant && !dateHasPassed(event.deadline)}
+  {#if event.maxParticipant && !event.hideMaxParticipant && !dateHasPassed(event.deadline)}
     <div class="flex items-center">
       <Users class="mr-2 flex-none" />
-      <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
+      <span>{availableSpotsMessage}</span>
     </div>
   {/if}
 
