@@ -30,8 +30,7 @@
     }
   })();
 
-
-</script>'
+</script>
 
 <div
   class="flex h-full w-full flex-col gap-1 hyphens-auto rounded-xl border p-3 text-sm font-light sm:p-6 sm:text-base dark:bg-zinc-800"
