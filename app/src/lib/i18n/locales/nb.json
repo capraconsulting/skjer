@@ -1,6 +1,9 @@
 {
   "common": {
     "companyNames": "Capra, Liflig og Fryde sin",
+    "unregistration": "Avmelding",
+    "notFound": "Ikke funnet",
+    "eventNotFound": "Dette arrangementet ble ikke funnet 😵",
     "today": "I dag",
     "clock": "kl.",
     "registration": "Påmelding",
@@ -71,7 +74,7 @@
     "invalidForm": "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
     "rateLimitReached": "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
     "rateLimitReached30Sec": "Du har nådd grensen for antall forsøk. Vennligst vent 30 sekunder før du prøver igjen.",
-    "registrationFailed": "Det har oppstått en feilk. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+    "registrationFailed": "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
     "emailNotSent": "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
     "cannotUnregisterEvent": "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
     "noRegistrationFound": "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",

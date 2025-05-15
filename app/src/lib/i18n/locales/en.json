@@ -1,6 +1,9 @@
 {
   "common": {
     "companyNames": "Capra, Liflig and Fryde's",
+    "unregistration": "Unregistration",
+    "notFound": "Not found",
+    "eventNotFound": "This event was not found 😵",
     "today": "Today",
     "clock": "at",
     "registration": "Registration",

@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-  <title>{event?.title || "Ikke funnet"} | Capra Liflig Fryde</title>
+  <title>{event?.title || $_('common.notFound')} | Capra Liflig Fryde</title>
 </svelte:head>
 {#if event}
   <section>
@@ -34,5 +34,5 @@
     {/if}
   </section>
 {:else}
-  <p>Dette arrangementet ble ikke funnet 😵</p>
+  <p>{$_('common.eventNotFound')}</p>
 {/if}
