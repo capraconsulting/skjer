@@ -2,9 +2,12 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
 
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
+  language?: string; // Optional language parameter, defaults to 'nb'
 }
 
 export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
@@ -16,8 +19,7 @@ export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
     icsFile,
   });
 
-  const result = await sendEmail(emailTemplate);
-  return result;
+  return await sendEmail(emailTemplate);
 };
 
 const createIcsFile = ({
@@ -29,14 +31,26 @@ const createIcsFile = ({
   end,
   location,
   organiser,
+  language = "nb", // Default to Norwegian if not specified
 }: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
 
+  // Get the dictionary for the specified language or default to 'nb'
+  const dict = get(dictionary)[language];
+
+  // Safely access the registerOrUnregister property with type guards
+  let registerOrUnregister = "Meld deg på eller av arrangementet:"; // Default fallback
+  if (dict && typeof dict === "object" && "email" in dict &&
+    dict.email && typeof dict.email === "object" && !Array.isArray(dict.email) &&
+    "registerOrUnregister" in dict.email) {
+    registerOrUnregister = String(dict.email.registerOrUnregister);
+  }
+
   calendar.createEvent({
     id,
     summary,
-    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
+    description: `${description}\n\n${registerOrUnregister} ${url}`,
     location,
     start,
     end,
@@ -49,7 +63,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+      name: organiser,
       email: "no-reply@capragruppen.no",
     },
   });

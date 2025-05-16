@@ -5,18 +5,49 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
+import { dictionary, locale } from "$lib/i18n";
+import { get } from "svelte/store";
+
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+
+// Define a consistent return type for the load function
+interface LoadReturn {
+  success?: boolean;
+  error?: boolean;
+  warning?: boolean;
+  message?: string;
+  text?: string;
+}
+
+// Helper function to get translations
+function getTranslation(key: string): string {
+  // Get the dictionary for the current language
+  const currentLocale = get(locale) || 'nb';
+  const dict = get(dictionary)[currentLocale];
+  if (!dict) return key; // Fallback if language not found
+
+  // Parse the key path (e.g., "errors.cannotRegisterEvent")
+  const parts = key.split('.');
+  let value: DictionaryValue = dict;
+  for (const part of parts) {
+    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
+    value = value[part];
+  }
+
+  return String(value);
+};
 
 const rateLimitMap: Map<string, number> = new Map();
 
-export const load: PageServerLoad = async ({ params: { token } }) => {
+export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) => {
   const now = Date.now();
   const lastAccess = rateLimitMap.get(token);
 
   if (lastAccess && now - lastAccess < 30000) {
     return {
       error: true,
-      message:
-        "Du har nådd grensen for antall forsøk. Vennligst vent 30 sekunder før du prøver igjen.",
+      message: getTranslation("errors.rateLimitReached30Sec"),
     };
   }
 
@@ -29,7 +60,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   if (!tokenDecoded?.payload?.data) {
     return {
       error: true,
-      message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
+      message: getTranslation("errors.cannotUnregisterEvent"),
     };
   }
 
@@ -37,16 +68,23 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   const secret = getUnsubscribeSecret(data);
 
   try {
-    if (jwt.verify(token, secret)) {
+    // Verify token and explicitly type the return value
+    const verified = jwt.verify(token, secret) as DecodedToken;
+    if (verified) {
       await setParticipantNotAttending(tokenDecoded.payload.data);
     }
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       return {
         error: true,
-        message: "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere.",
+        message: getTranslation("errors.linkExpired"),
       };
     }
+    // Handle other JWT verification errors
+    return {
+      error: true,
+      message: getTranslation("errors.cannotUnregisterEvent"),
+    };
   }
 
   const { document_id, email } = data;
@@ -73,7 +111,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
       console.error("Error: Failed to send email");
 
       return {
-        text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+        text: getTranslation("errors.unregistrationEmailNotSent"),
         warning: true,
       };
     }
@@ -81,6 +119,6 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
 
   return {
     success: true,
-    message: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    message: getTranslation("success.unregistrationComplete"),
   };
 };

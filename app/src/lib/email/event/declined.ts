@@ -2,6 +2,11 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { BlockContent } from "$models/sanity.model";
+import { dictionary } from "$lib/i18n";
+import { get } from "svelte/store";
+
+// Define a type for dictionary values (can be a string, array, null, or a nested object)
+type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
 
 interface EmailDeclinedProps {
   id: string;
@@ -16,7 +21,13 @@ interface EmailDeclinedProps {
   message: BlockContent;
 }
 
-export const sendEmailDeclined = async (props: EmailDeclinedProps) => {
+// Define the return type for the email function
+interface EmailResult {
+  error?: any;
+  success?: boolean;
+}
+
+export const sendEmailDeclined = async (props: EmailDeclinedProps): Promise<EmailResult> => {
   const icsFile = createIcsFile(props);
 
   const emailTemplate = composeEmail({
@@ -38,14 +49,24 @@ const createIcsFile = ({
   end,
   location,
   organiser,
-}: EmailDeclinedProps) => {
+}: EmailDeclinedProps): Buffer => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+
+  // Get the dictionary for the default language (nb)
+  const dict = get(dictionary)['nb'] as { [key: string]: DictionaryValue } | undefined;
+
+  // Safely access dictionary values with proper type guards
+  const registerOrUnregister = dict && typeof dict === 'object' && 'email' in dict &&
+    dict.email && typeof dict.email === 'object' && !Array.isArray(dict.email) &&
+    'registerOrUnregister' in dict.email ?
+    String(dict.email.registerOrUnregister) :
+    "Meld deg på eller av arrangementet:";
 
   calendar.createEvent({
     id,
     summary,
-    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
+    description: `${description}\n\n${registerOrUnregister} ${url}`,
     location,
     start,
     end,
@@ -58,7 +79,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+      name: organiser,
       email: "no-reply@capragruppen.no",
     },
   });

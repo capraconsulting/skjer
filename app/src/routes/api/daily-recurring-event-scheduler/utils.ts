@@ -18,7 +18,7 @@ export function createStatusResponse(stats: {
   } = stats;
 
   if (published === total && notified === published) {
-    new Response(`Success: Updated ${total} events and slack messages were sent successfully.`, {
+    return new Response(`Success: Updated ${total} events and slack messages were sent successfully.`, {
       status: 200,
     });
   }

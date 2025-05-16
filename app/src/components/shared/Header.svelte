@@ -7,6 +7,7 @@
   import { page } from "$app/stores";
   import { isSafariOrIOS } from "$lib/utils/device.util";
   import HeaderActions from "$components/shared/HeaderActions.svelte";
+  import { _ } from "$lib/i18n";
 
   export let auth;
   $: isRoot = $page.url.pathname === "/";
@@ -20,18 +21,18 @@
     <img
       fetchpriority="high"
       class="absolute h-12 select-none opacity-100 motion-reduce:hidden sm:h-14 dark:opacity-5"
-      alt="Animert Capra, Fryde og Liflig-logo"
+      alt={$_('common.animatedLogo')}
       src={hasPerformanceIssue ? logoDarkSm : logoDark}
     />
     <img
       fetchpriority="high"
       class="absolute h-12 select-none opacity-5 motion-reduce:hidden sm:h-14 dark:opacity-100"
-      alt="Animert Capra, Fryde og Liflig-logo"
+      alt={$_('common.animatedLogo')}
       src={hasPerformanceIssue ? logoLightSm : logoLight}
     />
     <img
       class="absolute hidden h-8 select-none opacity-100 motion-reduce:flex sm:h-10 dark:opacity-100"
-      alt="Capra, Fryde og Liflig-logo"
+      alt={$_('common.logo')}
       src={logoReducedMotion}
     />
   </a>

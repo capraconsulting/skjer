@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Alert } from "flowbite-svelte";
+  import { _ } from "$lib/i18n";
 
   export let data;
 </script>
 
 <svelte:head>
-  <title>Avmelding | Capra Liflig Fryde</title>
+  <title>{$_('common.unregistration')} | Capra Liflig Fryde</title>
 </svelte:head>
 
 <section class="mx-0 mb-80 mt-2 w-full">

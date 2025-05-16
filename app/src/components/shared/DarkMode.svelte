@@ -8,6 +8,7 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { Button } from "flowbite-svelte";
   import { MoonIcon, SunIcon } from "svelte-feather-icons";
+  import { _ } from "$lib/i18n";
 
   interface $$Props extends HTMLButtonAttributes {
     btnClass?: string;
@@ -18,7 +19,7 @@
 
   export let btnClass: $$Props["btnClass"] = "";
   export let size: NonNullable<$$Props["size"]> = "md";
-  export let ariaLabel: $$Props["ariaLabel"] = "Dark mode";
+  export let ariaLabel: $$Props["ariaLabel"] = $_('common.darkMode');
   export let value: $$Props["value"] = "";
 
   const sizes = {
