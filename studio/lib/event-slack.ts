@@ -9,16 +9,14 @@ const translations = {
     registerHere: "Meld deg på her",
     category: "Kategori",
     when: "Når",
-    where: "Hvor",
-    image: "Bilde"
+    where: "Hvor"
   },
   en: {
     registration: "Registration",
     registerHere: "Register here",
     category: "Category",
     when: "When",
-    where: "Where",
-    image: "Image"
+    where: "Where"
   }
 };
 
@@ -67,7 +65,7 @@ export const createSlackMessage = async (
     blocks.push({
       type: "image",
       image_url: imageUrl,
-      alt_text: getTranslation('image'),
+      alt_text: "Image",
     });
   }
 
