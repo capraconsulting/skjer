@@ -5,11 +5,7 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
-import { dictionary, locale } from "$lib/i18n";
-import { get } from "svelte/store";
-
-// Define a type for dictionary values (can be a string, array, null, or a nested object)
-type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+import { getTranslation } from "$lib/i18n";
 
 // Define a consistent return type for the load function
 interface LoadReturn {
@@ -19,24 +15,6 @@ interface LoadReturn {
   message?: string;
   text?: string;
 }
-
-// Helper function to get translations
-function getTranslation(key: string): string {
-  // Get the dictionary for the current language
-  const currentLocale = get(locale) || 'nb';
-  const dict = get(dictionary)[currentLocale];
-  if (!dict) return key; // Fallback if language not found
-
-  // Parse the key path (e.g., "errors.cannotRegisterEvent")
-  const parts = key.split('.');
-  let value: DictionaryValue = dict;
-  for (const part of parts) {
-    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
-    value = value[part];
-  }
-
-  return String(value);
-};
 
 const rateLimitMap: Map<string, number> = new Map();
 

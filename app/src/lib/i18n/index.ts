@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { init, register, locale, dictionary, _ } from 'svelte-i18n';
+import { get } from 'svelte/store';
 
 // Define a type for dictionary values (can be a string, array, null, or a nested object)
 export type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
@@ -42,6 +43,17 @@ export function initI18n() {
       void locale.set(initialLocale);
     }
   }
+}
+
+/**
+ * Helper function to get translations
+ * @param key The translation key
+ * @returns The translated string
+ */
+export function getTranslation(key: string): string {
+  // Use the _ function from svelte-i18n which is reactive
+  // We need to use get() to access the value of the store
+  return get(_)(key);
 }
 
 export { _, locale, dictionary };

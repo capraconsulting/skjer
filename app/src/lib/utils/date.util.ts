@@ -1,7 +1,7 @@
 import { parseISO, isSameDay, format, isToday, isValid } from "date-fns";
 import { nb, enUS, type Locale } from "date-fns/locale";
 import { get } from "svelte/store";
-import { locale, _ } from "$lib/i18n";
+import { locale, getTranslation } from "$lib/i18n";
 
 // Map of locale codes to date-fns locales
 const localeMap: Record<string, Locale> = {
@@ -38,7 +38,7 @@ export function formatDate(date: string): string {
     const currentLocale = get(locale);
 
     if (isToday(dateObj)) {
-      return get(_)('common.today');
+      return getTranslation('common.today');
     }
 
     return dateObj.toLocaleDateString(getLocaleString(currentLocale), {

@@ -2,11 +2,7 @@ import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import { composeEmail, sendEmail } from "$lib/email/nodemailer";
 import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
 import type { EventCanceledProps } from "../../../routes/api/send-event-canceled/+server";
-import { dictionary } from "$lib/i18n";
-import { get } from "svelte/store";
-
-// Define a type for dictionary values (can be a string, array, null, or a nested object)
-type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
+import { _ } from "$lib/i18n";
 
 interface EmailCanceledProps extends EventCanceledProps {
   to: string;
@@ -42,10 +38,7 @@ const createIcsFile = ({
   organiser,
 }: EmailCanceledProps): Buffer => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.CANCEL });
-
-  // Get the dictionary for the default language (nb)
-  const dict = get(dictionary)['nb'] as { [key: string]: DictionaryValue } | undefined;
+  const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.CANCEL });
 
   calendar.createEvent({
     id,
@@ -63,7 +56,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser,
+      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
       email: "no-reply@capragruppen.no",
     },
   });

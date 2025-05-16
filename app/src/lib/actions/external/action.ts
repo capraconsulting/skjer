@@ -20,29 +20,7 @@ import {
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
-import { dictionary, locale } from "$lib/i18n";
-import { get } from "svelte/store";
-
-// Define a type for dictionary values (can be a string, array, null, or a nested object)
-type DictionaryValue = string | null | DictionaryValue[] | { [key: string]: DictionaryValue };
-
-// Helper function to get translations
-function getTranslation(key: string): string {
-  // Get the dictionary for the current language
-  const currentLocale = get(locale) || 'nb';
-  const dict = get(dictionary)[currentLocale];
-  if (!dict) return key; // Fallback if language not found
-
-  // Parse the key path (e.g., "errors.cannotRegisterEvent")
-  const parts = key.split('.');
-  let value: DictionaryValue = dict;
-  for (const part of parts) {
-    if (typeof value !== 'object' || value === null || Array.isArray(value) || !(part in value)) return key; // Fallback if key not found
-    value = value[part];
-  }
-
-  return String(value);
-}
+import { getTranslation } from "$lib/i18n";
 
 const limiter = new RateLimiter({
   IP: [20, "h"], // 20 rquests per hour from the same IP

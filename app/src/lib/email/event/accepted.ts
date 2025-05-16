@@ -2,8 +2,7 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
-import { dictionary } from "$lib/i18n";
-import { get } from "svelte/store";
+import { getTranslation } from "$lib/i18n";
 
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
@@ -34,18 +33,10 @@ const createIcsFile = ({
   language = "nb", // Default to Norwegian if not specified
 }: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.REQUEST });
 
-  // Get the dictionary for the specified language or default to 'nb'
-  const dict = get(dictionary)[language];
-
-  // Safely access the registerOrUnregister property with type guards
-  let registerOrUnregister = "Meld deg på eller av arrangementet:"; // Default fallback
-  if (dict && typeof dict === "object" && "email" in dict &&
-    dict.email && typeof dict.email === "object" && !Array.isArray(dict.email) &&
-    "registerOrUnregister" in dict.email) {
-    registerOrUnregister = String(dict.email.registerOrUnregister);
-  }
+  // Get the translation using the reusable function
+  const registerOrUnregister = getTranslation("email.registerOrUnregister");
 
   calendar.createEvent({
     id,
@@ -63,7 +54,7 @@ const createIcsFile = ({
       },
     ],
     organizer: {
-      name: organiser,
+      name: organiser === "Alle" ? "Capra Gruppen" : organiser,
       email: "no-reply@capragruppen.no",
     },
   });

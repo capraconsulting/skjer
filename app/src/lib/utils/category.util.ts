@@ -1,5 +1,4 @@
-import { _ } from "$lib/i18n";
-import { get } from "svelte/store";
+import { getTranslation } from "$lib/i18n";
 import type { Category } from "$models/sanity.model";
 
 /**
@@ -20,5 +19,5 @@ export function translateCategory(category: Category | undefined): string {
   const translationKey = categoryMap[category];
 
   // If we have a translation key, use it; otherwise, return the original value
-  return translationKey ? get(_)(translationKey) : category;
+  return translationKey ? getTranslation(translationKey) : category;
 }
