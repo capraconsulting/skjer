@@ -21,22 +21,23 @@ interface EmailDeclinedProps {
   message: BlockContent;
 }
 
- // Define the return type for the email function
- interface EmailResult {
-   error?: boolean;
-   success?: boolean;
- }
+// Define the return type for the email function
+interface EmailResult {
+  error?: any;
+  success?: boolean;
+}
 
 export const sendEmailDeclined = async (props: EmailDeclinedProps): Promise<EmailResult> => {
   const icsFile = createIcsFile(props);
 
-  const email = composeEmail({
+  const emailTemplate = composeEmail({
     ...props,
     subject: `${props.subject} ${props.summary}`,
     icsFile,
   });
 
-  return await sendEmail(email);
+  const result = await sendEmail(emailTemplate);
+  return result;
 };
 
 const createIcsFile = ({
@@ -53,19 +54,14 @@ const createIcsFile = ({
   const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
 
   // Get the dictionary for the default language (nb)
-  const dict = get(dictionary)["nb"] as { [key: string]: DictionaryValue } | undefined;
+  const dict = get(dictionary)['nb'] as { [key: string]: DictionaryValue } | undefined;
 
   // Safely access dictionary values with proper type guards
-  const registerOrUnregister =
-    dict &&
-    typeof dict === "object" &&
-    "email" in dict &&
-    dict.email &&
-    typeof dict.email === "object" &&
-    !Array.isArray(dict.email) &&
-    "registerOrUnregister" in dict.email
-      ? String(dict.email.registerOrUnregister)
-      : "Meld deg på eller av arrangementet:";
+  const registerOrUnregister = dict && typeof dict === 'object' && 'email' in dict &&
+    dict.email && typeof dict.email === 'object' && !Array.isArray(dict.email) &&
+    'registerOrUnregister' in dict.email ?
+    String(dict.email.registerOrUnregister) :
+    "Meld deg på eller av arrangementet:";
 
   calendar.createEvent({
     id,

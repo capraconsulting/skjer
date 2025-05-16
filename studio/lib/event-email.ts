@@ -26,7 +26,8 @@ export const sendEmailEventUpdated = async (props: EventProps) => {
       },
       body: JSON.stringify(props),
     });
-    return await response.json();
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error("Error sending email:", error);
     return false;
@@ -47,7 +48,8 @@ export const sendEmailEventCanceled = async (props: EventProps) => {
       },
       body: JSON.stringify(props),
     });
-    return await response.json();
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error("Error sending email:", error);
     return false;

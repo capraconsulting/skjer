@@ -6,7 +6,13 @@ export const getOrCreateEvent = async ({ document_id }: Pick<Tables<"event">, "d
   const result = await supabase.from("event").select().eq("document_id", document_id).maybeSingle();
 
   if (!result.data) {
-    return supabase.from("event").insert({ document_id }).select().maybeSingle();
+    const createResult = await supabase
+      .from("event")
+      .insert({ document_id })
+      .select()
+      .maybeSingle();
+
+    return createResult;
   }
   return result;
 };
@@ -14,30 +20,40 @@ export const getEventParticipant = async ({
   event_id,
   email,
 }: Pick<Tables<"event_participant">, "event_id" | "email">) => {
-  return supabase
+  const result = await supabase
     .from("event_participant")
     .select("email, attending, event_id")
     .eq("event_id", event_id)
     .eq("email", email)
     .maybeSingle();
+
+  return result;
 };
 
 export const deleteEventParticipant = async ({
   event_id,
   email,
 }: Pick<Tables<"event_participant">, "event_id" | "email">) => {
-  return supabase.from("event_participant").delete().eq("event_id", event_id).eq("email", email);
+  const result = await supabase
+    .from("event_participant")
+    .delete()
+    .eq("event_id", event_id)
+    .eq("email", email);
+
+  return result;
 };
 
 export const setParticipantNotAttending = async ({
   event_id,
   email,
 }: Pick<Tables<"event_participant">, "event_id" | "email">) => {
-  return supabase
+  const result = await supabase
     .from("event_participant")
     .update({ attending: false })
     .eq("event_id", event_id)
     .eq("email", email);
+
+  return result;
 };
 
 export const updateEventParticipant = async ({
@@ -52,7 +68,7 @@ export const updateEventParticipant = async ({
   Tables<"event_participant">,
   "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending" | "attending_digital"
 >) => {
-  return supabase
+  const result = await supabase
     .from("event_participant")
     .update({
       event_id,
@@ -67,6 +83,7 @@ export const updateEventParticipant = async ({
     .eq("email", email)
     .select()
     .maybeSingle();
+  return result;
 };
 
 export const saveEventParticipant = async ({
@@ -80,7 +97,7 @@ export const saveEventParticipant = async ({
   Tables<"event_participant">,
   "event_id" | "full_name" | "telephone" | "email" | "firm" | "attending_digital"
 >) => {
-  return supabase
+  const result = await supabase
     .from("event_participant")
     .insert({
       event_id,
@@ -92,11 +109,14 @@ export const saveEventParticipant = async ({
     })
     .select()
     .maybeSingle();
+
+  return result;
 };
 export const saveEventParticipantOptions = async (
   options: Tables<"event_participant_option">[]
 ) => {
-  return supabase.from("event_participant_option").insert(options);
+  const result = await supabase.from("event_participant_option").insert(options);
+  return result;
 };
 
 export const getInternalParticipantNames = async ({
@@ -142,7 +162,10 @@ export const getIsParticipantAttendingEvent = async ({
     .eq("event_participant.email", email)
     .maybeSingle();
 
-  return !!result.data?.event_participant.length;
+  if (result.data?.event_participant.length) {
+    return true;
+  }
+  return false;
 };
 
 export const getParticipantAttendingEvents = async ({
