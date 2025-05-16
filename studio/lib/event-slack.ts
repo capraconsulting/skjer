@@ -1,39 +1,6 @@
 import { Event } from "../../app/src/models/sanity.model";
 import { urlFor } from "../config/client";
 
-// Define translations for Slack messages
-// This is a simplified approach since we can't directly use svelte-i18n in the studio
-const translations = {
-  nb: {
-    registration: "Påmelding",
-    registerHere: "Meld deg på her",
-    category: "Kategori",
-    when: "Når",
-    where: "Hvor",
-    image: "Bilde"
-  },
-  en: {
-    registration: "Registration",
-    registerHere: "Register here",
-    category: "Category",
-    when: "When",
-    where: "Where",
-    image: "Image"
-  }
-};
-
-// Define types for translations
-type TranslationKey = keyof typeof translations.nb;
-type LocaleKey = keyof typeof translations;
-
-// Configure the language for Slack notifications
-const SLACK_NOTIFICATION_LANGUAGE: LocaleKey = 'nb'; // Default to Norwegian
-
-// Helper function to get translations
-function getTranslation(key: TranslationKey): string {
-  return translations[SLACK_NOTIFICATION_LANGUAGE]?.[key] || key;
-}
-
 export const createSlackMessage = async (
   id: string,
   { title, category, place, start, summary, image }: Event
@@ -43,9 +10,7 @@ export const createSlackMessage = async (
   const imageUrl = image ? urlFor(image).width(400).url() : null;
   const eventUrl = `${process.env.SANITY_STUDIO_APP_BASE_URL}/event/${id}`;
 
-  // Use the configured language for date formatting
-  const localeString = SLACK_NOTIFICATION_LANGUAGE === 'nb' ? 'nb-NO' : 'en-US';
-  const startDate = new Date(start).toLocaleDateString(localeString, {
+  const startDate = new Date(start).toLocaleDateString("nb-NO", {
     timeZone: "Europe/Oslo",
     hour: "2-digit",
     minute: "2-digit",
@@ -67,7 +32,7 @@ export const createSlackMessage = async (
     blocks.push({
       type: "image",
       image_url: imageUrl,
-      alt_text: getTranslation('image'),
+      alt_text: "Image",
     });
   }
 
@@ -88,13 +53,13 @@ export const createSlackMessage = async (
     if (eventUrl) {
       fields.push({
         type: "mrkdwn",
-        text: `*${getTranslation('registration')}:*\n<${eventUrl}|${getTranslation('registerHere')}>`,
+        text: `*Påmelding:*\n<${eventUrl}|Meld deg på her>`,
       });
     }
     if (category) {
       fields.push({
         type: "mrkdwn",
-        text: `*${getTranslation('category')}:*\n${category}`,
+        text: `*Kategori:*\n${category}`,
       });
     }
     blocks.push({
@@ -108,13 +73,13 @@ export const createSlackMessage = async (
     if (startDate) {
       fields.push({
         type: "mrkdwn",
-        text: `*${getTranslation('when')}:*\n${startDate}`,
+        text: `*Når:*\n${startDate}`,
       });
     }
     if (place) {
       fields.push({
         type: "mrkdwn",
-        text: `*${getTranslation('where')}:*\n${place}`,
+        text: `*Hvor:*\n${place}`,
       });
     }
     blocks.push({
@@ -126,7 +91,7 @@ export const createSlackMessage = async (
   try {
     await fetch(process.env.SANITY_STUDIO_SLACK_HOOK!, {
       method: "POST",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/x-www-form-urlencoded" },
       body: JSON.stringify({ blocks }),
     });
   } catch (error) {
