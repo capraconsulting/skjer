@@ -20,7 +20,7 @@ import {
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailConfirmDecline } from "$lib/email/event/confirm-decline";
-import { getTranslation } from "$lib/i18n";
+import { getTranslation, getPreferredLanguageFromRequest } from "$lib/i18n";
 
 const limiter = new RateLimiter({
   IP: [20, "h"], // 20 rquests per hour from the same IP
@@ -35,13 +35,16 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     params: { id },
   } = requestEvent;
 
+  // Extract the preferred language from request headers
+  const preferredLanguage = getPreferredLanguageFromRequest(request);
+
   const registrationForm = await superValidate(request, zod(registrationSchemaExternal));
 
   if (!registrationForm.valid) {
     console.error("Error: Invalid form submission detected");
 
     return message(registrationForm, {
-      text: getTranslation("errors.invalidForm"),
+      text: getTranslation("errors.invalidForm", preferredLanguage),
       error: true,
     });
   }
@@ -50,14 +53,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(registrationForm, {
-      text: getTranslation("errors.rateLimitReached"),
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -68,7 +71,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -79,7 +82,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -99,14 +102,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Participant cannot be loaded");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
-      text: getTranslation("success.alreadyRegistered"),
+      text: getTranslation("success.alreadyRegistered", preferredLanguage),
       warning: true,
     });
   }
@@ -149,7 +152,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     console.error("Error: Transaction failed", JSON.stringify(error));
 
     return message(registrationForm, {
-      text: getTranslation("errors.registrationFailed"),
+      text: getTranslation("errors.registrationFailed", preferredLanguage),
       error: true,
     });
   }
@@ -165,6 +168,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
+    language: preferredLanguage, // Add the language to the email payload for proper translation
   };
 
   if (process.env.NODE_ENV !== "development") {
@@ -174,14 +178,14 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
       console.error("Error: Failed to send email");
 
       return message(registrationForm, {
-        text: getTranslation("errors.emailNotSent"),
+        text: getTranslation("errors.emailNotSent", preferredLanguage),
         warning: true,
       });
     }
   }
 
   // Replace {email} placeholder with actual email
-  const successMessage = getTranslation("success.registrationComplete").replace("{email}", email);
+  const successMessage = getTranslation("success.registrationComplete", preferredLanguage).replace("{email}", email);
 
   return message(registrationForm, {
     text: successMessage,
@@ -197,13 +201,16 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     params: { id },
   } = requestEvent;
 
+  // Extract the preferred language from request headers
+  const preferredLanguage = getPreferredLanguageFromRequest(request);
+
   const unregistrationForm = await superValidate(request, zod(unregistrationSchemaExternal));
 
   if (!unregistrationForm.valid) {
     console.error("Error: Invalid form submission detected");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.invalidForm"),
+      text: getTranslation("errors.invalidForm", preferredLanguage),
       error: true,
     });
   }
@@ -212,14 +219,14 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(unregistrationForm, {
-      text: getTranslation("errors.rateLimitReached"),
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -230,7 +237,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -247,7 +254,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
 
   if (!eventParticipant.data?.email || !eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      text: getTranslation("errors.noRegistrationFoundCheckEmail"),
+      text: getTranslation("errors.noRegistrationFoundCheckEmail", preferredLanguage),
       warning: true,
     });
   }
@@ -258,7 +265,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     console.error("Error: The specified event does not exist as content");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -273,6 +280,7 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     summary: eventContent.title,
     organiser: eventContent.organisers,
     token,
+    language: preferredLanguage, // Add the language to the email payload for proper translation
   };
 
   if (process.env.NODE_ENV !== "development") {
@@ -282,14 +290,14 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
       console.error("Error: Failed to send email");
 
       return message(unregistrationForm, {
-        text: getTranslation("errors.cannotUnregisterEvent"),
+        text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
         warning: true,
       });
     }
   }
 
   return message(unregistrationForm, {
-    text: getTranslation("success.unregistrationEmailSent"),
+    text: getTranslation("success.unregistrationEmailSent", preferredLanguage),
     success: true,
   });
 };

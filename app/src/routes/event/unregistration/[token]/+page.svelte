@@ -12,6 +12,8 @@
 <section class="mx-0 mb-80 mt-2 w-full">
   {#if data?.success}
     <Alert color="green" class="mb-6">{data.message}</Alert>
+  {:else if data?.warning}
+    <Alert color="yellow" class="mb-6">{data.message}</Alert>
   {:else}
     <Alert color="red" class="mb-6">{data.message}</Alert>
   {/if}

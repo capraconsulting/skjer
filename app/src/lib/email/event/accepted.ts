@@ -35,8 +35,8 @@ const createIcsFile = ({
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
   const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.REQUEST });
 
-  // Get the translation using the reusable function
-  const registerOrUnregister = getTranslation("email.registerOrUnregister");
+  // Get the translation using the reusable function with the specified language
+  const registerOrUnregister = getTranslation("email.registerOrUnregister", language);
 
   calendar.createEvent({
     id,

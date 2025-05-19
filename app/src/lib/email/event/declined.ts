@@ -4,7 +4,7 @@ import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { BlockContent } from "$models/sanity.model";
 import { getTranslation } from "$lib/i18n";
 
-interface EmailDeclinedProps {
+export interface EmailDeclinedProps {
   id: string;
   to: string;
   summary: string;
@@ -15,11 +15,12 @@ interface EmailDeclinedProps {
   organiser: string;
   subject: string;
   message: BlockContent;
+  language?: string; // Optional language parameter, defaults to 'nb'
 }
 
 // Define the return type for the email function
 interface EmailResult {
-  error?: any;
+  error?: unknown;
   success?: boolean;
 }
 
@@ -32,8 +33,7 @@ export const sendEmailDeclined = async (props: EmailDeclinedProps): Promise<Emai
     icsFile,
   });
 
-  const result = await sendEmail(emailTemplate);
-  return result;
+  return await sendEmail(emailTemplate);
 };
 
 const createIcsFile = ({
@@ -45,12 +45,16 @@ const createIcsFile = ({
   end,
   location,
   organiser,
+  language = "nb", // Default to Norwegian if not specified
 }: EmailDeclinedProps): Buffer => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({
+    name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+    method: ICalCalendarMethod.REQUEST,
+  });
 
-  // Get the translation using the reusable function
-  const registerOrUnregister = getTranslation("email.registerOrUnregister");
+  // Get the translation using the reusable function with the specified language
+  const registerOrUnregister = getTranslation("email.registerOrUnregister", language);
 
   calendar.createEvent({
     id,

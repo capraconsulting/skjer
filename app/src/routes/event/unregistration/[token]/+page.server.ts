@@ -5,7 +5,8 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
-import { getTranslation } from "$lib/i18n";
+import type { EmailDeclinedProps } from "$lib/email/event/declined";
+import { getPreferredLanguageFromRequest, getTranslation } from "$lib/i18n";
 
 // Define a consistent return type for the load function
 interface LoadReturn {
@@ -13,19 +14,22 @@ interface LoadReturn {
   error?: boolean;
   warning?: boolean;
   message?: string;
+  messageKey?: string;
   text?: string;
 }
 
 const rateLimitMap: Map<string, number> = new Map();
 
-export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) => {
+export const load: PageServerLoad<LoadReturn> = async ({ params: { token }, request }) => {
+  // Extract the preferred language from request headers using the utility function
+  const preferredLanguage = getPreferredLanguageFromRequest(request);
   const now = Date.now();
   const lastAccess = rateLimitMap.get(token);
 
   if (lastAccess && now - lastAccess < 30000) {
     return {
       error: true,
-      message: getTranslation("errors.rateLimitReached30Sec"),
+      message: getTranslation("errors.rateLimitReached30Sec", preferredLanguage),
     };
   }
 
@@ -38,7 +42,7 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) =>
   if (!tokenDecoded?.payload?.data) {
     return {
       error: true,
-      message: getTranslation("errors.cannotUnregisterEvent"),
+      message: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
     };
   }
 
@@ -55,13 +59,13 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) =>
     if (error instanceof jwt.TokenExpiredError) {
       return {
         error: true,
-        message: getTranslation("errors.linkExpired"),
+        message: getTranslation("errors.linkExpired", preferredLanguage),
       };
     }
     // Handle other JWT verification errors
     return {
       error: true,
-      message: getTranslation("errors.cannotUnregisterEvent"),
+      message: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
     };
   }
 
@@ -69,7 +73,7 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) =>
 
   const eventContent = await getEventContent({ document_id });
 
-  const emailPayload = {
+  const emailPayload: EmailDeclinedProps = {
     id: document_id,
     to: email,
     summary: eventContent.title,
@@ -82,21 +86,24 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token } }) =>
     message: eventContent.emailTemplate.unregistrationMessage,
   };
 
+  // Add the language to the email payload for proper translation in the email
+  emailPayload.language = preferredLanguage;
+
   if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailDeclined(emailPayload);
+  const { error: emailError } = await sendEmailDeclined(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return {
-        text: getTranslation("errors.unregistrationEmailNotSent"),
-        warning: true,
-      };
-    }
+    return {
+      warning: true,
+      message: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
+    };
+  }
   }
 
   return {
     success: true,
-    message: getTranslation("success.unregistrationComplete"),
+    message: getTranslation("success.unregistrationComplete", preferredLanguage),
   };
 };

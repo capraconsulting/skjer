@@ -1,6 +1,6 @@
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailDeclined } from "$lib/email/event/declined";
-import { getTranslation } from "$lib/i18n";
+import { getTranslation, getPreferredLanguageFromRequest } from "$lib/i18n";
 import {
   registrationSchemaInternal,
   unregistrationSchemaInternal,
@@ -36,6 +36,8 @@ const limiter = new RateLimiter({
 export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async (
   requestEvent
 ) => {
+  // Extract the preferred language from request headers using the utility function
+  const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,
     locals,
@@ -48,7 +50,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -57,14 +59,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Invalid form submission detected");
 
     return message(registrationForm, {
-      text: getTranslation("errors.invalidForm"),
+      text: getTranslation("errors.invalidForm", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(registrationForm, {
-      text: getTranslation("errors.rateLimitReached"),
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -75,7 +77,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Could not retrieve user");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -86,7 +88,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -97,7 +99,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -121,14 +123,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Participant cannot be loaded");
 
     return message(registrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
-      text: getTranslation("success.alreadyRegistered"),
+      text: getTranslation("success.alreadyRegistered", preferredLanguage),
       warning: true,
     });
   }
@@ -169,7 +171,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Transaction failed", JSON.stringify(error));
 
     return message(registrationForm, {
-      text: getTranslation("errors.registrationFailed"),
+      text: getTranslation("errors.registrationFailed", preferredLanguage),
       error: true,
     });
   }
@@ -185,6 +187,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
+    language: preferredLanguage, // Add the language to the email payload for proper translation
   };
 
   if (process.env.NODE_ENV !== "development") {
@@ -194,14 +197,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
       console.error("Error: Failed to send email");
 
       return message(registrationForm, {
-        text: getTranslation("errors.emailNotSent"),
+        text: getTranslation("errors.emailNotSent", preferredLanguage),
         warning: true,
       });
     }
   }
 
   // Replace {email} placeholder with actual email
-  const successMessage = getTranslation("success.registrationComplete").replace("{email}", email);
+  const successMessage = getTranslation("success.registrationComplete", preferredLanguage).replace("{email}", email);
 
   return message(registrationForm, {
     text: successMessage,
@@ -212,6 +215,8 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 export const submitUnregistrationInternal: Actions["submitUnregistrationInternal"] = async (
   requestEvent
 ) => {
+  // Extract the preferred language from request headers using the utility function
+  const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,
     locals,
@@ -223,14 +228,14 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotRegisterEvent"),
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(unregistrationForm, {
-      text: getTranslation("errors.rateLimitReached"),
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -241,7 +246,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Could not retrieve user");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -252,7 +257,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: The specified event does not exist and cannot be created");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -271,14 +276,14 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
   if (!eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      text: getTranslation("success.alreadyUnregistered"),
+      text: getTranslation("success.alreadyUnregistered", preferredLanguage),
       warning: true,
     });
   }
 
   if (!eventParticipant.data?.email) {
     return message(unregistrationForm, {
-      text: getTranslation("errors.noRegistrationFound"),
+      text: getTranslation("errors.noRegistrationFound", preferredLanguage),
       error: true,
     });
   }
@@ -288,7 +293,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Failed to update participant attending");
 
     return message(unregistrationForm, {
-      text: getTranslation("errors.cannotUnregisterEvent"),
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -306,6 +311,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
     message: eventContent.emailTemplate.unregistrationMessage,
+    language: preferredLanguage, // Pass the preferred language to the email function
   };
 
   if (process.env.NODE_ENV !== "development") {
@@ -315,14 +321,14 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
       console.error("Error: Failed to send email");
 
       return message(unregistrationForm, {
-        text: getTranslation("errors.unregistrationEmailNotSent"),
+        text: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
         warning: true,
       });
     }
   }
 
   return message(unregistrationForm, {
-    text: getTranslation("success.unregistrationComplete"),
+    text: getTranslation("success.unregistrationComplete", preferredLanguage),
     success: true,
   });
 };

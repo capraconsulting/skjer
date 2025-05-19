@@ -18,6 +18,9 @@
     // Store the language preference in localStorage for persistence
     if (browser) {
       localStorage.setItem('preferredLanguage', langCode);
+
+      // Also set a cookie so the server can access the language preference
+      document.cookie = `preferredLanguage=${langCode}; path=/; max-age=31536000; SameSite=Lax`;
     }
   }
 
@@ -27,6 +30,9 @@
       const preferredLanguage = localStorage.getItem('preferredLanguage');
       if (preferredLanguage) {
         void locale.set(preferredLanguage);
+
+        // Also set the cookie to ensure server-side code has access to the preference
+        document.cookie = `preferredLanguage=${preferredLanguage}; path=/; max-age=31536000; SameSite=Lax`;
       }
     }
   });
