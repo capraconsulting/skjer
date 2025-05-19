@@ -150,8 +150,11 @@ E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. P
 
 For å teste e-postfunksjonaliteten lokalt:
 
-1. Fjern "development"-sjekker i funksjonskallene for å kjøre i lokalt miljø.
+1. For å teste e-post sendt fra app: Legg til 'ENABLE_EMAIL_SENDING_IN_DEV = "true"' i app/.env.local.
 2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
+
+NB: Husk at dersom du starter appen med "preview": "vite preview", så vil e-poster fra app alltid bli sendt, uavhengig av ENABLE_EMAIL_SENDING_IN_DEV, siden NODE_ENV === "production".
+Moral: test alltid i dev-modus, dvs med "dev": "vite dev"
 
 ### Kalenderinvitasjon
 
