@@ -1,4 +1,3 @@
-
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -11,13 +10,13 @@ export default defineConfig({
   fullyParallel: true,
 
   // Legg til konfigurasjon for test-resultater
-  outputDir: 'src/lib/e2e/test-results',
+  outputDir: "src/lib/e2e/test-results",
 
   use: {
     baseURL: "http://localhost:5173/",
     navigationTimeout: 60000, // Økt navigasjons-timeout
     actionTimeout: 60000, // Økt handlings-timeout
-    screenshot: 'only-on-failure',
+    screenshot: "only-on-failure",
   },
 
   projects: [
@@ -30,9 +29,6 @@ export default defineConfig({
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
-        launchOptions: {
-          slowMo: 100, // Legger til litt forsinkelse for å øke stabilitet
-        },
       },
     },
 
@@ -42,8 +38,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm run dev',
-    url: 'http://localhost:5173',
+    command: "pnpm run dev",
+    url: "http://localhost:5173",
     reuseExistingServer: true,
   },
 });

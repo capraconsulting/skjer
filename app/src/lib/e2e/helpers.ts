@@ -3,9 +3,19 @@ import type { Page, Locator } from "@playwright/test";
 /**
  * Clicks on the first event link on the page.
  * This function works with both EventCard and EventListItem components.
+ * @returns {Promise<boolean>} - Returns true if an event was clicked, false if no events were found
  */
-export async function clickFirstEvent(page: Page): Promise<void> {
-  await page.locator("a[href^='/event/']").first().click();
+export async function clickFirstEvent(page: Page): Promise<boolean> {
+  const eventLinks = page.locator("a[href^='/event/']");
+  const count = await eventLinks.count();
+
+  if (count === 0) {
+    console.log("No events found on the page to click");
+    return false;
+  }
+
+  await eventLinks.first().click();
+  return true;
 }
 
 /**
