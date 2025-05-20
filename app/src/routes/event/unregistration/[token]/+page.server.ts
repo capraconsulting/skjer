@@ -66,17 +66,15 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     message: eventContent.emailTemplate.unregistrationMessage,
   };
 
-  if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailDeclined(emailPayload);
+  const { error: emailError } = await sendEmailDeclined(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return {
-        text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
-        warning: true,
-      };
-    }
+    return {
+      text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+      warning: true,
+    };
   }
 
   return {
