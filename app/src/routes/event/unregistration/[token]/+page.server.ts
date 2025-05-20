@@ -5,18 +5,30 @@ import type { DecodedToken } from "$models/jwt.model";
 import { setParticipantNotAttending } from "$lib/server/supabase/queries";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
+import type { EmailDeclinedProps } from "$lib/email/event/declined";
+import { getPreferredLanguageFromRequest, getTranslation } from "$lib/i18n";
+
+// Define a consistent return type for the load function
+interface LoadReturn {
+  success?: boolean;
+  error?: boolean;
+  warning?: boolean;
+  message?: string;
+  messageKey?: string;
+  text?: string;
+}
 
 const rateLimitMap: Map<string, number> = new Map();
 
-export const load: PageServerLoad = async ({ params: { token } }) => {
+export const load: PageServerLoad<LoadReturn> = async ({ params: { token }, request }) => {
+  const preferredLanguage = getPreferredLanguageFromRequest(request);
   const now = Date.now();
   const lastAccess = rateLimitMap.get(token);
 
   if (lastAccess && now - lastAccess < 30000) {
     return {
       error: true,
-      message:
-        "Du har nådd grensen for antall forsøk. Vennligst vent 30 sekunder før du prøver igjen.",
+      message: getTranslation("errors.rateLimitReached30Sec", preferredLanguage),
     };
   }
 
@@ -29,7 +41,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   if (!tokenDecoded?.payload?.data) {
     return {
       error: true,
-      message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
+      message: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
     };
   }
 
@@ -37,23 +49,30 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   const secret = getUnsubscribeSecret(data);
 
   try {
-    if (jwt.verify(token, secret)) {
+    // Verify token and explicitly type the return value
+    const verified = jwt.verify(token, secret) as DecodedToken;
+    if (verified) {
       await setParticipantNotAttending(tokenDecoded.payload.data);
     }
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       return {
         error: true,
-        message: "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere.",
+        message: getTranslation("errors.linkExpired", preferredLanguage),
       };
     }
+    // Handle other JWT verification errors
+    return {
+      error: true,
+      message: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
+    };
   }
 
   const { document_id, email } = data;
 
   const eventContent = await getEventContent({ document_id });
 
-  const emailPayload = {
+  const emailPayload: EmailDeclinedProps = {
     id: document_id,
     to: email,
     summary: eventContent.title,
@@ -72,13 +91,13 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
     console.error("Error: Failed to send email");
 
     return {
-      text: "Det har oppstått en feil. Du er meldt av arrangement 👋 men e-post bekreftelse er ikke sendt.",
+      message: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
       warning: true,
     };
   }
 
   return {
     success: true,
-    message: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    message: getTranslation("success.unregistrationComplete", preferredLanguage),
   };
 };

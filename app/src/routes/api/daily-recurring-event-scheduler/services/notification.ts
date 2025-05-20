@@ -4,14 +4,14 @@ import { urlFor } from "$lib/sanity/image";
 import type { Event } from "$models/sanity.model";
 
 export const sendSlackNotification = async ({
-  _id: id,
-  title,
-  category,
-  place,
-  start,
-  summary,
-  image,
-}: Event) => {
+                                              _id: id,
+                                              title,
+                                              category,
+                                              place,
+                                              start,
+                                              summary,
+                                              image,
+                                            }: Event) => {
   if (process.env.NODE_ENV === "development") return;
 
   const imageUrl = image ? urlFor(image).width(400).url() : null;

@@ -3,6 +3,8 @@ import { sanityClient } from "$lib/server/sanity/client";
 import { sequence } from "@sveltejs/kit/hooks";
 import { createAuthHandler } from "$lib/auth";
 import { createCorsHandler } from "$lib/auth/cors";
+// Import i18n but don't call initI18n() - it's already initialized with default locale when imported
+import "$lib/i18n";
 
 // Sets the client to be used by `loadQuery` when fetching data on the server.
 // The loader will handle setting the correct fetch parameters, including

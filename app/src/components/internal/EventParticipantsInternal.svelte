@@ -1,5 +1,6 @@
 <script>
   import { Badge } from "flowbite-svelte";
+  import { _ } from "$lib/i18n";
 
   export let names;
 </script>
@@ -13,5 +14,5 @@
     </span>
   {/each}
 {:else}
-  <p>Det er foreløpig ingen kollegaer som er påmeldt 😔</p>
+  <p>{$_('common.noColleaguesRegistered')}</p>
 {/if}

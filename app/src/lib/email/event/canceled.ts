@@ -7,7 +7,13 @@ interface EmailCanceledProps extends EventCanceledProps {
   to: string;
 }
 
-export const sendEmailCanceled = async (props: EmailCanceledProps) => {
+// Define the return type for the email function
+interface EmailResult {
+  error?: unknown;
+  success?: boolean;
+}
+
+export const sendEmailCanceled = async (props: EmailCanceledProps): Promise<EmailResult> => {
   const icsFile = createIcsFile(props);
 
   const email = composeEmail({
@@ -29,9 +35,9 @@ const createIcsFile = ({
   end,
   location,
   organiser,
-}: EmailCanceledProps) => {
+}: EmailCanceledProps): Buffer => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.CANCEL });
+  const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.CANCEL });
 
   calendar.createEvent({
     id,

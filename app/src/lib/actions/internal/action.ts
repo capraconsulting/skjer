@@ -1,5 +1,6 @@
 import { sendEmailAccepted } from "$lib/email/event/accepted";
 import { sendEmailDeclined } from "$lib/email/event/declined";
+import { getTranslation, getPreferredLanguageFromRequest } from "$lib/i18n";
 import {
   registrationSchemaInternal,
   unregistrationSchemaInternal,
@@ -35,6 +36,7 @@ const limiter = new RateLimiter({
 export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async (
   requestEvent
 ) => {
+  const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,
     locals,
@@ -47,7 +49,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Invalid event id or uuid provided");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -56,14 +58,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Invalid form submission detected");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Det ufylte skjemaet er ikke gyldig.",
+      text: getTranslation("errors.invalidForm", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(registrationForm, {
-      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -74,7 +76,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Could not retrieve user");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -85,7 +87,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: The specified event does not exist as content");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -96,7 +98,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: The specified event does not exist or cannot be created");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -120,14 +122,14 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Participant cannot be loaded");
 
     return message(registrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (eventParticipant.data?.attending) {
     return message(registrationForm, {
-      text: "Denne e-postadressen er allerede registrert for deltagelse i arrangementet. Vennligst meld deg av dersom dette er en feil.",
+      text: getTranslation("success.alreadyRegistered", preferredLanguage),
       warning: true,
     });
   }
@@ -168,7 +170,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Transaction failed", JSON.stringify(error));
 
     return message(registrationForm, {
-      text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
+      text: getTranslation("errors.registrationFailed", preferredLanguage),
       error: true,
     });
   }
@@ -184,6 +186,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
+    language: preferredLanguage
   };
 
   const { error: emailError } = await sendEmailAccepted(emailPayload);
@@ -192,13 +195,15 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     console.error("Error: Failed to send email");
 
     return message(registrationForm, {
-      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+      text: getTranslation("errors.emailNotSent", preferredLanguage),
       warning: true,
     });
   }
 
+  const successMessage = getTranslation("success.registrationComplete", preferredLanguage).replace("{email}", email);
+
   return message(registrationForm, {
-    text: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
+    text: successMessage,
     success: true,
   });
 };
@@ -206,6 +211,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 export const submitUnregistrationInternal: Actions["submitUnregistrationInternal"] = async (
   requestEvent
 ) => {
+  const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,
     locals,
@@ -217,14 +223,14 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Invalid event id or uuid provided");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått et problem. Du kan ikke melde deg på dette arrangementet.",
+      text: getTranslation("errors.cannotRegisterEvent", preferredLanguage),
       error: true,
     });
   }
 
   if (await limiter.isLimited(requestEvent)) {
     return message(unregistrationForm, {
-      text: "Du har nådd grensen for antall forsøk. Vennligst vent en stund før du prøver igjen.",
+      text: getTranslation("errors.rateLimitReached", preferredLanguage),
       error: true,
     });
   }
@@ -235,7 +241,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Could not retrieve user");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -246,7 +252,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: The specified event does not exist and cannot be created");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -265,14 +271,14 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
 
   if (!eventParticipant.data?.attending) {
     return message(unregistrationForm, {
-      text: "Du er allerede meldt av arrangementet. Takk for interessen din!",
+      text: getTranslation("success.alreadyUnregistered", preferredLanguage),
       warning: true,
     });
   }
 
   if (!eventParticipant.data?.email) {
     return message(unregistrationForm, {
-      text: "Vi finner dessverre ingen opplysninger om din påmelding til arrangementet.",
+      text: getTranslation("errors.noRegistrationFound", preferredLanguage),
       error: true,
     });
   }
@@ -282,7 +288,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Failed to update participant attending");
 
     return message(unregistrationForm, {
-      text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
+      text: getTranslation("errors.cannotUnregisterEvent", preferredLanguage),
       error: true,
     });
   }
@@ -300,6 +306,7 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
     message: eventContent.emailTemplate.unregistrationMessage,
+    language: preferredLanguage, // Pass the preferred language to the email function
   };
 
   const { error: emailError } = await sendEmailDeclined(emailPayload);
@@ -308,13 +315,13 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     console.error("Error: Failed to send email");
 
     return message(unregistrationForm, {
-      text: "Du er nå meldt av arrangementet 👋 Vi kunne dessverre ikke sende en e-post bekreftelse.",
+      text: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
       warning: true,
     });
   }
 
   return message(unregistrationForm, {
-    text: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
+    text: getTranslation("success.unregistrationComplete", preferredLanguage),
     success: true,
   });
 };

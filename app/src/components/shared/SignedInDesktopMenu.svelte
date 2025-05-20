@@ -2,7 +2,9 @@
   import { Button } from "flowbite-svelte";
   import { CalendarIcon, LogOutIcon, PlusIcon } from "svelte-feather-icons";
   import DarkMode from "./DarkMode.svelte";
+  import LanguageSwitcher from "./LanguageSwitcher.svelte";
   import { page } from "$app/stores";
+  import { _ } from "$lib/i18n";
 
   export let auth;
   export let isSigningOut;
@@ -14,33 +16,33 @@
 
 <div class="hidden flex-row items-center gap-3 md:flex">
   <span class="text-sm font-semibold">{auth.user.name}</span>
-  <img class="h-8 rounded-2xl" alt="Profilbilde" src={auth.user.image} />
+  <img class="h-8 rounded-2xl" alt={$_('common.profilePicture')} src={auth.user.image} />
 
-  <Button color="dark" class="h-9" pill on:click={openSanityStudio}>
-    <span class="mr-1.5">Opprett</span>
+  <Button color="alternative" class="h-9 w-[110px]" pill on:click={openSanityStudio}>
+    <span class="mr-1.5">{$_('common.create')}</span>
     <PlusIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
   <Button
     color="alternative"
-    class="h-9 rounded-2xl border-[#999] p-2.5"
+    class="h-9 rounded-2xl border-[#999] p-2.5 w-[125px]"
     target="_blank"
     rel="noopener noreferrer"
     href={subscribeLink}
-    alt="Abonner på kalender"
+    alt={$_('common.subscribeToCalendar')}
   >
-    <span class="mr-1.5">Abonner</span>
+    <span class="mr-1.5">{$_('common.subscribe')}</span>
     <CalendarIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
+  <LanguageSwitcher />
   <Button
     color="alternative"
-    class="h-9 border-[#999]"
+    class="h-9 border-[#999] w-[125px] justify-center"
     pill
     on:click={signOutHandler}
     disabled={isSigningOut}
   >
-    <span class="mr-1.5">Logg ut</span>
+    <span class="mr-1.5">{$_('common.logout')}</span>
     <LogOutIcon strokeWidth={1.5} class="w-[16px]" />
   </Button>
-
   <DarkMode size="sm" btnClass="h-9 border-[#999] rounded-2xl p-2.5" />
 </div>

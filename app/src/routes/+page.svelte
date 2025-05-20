@@ -4,6 +4,7 @@
   import EventCard from "$components/shared/EventCard.svelte";
   import EventListItem from "$components/shared/EventListItem.svelte";
   import EventFilter from "$components/shared/EventFilter.svelte";
+  import { _ } from "$lib/i18n";
 
   export let data;
 
@@ -33,7 +34,7 @@
 <section class="pb-8">
   <div class="flex flex-col justify-between gap-4 py-6 md:flex-row md:items-center md:py-10">
     <h1 class="text-4xl font-semibold md:text-5xl">
-      Kommende<br />arrangementer
+      {$_('common.upcomingEvents')}
     </h1>
     <EventFilter {selectedFilter} on:filterChange={({ detail }) => (selectedFilter = detail)} />
   </div>
@@ -46,20 +47,20 @@
       {#if futureEventsFiltered.length > amountOfVisibleFutureEvents}
         <div class="mt-6 flex flex-wrap self-center">
           <Button pill color="alternative" on:click={() => (amountOfVisibleFutureEvents += 6)}>
-            <span class="mr-2">Se flere arrangementer</span>
+            <span class="mr-2">{$_('common.seeMoreEvents')}</span>
             <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
           </Button>
         </div>
       {/if}
     {:else}
-      <div class="text-xl font-light">Fant ingen kommende arrangementer i denne kategorien 😭</div>
+      <div class="text-xl font-light">{$_('common.noUpcomingEventsInCategory')}</div>
     {/if}
   </div>
 </section>
 
 <section class="pb-8">
   <h1 class="pb-6 pt-10 text-4xl font-semibold md:pb-10 md:text-5xl">
-    Tidligere<br /> arrangementer
+    {$_('common.pastEvents')}
   </h1>
   {#if pastEvents.length}
     <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
@@ -70,12 +71,12 @@
     {#if pastEvents.length > amountOfVisiblePastEvents}
       <div class="mt-6 flex flex-wrap self-center">
         <Button pill color="alternative" on:click={() => (amountOfVisiblePastEvents += 6)}>
-          <span class="mr-2">Se flere arrangementer</span>
+          <span class="mr-2">{$_('common.seeMoreEvents')}</span>
           <ArrowDownIcon class="w-[20px]" strokeWidth={1.5} />
         </Button>
       </div>
     {/if}
   {:else}
-    <div class="text-xl font-light">Fant ingen tidligere arrangementer 😭</div>
+    <div class="text-xl font-light">{$_('common.noPastEvents')}</div>
   {/if}
 </section>

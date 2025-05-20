@@ -1,6 +1,8 @@
 <script lang="ts">
   import { dateHasPassed, endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
+  import { createCategoryTranslation } from "$lib/utils/category.util";
   import type { Event } from "$models/sanity.model";
+  import { _ } from "$lib/i18n";
   import {
     CalendarBlank,
     Clock,
@@ -15,16 +17,22 @@
   export let event: Event;
   export let numberOfParticipants: number;
 
-  function getAvailableSpotsMessage(maxParticipant: number, numberOfParticipants: number) {
-    const availableSpots = maxParticipant - numberOfParticipants;
+  // Create a reactive store for the category translation
+  $: categoryTranslation = createCategoryTranslation(event.category);
+
+  $: availableSpotsMessage = (() => {
+    if (typeof event.maxParticipant !== 'number') return '';
+
+    const availableSpots = event.maxParticipant - numberOfParticipants;
     if (availableSpots === 0) {
-      return "Ingen ledige plasser";
+      return $_('common.noAvailableSpots');
     } else if (availableSpots === 1) {
-      return "1 ledig plass";
+      return $_('common.oneAvailableSpot');
     } else {
-      return `${availableSpots} ledige plasser`;
+      return `${availableSpots} ` + $_('common.availableSpots');
     }
-  }
+  })();
+
 </script>
 
 <div
@@ -33,20 +41,21 @@
   {#if event.category}
     <div class="flex items-center">
       <Lightbulb class="mr-2 flex-none" />
-      <span>{event.category}</span>
+      <span>{$categoryTranslation}</span>
     </div>
   {/if}
 
   <div class="flex items-center">
     <CalendarBlank class="mr-2 flex-none" />
     <span>
-      {formatDate(event.start)}
-      {endsOnDifferentDay(event.start, event.end) ? `- ${formatDate(event.end)}` : ""}
+      {endsOnDifferentDay(event.start, event.end)
+        ? $_('common.dateRange', { values: { start: formatDate(event.start), end: formatDate(event.end) } })
+        : formatDate(event.start)}
     </span>
   </div>
   <div class="flex items-center">
     <Clock class="mr-2 flex-none" />
-    <span>{formatTime(event.start)} - {formatTime(event.end)} </span>
+    <span>{$_('common.timeRange', { values: { start: formatTime(event.start), end: formatTime(event.end) } })}</span>
   </div>
 
   <div class="flex items-center">
@@ -61,10 +70,10 @@
     </div>
   {/if}
 
-  {#if event.maxParticipant &&  !event.hideMaxParticipant && !dateHasPassed(event.deadline)}
+  {#if event.maxParticipant && !event.hideMaxParticipant && !dateHasPassed(event.deadline)}
     <div class="flex items-center">
       <Users class="mr-2 flex-none" />
-      <span>{getAvailableSpotsMessage(event.maxParticipant, numberOfParticipants)}</span>
+      <span>{availableSpotsMessage}</span>
     </div>
   {/if}
 
@@ -84,6 +93,6 @@
 
   <div class="flex items-center">
     <Tag class="mr-2 flex-none" />
-    <span>{event.openForExternals ? "Åpent for alle" : "Kun for interne"}</span>
+    <span>{event.openForExternals ? $_('filter.forAll') : $_('filter.internalOnly')}</span>
   </div>
 </div>

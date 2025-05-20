@@ -2,9 +2,11 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { EventUpdatedProps } from "../../../routes/api/send-event-updated/+server";
+import { getTranslation } from "$lib/i18n";
 
 interface EmailAcceptedProps extends EventUpdatedProps {
   to: string;
+  language?: string; // Optional language parameter, defaults to 'nb'
 }
 
 export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
@@ -16,8 +18,7 @@ export const sendEmailAccepted = async (props: EmailAcceptedProps) => {
     icsFile,
   });
 
-  const result = await sendEmail(emailTemplate);
-  return result;
+  return await sendEmail(emailTemplate);
 };
 
 const createIcsFile = ({
@@ -29,14 +30,18 @@ const createIcsFile = ({
   end,
   location,
   organiser,
+  language = "nb", // Default to Norwegian if not specified
 }: EmailAcceptedProps) => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({ name: organiser === "Alle" ? "Capra Gruppen" : organiser, method: ICalCalendarMethod.REQUEST });
+
+  // Get the translation using the reusable function with the specified language
+  const registerOrUnregister = getTranslation("email.registerOrUnregister", language);
 
   calendar.createEvent({
     id,
     summary,
-    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
+    description: `${description}\n\n${registerOrUnregister} ${url}`,
     location,
     start,
     end,

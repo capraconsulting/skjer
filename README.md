@@ -120,6 +120,53 @@ supabase gen types typescript --project-id <project-id> database.model.ts
 
 NB: Når database.model.ts er generert, må den legges til i både /studio og /app.
 
+## Internationalization (i18n)
+
+Applikasjonen støtter flere språk gjennom en i18n-implementasjon basert på [svelte-i18n](https://github.com/kaisermann/svelte-i18n) biblioteket.
+
+### Støttede språk
+
+- Norsk bokmål (nb) - standard språk
+- Engelsk (en)
+
+### Implementasjon
+
+Oversettelser er lagret i JSON-filer under `app/src/lib/i18n/locales/`:
+- `nb.json` - Norsk bokmål
+- `en.json` - Engelsk
+
+Oversettelsene er organisert i kategorier som "common", "errors", "success", etc., med nøstede nøkler for ulike tekststrenger.
+
+### Språkpreferanser
+
+Språkpreferanser bestemmes i følgende rekkefølge:
+
+1. **Klientsiden (nettleser):**
+   - Først sjekkes `localStorage` for en lagret språkpreferanse
+   - Hvis ingen preferanse er lagret, brukes nettleserens språk (hvis det er et av de støttede språkene)
+   - Hvis nettleserens språk ikke støttes, brukes norsk bokmål som standard
+
+2. **Serversiden:**
+   - Språkpreferanser hentes fra cookies (`preferredLanguage`)
+   - Hvis ingen cookie er satt, brukes norsk bokmål som standard
+
+### Bruk av oversettelser
+
+For å bruke oversettelser i koden:
+
+- **I Svelte-komponenter:** Bruk `$_('nøkkel')` for reaktive oversettelser
+- **I server-side kode:** Bruk `getTranslation('nøkkel', språkkode)` for ikke-reaktive oversettelser
+
+### Eksempel
+
+```svelte
+<script>
+  import { _ } from '$lib/i18n';
+</script>
+
+<h1>{$_('common.hello')}</h1>
+```
+
 ## Testing
 
 Vi bruker Playwright for e2e-testing i Sveltekit-appen. Disse ligger under app/src/lib/e2e.

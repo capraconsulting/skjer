@@ -2,8 +2,9 @@ import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "
 import { composeEmail, sendEmail } from "../nodemailer";
 import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import type { BlockContent } from "$models/sanity.model";
+import { getTranslation } from "$lib/i18n";
 
-interface EmailDeclinedProps {
+export interface EmailDeclinedProps {
   id: string;
   to: string;
   summary: string;
@@ -14,9 +15,16 @@ interface EmailDeclinedProps {
   organiser: string;
   subject: string;
   message: BlockContent;
+  language?: string; // Optional language parameter, defaults to 'nb'
 }
 
-export const sendEmailDeclined = async (props: EmailDeclinedProps) => {
+// Define the return type for the email function
+interface EmailResult {
+  error?: unknown;
+  success?: boolean;
+}
+
+export const sendEmailDeclined = async (props: EmailDeclinedProps): Promise<EmailResult> => {
   const icsFile = createIcsFile(props);
 
   const emailTemplate = composeEmail({
@@ -25,8 +33,7 @@ export const sendEmailDeclined = async (props: EmailDeclinedProps) => {
     icsFile,
   });
 
-  const result = await sendEmail(emailTemplate);
-  return result;
+  return await sendEmail(emailTemplate);
 };
 
 const createIcsFile = ({
@@ -38,14 +45,21 @@ const createIcsFile = ({
   end,
   location,
   organiser,
-}: EmailDeclinedProps) => {
+  language = "nb", // Default to Norwegian if not specified
+}: EmailDeclinedProps): Buffer => {
   const url = `${PUBLIC_APP_BASE_URL}/event/${id}`;
-  const calendar = ical({ name: organiser, method: ICalCalendarMethod.REQUEST });
+  const calendar = ical({
+    name: organiser === "Alle" ? "Capra Gruppen" : organiser,
+    method: ICalCalendarMethod.REQUEST,
+  });
+
+  // Get the translation using the reusable function with the specified language
+  const registerOrUnregister = getTranslation("email.registerOrUnregister", language);
 
   calendar.createEvent({
     id,
     summary,
-    description: `${description}\n\nMeld deg på eller av arrangementet: ${url}`,
+    description: `${description}\n\n${registerOrUnregister} ${url}`,
     location,
     start,
     end,

@@ -9,7 +9,12 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/**",
+    ".vercel/output/functions/fn.func/node_modules/**"
+  ]
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
   //
   // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
