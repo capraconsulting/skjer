@@ -94,14 +94,6 @@
     "academic": "Fag",
     "social": "Sosialt"
   },
-  "slack": {
-    "registration": "Påmelding",
-    "registerHere": "Meld deg på her",
-    "category": "Kategori",
-    "when": "Når",
-    "where": "Hvor",
-    "image": "Bilde"
-  },
   "registration": {
     "foodPreferences": "Matpreferanser og allergier",
     "enterFoodPreferences": "Skriv dine matpreferanser og allergier",

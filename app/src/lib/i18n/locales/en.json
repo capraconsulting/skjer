@@ -94,14 +94,6 @@
     "academic": "Academic",
     "social": "Social"
   },
-  "slack": {
-    "registration": "Registration",
-    "registerHere": "Register here",
-    "category": "Category",
-    "when": "When",
-    "where": "Where",
-    "image": "Image"
-  },
   "registration": {
     "foodPreferences": "Food preferences and allergies",
     "enterFoodPreferences": "Enter your food preferences and allergies",
