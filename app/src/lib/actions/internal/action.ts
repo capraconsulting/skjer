@@ -22,6 +22,7 @@ import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { zod } from "sveltekit-superforms/adapters";
 import { message, superValidate } from "sveltekit-superforms/server";
 import validator from "validator";
+import { toLocalIsoString } from "$lib/utils/date.util";
 
 /**
  ** IP: Allows 40 requests per hour from the same IP address.
@@ -178,8 +179,8 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
@@ -294,8 +295,8 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     to: email,
     summary: eventContent.title,
     description: eventContent.summary,
-    start: eventContent.start,
-    end: eventContent.end,
+    start: toLocalIsoString(eventContent.start),
+    end: toLocalIsoString(eventContent.end),
     location: eventContent.place,
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.unregistrationSubject,
