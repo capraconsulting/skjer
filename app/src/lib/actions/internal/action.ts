@@ -36,7 +36,6 @@ const limiter = new RateLimiter({
 export const submitRegistrationInternal: Actions["submitRegistrationInternal"] = async (
   requestEvent
 ) => {
-  // Extract the preferred language from request headers using the utility function
   const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,
@@ -187,7 +186,7 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
-    language: preferredLanguage, // Add the language to the email payload for proper translation
+    language: preferredLanguage
   };
 
   const { error: emailError } = await sendEmailAccepted(emailPayload);
@@ -201,7 +200,6 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     });
   }
 
-  // Replace {email} placeholder with actual email
   const successMessage = getTranslation("success.registrationComplete", preferredLanguage).replace("{email}", email);
 
   return message(registrationForm, {
@@ -213,7 +211,6 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
 export const submitUnregistrationInternal: Actions["submitUnregistrationInternal"] = async (
   requestEvent
 ) => {
-  // Extract the preferred language from request headers using the utility function
   const preferredLanguage = getPreferredLanguageFromRequest(requestEvent.request);
   const {
     request,

@@ -21,7 +21,6 @@ interface LoadReturn {
 const rateLimitMap: Map<string, number> = new Map();
 
 export const load: PageServerLoad<LoadReturn> = async ({ params: { token }, request }) => {
-  // Extract the preferred language from request headers using the utility function
   const preferredLanguage = getPreferredLanguageFromRequest(request);
   const now = Date.now();
   const lastAccess = rateLimitMap.get(token);
@@ -86,7 +85,6 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token }, requ
     message: eventContent.emailTemplate.unregistrationMessage,
   };
 
-  // Add the language to the email payload for proper translation in the email
   const { error: emailError } = await sendEmailDeclined(emailPayload);
 
   if (emailError) {

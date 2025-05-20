@@ -35,7 +35,6 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     params: { id },
   } = requestEvent;
 
-  // Extract the preferred language from request headers
   const preferredLanguage = getPreferredLanguageFromRequest(request);
 
   const registrationForm = await superValidate(request, zod(registrationSchemaExternal));
@@ -168,7 +167,7 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
     organiser: eventContent.organisers,
     subject: eventContent.emailTemplate.registrationSubject,
     message: eventContent.emailTemplate.registrationMessage,
-    language: preferredLanguage, // Add the language to the email payload for proper translation
+    language: preferredLanguage
   };
 
   const { error: emailError } = await sendEmailAccepted(emailPayload);
@@ -199,7 +198,6 @@ export const submitUnregistrationExternal: Actions["submitUnregistrationExternal
     params: { id },
   } = requestEvent;
 
-  // Extract the preferred language from request headers
   const preferredLanguage = getPreferredLanguageFromRequest(request);
 
   const unregistrationForm = await superValidate(request, zod(unregistrationSchemaExternal));

@@ -46,13 +46,12 @@ export function initI18n() {
  * Helper function to get translations
  * @param key The translation key
  * @param lang Optional language code to force a specific language. This is used in server-side contexts
- * where we need to generate content in the user's preferred language (determined from request headers)
+ * where we need to generate content in the user's preferred language (determined from cookies)
  * regardless of the application's current locale setting. Particularly useful for emails and API responses.
  *
- * For example, in internal/action.ts, the server extracts the user's preferred language from the
- * 'accept-language' HTTP header (requestEvent.request.headers.get('accept-language')) and passes
- * it to this function to ensure all messages and emails are in the user's preferred language.
- * This is only possible in a server-side context where HTTP request headers are accessible.
+ * For example, in server-side code, the application extracts the user's preferred language from the
+ * preferredLanguage cookie and passes it to this function to ensure all messages and emails
+ * are in the user's preferred language.
  * @returns The translated string
  */
 export function getTranslation(key: string, lang?: string): string {
@@ -72,8 +71,8 @@ export function getTranslation(key: string, lang?: string): string {
 }
 
 /**
- * Extracts the preferred language from request
- * @param request The request object containing headers and cookies
+ * Extracts the preferred language from request cookies
+ * @param request The request object containing cookies
  * @returns The preferred language code ('en' or 'nb')
  */
 export function getPreferredLanguageFromRequest(request: Request): string {
