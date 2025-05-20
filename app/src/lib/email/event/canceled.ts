@@ -2,7 +2,6 @@ import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 import { composeEmail, sendEmail } from "$lib/email/nodemailer";
 import ical, { ICalAttendeeRole, ICalAttendeeStatus, ICalCalendarMethod } from "ical-generator";
 import type { EventCanceledProps } from "../../../routes/api/send-event-canceled/+server";
-import { _ } from "$lib/i18n";
 
 interface EmailCanceledProps extends EventCanceledProps {
   to: string;
@@ -10,7 +9,7 @@ interface EmailCanceledProps extends EventCanceledProps {
 
 // Define the return type for the email function
 interface EmailResult {
-  error?: any;
+  error?: unknown;
   success?: boolean;
 }
 
