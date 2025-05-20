@@ -3,7 +3,7 @@
   import type { Event } from "$models/sanity.model";
   import { urlFor } from "$lib/sanity/image";
   import { PortableText } from "@portabletext/svelte";
-  import { translateCategory } from "$lib/utils/category.util";
+  import { createCategoryTranslation } from "$lib/utils/category.util";
   import { _ } from "$lib/i18n";
   import EventInfoBox from "$components/shared/EventInfoBox.svelte";
   import Link from "$components/shared/Link.svelte";
@@ -24,6 +24,9 @@
   let imageElement: HTMLImageElement | null;
   let imageLoaded = false;
 
+  // Create a reactive store for the category translation
+  $: categoryTranslation = createCategoryTranslation(event.category);
+
   onMount(() => {
     if (imageElement?.naturalHeight) {
       imageLoaded = true;
@@ -32,9 +35,9 @@
 </script>
 
 {#if event.category}
-  <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800"
-    >{translateCategory(event.category)}</Badge
-  >
+  <Badge rounded class="mb-4 h-6 border border-black bg-transparent dark:bg-zinc-800">
+    {$categoryTranslation}
+  </Badge>
 {/if}
 
 <h1 class="break-words pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>

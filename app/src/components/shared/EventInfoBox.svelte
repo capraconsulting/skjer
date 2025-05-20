@@ -1,6 +1,6 @@
 <script lang="ts">
   import { dateHasPassed, endsOnDifferentDay, formatDate, formatTime } from "$lib/utils/date.util";
-  import { translateCategory } from "$lib/utils/category.util";
+  import { createCategoryTranslation } from "$lib/utils/category.util";
   import type { Event } from "$models/sanity.model";
   import { _ } from "$lib/i18n";
   import {
@@ -16,6 +16,9 @@
 
   export let event: Event;
   export let numberOfParticipants: number;
+
+  // Create a reactive store for the category translation
+  $: categoryTranslation = createCategoryTranslation(event.category);
 
   $: availableSpotsMessage = (() => {
     if (typeof event.maxParticipant !== 'number') return '';
@@ -38,7 +41,7 @@
   {#if event.category}
     <div class="flex items-center">
       <Lightbulb class="mr-2 flex-none" />
-      <span>{translateCategory(event.category)}</span>
+      <span>{$categoryTranslation}</span>
     </div>
   {/if}
 
@@ -90,6 +93,6 @@
 
   <div class="flex items-center">
     <Tag class="mr-2 flex-none" />
-    <span>{event.openForExternals ? $_('common.openForAll') : $_('common.onlyForInternal')}</span>
+    <span>{event.openForExternals ? $_('filter.forAll') : $_('filter.internalOnly')}</span>
   </div>
 </div>

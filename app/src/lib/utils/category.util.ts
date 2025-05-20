@@ -1,23 +1,30 @@
-import { getTranslation } from "$lib/i18n";
+import { _ } from "$lib/i18n";
 import type { Category } from "$models/sanity.model";
+import { derived } from "svelte/store";
 
 /**
- * Translates a category value from the Sanity model to the user's language
+ * Creates a reactive store that translates a category value
+ * This should be used in Svelte components with the $ prefix
  * @param category The category value from the Sanity model
- * @returns The translated category value
+ * @returns A derived store with the translated category value
  */
-export function translateCategory(category: Category | undefined): string {
-  if (!category) return "";
+export function createCategoryTranslation(category: Category | undefined) {
+  return derived(_, ($_, set) => {
+    if (!category) {
+      set("");
+      return;
+    }
 
-  // Map Sanity category values to translation keys
-  const categoryMap: Record<Category, string> = {
-    "Sosialt": "filter.social",
-    "Fag": "filter.academic"
-  };
+    // Get the translation key for this category
+    let translationKey = "filter.social";
+    if (category.includes("Sosialt")) {
+      translationKey = "filter.social";
+    } else if (category.includes("Fag")) {
+      translationKey = "filter.academic";
+    }
 
-  // Get the translation key for this category
-  const translationKey = categoryMap[category];
-
-  // If we have a translation key, use it; otherwise, return the original value
-  return translationKey ? getTranslation(translationKey) : category;
+    // If we have a translation key, use it with $_() similar to EventFilter.svelte
+    // Otherwise, return the original category value
+    set(translationKey ? $_(translationKey) : category);
+  });
 }

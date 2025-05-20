@@ -1,6 +1,6 @@
 <script lang="ts">
   import { formatDate, formatTime } from "$lib/utils/date.util";
-  import { translateCategory } from "$lib/utils/category.util";
+  import { createCategoryTranslation } from "$lib/utils/category.util";
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
   import { isToday } from "date-fns";
@@ -11,6 +11,9 @@
   $: startDate = startDateIsToday
     ? `${$_('common.today')} ${$_('common.clock')} ${formatTime(event.start)}`
     : formatDate(event.start);
+
+  // Create a reactive store for the category translation
+  $: categoryTranslation = createCategoryTranslation(event.category);
 </script>
 
 <div class="flex flex-row flex-wrap content-center gap-2">
@@ -18,14 +21,14 @@
     <Badge
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      {$_('common.forAll')}
+      {$_('filter.forAll')}
     </Badge>
   {:else}
     <Badge
       rounded
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      {$_('common.internalOnly')}
+      {$_('filter.internalOnly')}
     </Badge>
   {/if}
   {#if event.category}
@@ -33,7 +36,7 @@
       rounded
       class="h-6 whitespace-nowrap rounded-lg border border-gray-300 bg-transparent dark:bg-zinc-800"
     >
-      {translateCategory(event.category)}
+      {$categoryTranslation}
     </Badge>
   {/if}
   <Badge
