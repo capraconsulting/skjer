@@ -187,18 +187,16 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     message: eventContent.emailTemplate.registrationMessage,
   };
 
-  //if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailAccepted(emailPayload);
+  const { error: emailError } = await sendEmailAccepted(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return message(registrationForm, {
-        text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
-        warning: true,
-      });
-    }
-  //}
+    return message(registrationForm, {
+      text: "Det har oppstått en feil. Du har blitt påmeldt arrangement, men e-post bekreftelse er ikke sendt.",
+      warning: true,
+    });
+  }
 
   return message(registrationForm, {
     text: `Du har meldt deg på arrangementet! Du får en bekreftelse på ${email} hvert øyeblikk. Vi gleder oss til å se deg!`,
@@ -305,18 +303,16 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     message: eventContent.emailTemplate.unregistrationMessage,
   };
 
- // if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailDeclined(emailPayload);
+  const { error: emailError } = await sendEmailDeclined(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return message(unregistrationForm, {
-        text: "Du er nå meldt av arrangementet 👋 Vi kunne dessverre ikke sende en e-post bekreftelse.",
-        warning: true,
-      });
-    }
-  // }
+    return message(unregistrationForm, {
+      text: "Du er nå meldt av arrangementet 👋 Vi kunne dessverre ikke sende en e-post bekreftelse.",
+      warning: true,
+    });
+  }
 
   return message(unregistrationForm, {
     text: "Du er nå meldt av arrangementet 👋 Vi har sendt deg en bekreftelse på e-post.",
