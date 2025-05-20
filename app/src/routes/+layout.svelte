@@ -30,6 +30,9 @@
   <Header {auth} />
 
   <div class="mx-auto min-h-[90vh] p-4 sm:max-w-[1200px] sm:px-12">
+    <div data-testid="loading-indicator" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75 dark:bg-black dark:bg-opacity-75" style="display: none;">
+      <div class="h-12 w-12 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
+    </div>
     <main class="mb-16 mt-8">
       <slot />
     </main>

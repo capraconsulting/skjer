@@ -16,6 +16,7 @@
     method="POST"
     action="?/submitUnregistrationExternal"
     use:enhance
+    data-testid="unregistration-form"
   >
     <input type="text" name="subject" id="subject" class="hidden" />
 
@@ -30,8 +31,9 @@
         placeholder="Skriv inn din e-post her"
         name="email"
         bind:value={$form.email}
+        data-testid="email-input"
       />
-      <Button pill color="dark" type="submit" disabled={$delayed} class="w-max whitespace-nowrap">
+      <Button pill color="dark" type="submit" disabled={$delayed} class="w-max whitespace-nowrap" data-testid="confirm-button">
         <span class="ml-2">Meld meg av</span>
         <span class="w-2">
           {#if $delayed}
@@ -42,7 +44,7 @@
     </div>
 
     {#if $errors.email}
-      <p class="text-xs text-red-600">Fyll inn gyldig e-post.</p>
+      <p class="text-xs text-red-600 error-message" data-testid="error-message">Fyll inn gyldig e-post.</p>
     {/if}
   </form>
 {/if}

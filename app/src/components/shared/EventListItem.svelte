@@ -15,7 +15,7 @@
   {target}
 >
   <div class="flex flex-col gap-4 font-light lg:flex-row">
-    <h2 class="max-w-[375px] truncate whitespace-pre-wrap text-xl font-light">
+    <h2 class="max-w-[375px] truncate whitespace-pre-wrap text-xl font-light" data-testid="event-title">
       {event.title}
     </h2>
     <EventBadges {event} />

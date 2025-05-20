@@ -35,11 +35,9 @@
   >
 {/if}
 
-<h1 class="break-words pb-6 text-3xl font-semibold sm:text-5xl">{event.title}</h1>
+<h1 class="break-words pb-6 text-3xl font-semibold sm:text-5xl" data-testid="event-title">{event.title}</h1>
 
-{#if event.summary}
-  <p class="break-words pb-6 text-base font-light sm:w-[60%] sm:text-xl">{event.summary}</p>
-{/if}
+<p class="event-description break-words pb-6 text-base font-light sm:w-[60%] sm:text-xl" data-testid="event-description">{event.summary || ''}</p>
 
 <div class="flex min-h-[60px] flex-col gap-5 pb-6 sm:flex-row">
   <div class="w-full sm:min-h-60 sm:w-[40%]">

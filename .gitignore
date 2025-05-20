@@ -1,3 +1,5 @@
 node_modules
 .DS_Store
 /.idea
+/app/playwright.config.js
+/app/src/lib/e2e/test-results/

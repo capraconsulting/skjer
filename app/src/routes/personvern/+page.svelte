@@ -1,5 +1,7 @@
 <svelte:head>
   <title>Personvernerklæring | Capra Liflig Fryde</title>
+  <meta name="description" content="Personvernerklæring for Capra, Liflig og Fryde. Her finner du informasjon om hvordan vi behandler personopplysninger, dine rettigheter og hvordan du kan kontakte oss." />
+  <link rel="canonical" href="https://skjer.capraconsulting.no/personvern" />
 </svelte:head>
 
 <section class="text-lg font-light sm:w-[80%]">

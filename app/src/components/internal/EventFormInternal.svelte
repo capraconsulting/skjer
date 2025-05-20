@@ -77,12 +77,12 @@
     {/if}
   </div>
   {#if $unregistrationMessage?.text}
-    <Alert color={getAlertColor($unregistrationMessage)}>
+    <Alert color={getAlertColor($unregistrationMessage)} data-testid={$unregistrationMessage.type === 'success' ? 'success-message' : 'error-message'}>
       {$unregistrationMessage.text}
     </Alert>
   {/if}
   {#if $registrationMessage?.text}
-    <Alert color={getAlertColor($registrationMessage)}>
+    <Alert color={getAlertColor($registrationMessage)} data-testid={$registrationMessage.type === 'success' ? 'success-message' : 'error-message'}>
       {$registrationMessage.text}
     </Alert>
   {/if}

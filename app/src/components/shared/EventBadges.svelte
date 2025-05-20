@@ -39,6 +39,7 @@
         ? "border-transparent bg-zinc-800 text-white dark:bg-white dark:text-black"
         : "border-gray-300 bg-transparent dark:bg-zinc-800"
     }`}
+    data-testid="event-date"
   >
     {startDate}
   </Badge>

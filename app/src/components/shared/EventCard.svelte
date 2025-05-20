@@ -24,7 +24,7 @@
 
     <div class="my-3 grid h-full grid-cols-1 content-between gap-2 sm:my-5">
       <div class="flex flex-col gap-2 break-words">
-        <h2 class="line-clamp-2 text-xl font-semibold">
+        <h2 class="line-clamp-2 text-xl font-semibold" data-testid="event-title">
           {event.title}
         </h2>
       </div>
