@@ -2,8 +2,7 @@ import {
   SMTP_AUTH_KEY,
   SMTP_AUTH_USER,
   SMTP_HOST,
-  ENABLE_EMAIL_SENDING_IN_DEV,
-  NODE_ENV,
+  ENABLE_EMAIL_SENDING,
 } from "$env/static/private";
 import type { BlockContent } from "$models/sanity.model";
 import { toHTML } from "@portabletext/to-html";
@@ -21,15 +20,8 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendEmail = async (mailParams: Mail.Options) => {
-  if (NODE_ENV === "development" && ENABLE_EMAIL_SENDING_IN_DEV === "false") {
-    console.warn(
-      "Email sending is disabled. Email NOT sent to:",
-      mailParams.to,
-      ". Check environment variables NODE_ENV: ",
-      NODE_ENV,
-      " and ENABLE_EMAIL_SENDING_IN_DEV: ",
-      ENABLE_EMAIL_SENDING_IN_DEV
-    );
+  if (ENABLE_EMAIL_SENDING === "false") {
+    console.warn("Email sending is disabled. Email NOT sent to:", mailParams.to);
     return { error: false };
   }
 
