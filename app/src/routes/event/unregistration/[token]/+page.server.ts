@@ -87,19 +87,15 @@ export const load: PageServerLoad<LoadReturn> = async ({ params: { token }, requ
   };
 
   // Add the language to the email payload for proper translation in the email
-  emailPayload.language = preferredLanguage;
-
-  if (process.env.NODE_ENV !== "development") {
   const { error: emailError } = await sendEmailDeclined(emailPayload);
 
   if (emailError) {
     console.error("Error: Failed to send email");
 
     return {
-      warning: true,
       message: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
+      warning: true,
     };
-  }
   }
 
   return {

@@ -190,17 +190,15 @@ export const submitRegistrationInternal: Actions["submitRegistrationInternal"] =
     language: preferredLanguage, // Add the language to the email payload for proper translation
   };
 
-  if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailAccepted(emailPayload);
+  const { error: emailError } = await sendEmailAccepted(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return message(registrationForm, {
-        text: getTranslation("errors.emailNotSent", preferredLanguage),
-        warning: true,
-      });
-    }
+    return message(registrationForm, {
+      text: getTranslation("errors.emailNotSent", preferredLanguage),
+      warning: true,
+    });
   }
 
   // Replace {email} placeholder with actual email
@@ -314,17 +312,15 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     language: preferredLanguage, // Pass the preferred language to the email function
   };
 
-  if (process.env.NODE_ENV !== "development") {
-    const { error: emailError } = await sendEmailDeclined(emailPayload);
+  const { error: emailError } = await sendEmailDeclined(emailPayload);
 
-    if (emailError) {
-      console.error("Error: Failed to send email");
+  if (emailError) {
+    console.error("Error: Failed to send email");
 
-      return message(unregistrationForm, {
-        text: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
-        warning: true,
-      });
-    }
+    return message(unregistrationForm, {
+      text: getTranslation("errors.unregistrationEmailNotSent", preferredLanguage),
+      warning: true,
+    });
   }
 
   return message(unregistrationForm, {
