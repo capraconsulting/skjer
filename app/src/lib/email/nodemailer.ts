@@ -1,4 +1,9 @@
-import { SMTP_AUTH_KEY, SMTP_AUTH_USER, SMTP_HOST } from "$env/static/private";
+import {
+  SMTP_AUTH_KEY,
+  SMTP_AUTH_USER,
+  SMTP_HOST,
+  ENABLE_EMAIL_SENDING,
+} from "$env/static/private";
 import type { BlockContent } from "$models/sanity.model";
 import { toHTML } from "@portabletext/to-html";
 import nodemailer from "nodemailer";
@@ -15,6 +20,11 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendEmail = async (mailParams: Mail.Options) => {
+  if (ENABLE_EMAIL_SENDING === "false") {
+    console.warn("Email sending is disabled. Email NOT sent to:", mailParams.to);
+    return { error: false };
+  }
+
   try {
     await transporter.sendMail(mailParams);
     return { error: false };
