@@ -25,11 +25,6 @@
   export let data: PageData;
 
   $: event = data.options.initial.data;
-  $: {
-    console.log('Event data:', event);
-    console.log('Title raw:', event?.title);
-    console.log('Summary raw:', event?.summary);
-  }
   $: title = event?.title || 'Ikke funnet | Capra Liflig Fryde';
   $: description = event?.summary || '';
 </script>
