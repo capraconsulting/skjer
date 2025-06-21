@@ -5,6 +5,7 @@
   import EventSummary from "$components/shared/EventSummary.svelte";
   import { ArrowLeft } from "phosphor-svelte";
   import { urlFor } from "$lib/sanity/image";
+  import { sanitize } from "$lib/utils/sanitize.util";
   import type { Event } from "$models/sanity.model";
 
   export let data;
@@ -15,8 +16,8 @@
 
   $: ({ data: event } = $result);
 
-  $: title = event?.title || "Ikke funnet | Capra Liflig Fryde";
-  $: description = event?.summary || "";
+  $: title = sanitize(event?.title) || "Ikke funnet | Capra Liflig Fryde";
+  $: description = sanitize(event?.summary) || "";
   $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
 </script>
 
@@ -31,7 +32,7 @@
     {#if imageUrl}
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:secure_url" content={imageUrl} />
-      <meta property="og:image:alt" content={event.title} />
+      <meta property="og:image:alt" content={title} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 

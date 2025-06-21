@@ -24,13 +24,12 @@ import {
   submitUnregistrationExternal,
 } from "$lib/actions/external/action";
 import { eventQuery as query } from "$lib/server/sanity/queries";
-import { sanityClientWithoutStega } from "$lib/server/sanity/client";
 
 export const load: PageServerLoad = async ({ params: { id }, locals }) => {
   const params = { id };
   const auth = await locals.auth();
 
-  const initial = { data: await sanityClientWithoutStega.fetch<Event>(query, params) };
+  const initial = await locals.loadQuery<Event>(query, params);
   const numberOfParticipants = await getNumberOfParticipants({ document_id: id });
 
   if (auth?.user?.name && auth.user.email) {
