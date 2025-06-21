@@ -17,6 +17,7 @@
 
   $: title = event?.title || "Ikke funnet | Capra Liflig Fryde";
   $: description = event?.summary || "";
+  $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
 </script>
 
 <svelte:head>
@@ -24,31 +25,21 @@
   {#if event}
     <meta name="description" content={description} />
 
-    <!-- OpenGraph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="article" />
-    {#if event.image?.asset?._ref}
-      {@const imageUrl = urlFor(event.image.asset._ref).url()}
-      {#if imageUrl}
-        <meta property="og:image" content={imageUrl} />
-        <meta property="og:image:secure_url" content={imageUrl} />
-        <meta property="og:image:alt" content={event.title} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-      {/if}
+    {#if imageUrl}
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:secure_url" content={imageUrl} />
+      <meta property="og:image:alt" content={event.title} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
-      <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@capraconsulting" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {#if event.image?.asset?._ref}
-        {@const imageUrl = urlFor(event.image.asset._ref).url()}
-        {#if imageUrl}
-          <meta name="twitter:image" content={imageUrl} />
-        {/if}
-      {/if}
+      <meta name="twitter:image" content={imageUrl} />
     {/if}
   {/if}
 </svelte:head>
