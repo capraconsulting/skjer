@@ -7,14 +7,11 @@ import {
 } from "$lib/server/sanity/queries";
 import { getParticipantAttendingEvents } from "$lib/server/supabase/queries";
 import type { EventWithAttending } from "$models/databaseView.model";
-import type { EventFilter, FilterData } from "$lib/types/filter";
-
-
+import type { EventFilter, FilterData } from "$lib/types/filters.type";
 
 /*
 We define the list of filters and their display info here, and it will be sent to frontend.
 */
-
 const deltakerTypeFilterList: EventFilter[] = [{ title: "Kun interne", keyword: "kun-interne" }, { title: "Åpent for alle", keyword: "for-alle" }];
 const eventKategoriFilterList: EventFilter[] = [{ title: "Fag", keyword: "fag"}, { title: "Sosialt", keyword: 'sosialt'}];
 
@@ -22,7 +19,6 @@ type AvailableFilterData = {
   participantFilters: FilterData,
   eventCategoryFilters: FilterData
 }
-
 
 // Sent to frontend to ensure consistency on url search params
 const filterGroups: AvailableFilterData = {
@@ -35,7 +31,6 @@ const filterGroups: AvailableFilterData = {
     list: eventKategoriFilterList,
   }
 };
-
 
 export const load: PageServerLoad = async ({ locals }) => {
   const auth = await locals.auth();

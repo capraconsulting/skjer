@@ -7,13 +7,17 @@
   import { page } from '$app/stores';
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
-  import { VALID_FILTERS, type FilterType } from "$lib/types/filter.js";
+  import { applyFilters } from '$lib/utils/filters'
+  import { VALID_FILTERS, type ActiveFilterFromURL } from "$lib/types/filters.type";
 
   /*
   This effectively renders the event list on the landing page of Skjer.
 
+  All filtering logic is contained here on the front end.
+
   Data is fetched from backend, naturally, but so is a whole bunch of information about valid filters, their groups, and their URL Search Param name.
     - See lib/types/filter.ts for type definitions, and constants that are used in the filtering process.
+    - lib/filters.ts contains helper functions for the filtering logic
 
   HOW FILTERS WORK
   
@@ -21,9 +25,7 @@
   - We have filters, and we have filter groups, which filters belong to.
   - A filter group is a self-contained group of filter toggles that are mutually exclusive. If you toggle one of the filters in a group, the others in that group are toggled off.
     - Toggling on or off filters in one group will not affect those in other groups
-
-  
-  - In the EventFilter component, these filter groups are arranged into two separate ButtonGroups.
+  - In the EventFilter component, these filter groups are arranged into separate ButtonGroups.
   - Each filter is therefore rendered as a Button
   - Each click of a button (filter) will directly edit the URL search params client side, and then call goto(new url).
   - This page (containing the list of events) will conditionally render the list of events, based on these URL search parameters.
@@ -32,7 +34,7 @@
 
   export let data;
 
-  let { futureEvents, pastEvents } = data;
+  let { pastEvents } = data;
 
   // Shorthands for further down the line
   const participantFilterUrlParamName = data.filterGroups.participantFilters.name;
@@ -40,14 +42,6 @@
 
   let amountOfVisibleFutureEvents = 6;
   let amountOfVisiblePastEvents = 6;
-
-
-  // This ensures type safety in activeFilters, and consistency in naming of url search params across client and server.
-  // We cannot however guarantee that the values are set to a valid FilterKey (urls in browser can be edited directly of course), so we assume a string and work our way in from there.
-  // See removeInvalidSearchParamsAndRedirect() which continously ensures that the FilterKeys we end up with, are valid
-  type ActiveFilterFromURL = {
-    [k in FilterType]: string;
-  }
 
   let activeFilters: ActiveFilterFromURL;
 
@@ -57,42 +51,16 @@
   };
 
 
-  $: filteredFutureEvents = futureEvents.filter(({ category, openForExternals }) => {
-
-    // NOTE: Due to a lack of exhaustive matching support, please add to this list whenever new filters are added. Typescript will not tell you if you aren't handling a specific filter.
-    // Naturally, each filter group would be its own else if clause.
-    return Object.entries(activeFilters).every(([filterKey, filterValue]) => {
-      if (filterKey === participantFilterUrlParamName) {
-        switch (filterValue) {
-          case 'kun-interne':
-            return !openForExternals
-          case "for-alle":
-            return openForExternals
-        }
-      } else if (filterKey === eventCategoryFilterUrlParamName) {
-        switch (filterValue) {
-          case 'fag':
-            return category?.toLowerCase() === 'fag'
-          case 'sosialt':
-            return category?.toLowerCase() === 'sosialt'
-        }
-      }
-      return true
-       
-    })
-
-  });
+  $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters)
 
   // See below
-  $: removeInvalidSearchParamsAndRedirect();
+  $: removeInvalidSearchParamsAndNavigateIfNeeded();
 
   /**
-  This function ensures that URL search parameters are valid. It does so by iterating through all valid filters, and then checking to see if the value attached to that URL search parameter is valid.
-  If it is not, it removes that parameter directly from the URL, and redirects to the new (remaining) URL.
-  
-  We are doing this the hard way here in frontend, because redirect(30x, 'new url') server-side does not seem to work.
+  This function ensures that URL search parameters are valid. It does so by iterating through all valid filters, getting the current URL parameter value of that filter, and then checking to see if that value exists, and is valid.
+  If it is not, it removes that parameter directly from the URL, and navigates to the new (remaining) URL.
   **/
-  const removeInvalidSearchParamsAndRedirect = () => {
+  const removeInvalidSearchParamsAndNavigateIfNeeded = () => {
 
     if(browser) {
       let hasInvalidFilter = false;
