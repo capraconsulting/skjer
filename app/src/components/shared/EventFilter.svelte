@@ -26,7 +26,7 @@
 
 </script>
 
-<header>
+<header class="space-y-4">
   <ButtonGroup class="flex-row flex-wrap gap-2 shadow-none md:justify-end md:self-end">
     {#each deltakerFilter.list as { title, keyword }}
       <Button
