@@ -102,7 +102,7 @@
     <EventFilter {activeFilters} deltakerFilter={data.filterGroups.participantFilters} kategoriFilter={data.filterGroups.eventCategoryFilters} />
   </div>
 
-  <div class="flex flex-col gap-4 pb-5">
+  <ol class="flex flex-col gap-4 pb-5" role="list">
     {#if filteredFutureEvents.length}
       {#each filteredFutureEvents.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
@@ -118,7 +118,7 @@
     {:else}
       <div class="text-xl font-light">Fant ingen kommende arrangementer i denne kategorien 😭</div>
     {/if}
-  </div>
+  </ol>
 </section>
 
 <section class="pb-8">
