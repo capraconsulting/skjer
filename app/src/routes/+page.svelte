@@ -7,7 +7,7 @@
   import { page } from '$app/stores';
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
-  import { applyFilters } from '$lib/utils/filters'
+  import { applyFilters } from '$lib/utils/filters';
   import { VALID_FILTERS, type ActiveFilterFromURL } from "$lib/types/filters.type";
 
   /*
@@ -20,9 +20,9 @@
     - lib/filters.ts contains helper functions for the filtering logic
 
   HOW FILTERS WORK
-  
+
   - All filter state is to be found in the URL, more specifically in the URL search params. When these change, so does the filtering of the list.
-  - We have filters, and we have filter groups, which filters belong to.
+  - For frontend logic we have filters, and we have filter groups, which filters belong to.
   - A filter group is a self-contained group of filter toggles that are mutually exclusive. If you toggle one of the filters in a group, the others in that group are toggled off.
     - Toggling on or off filters in one group will not affect those in other groups
   - In the EventFilter component, these filter groups are arranged into separate ButtonGroups.
@@ -30,13 +30,16 @@
   - Each click of a button (filter) will directly edit the URL search params client side, and then call goto(new url).
   - This page (containing the list of events) will conditionally render the list of events, based on these URL search parameters.
   - It will also continuously sanitize (remove unwanted) URL search params, quite simply because a server-side version of that sanitization using redirects I could not get to work. The current solution works fine.
+
+  POTENTIAL DOWNSIDES
+  - Continuosly re-render on each filter change. Though Svelte normally does a good job with avoiding the worst, most inefficient re-renders. It works for now.
   */
 
   export let data;
 
   let { pastEvents } = data;
 
-  // Shorthands for further down the line
+  // Aliases
   const participantFilterUrlParamName = data.filterGroups.participantFilters.name;
   const eventCategoryFilterUrlParamName = data.filterGroups.eventCategoryFilters.name;
 
@@ -50,44 +53,45 @@
     eventKategori: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || '',
   };
 
+  $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters);
 
-  $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters)
-
-  // See below
-  $: removeInvalidSearchParamsAndNavigateIfNeeded();
+  // Run this function when search parameters change.
+  $: if ($page.url.searchParams) {
+      void (async () => await sanitizeSearchParamsAndNavigateIfNeeded())();
+  }
 
   /**
-  This function ensures that URL search parameters are valid. It does so by iterating through all valid filters, getting the current URL parameter value of that filter, and then checking to see if that value exists, and is valid.
+  This function ensures that URL search parameters - the selected filter categories - are valid. It does so by iterating through all valid filters, getting the current URL parameter value of that filter, and then checking to see if that value exists, and is valid.
   If it is not, it removes that parameter directly from the URL, and navigates to the new (remaining) URL.
   **/
-  const removeInvalidSearchParamsAndNavigateIfNeeded = () => {
+  const sanitizeSearchParamsAndNavigateIfNeeded = async () => {
 
     if(browser) {
       let hasInvalidFilter = false;
 
-      Object.entries(VALID_FILTERS).forEach(([filterType, validFilterKeys]) => {
-        const currentParam = $page.url.searchParams.get(filterType);
+      // Removes invalid search parameter values
+      Object.entries(VALID_FILTERS).forEach(([filterCategory, validFilterKeys]) => {
+        const currentParam = $page.url.searchParams.get(filterCategory);
         if(currentParam && !(validFilterKeys as readonly string[]).includes(currentParam)) {
-          $page.url.searchParams.delete(filterType);
+          $page.url.searchParams.delete(filterCategory);
           hasInvalidFilter = true;
         }
       });
 
-      // Removing invalid FilterTypes too, because why not
-      $page.url.searchParams.keys().forEach((supposedFilterType) => {
-        if(!Object.keys(VALID_FILTERS).includes(supposedFilterType)) {
-          $page.url.searchParams.delete(supposedFilterType);
+      // Removing invalid FilterCategory too, because why not
+      $page.url.searchParams.keys().forEach((supposedFilterCategory) => {
+        if(!Object.keys(VALID_FILTERS).includes(supposedFilterCategory)) {
+          $page.url.searchParams.delete(supposedFilterCategory);
           hasInvalidFilter = true;
         }
-      })
+      });
 
       if (hasInvalidFilter) {
-        goto($page.url, { replaceState: true } )
+        await goto($page.url, { replaceState: true } );
       }
-      
+
     }
-    
-  }
+  };
 </script>
 
 <svelte:head>
@@ -102,7 +106,7 @@
     <EventFilter {activeFilters} deltakerFilter={data.filterGroups.participantFilters} kategoriFilter={data.filterGroups.eventCategoryFilters} />
   </div>
 
-  <ol class="flex flex-col gap-4 pb-5" role="list">
+  <ol class="flex flex-col gap-6 pb-5" role="list">
     {#if filteredFutureEvents.length}
       {#each filteredFutureEvents.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
