@@ -108,7 +108,7 @@
     />
   </div>
 
-  <ol class="flex flex-col gap-6 pb-5" role="list">
+  <ul class="flex flex-col gap-6 pb-5">
     {#if filteredFutureEvents.length}
       {#each filteredFutureEvents.slice(0, amountOfVisibleFutureEvents) as event}
         <EventListItem {event} />
@@ -124,7 +124,7 @@
     {:else}
       <div class="text-xl font-light">Fant ingen kommende arrangementer i denne kategorien 😭</div>
     {/if}
-  </ol>
+  </ul>
 </section>
 
 <section class="pb-8">

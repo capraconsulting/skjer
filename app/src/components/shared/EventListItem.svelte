@@ -8,15 +8,14 @@
   export let target: string | null = null;
 </script>
 
-<li role="listitem">
-  
+<li>
   <a
-    class="flex flex-col justify-between gap-3 rounded-md border border-gray-200 px-3 py-4 hover:border-gray-800 hover:transition-[3s] md:flex-row
-    dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+    class="flex flex-col justify-between gap-3 rounded-md border border-gray-200 px-3 py-4 hover:border-gray-800 hover:transition-[3s] dark:border-zinc-800
+    dark:bg-zinc-800 dark:hover:bg-zinc-700 md:flex-row"
     href={`/event/${event._id}`}
     {target}
   >
-    <div class="flex flex-col gap-4 font-light lg:flex-row" >
+    <div class="flex flex-col gap-4 font-light lg:flex-row">
       <h2 class="max-w-[375px] truncate whitespace-pre-wrap text-xl font-light">
         {event.title}
       </h2>
@@ -27,5 +26,4 @@
       <ArrowRight class="mr-2" />
     </div>
   </a>
-
 </li>
