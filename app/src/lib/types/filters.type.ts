@@ -17,7 +17,7 @@ export type FilterKey = ParticipantFilterKey | EventCategoryFilterKey;
 export type ParticipantFilterKey = (typeof VALID_PARTICIPANT_FILTER_KEYS)[number];
 export type EventCategoryFilterKey = (typeof VALID_EVENT_CATEGORY_FILTER_KEYS)[number];
 
-export type EventFilter = { title: string; keyword: FilterKey };
+export type EventFilter = { displayName: string; filterKey: FilterKey };
 
 export type FilterData = { name: FilterCategory; list: EventFilter[] };
 

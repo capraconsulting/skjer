@@ -12,13 +12,19 @@ import type { EventFilter, FilterData } from "$lib/types/filters.type";
 /*
 We define the list of filters and their display info here, and it will be sent to frontend.
 */
-const deltakerTypeFilterList: EventFilter[] = [{ title: "Kun interne", keyword: "kun-interne" }, { title: "Åpent for alle", keyword: "for-alle" }];
-const eventKategoriFilterList: EventFilter[] = [{ title: "#Fag", keyword: "fag"}, { title: "#Sosialt", keyword: 'sosialt'}];
+const deltakerTypeFilterList: EventFilter[] = [
+  { displayName: "Kun interne", filterKey: "kun-interne" },
+  { displayName: "Åpent for alle", filterKey: "for-alle" },
+];
+const eventKategoriFilterList: EventFilter[] = [
+  { displayName: "#Fag", filterKey: "fag" },
+  { displayName: "#Sosialt", filterKey: "sosialt" },
+];
 
 type AvailableFilterData = {
-  participantFilters: FilterData,
-  eventCategoryFilters: FilterData
-}
+  participantFilters: FilterData;
+  eventCategoryFilters: FilterData;
+};
 
 // Sent to frontend to ensure consistency on url search params
 const filterGroups: AvailableFilterData = {
@@ -29,12 +35,12 @@ const filterGroups: AvailableFilterData = {
   eventCategoryFilters: {
     name: "eventKategori",
     list: eventKategoriFilterList,
-  }
+  },
 };
 
 export const load: PageServerLoad = async ({ locals }) => {
   const auth = await locals.auth();
-  
+
   if (auth?.user?.email) {
     const futureEventsContent = await getFutureEvents();
 

@@ -4,10 +4,10 @@
   import EventCard from "$components/shared/EventCard.svelte";
   import EventListItem from "$components/shared/EventListItem.svelte";
   import EventFilter from "$components/shared/EventFilter.svelte";
-  import { page } from '$app/stores';
+  import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
-  import { applyFilters } from '$lib/utils/filters';
+  import { applyFilters } from "$lib/utils/filters";
   import { VALID_FILTERS, type ActiveFilterFromURL } from "$lib/types/filters.type";
 
   /*
@@ -49,15 +49,15 @@
   let activeFilters: ActiveFilterFromURL;
 
   $: activeFilters = {
-    deltakerType: $page.url.searchParams.get(participantFilterUrlParamName) || '',
-    eventKategori: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || '',
+    deltakerType: $page.url.searchParams.get(participantFilterUrlParamName) || "",
+    eventKategori: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || "",
   };
 
   $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters);
 
   // Run this function when search parameters change.
   $: if ($page.url.searchParams) {
-      void (async () => await sanitizeSearchParamsAndNavigateIfNeeded())();
+    void (async () => await sanitizeSearchParamsAndNavigateIfNeeded())();
   }
 
   /**
@@ -65,14 +65,13 @@
   If it is not, it removes that parameter directly from the URL, and navigates to the new (remaining) URL.
   **/
   const sanitizeSearchParamsAndNavigateIfNeeded = async () => {
-
-    if(browser) {
+    if (browser) {
       let hasInvalidFilter = false;
 
       // Removes invalid search parameter values
       Object.entries(VALID_FILTERS).forEach(([filterCategory, validFilterKeys]) => {
         const currentParam = $page.url.searchParams.get(filterCategory);
-        if(currentParam && !(validFilterKeys as readonly string[]).includes(currentParam)) {
+        if (currentParam && !(validFilterKeys as readonly string[]).includes(currentParam)) {
           $page.url.searchParams.delete(filterCategory);
           hasInvalidFilter = true;
         }
@@ -80,16 +79,15 @@
 
       // Removing invalid FilterCategory too, because why not
       $page.url.searchParams.keys().forEach((supposedFilterCategory) => {
-        if(!Object.keys(VALID_FILTERS).includes(supposedFilterCategory)) {
+        if (!Object.keys(VALID_FILTERS).includes(supposedFilterCategory)) {
           $page.url.searchParams.delete(supposedFilterCategory);
           hasInvalidFilter = true;
         }
       });
 
       if (hasInvalidFilter) {
-        await goto($page.url, { replaceState: true } );
+        await goto($page.url, { replaceState: true });
       }
-
     }
   };
 </script>
@@ -103,7 +101,11 @@
     <h1 class="text-4xl font-semibold md:text-5xl">
       Kommende<br />arrangementer
     </h1>
-    <EventFilter {activeFilters} deltakerFilter={data.filterGroups.participantFilters} kategoriFilter={data.filterGroups.eventCategoryFilters} />
+    <EventFilter
+      {activeFilters}
+      deltakerFilter={data.filterGroups.participantFilters}
+      kategoriFilter={data.filterGroups.eventCategoryFilters}
+    />
   </div>
 
   <ol class="flex flex-col gap-6 pb-5" role="list">
