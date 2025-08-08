@@ -4,19 +4,47 @@
   import EventFormInternal from "$components/internal/EventFormInternal.svelte";
   import EventSummary from "$components/shared/EventSummary.svelte";
   import { ArrowLeft } from "phosphor-svelte";
+  import { urlFor } from "$lib/sanity/image";
+  import type { Event } from "$models/sanity.model";
+  import { stegaClean } from "@sanity/client/stega";
 
   export let data;
 
   const { query, options, auth, params } = data;
 
-  const result = useQuery({ query, options, params });
+  const result = useQuery<Event>({ query, options, params });
 
   $: ({ data: event } = $result);
+
+  $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig Fryde";
+  $: description = stegaClean(event?.summary) || "";
+  $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
 </script>
 
 <svelte:head>
-  <title>{event?.title || "Ikke funnet"} | Capra Liflig Fryde</title>
+  <title>{title}</title>
+  {#if event}
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    {#if imageUrl}
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:secure_url" content={imageUrl} />
+      <meta property="og:image:alt" content={title} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@capraconsulting" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={imageUrl} />
+    {/if}
+  {/if}
 </svelte:head>
+
 {#if event}
   <section>
     <div class="mb-9">
