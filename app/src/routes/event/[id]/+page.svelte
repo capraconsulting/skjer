@@ -5,8 +5,8 @@
   import EventSummary from "$components/shared/EventSummary.svelte";
   import { ArrowLeft } from "phosphor-svelte";
   import { urlFor } from "$lib/sanity/image";
-  import { sanitize } from "$lib/utils/sanitize.util";
   import type { Event } from "$models/sanity.model";
+  import { stegaClean } from "@sanity/client/stega";
 
   export let data;
 
@@ -16,8 +16,8 @@
 
   $: ({ data: event } = $result);
 
-  $: title = sanitize(event?.title) || "Ikke funnet | Capra Liflig Fryde";
-  $: description = sanitize(event?.summary) || "";
+  $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig Fryde";
+  $: description = stegaClean(event?.summary) || "";
   $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
 </script>
 
