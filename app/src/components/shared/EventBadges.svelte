@@ -2,10 +2,10 @@
   import { formatDate, formatTime } from "$lib/utils/date.util";
   import { Badge } from "flowbite-svelte";
   import type { EventWithAttending } from "$models/databaseView.model";
-  import { isToday } from "date-fns";
+  import { isToday, parseISO } from "date-fns";
 
   export let event: EventWithAttending;
-  $: startDateIsToday = isToday(event.start);
+  $: startDateIsToday = isToday(parseISO(event.start));
   $: startDate = startDateIsToday ? `I dag kl. ${formatTime(event.start)}` : formatDate(event.start);
 </script>
 
