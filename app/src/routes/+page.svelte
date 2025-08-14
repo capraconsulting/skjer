@@ -49,8 +49,8 @@
   let activeFilters: ActiveFilterFromURL;
 
   $: activeFilters = {
-    deltakerType: $page.url.searchParams.get(participantFilterUrlParamName) || "",
-    eventKategori: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || "",
+    participantType: $page.url.searchParams.get(participantFilterUrlParamName) || "",
+    eventCategory: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || "",
   };
 
   $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters);
@@ -103,8 +103,8 @@
     </h1>
     <EventFilter
       {activeFilters}
-      deltakerFilter={data.filterGroups.participantFilters}
-      kategoriFilter={data.filterGroups.eventCategoryFilters}
+      participantFilter={data.filterGroups.participantFilters}
+      eventCategoryFilter={data.filterGroups.eventCategoryFilters}
     />
   </div>
 

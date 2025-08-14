@@ -4,8 +4,8 @@
   import type { FilterCategory, FilterKey, FilterData } from "$lib/types/filters.type";
 
   export let activeFilters;
-  export let deltakerFilter: FilterData;
-  export let kategoriFilter: FilterData;
+  export let participantFilter: FilterData;
+  export let eventCategoryFilter: FilterData;
 
   const searchParams = new URLSearchParams();
 
@@ -38,10 +38,10 @@
 <menu class="flex-wrap space-y-4">
   <div class="flex w-fit flex-col gap-2 lg:flex-row lg:items-center">
     <ButtonGroup class="flex-row flex-wrap gap-2 shadow-none lg:justify-end lg:self-end">
-      {#each deltakerFilter.list as { displayName, filterKey }}
+      {#each participantFilter.valid_parameters as { displayName, filterKey }}
         <li>
           <Button
-            on:click={() => handleFilterChange(filterKey, deltakerFilter.name, searchParams)}
+            on:click={() => handleFilterChange(filterKey, participantFilter.name, searchParams)}
             class={`basis-1/4 whitespace-nowrap sm:basis-auto ${
               Object.values(activeFilters).includes(filterKey)
                 ? "h-8 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"
@@ -57,10 +57,10 @@
     <div class="h-px w-full bg-gray-300 dark:bg-gray-600 lg:h-8 lg:w-px lg:self-center"></div>
 
     <ButtonGroup class="flex-row flex-wrap gap-2 shadow-none lg:justify-end lg:self-end">
-      {#each kategoriFilter.list as { displayName, filterKey }}
+      {#each eventCategoryFilter.valid_parameters as { displayName, filterKey }}
         <li>
           <Button
-            on:click={() => handleFilterChange(filterKey, kategoriFilter.name, searchParams)}
+            on:click={() => handleFilterChange(filterKey, eventCategoryFilter.name, searchParams)}
             class={`basis-1/4 whitespace-nowrap sm:basis-auto ${
               Object.values(activeFilters).includes(filterKey)
                 ? "h-8 !rounded-lg !border-zinc-800 bg-zinc-800 text-white hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-600"

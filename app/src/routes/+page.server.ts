@@ -12,11 +12,11 @@ import type { EventFilter, FilterData } from "$lib/types/filters.type";
 /*
 We define the list of filters and their display info here, and it will be sent to frontend.
 */
-const deltakerTypeFilterList: EventFilter[] = [
+const participantTypeFilterList: EventFilter[] = [
   { displayName: "Kun interne", filterKey: "kun-interne" },
   { displayName: "Åpent for alle", filterKey: "for-alle" },
 ];
-const eventKategoriFilterList: EventFilter[] = [
+const eventCategoryFilterList: EventFilter[] = [
   { displayName: "#Fag", filterKey: "fag" },
   { displayName: "#Sosialt", filterKey: "sosialt" },
 ];
@@ -29,12 +29,12 @@ type AvailableFilterData = {
 // Sent to frontend to ensure consistency on url search params
 const filterGroups: AvailableFilterData = {
   participantFilters: {
-    name: "deltakerType",
-    list: deltakerTypeFilterList,
+    name: "participantType",
+    valid_parameters: participantTypeFilterList,
   },
   eventCategoryFilters: {
-    name: "eventKategori",
-    list: eventKategoriFilterList,
+    name: "eventCategory",
+    valid_parameters: eventCategoryFilterList,
   },
 };
 
