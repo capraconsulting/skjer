@@ -29,11 +29,11 @@ type AvailableFilterData = {
 // Sent to frontend to ensure consistency on url search params
 const filterGroups: AvailableFilterData = {
   participantFilters: {
-    name: "participantType",
+    name: "participant-type",
     valid_parameters: participantTypeFilterList,
   },
   eventCategoryFilters: {
-    name: "eventCategory",
+    name: "event-category",
     valid_parameters: eventCategoryFilterList,
   },
 };

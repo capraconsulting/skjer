@@ -10,31 +10,6 @@
   import { applyFilters } from "$lib/utils/filters";
   import { VALID_FILTERS, type ActiveFilterFromURL } from "$lib/types/filters.type";
 
-  /*
-  This effectively renders the event list on the landing page of Skjer.
-
-  All filtering logic is contained here on the front end.
-
-  Data is fetched from backend, naturally, but so is a whole bunch of information about valid filters, their groups, and their URL Search Param name.
-    - See lib/types/filter.ts for type definitions, and constants that are used in the filtering process.
-    - lib/filters.ts contains helper functions for the filtering logic
-
-  HOW FILTERS WORK
-
-  - All filter state is to be found in the URL, more specifically in the URL search params. When these change, so does the filtering of the list.
-  - For frontend logic we have filters, and we have filter groups, which filters belong to.
-  - A filter group is a self-contained group of filter toggles that are mutually exclusive. If you toggle one of the filters in a group, the others in that group are toggled off.
-    - Toggling on or off filters in one group will not affect those in other groups
-  - In the EventFilter component, these filter groups are arranged into separate ButtonGroups.
-  - Each filter is therefore rendered as a Button
-  - Each click of a button (filter) will directly edit the URL search params client side, and then call goto(new url).
-  - This page (containing the list of events) will conditionally render the list of events, based on these URL search parameters.
-  - It will also continuously sanitize (remove unwanted) URL search params, quite simply because a server-side version of that sanitization using redirects I could not get to work. The current solution works fine.
-
-  POTENTIAL DOWNSIDES
-  - Continuosly re-render on each filter change. Though Svelte normally does a good job with avoiding the worst, most inefficient re-renders. It works for now.
-  */
-
   export let data;
 
   let { pastEvents } = data;
@@ -49,8 +24,8 @@
   let activeFilters: ActiveFilterFromURL;
 
   $: activeFilters = {
-    participantType: $page.url.searchParams.get(participantFilterUrlParamName) || "",
-    eventCategory: $page.url.searchParams.get(eventCategoryFilterUrlParamName) || "",
+    "participant-type": $page.url.searchParams.get(participantFilterUrlParamName) || "",
+    "event-category": $page.url.searchParams.get(eventCategoryFilterUrlParamName) || "",
   };
 
   $: filteredFutureEvents = applyFilters(data.futureEvents, activeFilters);

@@ -5,8 +5,8 @@ export const VALID_PARTICIPANT_FILTER_KEYS = ["kun-interne", "for-alle"] as cons
 export const VALID_EVENT_CATEGORY_FILTER_KEYS = ["fag", "sosialt"] as const;
 
 export const VALID_FILTERS = {
-  participantType: VALID_PARTICIPANT_FILTER_KEYS,
-  eventCategory: VALID_EVENT_CATEGORY_FILTER_KEYS,
+  "participant-type": VALID_PARTICIPANT_FILTER_KEYS,
+  "event-category": VALID_EVENT_CATEGORY_FILTER_KEYS,
 } as const;
 
 /// A Filter represents a set of filters (url search params) and their associated url parameter values
@@ -19,7 +19,10 @@ export type EventCategoryFilterKey = (typeof VALID_EVENT_CATEGORY_FILTER_KEYS)[n
 
 export type EventFilter = { displayName: string; filterKey: FilterKey };
 
-export type FilterData = { name: FilterCategory; valid_parameters: EventFilter[] };
+export type FilterData = {
+  name: FilterCategory;
+  valid_parameters: EventFilter[];
+};
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export const isFilterKey = (s: string | FilterKey): s is FilterKey => {
