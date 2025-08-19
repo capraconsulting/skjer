@@ -7,10 +7,39 @@ import {
 } from "$lib/server/sanity/queries";
 import { getParticipantAttendingEvents } from "$lib/server/supabase/queries";
 import type { EventWithAttending } from "$models/databaseView.model";
+import type { EventFilter, FilterData } from "$lib/types/filters.type";
 
-export const load: PageServerLoad = async ({ url, locals }) => {
+/*
+We define the list of filters and their display info here, and it will be sent to frontend.
+*/
+const participantTypeFilterList: EventFilter[] = [
+  { displayName: "Kun interne", filterKey: "kun-interne" },
+  { displayName: "Åpent for alle", filterKey: "for-alle" },
+];
+const eventCategoryFilterList: EventFilter[] = [
+  { displayName: "#Fag", filterKey: "fag" },
+  { displayName: "#Sosialt", filterKey: "sosialt" },
+];
+
+type AvailableFilterData = {
+  participantFilters: FilterData;
+  eventCategoryFilters: FilterData;
+};
+
+// Sent to frontend to ensure consistency on url search params
+const filterGroups: AvailableFilterData = {
+  participantFilters: {
+    name: "participant-type",
+    valid_parameters: participantTypeFilterList,
+  },
+  eventCategoryFilters: {
+    name: "event-category",
+    valid_parameters: eventCategoryFilterList,
+  },
+};
+
+export const load: PageServerLoad = async ({ locals }) => {
   const auth = await locals.auth();
-  const selectedFilter = url.searchParams.get("filter")?.toLowerCase() || "";
 
   if (auth?.user?.email) {
     const futureEventsContent = await getFutureEvents();
@@ -28,7 +57,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
     return {
       futureEvents,
       pastEvents,
-      selectedFilter,
+      filterGroups,
     };
   }
 
@@ -38,6 +67,6 @@ export const load: PageServerLoad = async ({ url, locals }) => {
   return {
     futureEvents,
     pastEvents,
-    selectedFilter,
+    filterGroups,
   };
 };
