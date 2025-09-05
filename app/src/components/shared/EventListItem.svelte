@@ -12,7 +12,7 @@
     href={`/event/${event._id}`}
     {target}
   >
-    <div class="flex w-[300px] flex-col gap-4 font-light lg:flex-row">
+    <div class="flex max-w-[300px] flex-col gap-4 font-light lg:flex-row">
       <h2
         class="wrap line-clamp-2 max-w-[350px] whitespace-pre-line break-words text-xl font-light"
       >

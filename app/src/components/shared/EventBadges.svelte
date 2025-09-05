@@ -5,6 +5,7 @@
   import { isToday } from "date-fns";
   import CompanyLogos from "./CompanyLogos.svelte";
   import { ArrowRight } from "phosphor-svelte";
+
   export let event: EventWithAttending;
   $: startDateIsToday = isToday(event.start);
   $: startDate = startDateIsToday
@@ -23,7 +24,7 @@
   {:else}
     <Badge
       rounded
-      class="h-6 w-[120px]  whitespace-nowrap rounded-lg border border-gray-300 bg-transparent text-left dark:bg-zinc-800"
+      class="h-6 w-[120px] whitespace-nowrap rounded-lg border border-gray-300 bg-transparent text-left dark:bg-zinc-800"
     >
       Kun interne
     </Badge>
