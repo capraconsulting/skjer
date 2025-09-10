@@ -6,9 +6,12 @@ export const registrationSchemaExternal = z.object({
   fullName: z.string().min(2).max(150).transform(validator.escape),
   email: z
     .string()
-    .email()
-    .max(150)
-    .refine((email) => !validateDomain(email)),
+    .max(150, { message: "E-post kan ikke være lengre enn 150 tegn" })
+    .refine((email) => email.length > 0, { message: "E-post er påkrevd" })
+    .refine((email) => validator.isEmail(email), { message: "E-post må være gyldig" })
+    .refine((email) => !validateDomain(email), {
+      message: "Logg deg inn for å melde deg på arrangementet!",
+    }),
   telephone: z.string().max(20).refine(validator.isMobilePhone).nullable(),
   firm: z.string().min(2).max(100).transform(validator.escape).nullable(),
   foodPreference: z.string().max(500).transform(validator.escape).nullable(),
