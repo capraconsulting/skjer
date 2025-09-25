@@ -49,13 +49,13 @@
 </script>
 
 <div class="flex flex-col gap-1">
-  <span class="block text-sm font-bold text-gray-900 dark:text-gray-300 rtl:text-right">
+  <span class="block text-sm font-bold text-gray-900 rtl:text-right dark:text-gray-300">
     {optionLabel}
   </span>
   {#if inputType === "checkbox"}
     <Checkbox name="customOptions" on:change={handleCheckboxChange}>{checkboxValue}</Checkbox>
   {:else if inputType === "radio"}
-    <div class="flex gap-6 text-sm">
+    <div class="flex flex-wrap gap-6 text-sm">
       {#each radioValues as radioValue}
         <div class="flex gap-2">
           <Radio
