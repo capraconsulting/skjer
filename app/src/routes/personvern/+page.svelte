@@ -60,8 +60,30 @@
       eller en kontrakt, kan du be oss om å overføre opplysninger om deg til deg eller til annen behandlingsansvarlig.
     </li>
 
-    <li><strong>Du har rett til å trekke samtykket ditt tilbake når som helst.</strong></li>
+    <li>
+      <strong
+        >Du har rett til å trekke samtykket ditt tilbake når som helst. Trykk på knappen under for å
+        gjøre det.</strong
+      >
+    </li>
   </ul>
+
+  <!-- Start of HubSpot code snippet -->
+  <div class="py-4">
+    <button
+      type="button"
+      id="hs_show_banner_button"
+      class="cursor-pointer rounded border border-green-100 bg-green-100 px-4 py-2 font-medium text-gray-800 transition-colors hover:bg-green-200"
+      on:click={() => {
+        // @ts-expect-error - HubSpot global variable
+        const _hsp = (window._hsp = window._hsp || []);
+        _hsp.push(["showBanner"]);
+      }}
+    >
+      Innstillinger for informasjonskapsler
+    </button>
+  </div>
+  <!-- End of HubSpot code snippet -->
 
   <p class="py-4">
     Hvis du ikke er fornøyd med behandlingen av dataene dine kan du klage til Datatilsynet, men vi
