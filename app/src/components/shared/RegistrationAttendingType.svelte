@@ -6,7 +6,7 @@
 
 <div class="flex flex-col gap-1">
   <Label class="font-bold" for="attendingType">Hvordan vil du delta?</Label>
-  <div class="flex gap-6 text-sm">
+  <div class="flex flex-wrap gap-6 text-sm">
     <div class="flex gap-2">
       <Radio name="attendingType" inline value="Fysisk" bind:group={$form.attendingType} /> Fysisk
     </div>
