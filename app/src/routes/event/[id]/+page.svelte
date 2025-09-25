@@ -19,6 +19,7 @@
   $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig Fryde";
   $: description = stegaClean(event?.summary) || "";
   $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
+  $: canonicalUrl = `https://skjer.capraconsulting.no/event/${event?._id}`;
 </script>
 
 <svelte:head>
@@ -26,9 +27,21 @@
   {#if event}
     <meta name="description" content={description} />
 
+    <!-- Canonical URL for LinkedIn Ads -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="article" />
+
+    <!-- LinkedIn Ads Requirements -->
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Capra Consulting" />
+    <meta name="publisher" content="Capra Consulting" />
+
     {#if imageUrl}
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:secure_url" content={imageUrl} />
@@ -41,6 +54,10 @@
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+    {/if}
+
+    {#if event.start}
+      <meta name="article:published_time" content={event.start} />
     {/if}
   {/if}
 </svelte:head>
