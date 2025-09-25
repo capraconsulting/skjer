@@ -1,182 +1,233 @@
 <svelte:head>
-  <title>Personvernerklæring | Capra Liflig Fryde</title>
+  <title>Personvernerklæring | Skjer</title>
 </svelte:head>
 
 <section class="text-lg font-light sm:w-[80%]">
   <h1 class="pb-4 pt-8 text-5xl font-light">Personvernerklæring</h1>
 
+  <h2 class="pt-8 text-3xl font-medium">1. Behandlingsansvarlig</h2>
   <p class="py-4">
-    Denne personvernerklæringen forteller hvordan Capra AS, Liflig AS og Fryde AS samler inn og
-    bruker personopplysninger.
+    Denne personvernerklæringen forklarer hvordan vi samler inn og bruker (behandler)
+    personopplysninger i virksomheten vår. CAPRA CONSULTING AS, ved daglig leder, er
+    behandlingsansvarlig for behandlingen.
   </p>
 
   <p class="py-4">
-    Capra AS, Liflig AS og Fryde AS, ved daglige ledere, er behandlingsansvarlig for virksomhetens
-    behandling av personopplysninger. Der det daglige ansvaret er delegert, kommer det fram under
-    hvert enkelt punkt. Delegeringen omfatter kun oppgavene og ikke ansvaret. Erklæringen inneholder
-    opplysninger du har krav på når det samles inn opplysninger fra nettstedet vårt,
-    rekrutteringssystemet, salgssystemet (personopplysningsloven § 19) og generell informasjon om
-    hvordan vi behandler personopplysninger (personopplysningsloven § 18 1. ledd).
+    <strong>Vår kontaktinformasjon er:</strong><br />
+    CAPRA CONSULTING AS<br />
+    Forretningsadresse: Torggata 2 0181 OSLO Norge<br />
+    Organisasjonsnummer: 988097039<br />
+    E-postadresse:
+    <a href="mailto:gdpr@capraconsulting.no" class="font-normal underline"
+      >gdpr@capraconsulting.no</a
+    >
   </p>
 
-  <h2 class="pt-8 text-3xl">Behandling av personopplysninger for ikke-ansatte</h2>
   <p class="py-4">
-    Det er 3 tilfeller hvor Capra, Liflig og Fryde innhenter persondata om eksterne/ikke-ansatte.
-    Det ene tilfellet er rekruttering, hvor kandidater legges inn i rekrutteringssystemet. Det andre
-    og tredje tilfellet er i salgssammenheng, hvor henholdsvis underkonsulenter og kunder legges inn
-    i salgssystemet. I de to første tilfellene kan en kandidat/kunde/underkonsulent havne i
-    systemene våre på to måter: a) Ved å registrere seg selv gjennom en utlyst søknad, eller b)
-    Vedkommende blir lagt inn som følge av tips fra andre eller sourcing (LinkedIn,
-    rekrutteringsbyrå, etc.). For kunder legges kontaktinfo inn så snart vi er i forhandlingsprosess
-    med dem.
+    Vi tar personvernet ditt på alvor og vi har tatt flere grep for å sikre at vi gir deg tydelig
+    informasjon om hvordan vi behandler dataene dine, og hvilke rettigheter du har. Hvis du føler at
+    noe er uklart eller mangler, må du ikke nøle med å kontakte oss.
   </p>
 
-  <h2 class="pt-8 text-3xl">Rekruttering</h2>
+  <h2 class="pt-8 text-3xl font-medium">2. Rettighetene dine</h2>
   <p class="py-4">
-    Avhengig av hvilke opplysninger kandidaten gir oss eller vi finner om kandidaten, samler vi
-    blant annet inn følgende opplysninger: Navn, e-postadresse, telefonnummer, utdannelse,
-    arbeidserfaring, URLer til relevante sosiale medium (som LinkedIn, GitHub, mv.),
-    referansepersoner og opplastede dokumenter (som CV, søknadsbrev, karakterer, mv.).
+    Ta kontakt med oss hvis du har spørsmål om eller vil benytte deg av en av dine rettigheter. Du
+    har krav på svar senest innen 30 dager. Les mer på
+    <a
+      href="https://www.datatilsynet.no/rettigheter-og-plikter/den-registrertes-rettigheter/"
+      class="font-normal underline">Datatilsynets sider</a
+    >.
   </p>
 
-  <h3 class="pt-6 text-2xl">Kandidat registrerer seg selv</h3>
-  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
-    <li>Kandidaten må godta samtykke for å kunne sende inn søknad via søknadssidene våre.</li>
-    <li>
-      Opplysninger oppbevares i systemene så lenge de er oppdaterte og det er relevant å beholde
-      dem, men maksimalt 2 år såfremt samtykke er innhentet.
-    </li>
-  </ul>
-
-  <h3 class="pt-6 text-2xl">
-    Kandidat blir tipset om til Capra, Liflig eller Fryde uten sin viten
-  </h3>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
     <li>
-      Vi tar kontakt med kandidater gjennom tips fra egne søk, nettverkstreff, anbefaling fra
-      ansatte eller videresendte fra rekrutteringsbyrå.
+      <strong>Innsyn i og retting av egne opplysninger:</strong> Du kan be om en kopi av alle opplysninger
+      vi behandler om deg, og be oss om å rette opplysninger som ikke er riktige.
     </li>
+
     <li>
-      Vi innhenter samtykke senest 30 dager fra kandidatenes data blir behandlet av rekruttering.
-      Opplysninger oppbevares i systemene så lenge de er oppdaterte og relevante å beholdemen
-      maksimalt 2 år såfremt samtykke er innhentet.
+      <strong>Sletting eller begrensning:</strong> I noen situasjoner kan du be oss om å slette og/eller
+      begrense behandlingen av opplysninger om deg selv, men vi kan ikke slette data vi er pålagt å behandle.
     </li>
-    <li>Uten innhentet samtykke blir kandidaten slettet etter 30 dager.</li>
+
     <li>
-      Kandidater som er blitt tipset av ansatte før innføringen av den nye personvernlovgivningen
-      har mottatt en informasjonsmail og vil bli slettet etter ønske fra kandidaten eller automatisk
-      etter 2 år fra den nye personvernlovgivningen trådte i kraft.
+      <strong>Protestere mot en behandling:</strong> Dersom vi behandler opplysninger om deg på bakgrunn
+      av berettiget interesse, har du rett til å protestere på det.
     </li>
+
+    <li>
+      <strong>Dataportabilitet:</strong> Dersom vi behandler opplysninger om deg med grunnlag i samtykke
+      eller en kontrakt, kan du be oss om å overføre opplysninger om deg til deg eller til annen behandlingsansvarlig.
+    </li>
+
+    <li><strong>Du har rett til å trekke samtykket ditt tilbake når som helst.</strong></li>
   </ul>
 
-  <h2 class="pt-8 text-3xl">Salg</h2>
   <p class="py-4">
-    Avhengig av hvilke opplysninger kunde eller underkonsulent gir oss eller vi finner om de, samler
-    vi blant annet inn følgende opplysninger: Navn, e-postadresse, telefonnummer, utdannelse,
-    arbeidserfaring.
+    Hvis du ikke er fornøyd med behandlingen av dataene dine kan du klage til Datatilsynet, men vi
+    håper at du vil si i fra direkte til oss først så vi kan prøve å løse saken for deg på en god
+    måte. Kontaktinformasjon til Datatilsynet er <a
+      href="http://www.datatilsynet.no/"
+      class="font-normal underline">www.datatilsynet.no</a
+    >, e-post
+    <a href="mailto:postkasse@datatilsynet.no" class="font-normal underline"
+      >postkasse@datatilsynet.no</a
+    >
+    eller telefonnummer +47 22 39 69 00.
   </p>
 
-  <h3 class="pt-6 text-2xl">Kundeinformasjon</h3>
+  <h2 class="pt-8 text-3xl font-medium">3. Hvem vi behandler personopplysninger om</h2>
+  <p class="py-4">Vi behandler personopplysninger om:</p>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
-    <li>
-      I Capra, Liflig og Fryde lagrer vi personopplysninger om KAM og andre relevante
-      kontaktpersoner hos kunde. Disse lagres så lenge kundeforholdet vedvarer.
-    </li>
+    <li>Deltakere på arrangementer</li>
+    <li>Besøkende på nettsiden</li>
+    <li>Kontaktpersoner hos leverandører og samarbeidspartnere</li>
   </ul>
 
-  <h3 class="pt-6 text-2xl">Underkonsulent registrerer seg selv</h3>
-  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
-    <li>
-      Underkonsulenten får en automatisk generert beskjed om å samtykke til oppbevaring av
-      persondata.
-    </li>
-    <li>
-      Etter 10 år vil underkonsulenten få et varsel om man fremdeles ønsker å være registrert i vår
-      database. Om de ikke ønsker dette, vil de bli slettet.
-    </li>
-  </ul>
-
-  <h3 class="pt-6 text-2xl">
-    Underkonsulent blir tipset om til Capra, Liflig eller Fryde uten sin viten.
-  </h3>
-  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
-    <li>Salgsansvarlig har da ansvar for ukentlig å gå over underkonsulenter som er tipset om.</li>
-    <li>
-      Det skal da, senest 7 dager etter tips er registrert sendes ut en mail med info om
-      personopplysningene vi har, med en forespørsel om å beholde disse
-    </li>
-    <li>
-      Om det ikke mottas samtykke innen 14 dager, vil underkonsulent bli slettet fra databasen.
-    </li>
-  </ul>
-
-  <h2 class="pt-8 text-3xl">Behandling av personopplysninger for ansatte</h2>
+  <h2 class="pt-8 text-3xl font-medium">4. Hvordan vi samler inn personopplysninger</h2>
   <p class="py-4">
-    Capra AS, Liflig AS og Fryde AS behandler personopplysninger om sine ansatte for å administrere
-    lønn og personalansvar. Rettslig grunnlag følger av personopplysningsloven § 8, første ledd og §
-    8 a), b) eller f) samt § 9 a), b) og f). Det er Administrasjonen v/økonomiansvarlig som har det
-    daglige ansvaret for dette. Det registreres nødvendige opplysninger for utbetaling av lønn, for
-    eksempel grunndata, lønnsnivå, tidsregistrering, skatteprosent, skattekommune og
-    fagforeningstilhørighet. Andre opplysninger om ansatte er knyttet til vedkommendes
-    arbeidsinstruks og tilrettelegging av vedkommendes arbeid.
+    Det er frivillig å oppgi personopplysninger til oss, men for å kunne delta på arrangementer
+    trenger vi imidlertid en rekke opplysninger fra deg.
   </p>
+  <p class="py-4">Vi behandler personopplysninger når du:</p>
+  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
+    <li>melder deg på arrangementer i vår regi</li>
+    <li>bruker nettsiden vår</li>
+    <li>kontakter oss via kontaktskjema eller e-post</li>
+  </ul>
+
+  <h2 class="pt-8 text-3xl font-medium">5. Formål, rettslig grunnlag og lagring</h2>
   <p class="py-4">
-    Dessuten registreres det opplysninger i tilknytning til nøkkelkortadministrasjon av inn- og
-    utpasseringer og opplysninger om tilgangsstyring i IT-systemene våre. Opplysningene hentes fra
-    de ansatte selv. Opplysningene utleveres bare i forbindelse med lønnsutbetalinger og andre
-    lovpliktige utleveringer. Sletterutiner for personalopplysninger følger regnskapsloven og
-    arkivloven, all persondata vi ikke kan lagre under disse lovene fjernes etter siste arbeidsdag.
-    Opplysninger om navn, stilling og arbeidsområde regnes å være offentlige opplysninger og kan
-    publiseres på Capra AS, Liflig AS eller Fryde AS sine nettsider. Informasjon om den ansatte, som
-    ikke kreves arkivert av regnskapsloven og arkivloven, vil slettes så snart ansatte har
-    gjennomført siste arbeidsdag.
-  </p>
-  <p class="py-4">
-    I Capra, Liflig og Fryde innhenter vi følgende personopplysninger fra våre ansatte til bruk i
-    våre interne IT-systemer:
+    Etter personvernforordningen artikkel 6 nr. 1 kan en behandle personopplysninger på bakgrunn av:
   </p>
   <ul class="list-inside list-disc space-y-2 py-4 ps-5">
-    <li>Fornavn</li>
-    <li>Etternavn</li>
-    <li>Personnummer</li>
-    <li>Adresse</li>
-    <li>E-post</li>
-    <li>Telefonnr</li>
-    <li>Kontonummer</li>
-    <li>Tidligere arbeidsgiver</li>
-    <li>Nasjonalitet</li>
+    <li>Ditt samtykke</li>
+    <li>En avtale vi har inngått</li>
+    <li>En rettslig forpliktelse vi har</li>
+    <li>For å verne den registrertes eller en annen fysisk persons vitale interesser</li>
+    <li>For å utføre en oppgave i allmennhetens interesse eller utøve offentlig myndighet</li>
+    <li>En berettiget interesse vi mener at vi har</li>
   </ul>
 
-  <h2 class="pt-8 text-3xl">Sikkerhet</h2>
   <p class="py-4">
-    Hver enkelt tredjepartssystem ivaretar sikkerheten for den dataen de behandler. Dette skal være
-    dokumentert i henhold til hver enkelt leverandør av tredjepartssystemer sin databehandleravtale
-    med Capra AS, Liflig AS og Fryde AS.
+    Som hovedregel skal ikke personopplysninger behandles og oppbevares lenger enn nødvendig for å
+    oppfylle formålet med behandlingen. Hvis vi behandler personopplysningene dine på bakgrunn av en
+    berettiget interesse vi mener at vi har, kan du protestere på behandlingen ved å kontakte oss.
+    Vi vil da vurdere protesten din og gi deg tilbakemelding innen rimelig tid.
   </p>
 
-  <h2 class="pt-8 text-3xl">Rettigheter</h2>
   <p class="py-4">
-    Alle som spør har rett på grunnleggende informasjon om behandlinger av personopplysninger i en
-    virksomhet etter personopplysningslovens § 18, 1. ledd. Capra AS, Liflig AS og Fryde AS har gitt
-    denne informasjonen i denne erklæringen, og vil henvise til den ved eventuelle forespørsler. De
-    som er registrert i en av Capra AS, Liflig AS og Fryde AS sine systemer har rett på innsyn i
-    egne opplysninger. Vedkommende har også rett til å be om at uriktige, ufullstendige eller
-    opplysninger Capra AS, Liflig AS og Fryde AS ikke har adgang til å behandle blir rettet, slettet
-    eller supplert. Krav fra den registrerte skal besvares kostnadsfritt og senest innen 30 dager.
+    For å oppfylle GDPR-krav og spare lagringsplass, slettes arrangementer og tilhørende data fra
+    våre systemer som ble avsluttet for mer enn 7 dager siden.
   </p>
 
-  <h2 class="pt-8 text-3xl">Kontakt oss</h2>
+  <h2 class="pt-8 text-3xl font-medium">6. Slik behandler vi personopplysninger</h2>
   <p class="py-4">
-    For henvendelser knyttet til rettighetene til den registrerte, kan Capra AS, Liflig AS og Fryde
-    AS kontaktes på: <br /><br />
+    Her beskriver vi i detalj når og hvordan vi behandler personopplysningene dine, til hvilke
+    formål, på hvilket rettslig grunnlag og hvor lenge.
+  </p>
 
-    Capra AS <br />
-    v/personvernansvarlig <br />
-    Torggata 2-4, 0180 Oslo <br />
-    Oslo <br /> <br />
+  <h3 class="pt-6 text-2xl font-medium">Du melder deg på et arrangement</h3>
+  <p class="py-4">
+    Når du deltar på arrangementer hos oss behandler vi personopplysninger som navn,
+    kontaktinformasjon, matpreferanser og eventuell bedriftstilhørighet. Formålet er å kunne tilby
+    relevante kurs, foredrag og workshops.
+  </p>
+  <p class="py-4">
+    <strong>Det rettslige grunnlaget er:</strong> Ditt samtykke.
+  </p>
+  <p class="py-4">
+    Vi kan også bruke personopplysningene dine til å sende deg en forespørsel om evaluering av
+    arrangementet du deltok på, og eventuelt invitere deg til andre lignende arrangementer. Det
+    rettslige grunnlaget er da berettiget interesse, der den berettigede interessen er å
+    kontinuerlig forbedre våre produkter og tjenester, og tilby deg god kundeoppfølging.
+  </p>
+  <p class="py-4">Opplysningene slettes automatisk 7 dager etter at arrangementet er avsluttet.</p>
+
+  <h3 class="pt-6 text-2xl font-medium">Du bruker nettsiden vår</h3>
+  <p class="py-4">
+    Når du bruker nettsiden vår, behandler vi personopplysninger i tråd med vår cookie-policy.
+    Formålet er å administrere nettsiden vår, forbedre brukeropplevelsen og svare på henvendelser
+    fra besøkende.
+  </p>
+  <p class="py-4">
+    Det rettslige grunnlaget for cookies som lagrer eller behandler opplysninger er samtykke gjennom
+    cookie-banner på nettsiden.
+  </p>
+
+  <h3 class="pt-6 text-2xl font-medium">Du kontakter oss</h3>
+  <p class="py-4">
+    Når du kontakter oss via kontaktskjema, e-post eller telefon, behandler vi personopplysninger
+    som navn og kontaktinformasjon for å kunne svare på henvendelsen din.
+  </p>
+  <p class="py-4">
+    <strong>Det rettslige grunnlaget er:</strong> Berettiget interesse i å kunne svare på henvendelser.
+  </p>
+
+  <h2 class="pt-8 text-3xl font-medium">7. Hvem vi deler personopplysninger med</h2>
+  <p class="py-4">
+    For å kunne drive arrangementssiden vår effektivt og sikkert, er vi noen ganger nødt til å dele
+    personopplysningene dine. Vi deler kun personopplysninger når det er nødvendig og kun med:
+  </p>
+  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
+    <li>IT-drift og sikkerhetspartnere</li>
+    <li>Leverandører av arrangement-systemer</li>
+    <li>Offentlige myndigheter vi er pliktig å rapportere til</li>
+  </ul>
+  <p class="py-4">
+    Alle tredjeparter er forpliktet til å beskytte dataene gjennom databehandleravtaler der det er
+    nødvendig og i samsvar med GDPR.
+  </p>
+
+  <h2 class="pt-8 text-3xl font-medium">8. Sikkerhet</h2>
+  <p class="py-4">
+    Vi tar informasjonssikkerhet på alvor, og vi vil alltid gjøre vårt ytterste for å ivareta
+    personopplysningene dine på best mulig måte. Blant annet bruker vi:
+  </p>
+  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
+    <li>sterke passord</li>
+    <li>tilgangskontroll</li>
+    <li>tofaktorautentisering</li>
+  </ul>
+  <p class="py-4">
+    for å sikre dataene våre og hindre at uvedkommende får tilgang til å se, endre, slette eller på
+    noen måter påvirke dataene vi oppbevarer, inkludert personopplysningene dine.
+  </p>
+  <p class="py-4">
+    Vi bruker kun anerkjente leverandører av IT- og administrasjonstjenester, og gir kun tilgang til
+    personopplysninger der det er strengt nødvendig (f.eks. ved IT-support).
+  </p>
+
+  <h2 class="pt-8 text-3xl font-medium">9. Informasjonskapsler (cookies)</h2>
+  <p class="py-4">
+    Vi bruker informasjonskapsler (cookies) på nettsiden for å forbedre funksjonalitet og
+    brukeropplevelse. Dette inkluderer:
+  </p>
+  <ul class="list-inside list-disc space-y-2 py-4 ps-5">
+    <li><strong>Nødvendige cookies:</strong> For at nettsiden skal fungere</li>
+    <li><strong>Analytiske cookies:</strong> For å forstå hvordan nettsiden brukes (HubSpot)</li>
+    <li><strong>Markedsføringscookies:</strong> For å vise relevant innhold</li>
+  </ul>
+  <p class="py-4">
+    Du kan når som helst endre dine cookie-preferanser gjennom cookie-banneret på nettsiden.
+  </p>
+
+  <h2 class="pt-8 text-3xl font-medium">10. Kontakt oss</h2>
+  <p class="py-4">
+    For henvendelser knyttet til rettighetene til den registrerte, kan du kontakte oss på:
+  </p>
+  <p class="py-4">
+    <strong>CAPRA CONSULTING AS</strong><br />
+    v/personvernansvarlig<br />
+    Torggata 2, 0181 Oslo<br />
+    Norge<br /><br />
 
     <a href="mailto:gdpr@capraconsulting.no" class="font-normal underline"
       >gdpr@capraconsulting.no</a
     >
+  </p>
+
+  <p class="py-4 text-sm text-gray-600 dark:text-gray-400">
+    <em>Denne personvernerklæringen ble sist oppdatert: 25. september 2025</em>
   </p>
 </section>
