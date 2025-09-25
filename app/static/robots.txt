@@ -1,2 +1,6 @@
 User-agent: *
 Disallow: /event/
+
+# Allow LinkedIn crawler for URL previews
+User-agent: LinkedInBot
+Allow: /event/
