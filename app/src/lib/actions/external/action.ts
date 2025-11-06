@@ -145,7 +145,10 @@ export const submitRegistrationExternal: Actions["submitRegistrationExternal"] =
       }
     });
   } catch (error) {
-    console.error("Error: Transaction failed", JSON.stringify(error));
+    console.error(
+      "Error: Transaction failed",
+      error instanceof Error ? error.message : String(error)
+    );
 
     return message(registrationForm, {
       text: "Det har oppstått en feil. Du har ikke blitt påmeldt arrangementet. Prøv igjen senere.",
