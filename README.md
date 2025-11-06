@@ -1,5 +1,7 @@
 # Skjer
 
+<!-- Redploy -->
+
 En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig.
 Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter.
 
