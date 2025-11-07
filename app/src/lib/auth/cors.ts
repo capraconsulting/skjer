@@ -27,13 +27,34 @@ function applyCustomHeaders(headers: Headers, pathname: string): Headers {
     headers.set("X-Frame-Options", "ALLOWALL");
     headers.set(
       "Content-Security-Policy",
-      `frame-ancestors 'self' ${PUBLIC_CAPRA_BASE_URL} ${PUBLIC_LIFLIG_BASE_URL} ${PUBLIC_FRYDE_BASE_URL} ${PUBLIC_SANITY_STUDIO_URL}`
+      getContentSecurityPolicyForEmbed([
+        PUBLIC_CAPRA_BASE_URL,
+        PUBLIC_LIFLIG_BASE_URL,
+        PUBLIC_FRYDE_BASE_URL,
+        PUBLIC_SANITY_STUDIO_URL,
+      ])
     );
   } else {
     headers.set("X-Frame-Options", "DENY");
     headers.set("Content-Security-Policy", `frame-ancestors 'self' ${ALLOWED_ORIGIN}`);
   }
   return headers;
+}
+
+export function getContentSecurityPolicyForEmbed(urls: string[]): string {
+  let csp = "frame-ancestors 'self'";
+
+  for (const url of urls) {
+    csp += ` ${url}`;
+
+    // If the URL starts with "www.", we want to allow embedding from the non-www version of it too
+    if (url.includes("www.")) {
+      const alternateUrl = url.replace("www.", "");
+      csp += ` ${alternateUrl}`;
+    }
+  }
+
+  return csp;
 }
 
 export const createCorsHandler: Handle = async ({ event, resolve }) => {
