@@ -8,7 +8,6 @@ export async function sendDeadlineSlackNotifications(events: Event[]) {
     return { successes: [], failures: [] };
   }
 
-  // Create one consolidated message with all events
   const message = createDeadlineMessage(events);
 
   try {
