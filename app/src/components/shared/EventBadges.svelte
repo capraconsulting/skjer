@@ -53,7 +53,7 @@
     rounded
     class="h-6 w-[150px] justify-start whitespace-nowrap rounded-lg border border-gray-300 bg-transparent text-left dark:bg-zinc-800"
     >Arrangør&nbsp;&nbsp;&nbsp;
-    <CompanyLogos {event} height={5} />
+    <CompanyLogos {event} height={4} />
   </Badge>
   {#if event.attending}
     <Badge
