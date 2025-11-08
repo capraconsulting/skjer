@@ -7,6 +7,7 @@
   import { urlFor } from "$lib/sanity/image";
   import type { Event } from "$models/sanity.model";
   import { stegaClean } from "@sanity/client/stega";
+  import { PUBLIC_APP_BASE_URL } from "$env/static/public";
 
   export let data;
 
@@ -19,7 +20,7 @@
   $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig Fryde";
   $: description = stegaClean(event?.summary) || "";
   $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
-  $: canonicalUrl = `https://skjer.capraconsulting.no/event/${event?._id}`;
+  $: canonicalUrl = `${PUBLIC_APP_BASE_URL}/event/${event?._id}`;
 </script>
 
 <svelte:head>
