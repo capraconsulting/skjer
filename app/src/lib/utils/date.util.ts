@@ -1,4 +1,5 @@
-import { parseISO, isSameDay, format, isToday } from "date-fns";
+import { parseISO, isSameDay, isToday } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import { nb } from "date-fns/locale";
 
 export function formatDate(date: string): string {
@@ -25,7 +26,7 @@ export function formatDateWithWeekDay(date: string): string {
 
 export function formatTime(dateString: string): string {
   const date = parseISO(dateString);
-  return format(date, "HH:mm", { locale: nb });
+  return formatInTimeZone(date, "Europe/Oslo", "HH:mm", { locale: nb });
 }
 
 export function endsOnDifferentDay(start: string, end: string): boolean {
