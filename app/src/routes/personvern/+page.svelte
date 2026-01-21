@@ -156,15 +156,13 @@
     relevante kurs, foredrag og workshops.
   </p>
   <p class="py-4">
-    <strong>Det rettslige grunnlaget er:</strong> Ditt samtykke.
-  </p>
-  <p class="py-4">
-    Vi kan også bruke personopplysningene dine til å sende deg en forespørsel om evaluering av
-    arrangementet du deltok på, og eventuelt invitere deg til andre lignende arrangementer. Det
-    rettslige grunnlaget er da berettiget interesse, der den berettigede interessen er å
+    Det rettslige grunnlaget er da berettiget interesse, der den berettigede interessen er å
     kontinuerlig forbedre våre produkter og tjenester, og tilby deg god kundeoppfølging.
+    Opplysningene dine blir slettet innen 30 dager etter arrangementet, med mindre vi har et gyldig
+    grunnlag for videre behandling, som å sende deg en evaluering, invitasjon til lignende
+    arrangementer eller andre henvendelser som er relevante for ditt kundeforhold eller interesse.
+    Du kan når som helst be om sletting.
   </p>
-  <p class="py-4">Opplysningene slettes automatisk 7 dager etter at arrangementet er avsluttet.</p>
 
   <h3 class="pt-6 text-2xl font-medium">Du bruker nettsiden vår</h3>
   <p class="py-4">
