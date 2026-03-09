@@ -343,7 +343,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",
@@ -809,35 +809,35 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "start": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "end": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "deadline": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "summary": {
         "type": "objectAttribute",
@@ -947,7 +947,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -968,7 +968,7 @@
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "interval": {
         "type": "objectAttribute",
@@ -1005,7 +1005,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "frequence": {
         "type": "objectAttribute",
@@ -1030,14 +1030,14 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "isDigital": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "linkStreaming": {
         "type": "objectAttribute",
@@ -1051,21 +1051,21 @@
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "visibleForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "foodPreference": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": true
+        "optional": false
       },
       "food": {
         "type": "objectAttribute",
@@ -1093,7 +1093,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "fieldValueCheckbox": {
                 "type": "objectAttribute",
@@ -1131,7 +1131,7 @@
                     }
                   ]
                 },
-                "optional": true
+                "optional": false
               }
             },
             "rest": {
@@ -1168,7 +1168,7 @@
             }
           ]
         },
-        "optional": true
+        "optional": false
       },
       "emailTemplate": {
         "type": "objectAttribute",
@@ -1176,7 +1176,7 @@
           "type": "inline",
           "name": "emailTemplate"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1198,7 +1198,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "registrationMessage": {
           "type": "objectAttribute",
@@ -1206,14 +1206,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": true
+          "optional": false
         },
         "unregistrationSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "unregistrationMessage": {
           "type": "objectAttribute",
@@ -1221,14 +1221,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": true
+          "optional": false
         },
         "updateSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "updateMessage": {
           "type": "objectAttribute",
@@ -1236,14 +1236,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": true
+          "optional": false
         },
         "cancelSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "cancelMessage": {
           "type": "objectAttribute",
@@ -1251,7 +1251,7 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": true
+          "optional": false
         }
       }
     }

@@ -82,7 +82,7 @@ Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage
 For å generere typer av innholdsskjemaer, kjør følgende kommandoer fra /studio:
 
 ```sh
-sanity schema extract --path=./schema.json
+sanity schema extract --path=./schema.json --enforce-required-fields
 sanity typegen generate
 ```
 

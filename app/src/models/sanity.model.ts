@@ -74,25 +74,6 @@ export type Slug = {
   source?: string;
 };
 
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h2";
-  listItem?: "bullet";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
-
 export type EventBodyContent = Array<
   | {
       children?: Array<{
@@ -113,7 +94,6 @@ export type EventBodyContent = Array<
       _key: string;
     }
   | {
-      alt?: string;
       asset?: {
         _ref: string;
         _type: "reference";
@@ -122,10 +102,30 @@ export type EventBodyContent = Array<
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt?: string;
       _type: "image";
       _key: string;
     }
 >;
+
+export type BlockContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h2";
+  listItem?: "bullet";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
 
 export type Category = "Sosialt" | "Fag";
 
@@ -166,7 +166,6 @@ export type Event = {
   linkStreaming?: string;
   openForExternals: boolean;
   visibleForExternals: boolean;
-  reminderEmailSetting?: "default" | "enabled" | "disabled";
   foodPreference: boolean;
   food?: string;
   foodDeadline?: string;
@@ -177,6 +176,7 @@ export type Event = {
     fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
+  reminderEmailSetting: "default" | "enabled" | "disabled";
   emailTemplate: EmailTemplate;
 };
 
@@ -257,3 +257,5 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+
