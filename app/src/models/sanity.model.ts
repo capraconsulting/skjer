@@ -94,16 +94,22 @@ export type EventBodyContent = Array<
       _key: string;
     }
   | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
       };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
       alt?: string;
-      _type: "image";
+      caption?: string;
+      placement?: "full" | "left" | "right" | "center";
+      size?: "small" | "medium" | "large";
+      _type: "eventBodyImage";
       _key: string;
     }
 >;
