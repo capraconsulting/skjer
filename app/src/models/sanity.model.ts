@@ -93,6 +93,40 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type EventBodyContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h2";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      alt?: string;
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }
+>;
+
 export type Category = "Sosialt" | "Fag";
 
 export type Event = {
@@ -120,7 +154,7 @@ export type Event = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  body?: BlockContent;
+  body?: EventBodyContent;
   category?: Category;
   organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
@@ -132,6 +166,7 @@ export type Event = {
   linkStreaming?: string;
   openForExternals: boolean;
   visibleForExternals: boolean;
+  reminderEmailSetting?: "default" | "enabled" | "disabled";
   foodPreference: boolean;
   food?: string;
   foodDeadline?: string;

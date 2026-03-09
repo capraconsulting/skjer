@@ -70,7 +70,7 @@ export type Geopoint = {
 
 export type Slug = {
   _type: "slug";
-  current: string;
+  current?: string;
   source?: string;
 };
 
@@ -103,11 +103,11 @@ export type Event = {
   _rev: string;
   metaInfo?: string;
   cancelId?: string;
-  title: string;
-  start: string;
-  end: string;
-  deadline: string;
-  place: string;
+  title?: string;
+  start?: string;
+  end?: string;
+  deadline?: string;
+  place?: string;
   summary?: string;
   image?: {
     asset?: {
@@ -122,39 +122,40 @@ export type Event = {
   };
   body?: BlockContent;
   category?: Category;
-  organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
+  organisers?: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
   hideMaxParticipant?: boolean;
-  isRecurring: boolean;
-  interval: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-  frequence: "day" | "week" | "month" | "year";
-  isDigital: boolean;
+  isRecurring?: boolean;
+  interval?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  frequence?: "day" | "week" | "month" | "year";
+  isDigital?: boolean;
   linkStreaming?: string;
-  openForExternals: boolean;
-  visibleForExternals: boolean;
-  foodPreference: boolean;
+  openForExternals?: boolean;
+  visibleForExternals?: boolean;
+  foodPreference?: boolean;
   food?: string;
   foodDeadline?: string;
   customOptions?: Array<{
-    fieldOption: string;
+    fieldOption?: string;
     fieldValueCheckbox?: string;
     fieldValueRadio?: Array<string>;
-    fieldType: "radio" | "checkbox" | "input";
+    fieldType?: "radio" | "checkbox" | "input";
     _key: string;
   }>;
-  emailTemplate: EmailTemplate;
+  emailTemplate?: EmailTemplate;
+  reminderEmailSetting?: "default" | "enabled" | "disabled";
 };
 
 export type EmailTemplate = {
   _type: "emailTemplate";
-  registrationSubject: string;
-  registrationMessage: BlockContent;
-  unregistrationSubject: string;
-  unregistrationMessage: BlockContent;
-  updateSubject: string;
-  updateMessage: BlockContent;
-  cancelSubject: string;
-  cancelMessage: BlockContent;
+  registrationSubject?: string;
+  registrationMessage?: BlockContent;
+  unregistrationSubject?: string;
+  unregistrationMessage?: BlockContent;
+  updateSubject?: string;
+  updateMessage?: BlockContent;
+  cancelSubject?: string;
+  cancelMessage?: BlockContent;
 };
 
 export type SanityImageCrop = {
@@ -221,4 +222,22 @@ export type Code = {
   code?: string;
   highlightedLines?: Array<number>;
 };
+
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | Slug
+  | BlockContent
+  | Category
+  | Event
+  | EmailTemplate
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;

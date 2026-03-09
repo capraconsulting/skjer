@@ -343,7 +343,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "source": {
           "type": "objectAttribute",
@@ -352,6 +352,238 @@
           },
           "optional": true
         }
+      }
+    }
+  },
+  {
+    "name": "eventBodyContent",
+    "type": "type",
+    "value": {
+      "type": "array",
+      "of": {
+        "type": "union",
+        "of": [
+          {
+            "type": "object",
+            "attributes": {
+              "children": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "marks": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "array",
+                          "of": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "span"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "style": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "h2"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "listItem": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "bullet"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "markDefs": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "href": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "link"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "level": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "number"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "block"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "attributes": {
+              "asset": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "sanity.imageAsset"
+                },
+                "optional": true
+              },
+              "hotspot": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "sanity.imageHotspot"
+                },
+                "optional": true
+              },
+              "crop": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "sanity.imageCrop"
+                },
+                "optional": true
+              },
+              "alt": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "image"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     }
   },
@@ -577,35 +809,35 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "start": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "end": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "deadline": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "place": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "summary": {
         "type": "objectAttribute",
@@ -680,7 +912,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "blockContent"
+          "name": "eventBodyContent"
         },
         "optional": true
       },
@@ -715,7 +947,7 @@
             }
           ]
         },
-        "optional": false
+        "optional": true
       },
       "maxParticipant": {
         "type": "objectAttribute",
@@ -736,7 +968,7 @@
         "value": {
           "type": "boolean"
         },
-        "optional": false
+        "optional": true
       },
       "interval": {
         "type": "objectAttribute",
@@ -773,7 +1005,7 @@
             }
           ]
         },
-        "optional": false
+        "optional": true
       },
       "frequence": {
         "type": "objectAttribute",
@@ -798,14 +1030,14 @@
             }
           ]
         },
-        "optional": false
+        "optional": true
       },
       "isDigital": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": false
+        "optional": true
       },
       "linkStreaming": {
         "type": "objectAttribute",
@@ -819,21 +1051,21 @@
         "value": {
           "type": "boolean"
         },
-        "optional": false
+        "optional": true
       },
       "visibleForExternals": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": false
+        "optional": true
       },
       "foodPreference": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"
         },
-        "optional": false
+        "optional": true
       },
       "food": {
         "type": "objectAttribute",
@@ -861,7 +1093,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               },
               "fieldValueCheckbox": {
                 "type": "objectAttribute",
@@ -899,7 +1131,7 @@
                     }
                   ]
                 },
-                "optional": false
+                "optional": true
               }
             },
             "rest": {
@@ -917,13 +1149,34 @@
         },
         "optional": true
       },
+      "reminderEmailSetting": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "default"
+            },
+            {
+              "type": "string",
+              "value": "enabled"
+            },
+            {
+              "type": "string",
+              "value": "disabled"
+            }
+          ]
+        },
+        "optional": true
+      },
       "emailTemplate": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "emailTemplate"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -945,7 +1198,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "registrationMessage": {
           "type": "objectAttribute",
@@ -953,14 +1206,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": false
+          "optional": true
         },
         "unregistrationSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "unregistrationMessage": {
           "type": "objectAttribute",
@@ -968,14 +1221,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": false
+          "optional": true
         },
         "updateSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "updateMessage": {
           "type": "objectAttribute",
@@ -983,14 +1236,14 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": false
+          "optional": true
         },
         "cancelSubject": {
           "type": "objectAttribute",
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "cancelMessage": {
           "type": "objectAttribute",
@@ -998,7 +1251,7 @@
             "type": "inline",
             "name": "blockContent"
           },
-          "optional": false
+          "optional": true
         }
       }
     }

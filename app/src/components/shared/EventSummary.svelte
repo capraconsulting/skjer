@@ -4,6 +4,7 @@
   import { urlFor } from "$lib/sanity/image";
   import { PortableText } from "@portabletext/svelte";
   import EventInfoBox from "$components/shared/EventInfoBox.svelte";
+  import EventBodyImage from "$components/shared/EventBodyImage.svelte";
   import Link from "$components/shared/Link.svelte";
 
   import { onMount } from "svelte";
@@ -70,6 +71,9 @@
   <div class="portable-text flex flex-col gap-4 text-base sm:w-[60%]">
     <PortableText
       components={{
+        types: {
+          image: EventBodyImage,
+        },
         marks: {
           link: Link,
         },
