@@ -37,7 +37,7 @@ interface EmailTemplateProps {
   to: string;
   subject: string;
   message: BlockContent;
-  icsFile: Buffer;
+  icsFile?: Buffer;
 }
 
 export const composeEmail = ({ to, subject, message, icsFile }: EmailTemplateProps) => {
@@ -46,10 +46,14 @@ export const composeEmail = ({ to, subject, message, icsFile }: EmailTemplatePro
     from: "Skjer <no-reply@capragruppen.no>",
     subject,
     html: wrapWithStyles(toHTML(message)),
-    icalEvent: {
-      method: "request",
-      content: icsFile,
-    },
+    ...(icsFile
+      ? {
+          icalEvent: {
+            method: "request",
+            content: icsFile,
+          },
+        }
+      : {}),
   };
 };
 

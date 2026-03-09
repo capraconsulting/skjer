@@ -1,6 +1,7 @@
 import blockContent from "./blockContent";
 import category from "./category";
 import event from "./event";
+import eventBodyContent from "./eventBodyContent";
 import emailTemplate from "./emailTemplate";
 
-export const schemaTypes = [event, category, blockContent, emailTemplate];
+export const schemaTypes = [event, category, blockContent, eventBodyContent, emailTemplate];

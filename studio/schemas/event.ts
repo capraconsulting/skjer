@@ -90,7 +90,7 @@ export default defineType({
     defineField({
       name: "body",
       title: "Detaljert info om arrangementet",
-      type: "blockContent",
+      type: "eventBodyContent",
       description:
         "Her kan du skrive mer detaljer om arrangementet, men prøv å hold det kort likevel. Inkluder gjerne program og alt annet deltakerne trenger å vite.",
     }),
@@ -319,6 +319,23 @@ export default defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "reminderEmailSetting",
+      title: "Automatisk påminnelse til deltakere",
+      description:
+        "Velg standard for arrangementet. Standard betyr på for arrangementer åpne for eksterne, og av for interne arrangementer.",
+      type: "string",
+      initialValue: "default",
+      options: {
+        layout: "radio",
+        list: [
+          { title: "Standard", value: "default" },
+          { title: "På", value: "enabled" },
+          { title: "Av", value: "disabled" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "emailTemplate",

@@ -74,6 +74,40 @@ export type Slug = {
   source?: string;
 };
 
+export type EventBodyContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h2";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }
+>;
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -120,7 +154,7 @@ export type Event = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  body?: BlockContent;
+  body?: EventBodyContent;
   category?: Category;
   organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
   maxParticipant?: number;
@@ -142,6 +176,7 @@ export type Event = {
     fieldType: "radio" | "checkbox" | "input";
     _key: string;
   }>;
+  reminderEmailSetting: "default" | "enabled" | "disabled";
   emailTemplate: EmailTemplate;
 };
 
@@ -222,3 +257,5 @@ export type Code = {
   highlightedLines?: Array<number>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+
+
