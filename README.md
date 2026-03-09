@@ -82,11 +82,15 @@ Administrering av Sanity instansen kan gjøres via [https://www.sanity.io/manage
 For å generere typer av innholdsskjemaer, kjør følgende kommandoer fra /studio:
 
 ```sh
-sanity schema extract --enforce-required-fields
+sanity schema extract --path=./schema.json
 sanity typegen generate
 ```
 
 NB: Når sanity.model.ts er generert i /studio/models, skal den også kopieres til /app.
+
+### Arrangementstekst og bilder
+
+Feltet "Detaljert info om arrangementet" i Sanity støtter nå både tekst og bilder. Dette gjelder kun arrangementsbeskrivelsen, ikke e-postmalene.
 
 ## SvelteKit
 
@@ -148,12 +152,15 @@ Når et arrangement publiseres for første gang, vil det automatisk genereres en
 
 E-post med kalenderinvitasjon (.ics-fil) sendes fra SvelteKit på serversiden. På grunn av manglende tilgang til en server fra Sanity, har vi satt opp et API-endepunkt i SvelteKit som Sanity kan kommunisere med for å sende e-post. Som SMTP host benytter vi oss av [Mandrillapp](https://mandrillapp.com/). Autentisering skjer via Mailchimp.
 
+I tillegg finnes det en daglig CRON-jobb for påminnelser om arrangementer dagen før de starter. Denne sender en enkel påminnelses e-post til påmeldte deltagere uten kalenderinvitasjon.
+
 ### Testing av E-post Lokalt
 
 For å teste e-postfunksjonaliteten lokalt:
 
 1. For å teste e-post sendt fra app: Legg til 'ENABLE_EMAIL_SENDING = "true"' i app/.env.local.
 2. For å teste e-post sendt fra Sanity: Legg til `http://localhost:3333` i `Access-Control-Allow-Origin`.
+3. For å teste reminder-jobben lokalt, kall `/api/daily-event-reminder
 
 ### Kalenderinvitasjon
 
@@ -211,6 +218,15 @@ Gjentakende arrangementer håndteres av CRON-jobben "daily-recurring-event-sched
 2. Oppdaterer arrangementet med nye tider og publiserer det i Sanity
 3. Oppretter et nytt arrangement i Supabase
 4. Sender ut en varsling gjennom Slack
+
+### Påminnelse før arrangement
+
+CRON-jobben "daily-event-reminder" kjører daglig og sender påminnelse til deltagere for arrangementer som starter neste dag.
+
+1. Jobben finner fremtidige arrangementer som matcher reminder-innstillingen på arrangementet.
+2. Standardoppførsel er på for arrangementer åpne for eksterne, og av for interne arrangementer.
+3. Det er mulig å overstyre dette per arrangement i Sanity.
+4. Påminnelsen inneholder en enkel e-post med lenke til arrangementsiden for mer informasjon.
 
 ## SvelteKit Arbeidsflyt
 
