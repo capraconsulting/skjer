@@ -35,17 +35,7 @@ export default defineType({
       },
     }),
     defineArrayMember({
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Alternativ tekst",
-          type: "string",
-        }),
-      ],
+      type: "eventBodyImage",
     }),
   ],
 });

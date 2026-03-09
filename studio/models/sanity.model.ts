@@ -74,6 +74,25 @@ export type Slug = {
   source?: string;
 };
 
+export type EventBodyImage = {
+  _type: "eventBodyImage";
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  alt?: string;
+  caption?: string;
+  placement: "full" | "left" | "right" | "center";
+  size: "small" | "medium" | "large";
+};
+
 export type EventBodyContent = Array<
   | {
       children?: Array<{
@@ -93,19 +112,9 @@ export type EventBodyContent = Array<
       _type: "block";
       _key: string;
     }
-  | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
+  | ({
       _key: string;
-    }
+    } & EventBodyImage)
 >;
 
 export type BlockContent = Array<{
@@ -256,6 +265,24 @@ export type Code = {
   code?: string;
   highlightedLines?: Array<number>;
 };
+
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | Slug
+  | EventBodyImage
+  | EventBodyContent
+  | BlockContent
+  | Category
+  | Event
+  | EmailTemplate
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-
-
