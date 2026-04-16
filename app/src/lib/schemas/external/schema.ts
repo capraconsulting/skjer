@@ -1,7 +1,7 @@
 import { z } from "zod";
 import validator from "validator";
 import { validateDomain } from "$lib/utils/domain";
-// NOTE: Original HubSpot CRM property names were fornavn and bedrift_selskap.
+// NOTE: Previous schema field names were fullName and firm.
 // Renamed to firstname and company for clarity.
 export const registrationSchemaExternal = z.object({
   subject: z.null(), // Honeypot
