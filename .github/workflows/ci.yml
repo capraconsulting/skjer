@@ -9,10 +9,10 @@ concurrency:
 
 jobs:
   test:
-    name: 'Test & lint'
+    name: "Test & lint"
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checking Out Code'
+      - name: "Checking Out Code"
         uses: actions/checkout@v4
 
       - name: Install pnpm
@@ -22,17 +22,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-          cache-dependency-path: app/pnpm-lock.yaml
 
       - name: Install Packages
         run: pnpm install
         working-directory: ./app
 
-      - name: 'Running Unit Tests'
+      - name: "Running Unit Tests"
         run: pnpm test
         working-directory: ./app
 
-      - name: 'Building'
+      - name: "Building"
         run: pnpm lint
         working-directory: ./app
