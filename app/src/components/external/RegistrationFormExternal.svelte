@@ -35,18 +35,19 @@
   <form class="flex flex-col gap-4" method="POST" action="?/submitRegistrationExternal" use:enhance>
     <input type="text" name="subject" id="subject" class="hidden" />
 
+    <!-- renamed fullName to firstname as it is required by HubSpot CRM -->
     <div class="flex flex-col gap-1">
-      <Label class="font-bold" for="fullName">Fullt navn*</Label>
+      <Label class="font-bold" for="firstname">Fullt navn*</Label>
       <Input
         size="sm"
         class="bg-white"
         type="text"
-        name="fullName"
-        id="fullName"
+        name="firstname"
+        id="firstname"
         placeholder="Fornavn Etternavn"
-        bind:value={$form.fullName}
+        bind:value={$form.firstname}
       />
-      {#if $errors.fullName}
+      {#if $errors.firstname}
         <p class="text-xs text-red-600">Fyll inn gyldig navn (minst 2 bokstaver).</p>
       {/if}
     </div>
@@ -86,17 +87,17 @@
     </div>
 
     <div class="flex flex-col gap-1">
-      <Label class="font-bold" for="firm">Bedrift/selskap</Label>
+      <Label class="font-bold" for="company">Bedrift/selskap</Label>
       <Input
         size="sm"
         class="bg-white"
         type="text"
-        name="firm"
-        id="firm"
-        bind:value={$form.firm}
+        name="company"
+        id="company"
+        bind:value={$form.company}
         placeholder="Organisasjon"
       />
-      {#if $errors.firm}
+      {#if $errors.company}
         <p class="text-xs text-red-600">Fyll inn gyldig selskapsnavn (minst 2 bokstaver).</p>
       {/if}
     </div>
