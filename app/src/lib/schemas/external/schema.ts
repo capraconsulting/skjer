@@ -1,9 +1,11 @@
 import { z } from "zod";
 import validator from "validator";
 import { validateDomain } from "$lib/utils/domain";
+// NOTE: Previous schema field names were fullName and firm.
+// Renamed to firstname and company for clarity.
 export const registrationSchemaExternal = z.object({
   subject: z.null(), // Honeypot
-  fullName: z.string().min(2).max(150).transform(validator.escape),
+  firstname: z.string().min(2).max(150).transform(validator.escape),
   email: z
     .string()
     .max(150, { message: "E-post kan ikke være lengre enn 150 tegn" })
@@ -13,7 +15,7 @@ export const registrationSchemaExternal = z.object({
       message: "Logg deg inn for å melde deg på arrangementet!",
     }),
   telephone: z.string().max(20).refine(validator.isMobilePhone).nullable(),
-  firm: z.string().min(2).max(100).transform(validator.escape).nullable(),
+  company: z.string().min(2).max(100).transform(validator.escape).nullable(),
   foodPreference: z.string().max(500).transform(validator.escape).nullable(),
   attendingType: z.enum(["Fysisk", "Digitalt"]).transform(validator.escape).default("Fysisk"),
   customOptions: z.array(

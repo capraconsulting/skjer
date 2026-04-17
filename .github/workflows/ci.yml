@@ -9,23 +9,28 @@ concurrency:
 
 jobs:
   test:
-    name: 'Test & lint'
+    name: "Test & lint"
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checking Out Code'
+      - name: "Checking Out Code"
         uses: actions/checkout@v4
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Install Packages
         run: pnpm install
         working-directory: ./app
 
-      - name: 'Running Unit Tests'
+      - name: "Running Unit Tests"
         run: pnpm test
         working-directory: ./app
 
-      - name: 'Building'
+      - name: "Building"
         run: pnpm lint
         working-directory: ./app
