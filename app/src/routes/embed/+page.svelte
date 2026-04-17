@@ -12,10 +12,12 @@
   ></script>
 </svelte:head>
 
-{#if futureEvents.length}
-  <div class="flex flex-col gap-4">
-    {#each futureEvents as event}
-      <EventListItem {event} target="_blank" />
-    {/each}
-  </div>
-{/if}
+<div class="min-h-4 bg-white">
+  {#if futureEvents.length}
+    <div class="flex flex-col gap-4">
+      {#each futureEvents as event}
+        <EventListItem {event} target="_blank" />
+      {/each}
+    </div>
+  {/if}
+</div>
