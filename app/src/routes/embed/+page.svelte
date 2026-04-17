@@ -12,7 +12,7 @@
   ></script>
 </svelte:head>
 
-<div class="min-h-4 bg-white">
+<div class="min-h-[1rem] bg-white">
   {#if futureEvents.length}
     <div class="flex flex-col gap-4">
       {#each futureEvents as event}
