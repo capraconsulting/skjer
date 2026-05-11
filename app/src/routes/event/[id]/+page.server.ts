@@ -6,6 +6,7 @@ import {
   getNumberOfParticipants,
   getIsParticipantAttendingEvent,
   getInternalParticipantNames,
+  getExternalParticipantNames,
 } from "$lib/server/supabase/queries";
 import {
   submitRegistrationInternal,
@@ -40,7 +41,10 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
       document_id: id,
       email: auth.user.email,
     });
-    const internalParticipantNames = await getInternalParticipantNames({ document_id: id });
+    const [internalParticipantNames, externalParticipantNames] = await Promise.all([
+      getInternalParticipantNames({ document_id: id }),
+      getExternalParticipantNames({ document_id: id }),
+    ]);
 
     return {
       query,
@@ -50,6 +54,7 @@ export const load: PageServerLoad = async ({ params: { id }, locals }) => {
       unregistrationForm,
       isAttending,
       internalParticipantNames,
+      externalParticipantNames,
       numberOfParticipants,
     };
   }
