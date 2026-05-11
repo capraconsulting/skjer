@@ -2,6 +2,7 @@
   import { isPreviewing, VisualEditing } from "@sanity/visual-editing/svelte";
   import { page } from "$app/stores";
   import LiveMode from "$components/shared/LiveMode.svelte";
+  import HubSpotScript from "$components/shared/HubSpotScript.svelte";
   import "../app.css";
   import Header from "$components/shared/Header.svelte";
   import Footer from "$components/shared/Footer.svelte";
@@ -12,6 +13,7 @@
 {#if $page.url.pathname.endsWith("/embed")}
   <slot />
 {:else}
+  <HubSpotScript />
   {#if $isPreviewing}
     <a
       href={`/preview/disable?redirect=${$page.url.pathname}`}
