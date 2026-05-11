@@ -49,11 +49,23 @@
 <div class="flex flex-col gap-12 pt-8 sm:w-[60%]">
   <div>
     <h2 class="mt-8 pb-4 text-base font-bold sm:text-xl">
-      Deltagere{#if data.internalParticipantNames && data.internalParticipantNames.length > 0}&nbsp;({data
+      Geiter{#if data.internalParticipantNames && data.internalParticipantNames.length > 0}&nbsp;({data
           .internalParticipantNames.length}){/if}:
     </h2>
     <EventParticipantsInternal names={data.internalParticipantNames} />
   </div>
+  {#if event.openForExternals}
+    <div>
+      <h2 class="mt-8 pb-4 text-base font-bold sm:text-xl">
+        Eksterne{#if data.externalParticipantNames && data.externalParticipantNames.length > 0}&nbsp;({data
+            .externalParticipantNames.length}){/if}:
+      </h2>
+      <EventParticipantsInternal
+        names={data.externalParticipantNames}
+        emptyText="Det er foreløpig ingen eksterne påmeldt 😔"
+      />
+    </div>
+  {/if}
   <div>
     <RegistrationFormInternal
       {event}

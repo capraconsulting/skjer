@@ -2,6 +2,7 @@
   import { Badge } from "flowbite-svelte";
 
   export let names;
+  export let emptyText = "Det er foreløpig ingen kollegaer som er påmeldt 😔";
 </script>
 
 {#if names?.length}
@@ -13,5 +14,5 @@
     </span>
   {/each}
 {:else}
-  <p>Det er foreløpig ingen kollegaer som er påmeldt 😔</p>
+  <p>{emptyText}</p>
 {/if}
