@@ -5,6 +5,7 @@ export const createSlackMessage = async (
   id: string,
   { title, category, place, start, summary, image }: Event
 ) => {
+
   if (process.env.MODE === "development") return;
 
   const imageUrl = image ? urlFor(image).width(400).url() : null;
