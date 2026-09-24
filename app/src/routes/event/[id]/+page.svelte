@@ -17,7 +17,7 @@
 
   $: ({ data: event } = $result);
 
-  $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig Fryde";
+  $: title = stegaClean(event?.title) || "Ikke funnet | Capra Liflig";
   $: description = stegaClean(event?.summary) || "";
   $: imageUrl = event?.image?.asset?._ref ? urlFor(event.image.asset._ref).url() : null;
   $: canonicalUrl = `${PUBLIC_APP_BASE_URL}/event/${event?._id}`;

@@ -75,7 +75,7 @@ export default defineType({
       description:
         "Kort tekst som kommer rett etter tittel på arrangementet. 2-3 settninger holder.",
       placeholder:
-        'Eks. "Capra, Fryde og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00"',
+        'Eks. "Capra og Liflig inviterer til en god start på dagen. Kom på frokostseminar 12. juni kl.08:00"',
     }),
     defineField({
       name: "image",
@@ -104,7 +104,7 @@ export default defineType({
       title: "Hvilke(t) selskap er arrangør?",
       type: "string",
       options: {
-        list: ["Alle", "Capra", "Fryde", "Liflig"],
+        list: ["Alle", "Capra", "Liflig"],
       },
       initialValue: "Alle",
       validation: (Rule) => Rule.required(),
@@ -211,7 +211,7 @@ export default defineType({
       name: "visibleForExternals",
       title: "Arrangementet skal være synlig for alle, også eksterne",
       description:
-        "Dersom arrangementet KUN skal være synlig for de som er logget inn med Capra, Liflig eller Fryde e-post, lar du denne stå tom.",
+        "Dersom arrangementet KUN skal være synlig for de som er logget inn med Capra eller Liflig e-post, lar du denne stå tom.",
       type: "boolean",
       initialValue: false,
       options: {
