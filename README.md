@@ -2,7 +2,7 @@
 
 <!-- Redploy -->
 
-En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra, Fryde og Liflig.
+En løsning for administrasjon og visning av både interne og eksterne arrangementer hos Capra og Liflig.
 Dette inkluderer fagsirkler, konferanser, frokostseminarer og sosiale begivenheter.
 
 UI med [Svelte](https://svelte.dev) og [React](https://react.dev)\

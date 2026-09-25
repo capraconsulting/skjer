@@ -68,7 +68,7 @@
 </script>
 
 <svelte:head>
-  <title>Skjer | Capra Liflig Fryde</title>
+  <title>Skjer | Capra Liflig</title>
 </svelte:head>
 
 <section class="pb-8">
