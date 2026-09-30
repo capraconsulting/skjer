@@ -1,8 +1,6 @@
 <script>
   import capraLogoWhite from "$lib/assets/capra-white-vertical.webp";
   import capraLogoBlack from "$lib/assets/capra-black-vertical.webp";
-  import frydeLogoWhite from "$lib/assets/fryde-white-vertical.webp";
-  import frydeLogoBlack from "$lib/assets/fryde-black-vertical.webp";
   import lifligLogoWhite from "$lib/assets/liflig-white-vertical.webp";
   import lifligLogoBlack from "$lib/assets/liflig-black-vertical.webp";
   import miljofyrtarnDark from "$lib/assets/miljofyrtarn-dark.webp";
@@ -43,10 +41,6 @@
       <a href="https://www.liflig.no/">
         <img class="block h-20 dark:hidden sm:h-28" alt="Liflig-logo" src={lifligLogoBlack} />
         <img class="hidden h-20 dark:block sm:h-28" alt="Liflig-logo" src={lifligLogoWhite} />
-      </a>
-      <a href="https://www.fryde.no/">
-        <img class="block h-20 dark:hidden sm:h-28" alt="Fryde-logo" src={frydeLogoBlack} />
-        <img class="hidden h-20 dark:block sm:h-28" alt="Fryde-logo" src={frydeLogoWhite} />
       </a>
     </div>
     <div>

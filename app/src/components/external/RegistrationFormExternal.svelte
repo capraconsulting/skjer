@@ -135,7 +135,7 @@
       </span>
       <span>
         <a href="/personvern" target="_blank" class="font-normal underline"
-          >Capra, Liflig og Fryde sin personvernerklæring</a
+          >Capra og Liflig sin personvernerklæring</a
         >.</span
       >
     </div>

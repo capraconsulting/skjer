@@ -1,6 +1,5 @@
 import {
   PUBLIC_CAPRA_BASE_URL,
-  PUBLIC_FRYDE_BASE_URL,
   PUBLIC_LIFLIG_BASE_URL,
   PUBLIC_SANITY_STUDIO_URL,
 } from "$env/static/public";
@@ -14,7 +13,6 @@ const ALLOWED_HEADERS =
 const PUBLIC_API_ALLOWED_ORIGINS = [
   PUBLIC_CAPRA_BASE_URL,
   PUBLIC_LIFLIG_BASE_URL,
-  PUBLIC_FRYDE_BASE_URL,
 ].flatMap((url) => getOriginVariants(url));
 
 const corsHeaders = {
@@ -54,7 +52,6 @@ function applyCustomHeaders(
       getContentSecurityPolicyForEmbed([
         PUBLIC_CAPRA_BASE_URL,
         PUBLIC_LIFLIG_BASE_URL,
-        PUBLIC_FRYDE_BASE_URL,
         PUBLIC_SANITY_STUDIO_URL,
       ])
     );

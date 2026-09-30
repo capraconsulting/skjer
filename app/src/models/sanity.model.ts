@@ -162,7 +162,7 @@ export type Event = {
   };
   body?: EventBodyContent;
   category?: Category;
-  organisers: "Alle" | "Capra" | "Fryde" | "Liflig";
+  organisers: "Alle" | "Capra" | "Liflig";
   maxParticipant?: number;
   hideMaxParticipant?: boolean;
   isRecurring: boolean;

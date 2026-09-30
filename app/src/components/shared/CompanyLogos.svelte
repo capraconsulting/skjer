@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Event } from "$models/sanity.model";
   import capraLogo from "$lib/assets/Capra_symbol_RGB.webp";
-  import frydeLogo from "$lib/assets/Fryde_symbol_RGB.webp";
   import lifligLogo from "$lib/assets/Liflig_symbol_RGB.webp";
 
   export let event: Event;
@@ -13,13 +12,10 @@
     <div class="flex gap-2">
       <img class="h-{height} p-0.5" alt="Capra logo" title="Capra" src={capraLogo} />
       <img class="h-{height} p-0.5" alt="Liflig logo" title="Liflig" src={lifligLogo} />
-      <img class="h-{height} p-0.5" alt="Fryde logo" title="Fryde" src={frydeLogo} />
     </div>
   {:else if event.organisers === "Capra"}
     <img class="flex h-{height} p-0.5" alt="Capra logo" title="Capra" src={capraLogo} />
   {:else if event.organisers === "Liflig"}
     <img class="flex h-{height} p-0.5" alt="Liflig logo" title="Liflig" src={lifligLogo} />
-  {:else if event.organisers === "Fryde"}
-    <img class="flex h-{height} p-0.5" alt="Fryde logo" title="Fryde" src={frydeLogo} />
   {/if}
 </div>
