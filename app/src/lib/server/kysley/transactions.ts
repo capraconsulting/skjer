@@ -47,3 +47,22 @@ export const insertEventFoodPreference = async (
 ) => {
   return await transaction.insertInto("event_food_preference").values(values).execute();
 };
+
+/**
+ * Marks a participant as no longer attending. Returns how many rows were
+ * changed, so the caller can tell a cancellation that did nothing from one
+ * that went through.
+ */
+export const setParticipantNotAttending = async ({
+  event_id,
+  email,
+}: Pick<Tables<"event_participant">, "email" | "event_id">) => {
+  const result = await kysely
+    .updateTable("event_participant")
+    .set({ attending: false })
+    .where("event_id", "=", event_id)
+    .where("email", "=", email)
+    .executeTakeFirst();
+
+  return Number(result.numUpdatedRows);
+};

@@ -43,19 +43,6 @@ export const deleteEventParticipant = async ({
   return result;
 };
 
-export const setParticipantNotAttending = async ({
-  event_id,
-  email,
-}: Pick<Tables<"event_participant">, "event_id" | "email">) => {
-  const result = await supabase
-    .from("event_participant")
-    .update({ attending: false })
-    .eq("event_id", event_id)
-    .eq("email", email);
-
-  return result;
-};
-
 export const updateEventParticipant = async ({
   event_id,
   full_name,

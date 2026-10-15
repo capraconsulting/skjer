@@ -4,6 +4,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [sveltekit()],
+  // Tests load server code, and some of its packages export for Svelte only.
+  ...(process.env.VITEST
+    ? { ssr: { resolve: { conditions: ["svelte"], externalConditions: ["svelte"] } } }
+    : {}),
   test: {
     exclude: [
       "**/node_modules/**",

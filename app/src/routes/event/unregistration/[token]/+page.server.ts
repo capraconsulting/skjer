@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import type { PageServerLoad } from "./$types";
 import { getUnsubscribeSecret } from "$lib/auth/secret";
 import type { DecodedToken } from "$models/jwt.model";
-import { setParticipantNotAttending } from "$lib/server/supabase/queries";
+import { setParticipantNotAttending } from "$lib/server/kysley/transactions";
 import { getEventContent } from "$lib/server/sanity/queries";
 import { sendEmailDeclined } from "$lib/email/event/declined";
 
@@ -37,9 +37,7 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
   const secret = getUnsubscribeSecret(data);
 
   try {
-    if (jwt.verify(token, secret)) {
-      await setParticipantNotAttending(tokenDecoded.payload.data);
-    }
+    jwt.verify(token, secret);
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       return {
@@ -47,9 +45,28 @@ export const load: PageServerLoad = async ({ params: { token } }) => {
         message: "Lenken du brukte er ikke lenger gyldig. Vennligst forsøk igjen senere.",
       };
     }
+
+    return {
+      error: true,
+      message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
+    };
   }
 
-  const { document_id, email } = data;
+  const { document_id, event_id, email } = data;
+
+  const updated = await setParticipantNotAttending({ event_id, email }).catch((error) => {
+    console.error("Error: Failed to update participant attending", error);
+    return 0;
+  });
+
+  if (updated === 0) {
+    console.error("Error: The participant was not marked as not attending");
+
+    return {
+      error: true,
+      message: "Vi kunne dessverre ikke melde deg av arrangementet. Vennligst prøv igjen senere.",
+    };
+  }
 
   const eventContent = await getEventContent({ document_id });
 
