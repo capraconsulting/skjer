@@ -10,13 +10,10 @@ import {
   insertAndGetEventParticipant,
   insertEventFoodPreference,
   insertEventParticipantOptions,
+  setParticipantNotAttending,
 } from "$lib/server/kysley/transactions";
 import { getEventContent } from "$lib/server/sanity/queries";
-import {
-  getEventParticipant,
-  getOrCreateEvent,
-  setParticipantNotAttending,
-} from "$lib/server/supabase/queries";
+import { getEventParticipant, getOrCreateEvent } from "$lib/server/supabase/queries";
 import { type Actions } from "@sveltejs/kit";
 import { RateLimiter } from "sveltekit-rate-limiter/server";
 import { zod } from "sveltekit-superforms/adapters";
@@ -277,9 +274,13 @@ export const submitUnregistrationInternal: Actions["submitUnregistrationInternal
     });
   }
 
-  const attendingResult = await setParticipantNotAttending(data);
-  if (!attendingResult) {
-    console.error("Error: Failed to update participant attending");
+  const updated = await setParticipantNotAttending(data).catch((error) => {
+    console.error("Error: Failed to update participant attending", error);
+    return 0;
+  });
+
+  if (updated === 0) {
+    console.error("Error: The participant was not marked as not attending");
 
     return message(unregistrationForm, {
       text: "Det har oppstått en feil. Du kan ikke melde deg av dette arrangementet.",
