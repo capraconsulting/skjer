@@ -4,6 +4,7 @@ import { getEventParticipantList } from "../../supabase/queries";
 import { Box, Card, Grid, Heading, Spinner, Stack, Text, TextInput, Inline } from "@sanity/ui";
 import { SearchIcon } from "@sanity/icons";
 import ExcelExport, { ExcelObject } from "../shared/ExcelExport";
+import { unescapeHtml } from "../../lib/unescape";
 
 type Props = {
   documentId: string;
@@ -28,7 +29,8 @@ export default function EventParticipant({
   const filteredData = data?.event_participant.filter((participant) => {
     return Object.values(participant).some(
       (value) =>
-        typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
+        typeof value === "string" &&
+        unescapeHtml(value).toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
@@ -37,7 +39,7 @@ export default function EventParticipant({
       const options = participant.event_participant_option.reduce<{ [key: string]: string }>(
         (acc, item) => {
           if (item.value) {
-            acc[item.option] = item.value;
+            acc[unescapeHtml(item.option)] = unescapeHtml(item.value);
           }
           return acc;
         },
@@ -45,11 +47,11 @@ export default function EventParticipant({
       );
 
       return {
-        Navn: participant.full_name,
+        Navn: unescapeHtml(participant.full_name),
         Epost: participant.email,
         ...(openForExternals && {
           Telefon: participant.telephone || "",
-          Selskap: participant.firm || "",
+          Selskap: unescapeHtml(participant.firm || ""),
         }),
         ...(isDigital && { Digitalt: participant.attending_digital ? "Ja" : "Nei" }),
         ...options,
@@ -118,14 +120,26 @@ export default function EventParticipant({
       </Box>
 
       <Grid gap={4} style={{ maxHeight: "400px", overflowY: "scroll" }}>
-        {filteredData?.map(({ event_participant_id, full_name, email }) => (
-          <Card {...cardProps} key={event_participant_id}>
-            <Stack space={3}>
-              <Text weight="bold">{full_name}</Text>
-              <Text textOverflow={"ellipsis"}>{email}</Text>
-            </Stack>
-          </Card>
-        ))}
+        {filteredData?.map(
+          ({ event_participant_id, full_name, email, event_participant_option }) => (
+            <Card {...cardProps} key={event_participant_id}>
+              <Stack space={3}>
+                <Text weight="bold">{unescapeHtml(full_name)}</Text>
+                <Text textOverflow={"ellipsis"}>{email}</Text>
+                {event_participant_option
+                  .filter(({ value }) => value)
+                  .map(({ option, value }) => (
+                    <Stack space={2} key={option}>
+                      <Text muted size={1}>
+                        {unescapeHtml(option)}
+                      </Text>
+                      <Text size={1}>{unescapeHtml(value!)}</Text>
+                    </Stack>
+                  ))}
+              </Stack>
+            </Card>
+          )
+        )}
       </Grid>
     </>
   );
